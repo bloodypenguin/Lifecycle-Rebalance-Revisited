@@ -1,0 +1,46 @@
+﻿Version 1.2.1-f1 and After Dark DLC compatible. 
+
+This mod is to change the probabilities of the mode of transportation that residents take according to the wealth and age of the person and the residential density where the person lives.
+
+Specifically, this was created because my main mod [url=http://steamcommunity.com/sharedfiles/filedetails/?id=426163185](Realistic Population and Consumption Mod)[/url] was lacking the car traffic that I wanted to see for low density.
+
+The default mod values have been tuned for the above mod at default values. However, this mod is designed to be used independently.
+
+This means that low density residents travel a lot more by car, while high density effectively halve their car use, compared to the vanilla game.
+
+
+[h1] Where is the XML file? [/h1]
+The XML will be first created when active on exit from a city. A file named WG_ResidentTravel.xml will appear in below directories.
+
+Location by OS
+Windows = C:\Users\<username>\AppData\Local\Colossal Order\Cities_Skylines
+Mac = /Users/<username>/Library/Application Support/Colossal Order/Cities_Skylines
+Linux = /home/<username>/.local/share/Colossal Order/Cities_Skylines
+
+Changed values in the file will be seen on loading a different city or loading from the main menu.
+
+
+[h1] How to change the XML [/h1]
+The game will do a probability check against each of the modes of car (or motorbike), bicycle and taxi to determine if either of those three modes will be used to travel. There is a fourth option which should be walking or public transport and is the default case if the first three are not taken.
+The numbers along the row do not need to add to 100.
+
+
+[h1] XML repair [/h1]
+If there are any exceptions found in parsing, then that entire line in the XML will not be used and default values, or the last successfully loaded values will appear.
+
+To return everything to defaults, delete the file before starting Cities Skylines.
+
+
+[h1] Mod is NOT compatible with [/h1]
+None that I know of
+
+[h1] Extras [/h1]
+There are three presets in the source directory of the mod (Steam\SteamApps\workshop\content\255710\541673195)
+One is the game default (which is flat) and one for heavier car usage for low density.
+There is one where car usage is based off wealth levels and is quite high.
+
+[h1]Credits[/h1]
+Thanks to [url=https://github.com/sschoener/cities-skylines-detour/blob/master/CitiesSkylinesDebugInformation/RedirectionHelper.cs]Cope's redirection helper[/url]
+
+If you wish to donate, follow the link below. Many thanks in advance if you do.
+[url=https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=whitefangpaypal%40yahoo%2ecom%2eau&lc=AU&item_name=Whitefang%20Greytail%27s%20Steam%20Workshop&item_number=Steam&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted][img]https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png[/img][/url]

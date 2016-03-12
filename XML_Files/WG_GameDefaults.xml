@@ -1,0 +1,48 @@
+<WG_ResidentTravel version="1">
+  <low_density>
+    <low_wealth>
+      <Child car="0" bike="40" taxi="0" />
+      <Teen car="5" bike="30" taxi="2" />
+      <Young car="15" bike="20" taxi="2" />
+      <Adult car="20" bike="10" taxi="4" />
+      <Senior car="10" bike="0" taxi="6" />
+    </low_wealth>
+    <med_wealth>
+      <Child car="0" bike="40" taxi="0" />
+      <Teen car="5" bike="30" taxi="2" />
+      <Young car="15" bike="20" taxi="2" />
+      <Adult car="20" bike="10" taxi="4" />
+      <Senior car="10" bike="0" taxi="6" />
+    </med_wealth>
+    <high_wealth>
+      <Child car="0" bike="40" taxi="0" />
+      <Teen car="5" bike="30" taxi="2" />
+      <Young car="15" bike="20" taxi="2" />
+      <Adult car="20" bike="10" taxi="4" />
+      <Senior car="10" bike="0" taxi="6" />
+    </high_wealth>
+  </low_density>
+  <high_density>
+    <low_wealth>
+      <Child car="0" bike="40" taxi="0" />
+      <Teen car="5" bike="30" taxi="2" />
+      <Young car="15" bike="20" taxi="2" />
+      <Adult car="20" bike="10" taxi="4" />
+      <Senior car="10" bike="0" taxi="6" />
+    </low_wealth>
+    <med_wealth>
+      <Child car="0" bike="40" taxi="0" />
+      <Teen car="5" bike="30" taxi="2" />
+      <Young car="15" bike="20" taxi="2" />
+      <Adult car="20" bike="10" taxi="4" />
+      <Senior car="10" bike="0" taxi="6" />
+    </med_wealth>
+    <high_wealth>
+      <Child car="0" bike="40" taxi="0" />
+      <Teen car="5" bike="30" taxi="2" />
+      <Young car="15" bike="20" taxi="2" />
+      <Adult car="20" bike="10" taxi="4" />
+      <Senior car="10" bike="0" taxi="6" />
+    </high_wealth>
+  </high_density>
+</WG_ResidentTravel>
