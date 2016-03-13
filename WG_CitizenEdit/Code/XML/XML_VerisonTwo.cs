@@ -1,21 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Reflection;
 using System.Xml;
-using ICities;
-using UnityEngine;
-using ColossalFramework.Plugins;
 
 namespace WG_CitizenEdit
 {
     public class XML_VersionTwo : WG_XMLBaseVersion
     {
-        private const string citizenNodeName = "citizen";
-        private const string immigrateNodeName = "immigrate";
         private const string travelNodeName = "travel";
+        private const string immigrateNodeName = "immigrate";
+        private const string lifeSpanNodeName = "lifespan";
         private const string deathNodeName = "death";
 
         /// <summary>
@@ -26,7 +19,82 @@ namespace WG_CitizenEdit
         public override void readXML(XmlDocument doc)
         {
             XmlElement root = doc.DocumentElement;
-            readDensityNode(root);
+
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Name.Equals(travelNodeName))
+                {
+                    readTravelNode(node);
+                }
+                else if (node.Name.Equals(immigrateNodeName))
+                {
+                    readImmigrateNode(node);
+                }
+                else if (node.Name.Equals(lifeSpanNodeName))
+                {
+                    readLifeNode(node);
+                }
+                else if (node.Name.Equals(deathNodeName))
+                {
+                    readDeathNode(node);
+                }
+            }
+        }
+        
+
+        public void readTravelNode(XmlNode root)
+        {
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                string name = node.Name;
+                int index = 0;
+
+                switch (name)
+                {
+                    case "high_density":
+                        index = 1;
+                        break;
+                    case "low_density":
+                        index = 0;
+                        break;
+                    default:
+                        // Error case
+                        break;
+                }
+
+                // Read inner attributes
+                readWealthNode(node, index);
+            }
+        }
+
+
+        public void readImmigrateNode(XmlNode root)
+        {
+        }
+
+
+        public void readLifeNode(XmlNode root)
+        {
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Name.Equals("lifeSpan_Multiplier"))
+                {
+                    try
+                    {
+                        DataStore.lifeSpanMultiplier = Convert.ToInt32(node.InnerText);
+                    }
+                    catch (Exception e)
+                    {
+                        Debugging.panelMessage("lifeSpan_Multiplier was not an integer: " + e.Message + ". Setting to 4");
+                        DataStore.lifeSpanMultiplier = 4;
+                    }
+                }
+            }
+        }
+
+
+        public void readDeathNode(XmlNode root)
+        {
         }
 
 
@@ -45,16 +113,10 @@ namespace WG_CitizenEdit
             rootNode.Attributes.Append(attribute);
             xmlDoc.AppendChild(rootNode);
 
-            try
-            {
-                makeDensityNodes(xmlDoc, rootNode, 0);
-                makeDensityNodes(xmlDoc, rootNode, 1);
-            }
-            catch (Exception e)
-            {
-                Debugging.panelMessage(e.Message);
-            }
-
+            rootNode.AppendChild(makeTravelNode(xmlDoc));
+            rootNode.AppendChild(makeImmigrateNode(xmlDoc));
+            rootNode.AppendChild(makeLifeNode(xmlDoc));
+            //rootNode.AppendChild(makeDeathNode(xmlDoc));
 
             if (File.Exists(fullPathFileName))
             {
@@ -161,11 +223,14 @@ namespace WG_CitizenEdit
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeCitizenNode(XmlDocument xmlDoc)
+        private XmlNode makeLifeNode(XmlDocument xmlDoc)
         {
-            XmlNode node = xmlDoc.CreateElement("lifeSpan_Multiplier");
+            XmlNode node = xmlDoc.CreateElement(lifeSpanNodeName);
+            XmlNode lifeSpanNode = xmlDoc.CreateElement("lifeSpan_Multiplier");
             node.InnerXml = DataStore.lifeSpanMultiplier.ToString();
-            rootNode.AppendChild(node);
+            lifeSpanNode.AppendChild(node);
+
+            return node;
         }
 
 
@@ -173,7 +238,9 @@ namespace WG_CitizenEdit
         /// <returns></returns>
         private XmlNode makeImmigrateNode(XmlDocument xmlDoc)
         {
+            XmlNode node = xmlDoc.CreateElement(immigrateNodeName);
 
+            return node;
         }
 
 
@@ -181,7 +248,11 @@ namespace WG_CitizenEdit
         /// <returns></returns>
         private XmlNode makeTravelNode(XmlDocument xmlDoc)
         {
+            XmlNode node = xmlDoc.CreateElement(travelNodeName);
+            makeDensityNodes(xmlDoc, node, 0);
+            makeDensityNodes(xmlDoc, node, 1);
 
+            return node;
         }
 
 
@@ -189,31 +260,9 @@ namespace WG_CitizenEdit
         /// <returns></returns>
         private XmlNode makeDeathNode(XmlDocument xmlDoc)
         {
+            XmlNode node = xmlDoc.CreateElement(deathNodeName);
 
-        }
-        
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="densityNode"></param>
-        private void readDensityNode(XmlNode densityNode)
-        {
-            foreach (XmlNode node in densityNode.ChildNodes)
-            {
-                string name = node.Name;
-                int index = 0;
-
-                switch (name)
-                {
-                    case "high_density":
-                        index = 1;
-                        break;
-                }
-
-                // Read inner attributes
-                readWealthNode(node, index);
-            } // end foreach
+            return node;
         }
 
 

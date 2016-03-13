@@ -9,80 +9,60 @@ using ICities;
 using UnityEngine;
 using ColossalFramework.Plugins;
 using System.Diagnostics;
-
+using Boformer.Redirection;
 
 namespace WG_CitizenEdit
 {
     public class LoadingExtension : LoadingExtensionBase
     {
-        public const String XML_FILE = "WG_ResidentTravel.xml";
+        public const String OLD_XML_FILE = "WG_ResidentTravel.xml";
+        public const String XML_FILE = "WG_CitizenEdit.xml";
+        private readonly Dictionary<MethodInfo, Redirector> redirectsOnCreated = new Dictionary<MethodInfo, Redirector>();
 
-        private static string currentFileLocation;
-        private static string[] methods = { "GetBikeProbability", "GetCarProbability", "GetTaxiProbability" };
-        private static byte[][] segments = new byte[3][];
-        private static bool isModEnabled = false;
+        // This can be with the local application directory, or the directory where the exe file exists.
+        // Default location is the local application directory, however the exe directory is checked first
+        private string currentFileLocation = "";
+        private static volatile bool isModEnabled = false;
+        private static volatile bool isLevelLoaded = false;
+
 
         public override void OnCreated(ILoading loading)
         {
             if (!isModEnabled)
             {
-                // Replace the one method call which is called when the city is loaded and EnsureCitizenUnits is used
-                // ResidentialAI -> Game_ResidentialAI. This stops the buildings from going to game defaults on load.
-                // This has no further effects on buildings as the templates are replaced by ResidentialAIMod
-                for (int i = 0; i < methods.Length; i++)
-                {
-                    var oldMethod = typeof(ResidentAI).GetMethod(methods[i], 
-                                                                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, 
-                                                                 null,
-                                                                 new Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
-                                                                 null);
-                    var newMethod = typeof(ResidentAIMod).GetMethod(methods[i],
-                                                                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                                                                    null,
-                                                                    new Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
-                                                                    null);
-
-                    try
-                    {
-                        segments[i] = RedirectionHelper.RedirectCalls(oldMethod, newMethod);
-                    }
-                    catch(Exception e)
-                    {
-                        Debugging.writeDebugToFile(methods[i] + ": " + e.Message);
-                    }
-                }
                 isModEnabled = true;
+                readFromXML();
+                Redirect();
             }
         }
+
 
         public override void OnReleased()
         {
             if (isModEnabled)
             {
-                for (int i = 0; i < methods.Length; i++)
-                {
-                    var oldMethod = typeof(ResidentAI).GetMethod(methods[i],
-                                                                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                                                                 null,
-                                                                 new Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
-                                                                 null);
-
-                    RedirectionHelper.RestoreCalls(oldMethod, segments[i]);
-                }
                 isModEnabled = false;
+
+                try
+                {
+                    WG_XMLBaseVersion xml = new XML_VersionTwo();
+                    xml.writeXML(currentFileLocation);
+                }
+                catch (Exception e)
+                {
+                    Debugging.panelMessage(e.Message);
+                }
+
+                RevertRedirect();
             }
         }
 
+
         public override void OnLevelUnloading()
         {
-            try
+            if (isLevelLoaded)
             {
-                XML_VersionOne xml = new XML_VersionOne();
-                xml.writeXML(currentFileLocation);
-            }
-            catch (Exception e)
-            {
-                Debugging.panelMessage(e.Message);
+                isLevelLoaded = false;
             }
         }
 
@@ -91,26 +71,84 @@ namespace WG_CitizenEdit
         {
             if (mode == LoadMode.LoadGame || mode == LoadMode.NewGame)
             {
-                Stopwatch sw = Stopwatch.StartNew();
-                readFromXML();
-                sw.Stop();
-
-                Debugging.panelMessage("Successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
+                if (!isLevelLoaded)
+                {
+                    isLevelLoaded = true;
+                }
             }
         }
 
+        private void Redirect()
+        {
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                try
+                {
+                    var r = RedirectionUtil.RedirectType(type);
+                    if (r != null)
+                    {
+                        foreach (var pair in r)
+                        {
+                            redirectsOnCreated.Add(pair.Key, pair.Value);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.Log($"An error occured while applying {type.Name} redirects!");
+                    UnityEngine.Debug.Log(e.StackTrace);
+                }
+            }
+        }
+
+        private void RevertRedirect()
+        {
+            foreach (var kvp in redirectsOnCreated)
+            {
+                try
+                {
+                    kvp.Value.Revert();
+                }
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.Log($"An error occured while reverting {kvp.Key.Name} redirect!");
+                    UnityEngine.Debug.Log(e.StackTrace);
+                }
+            }
+            redirectsOnCreated.Clear();
+        }
 
         /// <summary>
         ///
         /// </summary>
         private void readFromXML()
         {
+            // Switch to default which is the cities skylines in the application data area.
+            string oldFileLocation = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + OLD_XML_FILE;
             currentFileLocation = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + XML_FILE;
 
-            if (File.Exists(currentFileLocation))
+            if (File.Exists(oldFileLocation))
             {
                 // Load in from XML - Designed to be flat file for ease
-                XML_VersionOne reader = new XML_VersionOne();
+                WG_XMLBaseVersion reader = new XML_VersionOne();
+                XmlDocument doc = new XmlDocument();
+                try
+                {
+                    doc.Load(currentFileLocation);
+                    reader.readXML(doc);
+                    UnityEngine.Debug.Log("Upgrading XML. New file to be created: " + currentFileLocation);
+                    File.Move(oldFileLocation, oldFileLocation + ".old");
+                }
+                catch (Exception e)
+                {
+                    // Game will now use defaults
+                    Debugging.panelMessage(e.Message);
+                }
+            }
+            else if (File.Exists(currentFileLocation))
+            {
+                // Load in from XML - Designed to be flat file for ease
+                WG_XMLBaseVersion reader = new XML_VersionTwo();
                 XmlDocument doc = new XmlDocument();
                 try
                 {

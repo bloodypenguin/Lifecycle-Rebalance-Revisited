@@ -19,27 +19,27 @@ namespace WG_CitizenEdit
         // Write to WG log file
         public static void writeDebugToFile(String text)
         {
-            writeDebugToFile(text, "WG_ResidentTravel.log");
+            writeDebugToFile(text, "WG_CitizenEdit.log");
         }
 
         // Write a message to the panel
         public static void panelMessage(string text)
         {
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, "WG_ResidentTravel: " + text);
+            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, "WG_CitizenEdit: " + text);
         }
 
 
         // Write a warning to the panel
         public static void panelWarning(string text)
         {
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Warning, "WG_ResidentTravel: " + text);
+            DebugOutputPanel.AddMessage(PluginManager.MessageType.Warning, "WG_CitizenEdit: " + text);
         }
 
 
         // Write an error to the panel
         public static void panelError(string text)
         {
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Error, "WG_ResidentTravel: " + text);
+            DebugOutputPanel.AddMessage(PluginManager.MessageType.Error, "WG_CitizenEdit: " + text);
         }
 
     }

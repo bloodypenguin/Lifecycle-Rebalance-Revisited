@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ICities;
-using UnityEngine;
+﻿using ICities;
 
 
 namespace WG_CitizenEdit
@@ -12,11 +7,11 @@ namespace WG_CitizenEdit
     {
         public string Name
         {
-            get { return "WG Resident Travel Rebalance"; }
+            get { return "WG Citizen Rebalance v1.0"; }
         }
         public string Description
         {
-            get { return "Changes the balance in the mode that citizens will travel to and from their locations"; }
+            get { return "Changes how citizens will travel to and from their locations, edits life span and the ages of families that move in"; }
         }
     }
 }

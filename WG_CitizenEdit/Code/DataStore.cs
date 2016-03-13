@@ -2,6 +2,10 @@
 {
     public class DataStore
     {
+        // Citizen life span --------------------------------------------------
+        public static int lifeSpanMultiplier = 4;
+
+        // Travel -------------------------------------------------------------
         public const int LOW = 0;
         public const int HIGH = 1;
 

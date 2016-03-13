@@ -1,16 +1,13 @@
 ﻿using ColossalFramework;
 using ICities;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text;
 
-namespace WG_Lifespan
+namespace WG_CitizenEdit
 {
     public class Threading : ThreadingExtensionBase
     {
         public static int counter = 0;
+        //public static StringBuilder sb = new StringBuilder();
 
         public override void OnBeforeSimulationFrame()
         {
