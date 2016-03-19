@@ -7,7 +7,7 @@ namespace WG_CitizenEdit
     public class Threading : ThreadingExtensionBase
     {
         public static int counter = 0;
-        //public static StringBuilder sb = new StringBuilder();
+        public static StringBuilder sb = new StringBuilder();
 
         public override void OnBeforeSimulationFrame()
         {
@@ -16,23 +16,16 @@ namespace WG_CitizenEdit
             // Default aging ticks are per week
             if ((Singleton<SimulationManager>.instance.m_currentFrameIndex & 4095u) == 0u)
             {
-                ++counter;
-
-                // Reset during next 'tick'
-                if (counter == DataStore.lifeSpanMultiplier)
+                // Tick from 1 to the multiplier itself. Once over, reset
+                if (++counter >= DataStore.lifeSpanMultiplier)
                 {
-/*
-Debugging.writeDebugToFile("tick\n");
-Debugging.writeDebugToFile(sb.ToString());
-sb.Remove(0, sb.Length);
-*/
-                    NewResidentAI.canTick = true;
                     counter = 0;
                 }
-                else
-                {
-                    NewResidentAI.canTick = false;
-                }
+Debugging.writeDebugToFile("new counter: " + counter + ". bound: " + DataStore.citizenNumberBounds[Threading.counter] + ", " + DataStore.citizenNumberBounds[Threading.counter + 1]);
+
+
+Debugging.writeDebugToFile(sb.ToString());
+sb.Remove(0, sb.Length);
             }
         }
     }

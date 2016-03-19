@@ -4,6 +4,16 @@
     {
         // Citizen life span --------------------------------------------------
         public static int lifeSpanMultiplier = 4;
+        public static int workSpeedMultiplier = 2;  // Might as well be half of the multiplier
+
+
+        // Survival number to next decile. In units of 1/100000
+        // Each decile is 25 ticks. There are 5 ticks at the end. Kill the last one
+        // Source: http://www.aga.gov.au/publications/life_table_2010-12/ (averaged out with both genders and in blocks of 10 years)
+        public static double[] survivalProbInXML = { 0.995, 0.99825, 0.99575, 0.99325, 0.98700, 0.97075, 0.93200, 0.82100, 0.50850, 0.11800, 0.01750 };  // Per decile
+        public static int[] survivalProbCalc = new int[survivalProbInXML.Length];
+
+        public static int[] citizenNumberBounds;
 
         // Travel -------------------------------------------------------------
         public const int LOW = 0;

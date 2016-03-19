@@ -15,7 +15,6 @@ namespace WG_CitizenEdit
 {
     public class LoadingExtension : LoadingExtensionBase
     {
-        public const String OLD_XML_FILE = "WG_ResidentTravel.xml";
         public const String XML_FILE = "WG_CitizenEdit.xml";
         private readonly Dictionary<MethodInfo, Redirector> redirectsOnCreated = new Dictionary<MethodInfo, Redirector>();
 
@@ -32,6 +31,25 @@ namespace WG_CitizenEdit
             {
                 isModEnabled = true;
                 readFromXML();
+
+                // Do conversion from survivalProbInXML
+                for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)
+                {
+                    // Natural log, C# is weird with names and this is approximate anyway
+                    DataStore.survivalProbCalc[i] = (int) (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) / 25)));
+                }
+
+                DataStore.citizenNumberBounds = new int[DataStore.lifeSpanMultiplier + 1];
+                DataStore.citizenNumberBounds[0] = 0;
+                DataStore.citizenNumberBounds[DataStore.citizenNumberBounds.Length - 1] = CitizenManager.MAX_CITIZEN_COUNT + 1;
+                int increment = CitizenManager.MAX_CITIZEN_COUNT / DataStore.lifeSpanMultiplier;
+
+                for (int i = 1; i < DataStore.citizenNumberBounds.Length - 1; ++i) // Ignore ends
+                {
+                    DataStore.citizenNumberBounds[i] = DataStore.citizenNumberBounds[i - 1] + increment;
+Debugging.writeDebugToFile("bounds: " + DataStore.citizenNumberBounds[i - 1] + ", " + DataStore.citizenNumberBounds[i]);
+                }
+
                 Redirect();
             }
         }
@@ -45,7 +63,7 @@ namespace WG_CitizenEdit
 
                 try
                 {
-                    WG_XMLBaseVersion xml = new XML_VersionTwo();
+                    WG_XMLBaseVersion xml = new XML_VersionOne();
                     xml.writeXML(currentFileLocation);
                 }
                 catch (Exception e)
@@ -75,6 +93,7 @@ namespace WG_CitizenEdit
                 {
                     isLevelLoaded = true;
                 }
+                Debugging.releaseBuffer();
             }
         }
 
@@ -124,10 +143,9 @@ namespace WG_CitizenEdit
         private void readFromXML()
         {
             // Switch to default which is the cities skylines in the application data area.
-            string oldFileLocation = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + OLD_XML_FILE;
             currentFileLocation = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + XML_FILE;
 
-            if (File.Exists(oldFileLocation))
+            if (File.Exists(currentFileLocation))
             {
                 // Load in from XML - Designed to be flat file for ease
                 WG_XMLBaseVersion reader = new XML_VersionOne();
@@ -136,34 +154,16 @@ namespace WG_CitizenEdit
                 {
                     doc.Load(currentFileLocation);
                     reader.readXML(doc);
-                    UnityEngine.Debug.Log("Upgrading XML. New file to be created: " + currentFileLocation);
-                    File.Move(oldFileLocation, oldFileLocation + ".old");
                 }
                 catch (Exception e)
                 {
                     // Game will now use defaults
-                    Debugging.panelMessage(e.Message);
-                }
-            }
-            else if (File.Exists(currentFileLocation))
-            {
-                // Load in from XML - Designed to be flat file for ease
-                WG_XMLBaseVersion reader = new XML_VersionTwo();
-                XmlDocument doc = new XmlDocument();
-                try
-                {
-                    doc.Load(currentFileLocation);
-                    reader.readXML(doc);
-                }
-                catch (Exception e)
-                {
-                    // Game will now use defaults
-                    Debugging.panelMessage(e.Message);
+                    Debugging.bufferWarning(e.Message);
                 }
             }
             else
             {
-                Debugging.panelMessage("Configuration file not found. Will output new file to : " + currentFileLocation);
+                Debugging.bufferWarning("Configuration file not found. Will output new file to : " + currentFileLocation);
             }
         }
     }

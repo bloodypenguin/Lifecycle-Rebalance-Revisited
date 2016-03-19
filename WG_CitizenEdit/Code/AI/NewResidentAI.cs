@@ -9,9 +9,6 @@ namespace WG_CitizenEdit
     [TargetType(typeof(ResidentAI))]
     public class NewResidentAI : ResidentAI
     {
-        public static volatile bool canTick = false;
-
-
         [RedirectMethod]
         private int GetCarProbability(ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
@@ -26,10 +23,12 @@ namespace WG_CitizenEdit
             {
                 DistrictManager instance = Singleton<DistrictManager>.instance;
                 Building building = Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)homeBuilding];
-                DistrictPolicies.CityPlanning cityPlanningPolicies = instance.m_districts.m_buffer[(int)instance.GetDistrict(building.m_position)].m_cityPlanningPolicies;
+                District district = instance.m_districts.m_buffer[instance.GetDistrict(building.m_position)];
+                district.GetHealCapacity();
+                DistrictPolicies.CityPlanning cityPlanningPolicies = district.m_cityPlanningPolicies;
 
                 DataStore.livesInBike = (cityPlanningPolicies & DistrictPolicies.CityPlanning.EncourageBiking) != DistrictPolicies.CityPlanning.None;
-                subService = Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)homeBuilding].Info.GetSubService();
+                subService = Singleton<BuildingManager>.instance.m_buildings.m_buffer[homeBuilding].Info.GetSubService();
             }
 
             // Set the cache
@@ -59,7 +58,9 @@ namespace WG_CitizenEdit
         [RedirectMethod]
         private bool UpdateAge(uint citizenID, ref Citizen data)
         {
-            if (canTick)
+            // Citzen numbers are all over the array
+            // Costs a bit more in terms of CPU, but spreads out citizen movement and dying
+            if ((DataStore.citizenNumberBounds[Threading.counter] <= citizenID & citizenID < DataStore.citizenNumberBounds[Threading.counter + 1]))
             {
                 int num = data.Age + 1;
                 // Print current date time in game. Singleton<SimulationManager>.instance.m_metaData.m_currentDateTime.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
@@ -93,17 +94,41 @@ namespace WG_CitizenEdit
                         Singleton<StatisticsManager>.instance.Acquire<StatisticInt32>(StatisticType.FullLifespans).Add(1);
                     }
                 }
+
                 data.Age = num;
-                // Can change to make % checks to make it "early death"
-                if (num >= 240 && data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0 && Singleton<SimulationManager>.instance.m_randomizer.Int32(240, 255) <= num)
+                if (data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0)
                 {
-                    Die(citizenID, ref data);
-                    if (Singleton<SimulationManager>.instance.m_randomizer.Int32(2u) == 0)
+                    // Can change to make % checks to make it "early death". This is gender blind
+                    bool died = true;
+                    int index = num / 25;
+
+                    if (index < DataStore.survivalProbCalc.Length)
                     {
-                        Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
-                        return true;
+                       // Potential allow citizens to live up to 274 ticks
+                       died = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100000) > DataStore.survivalProbCalc[index];
                     }
-                }
+
+                    if (died)
+                    {
+                        if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) > 75)
+                        {
+                            // 25% make citizen sick instead of killing them. Unless they're going to wrap around to 0
+                            data.BadHealth = 4;
+Threading.sb.Append("sick : " + num);
+                        }
+                        else
+                        {
+Threading.sb.Append("died : " + num);
+                            // Feel like splitting this out to spread it out
+                            Die(citizenID, ref data);
+                            if (Singleton<SimulationManager>.instance.m_randomizer.Int32(2u) == 0)
+                            {
+                                Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
+                                return true;
+                            }   
+                        }
+                    } // end died
+                } // end moving check
             } // end if canTick
             return false;
         } // end UpdateAge

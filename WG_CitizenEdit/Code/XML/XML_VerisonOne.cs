@@ -1,18 +1,16 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Reflection;
 using System.Xml;
-using ICities;
-using UnityEngine;
-using ColossalFramework.Plugins;
 
 namespace WG_CitizenEdit
 {
     public class XML_VersionOne : WG_XMLBaseVersion
     {
+        private const string travelNodeName = "travel";
+        private const string immigrateNodeName = "immigrate";
+        private const string lifeSpanNodeName = "lifespan";
+        private const string deathNodeName = "death";
+
         /// <summary>
         /// 
         /// </summary>
@@ -21,7 +19,92 @@ namespace WG_CitizenEdit
         public override void readXML(XmlDocument doc)
         {
             XmlElement root = doc.DocumentElement;
-            readDensityNode(root);
+
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Name.Equals(travelNodeName))
+                {
+                    readTravelNode(node);
+                }
+                else if (node.Name.Equals(immigrateNodeName))
+                {
+                    readImmigrateNode(node);
+                }
+                else if (node.Name.Equals(lifeSpanNodeName))
+                {
+                    readLifeNode(node);
+                }
+                else if (node.Name.Equals(deathNodeName))
+                {
+                    readDeathNode(node);
+                }
+            }
+        }
+        
+
+        public void readTravelNode(XmlNode root)
+        {
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                string name = node.Name;
+                int index = 0;
+
+                switch (name)
+                {
+                    case "high_density":
+                        index = 1;
+                        break;
+                    case "low_density":
+                        index = 0;
+                        break;
+                    default:
+                        // Error case
+                        break;
+                }
+
+                // Read inner attributes
+                readWealthNode(node, index);
+            }
+        }
+
+
+        public void readImmigrateNode(XmlNode root)
+        {
+
+        }
+
+
+        public void readLifeNode(XmlNode root)
+        {
+            try
+            {
+                DataStore.lifeSpanMultiplier = Convert.ToInt32(root.InnerText);
+            }
+            catch (Exception e)
+            {
+                Debugging.bufferWarning("lifespan was not an integer: " + e.Message + ". Setting to 4");
+                DataStore.lifeSpanMultiplier = 4;
+            }
+        }
+
+
+        public void readDeathNode(XmlNode root)
+        {
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Name.Equals("decile"))
+                {
+                    try
+                    {
+                        int index = Convert.ToInt32(node.Attributes["num"].InnerText) - 1;
+                        DataStore.survivalProbInXML[index] = Convert.ToDouble(node.Attributes["survival"].InnerText) / 100.0;
+                    }
+                    catch (Exception e)
+                    {
+                        Debugging.bufferWarning(e.Message);
+                    }
+                }
+            }
         }
 
 
@@ -34,22 +117,16 @@ namespace WG_CitizenEdit
         {
             XmlDocument xmlDoc = new XmlDocument();
 
-            XmlNode rootNode = xmlDoc.CreateElement("WG_ResidentTravel");
+            XmlNode rootNode = xmlDoc.CreateElement("WG_CitizenEdit");
             XmlAttribute attribute = xmlDoc.CreateAttribute("version");
             attribute.Value = "1";
             rootNode.Attributes.Append(attribute);
             xmlDoc.AppendChild(rootNode);
 
-            try
-            {
-                makeDensityNodes(xmlDoc, rootNode, 0);
-                makeDensityNodes(xmlDoc, rootNode, 1);
-            }
-            catch (Exception e)
-            {
-                Debugging.panelMessage(e.Message);
-            }
-
+            rootNode.AppendChild(makeTravelNode(xmlDoc));
+            rootNode.AppendChild(makeImmigrateNode(xmlDoc));
+            rootNode.AppendChild(makeLifeNode(xmlDoc));
+            rootNode.AppendChild(makeDeathNode(xmlDoc));
 
             if (File.Exists(fullPathFileName))
             {
@@ -64,7 +141,7 @@ namespace WG_CitizenEdit
                 }
                 catch (Exception e)
                 {
-                    Debugging.panelMessage(e.Message);
+                    UnityEngine.Debug.LogException(e);
                 }
             }
 
@@ -74,7 +151,7 @@ namespace WG_CitizenEdit
             }
             catch (Exception e)
             {
-                Debugging.panelMessage(e.Message);
+                UnityEngine.Debug.LogException(e);
                 return false;  // Only time when we say there's an error
             }
 
@@ -152,29 +229,65 @@ namespace WG_CitizenEdit
 
             return node;
         }
-        
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="densityNode"></param>
-        private void readDensityNode(XmlNode densityNode)
+
+        /// <param name="xmlDoc"></param>
+        /// <returns></returns>
+        private XmlNode makeLifeNode(XmlDocument xmlDoc)
         {
-            foreach (XmlNode node in densityNode.ChildNodes)
+            XmlNode node = xmlDoc.CreateElement(lifeSpanNodeName);
+            XmlNode lifeSpanNode = xmlDoc.CreateElement("lifeSpan_Multiplier");
+            node.InnerXml = DataStore.lifeSpanMultiplier.ToString();
+            lifeSpanNode.AppendChild(node);
+
+            return node;
+        }
+
+
+        /// <param name="xmlDoc"></param>
+        /// <returns></returns>
+        private XmlNode makeImmigrateNode(XmlDocument xmlDoc)
+        {
+            XmlNode node = xmlDoc.CreateElement(immigrateNodeName);
+
+            return node;
+        }
+
+
+        /// <param name="xmlDoc"></param>
+        /// <returns></returns>
+        private XmlNode makeTravelNode(XmlDocument xmlDoc)
+        {
+            XmlNode node = xmlDoc.CreateElement(travelNodeName);
+            makeDensityNodes(xmlDoc, node, 0);
+            makeDensityNodes(xmlDoc, node, 1);
+
+            return node;
+        }
+
+
+        /// <param name="xmlDoc"></param>
+        /// <returns></returns>
+        private XmlNode makeDeathNode(XmlDocument xmlDoc)
+        {
+            XmlNode deathNode = xmlDoc.CreateElement(deathNodeName);
+
+            // 0 to 9, 10 deciles.
+            for (int i = 0; i < 10; ++i)
             {
-                string name = node.Name;
-                int index = 0;
+                XmlNode node = xmlDoc.CreateElement("decile");
+                XmlAttribute attribute = xmlDoc.CreateAttribute("num");
+                attribute.Value = Convert.ToString(i + 1);
+                node.Attributes.Append(attribute);
 
-                switch (name)
-                {
-                    case "high_density":
-                        index = 1;
-                        break;
-                }
+                attribute = xmlDoc.CreateAttribute("survival");
+                attribute.Value = Convert.ToString(DataStore.survivalProbInXML[i] * 100.0);
+                node.Attributes.Append(attribute);
 
-                // Read inner attributes
-                readWealthNode(node, index);
-            } // end foreach
+                deathNode.AppendChild(node);
+            }
+
+            return deathNode;
         }
 
 
@@ -202,7 +315,7 @@ namespace WG_CitizenEdit
                         array = DataStore.wealth_high;
                         break;
                     default:
-                        Debugging.panelMessage("readWealthNode. unknown element name: " + name);
+                        Debugging.bufferWarning("readWealthNode. unknown element name: " + name);
                         return;
                 }
 
@@ -254,7 +367,7 @@ namespace WG_CitizenEdit
                 }
                 catch (Exception e)
                 {
-                    Debugging.panelMessage("readAgeNode: " + e.Message);
+                    Debugging.bufferWarning("readAgeNode: " + e.Message);
                 }  
             } // end foreach
         }
