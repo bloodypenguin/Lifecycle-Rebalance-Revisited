@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Reflection;
 using System.Xml;
 using ICities;
-using UnityEngine;
-using ColossalFramework.Plugins;
 using System.Diagnostics;
 using Boformer.Redirection;
+using ColossalFramework;
 
 namespace WG_CitizenEdit
 {
@@ -23,6 +20,7 @@ namespace WG_CitizenEdit
         private string currentFileLocation = "";
         private static volatile bool isModEnabled = false;
         private static volatile bool isLevelLoaded = false;
+        private static Stopwatch sw;
 
 
         public override void OnCreated(ILoading loading)
@@ -30,6 +28,8 @@ namespace WG_CitizenEdit
             if (!isModEnabled)
             {
                 isModEnabled = true;
+                sw = Stopwatch.StartNew();
+
                 readFromXML();
 
                 // Do conversion from survivalProbInXML
@@ -37,6 +37,13 @@ namespace WG_CitizenEdit
                 {
                     // Natural log, C# is weird with names and this is approximate anyway
                     DataStore.survivalProbCalc[i] = (int) (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) / 25)));
+                }
+
+                // Do conversion from sicknessProbInXML
+                for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
+                {
+                    // Simple division as it is straight division
+                    DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25));
                 }
 
                 DataStore.citizenNumberBounds = new int[DataStore.lifeSpanMultiplier + 1];
@@ -47,10 +54,13 @@ namespace WG_CitizenEdit
                 for (int i = 1; i < DataStore.citizenNumberBounds.Length - 1; ++i) // Ignore ends
                 {
                     DataStore.citizenNumberBounds[i] = DataStore.citizenNumberBounds[i - 1] + increment;
-Debugging.writeDebugToFile("bounds: " + DataStore.citizenNumberBounds[i - 1] + ", " + DataStore.citizenNumberBounds[i]);
                 }
 
                 Redirect();
+
+                sw.Stop();
+                UnityEngine.Debug.Log("WG_CitizenEdit: Successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
+
             }
         }
 
@@ -92,10 +102,16 @@ Debugging.writeDebugToFile("bounds: " + DataStore.citizenNumberBounds[i - 1] + "
                 if (!isLevelLoaded)
                 {
                     isLevelLoaded = true;
+                    Debugging.releaseBuffer();
+                    Debugging.panelMessage("Successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
+
+                    // TODO Prime Threading.counter to continue from next system
+                    int temp = (int) (Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
+                    int counter = temp % DataStore.lifeSpanMultiplier;
                 }
-                Debugging.releaseBuffer();
             }
         }
+
 
         private void Redirect()
         {
@@ -158,12 +174,14 @@ Debugging.writeDebugToFile("bounds: " + DataStore.citizenNumberBounds[i - 1] + "
                 catch (Exception e)
                 {
                     // Game will now use defaults
+                    Debugging.bufferWarning("The following exception(s) were detected while loading the XML file. Some (or all) values may not be loaded.");
                     Debugging.bufferWarning(e.Message);
+                    UnityEngine.Debug.LogException(e);
                 }
             }
             else
             {
-                Debugging.bufferWarning("Configuration file not found. Will output new file to : " + currentFileLocation);
+                UnityEngine.Debug.Log("Configuration file not found. Will output new file to : " + currentFileLocation);
             }
         }
     }

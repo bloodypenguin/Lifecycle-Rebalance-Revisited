@@ -7,9 +7,13 @@ namespace WG_CitizenEdit
     public class XML_VersionOne : WG_XMLBaseVersion
     {
         private const string travelNodeName = "travel";
-        private const string immigrateNodeName = "immigrate";
+
+        private const string migrateNodeName = "migrate";
+
         private const string lifeSpanNodeName = "lifespan";
-        private const string deathNodeName = "death";
+        private const string familyName = "family";
+        private const string survivalNodeName = "survival";
+        private const string sicknessNodeName = "sickness";
 
         /// <summary>
         /// 
@@ -26,17 +30,13 @@ namespace WG_CitizenEdit
                 {
                     readTravelNode(node);
                 }
-                else if (node.Name.Equals(immigrateNodeName))
+                else if (node.Name.Equals(migrateNodeName))
                 {
                     readImmigrateNode(node);
                 }
                 else if (node.Name.Equals(lifeSpanNodeName))
                 {
                     readLifeNode(node);
-                }
-                else if (node.Name.Equals(deathNodeName))
-                {
-                    readDeathNode(node);
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace WG_CitizenEdit
                 }
 
                 // Read inner attributes
-                readWealthNode(node, index);
+                readTravelWealthNode(node, index);
             }
         }
 
@@ -76,19 +76,39 @@ namespace WG_CitizenEdit
 
         public void readLifeNode(XmlNode root)
         {
-            try
+            foreach (XmlNode node in root.ChildNodes)
             {
-                DataStore.lifeSpanMultiplier = Convert.ToInt32(root.InnerText);
-            }
-            catch (Exception e)
-            {
-                Debugging.bufferWarning("lifespan was not an integer: " + e.Message + ". Setting to 4");
-                DataStore.lifeSpanMultiplier = 4;
+                if (node.Name.Equals("multiplier"))
+                {
+                    try
+                    {
+                        DataStore.lifeSpanMultiplier = Convert.ToInt32(root.Attributes["modifier"].InnerText);
+                    }
+                    catch (Exception e)
+                    {
+                        Debugging.bufferWarning("lifespan multiplier was not an integer: " + e.Message + ". Setting to 4");
+                        DataStore.lifeSpanMultiplier = 4;
+                    }
+
+                    if (DataStore.lifeSpanMultiplier <= 0)
+                    {
+                        Debugging.bufferWarning("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 4");
+                        DataStore.lifeSpanMultiplier = 4;
+                    }
+                }
+                else if (node.Name.Equals(survivalNodeName))
+                {
+                    readSurvivalNode(node);
+                }
+                else if (node.Name.Equals(sicknessNodeName))
+                {
+                    readSicknessNode(node);
+                }
             }
         }
 
 
-        public void readDeathNode(XmlNode root)
+        public void readSurvivalNode(XmlNode root)
         {
             foreach (XmlNode node in root.ChildNodes)
             {
@@ -98,6 +118,26 @@ namespace WG_CitizenEdit
                     {
                         int index = Convert.ToInt32(node.Attributes["num"].InnerText) - 1;
                         DataStore.survivalProbInXML[index] = Convert.ToDouble(node.Attributes["survival"].InnerText) / 100.0;
+                    }
+                    catch (Exception e)
+                    {
+                        Debugging.bufferWarning(e.Message);
+                    }
+                }
+            }
+        }
+
+
+        public void readSicknessNode(XmlNode root)
+        {
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Name.Equals("decile"))
+                {
+                    try
+                    {
+                        int index = Convert.ToInt32(node.Attributes["num"].InnerText) - 1;
+                        DataStore.survivalProbInXML[index] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
                     }
                     catch (Exception e)
                     {
@@ -126,7 +166,6 @@ namespace WG_CitizenEdit
             rootNode.AppendChild(makeTravelNode(xmlDoc));
             rootNode.AppendChild(makeImmigrateNode(xmlDoc));
             rootNode.AppendChild(makeLifeNode(xmlDoc));
-            rootNode.AppendChild(makeDeathNode(xmlDoc));
 
             if (File.Exists(fullPathFileName))
             {
@@ -233,22 +272,9 @@ namespace WG_CitizenEdit
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeLifeNode(XmlDocument xmlDoc)
-        {
-            XmlNode node = xmlDoc.CreateElement(lifeSpanNodeName);
-            XmlNode lifeSpanNode = xmlDoc.CreateElement("lifeSpan_Multiplier");
-            node.InnerXml = DataStore.lifeSpanMultiplier.ToString();
-            lifeSpanNode.AppendChild(node);
-
-            return node;
-        }
-
-
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
         private XmlNode makeImmigrateNode(XmlDocument xmlDoc)
         {
-            XmlNode node = xmlDoc.CreateElement(immigrateNodeName);
+            XmlNode node = xmlDoc.CreateElement(migrateNodeName);
 
             return node;
         }
@@ -268,9 +294,27 @@ namespace WG_CitizenEdit
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeDeathNode(XmlDocument xmlDoc)
+        private XmlNode makeLifeNode(XmlDocument xmlDoc)
         {
-            XmlNode deathNode = xmlDoc.CreateElement(deathNodeName);
+            XmlNode node = xmlDoc.CreateElement(lifeSpanNodeName);
+            XmlAttribute attribute = xmlDoc.CreateAttribute("modifier");
+            attribute.Value = Convert.ToString(DataStore.lifeSpanMultiplier);
+            node.Attributes.Append(attribute);
+
+            XmlComment comment = xmlDoc.CreateComment("Percentage of people who survive to the next 10% of their life");
+            node.AppendChild(makeSurvivalNode(xmlDoc));
+            comment = xmlDoc.CreateComment("Percentage of people who become sick over the next 10% of their life");
+            node.AppendChild(makeSicknessNode(xmlDoc));
+
+            return node;
+        }
+
+
+        /// <param name="xmlDoc"></param>
+        /// <returns></returns>
+        private XmlNode makeSurvivalNode(XmlDocument xmlDoc)
+        {
+            XmlNode survNode = xmlDoc.CreateElement(survivalNodeName);
 
             // 0 to 9, 10 deciles.
             for (int i = 0; i < 10; ++i)
@@ -284,10 +328,35 @@ namespace WG_CitizenEdit
                 attribute.Value = Convert.ToString(DataStore.survivalProbInXML[i] * 100.0);
                 node.Attributes.Append(attribute);
 
-                deathNode.AppendChild(node);
+                survNode.AppendChild(node);
             }
 
-            return deathNode;
+            return survNode;
+        }
+
+
+        /// <param name="xmlDoc"></param>
+        /// <returns></returns>
+        private XmlNode makeSicknessNode(XmlDocument xmlDoc)
+        {
+            XmlNode sickNode = xmlDoc.CreateElement(sicknessNodeName);
+
+            // 0 to 9, 10 deciles.
+            for (int i = 0; i < 10; ++i)
+            {
+                XmlNode node = xmlDoc.CreateElement("decile");
+                XmlAttribute attribute = xmlDoc.CreateAttribute("num");
+                attribute.Value = Convert.ToString(i + 1);
+                node.Attributes.Append(attribute);
+
+                attribute = xmlDoc.CreateAttribute("chance");
+                attribute.Value = Convert.ToString(DataStore.sicknessProbInXML[i] * 100.0);
+                node.Attributes.Append(attribute);
+
+                sickNode.AppendChild(node);
+            }
+
+            return sickNode;
         }
 
 
@@ -296,7 +365,7 @@ namespace WG_CitizenEdit
         /// </summary>
         /// <param name="wealthNode"></param>
         /// <param name="density"></param>
-        private void readWealthNode(XmlNode wealthNode, int density)
+        private void readTravelWealthNode(XmlNode wealthNode, int density)
         {
             foreach (XmlNode node in wealthNode.ChildNodes)
             {
@@ -320,7 +389,7 @@ namespace WG_CitizenEdit
                 }
 
                 // Read inner attributes
-                readAgeNode(node, array[density]);
+                readTravelAgeNode(node, array[density]);
             } // end foreach
         }
 
@@ -330,7 +399,7 @@ namespace WG_CitizenEdit
         /// </summary>
         /// <param name="ageNode"></param>
         /// <param name="arrayRef"></param>
-        private void readAgeNode(XmlNode ageNode, int[][] arrayRef)
+        private void readTravelAgeNode(XmlNode ageNode, int[][] arrayRef)
         {
             foreach (XmlNode node in ageNode.ChildNodes)
             {

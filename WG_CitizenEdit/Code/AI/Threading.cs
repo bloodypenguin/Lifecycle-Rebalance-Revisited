@@ -7,7 +7,6 @@ namespace WG_CitizenEdit
     public class Threading : ThreadingExtensionBase
     {
         public static int counter = 0;
-        public static StringBuilder sb = new StringBuilder();
 
         public override void OnBeforeSimulationFrame()
         {
@@ -21,11 +20,6 @@ namespace WG_CitizenEdit
                 {
                     counter = 0;
                 }
-Debugging.writeDebugToFile("new counter: " + counter + ". bound: " + DataStore.citizenNumberBounds[Threading.counter] + ", " + DataStore.citizenNumberBounds[Threading.counter + 1]);
-
-
-Debugging.writeDebugToFile(sb.ToString());
-sb.Remove(0, sb.Length);
             }
         }
     }
