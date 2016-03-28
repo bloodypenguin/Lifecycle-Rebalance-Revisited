@@ -3,8 +3,8 @@
     public class DataStore
     {
         // Citizen life span --------------------------------------------------
-        public static int lifeSpanMultiplier = 4;
-        public static int workSpeedMultiplier = 2;  // Might as well be half of the multiplier
+        public static int lifeSpanMultiplier = 5;
+        public static int workSpeedMultiplier = 2;  // Might as well be half of the multiplier (maybe)
 
 
         // Survival number to next decile. In units of 1/100000
@@ -15,7 +15,7 @@
         public static int[] survivalProbCalc = new int[survivalProbInXML.Length];
 
         // Per decile who will get sick
-        public static double[] sicknessProbInXML = { 0.0125, 0.0075, 0.01, 0.0125, 0.015, 0.02, 0.025, 0.03, 0.0375, 0.05, 0.5 };
+        public static double[] sicknessProbInXML = { 0.0125, 0.0075, 0.01, 0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.075, 0.25 };
         public static int[] sicknessProbCalc = new int[sicknessProbInXML.Length];
 
         public static int[] citizenNumberBounds;

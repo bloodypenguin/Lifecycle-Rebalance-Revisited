@@ -1,4 +1,5 @@
-<WG_ResidentTravel version="1">
+<WG_CitizenEdit version="1">
+  <travel>
   <low_density>
     <low_wealth>
       <Child car="0" bike="40" taxi="0" />
@@ -45,4 +46,32 @@
       <Senior car="10" bike="0" taxi="6" />
     </high_wealth>
   </high_density>
-</WG_ResidentTravel>
+  </travel>
+  <migrate />
+  <lifespan modifier="1">
+    <survival>
+      <decile num="1" survival="100" />
+      <decile num="2" survival="100" />
+      <decile num="3" survival="100" />
+      <decile num="4" survival="100" />
+      <decile num="5" survival="100" />
+      <decile num="6" survival="100" />
+      <decile num="7" survival="100" />
+      <decile num="8" survival="100" />
+      <decile num="9" survival="100" />
+      <decile num="10" survival="50" />
+    </survival>
+    <sickness>
+      <decile num="1" chance="0" />
+      <decile num="2" chance="0" />
+      <decile num="3" chance="0" />
+      <decile num="4" chance="0" />
+      <decile num="5" chance="0" />
+      <decile num="6" chance="0" />
+      <decile num="7" chance="0" />
+      <decile num="8" chance="0" />
+      <decile num="9" chance="0" />
+      <decile num="10" chance="0" />
+    </sickness>
+  </lifespan>
+</WG_CitizenEdit>

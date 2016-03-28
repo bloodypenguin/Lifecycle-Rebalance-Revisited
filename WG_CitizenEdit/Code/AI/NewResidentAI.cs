@@ -77,7 +77,7 @@ namespace WG_CitizenEdit
             {
                 int num = data.Age + 1;
                 // Threading.sb.Append(citizenID + ": " + num + "\n");
-                Debugging.writeDebugToFile(citizenID + ": " + num + " " + Threading.counter);
+                //Debugging.writeDebugToFile(citizenID + ": " + num + " " + Threading.counter);
 
                 if (num <= 45)
                 {
@@ -111,7 +111,6 @@ namespace WG_CitizenEdit
                 data.Age = num;
                 if (data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0)
                 {
-                    // Can change to make % checks to make it "early death". This is gender blind
                     bool died = true;
                     int index = num / 25;
 

@@ -105,7 +105,7 @@ namespace WG_CitizenEdit
                     Debugging.releaseBuffer();
                     Debugging.panelMessage("Successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
 
-                    // TODO Prime Threading.counter to continue from next system
+                    // Prime Threading.counter to continue from frame index
                     int temp = (int) (Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
                     int counter = temp % DataStore.lifeSpanMultiplier;
                 }

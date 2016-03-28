@@ -137,7 +137,7 @@ namespace WG_CitizenEdit
                     try
                     {
                         int index = Convert.ToInt32(node.Attributes["num"].InnerText) - 1;
-                        DataStore.survivalProbInXML[index] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
+                        DataStore.sicknessProbInXML[index] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
                     }
                     catch (Exception e)
                     {
