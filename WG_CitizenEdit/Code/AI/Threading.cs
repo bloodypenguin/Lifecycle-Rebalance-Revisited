@@ -1,12 +1,8 @@
 ﻿using ColossalFramework;
 using ICities;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text;
 
-namespace WG_Lifespan
+namespace WG_CitizenEdit
 {
     public class Threading : ThreadingExtensionBase
     {
@@ -19,22 +15,10 @@ namespace WG_Lifespan
             // Default aging ticks are per week
             if ((Singleton<SimulationManager>.instance.m_currentFrameIndex & 4095u) == 0u)
             {
-                ++counter;
-
-                // Reset during next 'tick'
-                if (counter == DataStore.lifeSpanMultiplier)
+                // Tick from 1 to the multiplier itself. Once over, reset
+                if (++counter >= DataStore.lifeSpanMultiplier)
                 {
-/*
-Debugging.writeDebugToFile("tick\n");
-Debugging.writeDebugToFile(sb.ToString());
-sb.Remove(0, sb.Length);
-*/
-                    NewResidentAI.canTick = true;
                     counter = 0;
-                }
-                else
-                {
-                    NewResidentAI.canTick = false;
                 }
             }
         }
