@@ -7,11 +7,11 @@ namespace WG_CitizenEdit
     {
         public string Name
         {
-            get { return "WG Citizen Rebalance v1.0"; }
+            get { return "WG Citizen Rebalance v1.1"; }
         }
         public string Description
         {
-            get { return "Changes how citizens will travel to and from their locations, edits life span and the ages of families that move in"; }
+            get { return "Changes how citizens will travel to and from their locations, increases life span and the ages of people who move in"; }
         }
     }
 }

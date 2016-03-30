@@ -76,27 +76,25 @@ namespace WG_CitizenEdit
 
         public void readLifeNode(XmlNode root)
         {
+            try
+            {
+                DataStore.lifeSpanMultiplier = Convert.ToInt32(root.Attributes["modifier"].InnerText);
+            }
+            catch (Exception e)
+            {
+                Debugging.bufferWarning("lifespan multiplier was not an integer: " + e.Message + ". Setting to 5");
+                DataStore.lifeSpanMultiplier = 5;
+            }
+
+            if (DataStore.lifeSpanMultiplier <= 0)
+            {
+                Debugging.bufferWarning("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 5");
+                DataStore.lifeSpanMultiplier = 5;
+            }
+
             foreach (XmlNode node in root.ChildNodes)
             {
-                if (node.Name.Equals("multiplier"))
-                {
-                    try
-                    {
-                        DataStore.lifeSpanMultiplier = Convert.ToInt32(root.Attributes["modifier"].InnerText);
-                    }
-                    catch (Exception e)
-                    {
-                        Debugging.bufferWarning("lifespan multiplier was not an integer: " + e.Message + ". Setting to 4");
-                        DataStore.lifeSpanMultiplier = 4;
-                    }
-
-                    if (DataStore.lifeSpanMultiplier <= 0)
-                    {
-                        Debugging.bufferWarning("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 4");
-                        DataStore.lifeSpanMultiplier = 4;
-                    }
-                }
-                else if (node.Name.Equals(survivalNodeName))
+                if (node.Name.Equals(survivalNodeName))
                 {
                     readSurvivalNode(node);
                 }
