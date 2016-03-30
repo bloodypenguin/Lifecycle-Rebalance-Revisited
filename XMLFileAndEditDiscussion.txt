@@ -3,11 +3,14 @@
 In the source directory of the mod ( \Steam\SteamApps\workshop\content\255710\654707599 ), there are three extra xml files besides from the mod defaults which I have created.
 
 [b]WG_GameDefaults[/b]
-[url=https://github.com/WhitefangGreytail/WG_RealisticCitySkylines/blob/master/XML_Files/WG_GameDefaults.xml]The game defaults [/url] file is the best transformation of the vanilla game's values.
+[url=https://github.com/WhitefangGreytail/WG_CitizenEdit/blob/master/XML_Files/WG_GameDefaults.xml]The game defaults [/url] file is the best transformation of the vanilla game's values.
 
 
-[b]WG_ModLite_Values[/b]
-[url=https://github.com/WhitefangGreytail/WG_RealisticCitySkylines/blob/master/XML_Files/WG_ModLite_Values.xml.xml]This is the lighter version[/url] which is based off mod default values, but sets the population values to be about a quarter for high density households, commerce and offices.
+[b]WG_CarHeavy[/b]
+[url=https://github.com/WhitefangGreytail/WG_CitizenEdit/blob/master/XML_Files/WG_CarHeavy.xml]This[/url] is based off mod default values, but sets so that more cars are used to travel.
+
+[b]WG_CarAsWealth[/b]
+[url=https://github.com/WhitefangGreytail/WG_CitizenEdit/blob/master/XML_Files/WG_CarAsWealth.xml]This[/url] is based off mod default values, but strongly correlates car use with wealth.
 
 
 [b]How to use the presets for the mod to use[/b]
@@ -25,17 +28,28 @@ Guidance for what the values will do are in the following posts.
 ===============================================================================
 [b]Travel[/b]
 
+The modifiers are for [i]car[/i], [i]taxi[/i], [i]bike[/i] (or bicycle) and are used for each age group, wealth and residential density.
 
-- [i]calc[/i]
+The game will do a probability check against each of the modes of car (or motorbike), bicycle and taxi to determine if either of those three modes will be used to travel. There is a fourth option which should be walking or public transport and is the default case if the first three are not taken.
+The numbers along the row do not need to add to 100.
 
 ================================================================================
 [b]Migrate[/b]
 
-
-I do not anticipate any other flow on effects than what is obvious.
+Nothing here yet
 
 ================================================================================
 [b]Lifespan[/b]
 
+[i]modifier[/i]
+- Changing this will expand the lifespan of the people by this number. Integer values are accepted.
 
-I do not anticipate any other flow on effects than what is obvious.
+[i]survival[/i]
+- Each decile (10th stage) of life will have it's own survival chance. It is defined as the percentage of the decile that will survive to the next decile. Float values with no more than 3 decimal places are preferred
+
+
+[i]sickness[/i]
+- Each decile (10th stage) of life will have it's own sickness chance. It is defined as the percentage of the decile that will become sick by the next decile. Float values with no more than 3 decimal places are preferred
+
+
+

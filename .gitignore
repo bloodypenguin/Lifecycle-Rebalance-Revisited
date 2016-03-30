@@ -4,6 +4,5 @@
 *.sln
 *.xls*
 Help/*
-!TempLibraryStore/*.dll
 WG_CitizenEdit/bin/*
 WG_CitizenEdit/obj/*

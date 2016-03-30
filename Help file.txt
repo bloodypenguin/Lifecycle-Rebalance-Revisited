@@ -12,9 +12,9 @@ This mod makes changes the following.
 - More people will become ill and require treatment at clincs or hospitals.
 
 [h1]Migration[/h1]
-- Enables people from a wide range of ages to migrate in, from children to seniors (yes, seniors)
-- Citizens will have a chance to have a higher (or lower) level of education that what is requested.
-- Teens will be at elementary school and some young adult will be at high school education.
+- Enables people from a wide range of ages to migrate in, from child to seniors (yes, seniors). Partners have similar ages.
+- Citizens will have a chance to have a higher (or lower) level of education that what is requested by the game.
+- Teens will be at elementary school education and some young adults will be at high school education.
 - Immigration greatly reduces the chance that the city has been seeded for death waves in the future.
 
 
@@ -59,10 +59,3 @@ Code for viewing is available  [url=https://github.com/WhitefangGreytail/WG_Citi
 
 If you wish to donate, follow the link below. Many thanks in advance if you do.
 [url=https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=whitefangpaypal%40yahoo%2ecom%2eau&lc=AU&item_name=Whitefang%20Greytail%27s%20Steam%20Workshop&item_number=Steam&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted][img]https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png[/img][/url]
-
-=========================================================================================
-
-
-[h1] How to change the XML [/h1]
-The game will do a probability check against each of the modes of car (or motorbike), bicycle and taxi to determine if either of those three modes will be used to travel. There is a fourth option which should be walking or public transport and is the default case if the first three are not taken.
-The numbers along the row do not need to add to 100.

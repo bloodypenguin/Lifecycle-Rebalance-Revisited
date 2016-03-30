@@ -107,7 +107,7 @@ namespace WG_CitizenEdit
 
                     // Prime Threading.counter to continue from frame index
                     int temp = (int) (Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
-                    int counter = temp % DataStore.lifeSpanMultiplier;
+                    Threading.counter = temp % DataStore.lifeSpanMultiplier;
                 }
             }
         }

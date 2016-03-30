@@ -1,6 +1,6 @@
 # WG Citizen Edit
 
-This is for the item in the steam workshop - http://steamcommunity.com/sharedfiles/filedetails/?id=xxxx
+This is for the item in the steam workshop - http://steamcommunity.com/sharedfiles/filedetails/?id=654707599
 
 Using the C# detours code created by Sebastian Schöner, released under the MIT license: https://github.com/sschoener/cities-skylines-detour
 
