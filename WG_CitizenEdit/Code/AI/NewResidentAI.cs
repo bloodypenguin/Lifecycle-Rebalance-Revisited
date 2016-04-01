@@ -58,15 +58,17 @@ namespace WG_CitizenEdit
         }
 
 
-        //[RedirectMethod]
+        [RedirectMethod]
         public bool CanMakeBabies(uint citizenID, ref Citizen data)
         {
             // data.m_family  access group data?
             // Only check child 1 and 2. Don't care about 3, won't fit if there's someone there :)
-            Building home = Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_homeBuilding];
-            Randomizer randomizer = new Randomizer((int)citizenID);
+            //Building home = Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_homeBuilding];
+            //Randomizer randomizer = new Randomizer((int)citizenID);
 
-            return !data.Dead && Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult && (data.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None;
+            // Unlock males within all groups. Find partner except for initial seeding is the exact same age group, so shortcut is allowed
+            return !data.Dead && ((Citizen.Gender.Male == Citizen.GetGender(citizenID)) || (Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult)) 
+                && (data.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None;
         }
 
 
