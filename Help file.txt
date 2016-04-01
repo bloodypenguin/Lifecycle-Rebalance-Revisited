@@ -4,9 +4,9 @@ This mod makes changes the following.
 [h1]Mode of travel[/h1]
 - Changes travel probability (car, bicycle, taxi) within the city, depending on age group and wealth level.
 
-[h1]Life span multiplier (aka slow aging)[/h1]
+[h1]Life span[/h1]
 - Lifespan spread out as a multiplier of the original
-- Early death, depending on the age decile (tenth segment of the approximate life)
+- Early death, depending on the age decile (tenth segment of the approximate life). Mapped survival values using the [url=http://www.aga.gov.au/publications/life_table_2010-12/]Australian Government Actuary table (2010-12)[/url] and imposed a decade's value to a tenth of a citizen's life
 
 [h1]Illness[/h1]
 - More people will become ill and require treatment at clincs or hospitals.
@@ -44,6 +44,13 @@ To return everything to defaults, delete the file before starting Cities Skyline
 [h1] Mod is NOT compatible with [/h1]
 WG Travel Rebalance (is already included)
 WG Lifespan Multiplier (is already included)
+Randomize Age Cim Move In
+Lifespan Changer
+Slow Citizen Aging
+Very Slow Citizen Aging
+Slow Citizen Aging Configurable
+[ARIS] Early Death
+
 
 
 [h1] Extras [/h1]
