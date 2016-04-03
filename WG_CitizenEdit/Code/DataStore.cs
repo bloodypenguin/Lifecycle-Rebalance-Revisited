@@ -3,7 +3,7 @@
     public class DataStore
     {
         // Citizen life span --------------------------------------------------
-        public static int lifeSpanMultiplier = 5;
+        public static int lifeSpanMultiplier = 2;
         public static int workSpeedMultiplier = 2;  // Might as well be half of the multiplier (maybe)
 
 

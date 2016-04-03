@@ -42,7 +42,7 @@ Nothing here yet
 [b]Lifespan[/b]
 
 [i]modifier[/i]
-- Changing this will expand the lifespan of the people by this number. Integer values are accepted.
+- Changing this will expand the lifespan of the people by this number. Integer values are accepted. Default is 2
 
 [i]survival[/i]
 - Each decile (10th stage) of life will have it's own survival chance. It is defined as the percentage of the decile that will survive to the next decile. Float values with no more than 3 decimal places are preferred
