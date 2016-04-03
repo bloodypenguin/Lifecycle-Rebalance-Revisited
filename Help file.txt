@@ -1,11 +1,11 @@
-﻿Version 1.4.0-f2, After Dark and Snowfall DLC compatible. 
+﻿Version 1.4.0-f3, After Dark and Snowfall DLC compatible. 
 
 This mod makes changes the following.
 [h1]Mode of travel[/h1]
 - Changes travel probability (car, bicycle, taxi) within the city, depending on age group and wealth level.
 
 [h1]Life span[/h1]
-- Lifespan spread out as a multiplier of the original
+- Lifespan spread out as a multiplier of the original (default is double the lifespan)
 - Early death, depending on the age decile (tenth segment of the approximate life). Mapped survival values using the [url=http://www.aga.gov.au/publications/life_table_2010-12/]Australian Government Actuary table (2010-12)[/url] and imposed a decade's value to a tenth of a citizen's life
 
 [h1]Illness[/h1]
