@@ -5,7 +5,7 @@ This mod makes changes the following.
 - Changes travel probability (car, bicycle, taxi) within the city, depending on age group and wealth level.
 
 [h1]Life span[/h1]
-- Lifespan spread out as a multiplier of the original (default is double the lifespan)
+- Lifespan spread out as a multiplier of the original (default is triple the lifespan)
 - Early death, depending on the age decile (tenth segment of the approximate life). Mapped survival values using the [url=http://www.aga.gov.au/publications/life_table_2010-12/]Australian Government Actuary table (2010-12)[/url] and imposed a decade's value to a tenth of a citizen's life
 
 [h1]Illness[/h1]
@@ -39,6 +39,10 @@ Changed values in the file will be seen on loading a different city or loading f
 If there are any exceptions found in parsing, then that entire line in the XML will not be used and default values, or the last successfully loaded values will appear.
 
 To return everything to defaults, delete the file before starting Cities Skylines.
+
+
+[u][h1] Warning [/h1][/u]
+Be warned that this mod will not solve any impending death wave as this mod does not change the age ranges of groups who have already moved in. New citizens who move in will have a wide range of ages. There will still be peaks and troughs, but that is something that happens in the real world and definitely not as sharp as vanilla.
 
 
 [h1] Mod is NOT compatible with [/h1]

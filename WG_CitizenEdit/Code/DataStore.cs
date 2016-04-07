@@ -3,7 +3,7 @@
     public class DataStore
     {
         // Citizen life span --------------------------------------------------
-        public static int lifeSpanMultiplier = 2;
+        public static int lifeSpanMultiplier = 3;
         public static int workSpeedMultiplier = 2;  // Might as well be half of the multiplier (maybe)
 
 
@@ -20,7 +20,8 @@
 
         public static int[] citizenNumberBounds;
 
-        public static int[] incomingAdultAge = {85, 190};
+        public static int[] incomingSingleAge = { 70, 180 };
+        public static int[] incomingAdultAge  = { 80, 190 };
 
         // Travel -------------------------------------------------------------
         public const int LOW = 0;

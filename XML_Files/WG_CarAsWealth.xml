@@ -48,7 +48,7 @@
     </high_density>
   </travel>
   <migrate />
-  <lifespan modifier="2">
+  <lifespan modifier="3">
     <survival>
       <decile num="1" survival="99.514" />
       <decile num="2" survival="99.823" />
