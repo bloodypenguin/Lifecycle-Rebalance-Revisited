@@ -268,6 +268,7 @@ namespace WG_CitizenEdit
                         int family = Singleton<SimulationManager>.instance.m_randomizer.Int32(256u);
                         ushort num3 = 0;
                         Citizen.Gender gender = Citizen.Gender.Male;
+                        int[] ageArray = num == 1 ? DataStore.incomingSingleAge : DataStore.incomingAdultAge;
 
                         // Start of changes! ------------------------------------------------------- -------------------------------------------------------
                         int childrenAgeMax = 0; // 80 less than the youngest adult
@@ -278,8 +279,8 @@ namespace WG_CitizenEdit
                             uint num4 = 0u;
                             //int min = (i >= 2) ? 0 : 90;
                             //int max = (i >= 2) ? 15 : 105;
-                            int min = DataStore.incomingAdultAge[0];
-                            int max = DataStore.incomingAdultAge[1];
+                            int min = ageArray[0];
+                            int max = ageArray[1];
 
                             if (i == 1)
                             {
@@ -287,7 +288,7 @@ namespace WG_CitizenEdit
                                 min = Math.Max(minAdultAge - 20, DataStore.incomingAdultAge[0]);
                                 max = Math.Min(minAdultAge + 20, DataStore.incomingAdultAge[1]);
                             }
-                            else if (i > 2)
+                            else if (i >= 2)
                             {
                                 min = childrenAgeMin;
                                 max = childrenAgeMax;
@@ -303,7 +304,7 @@ namespace WG_CitizenEdit
                             {
                                 // Restrict to adult age. Young adult is 18 according to National Institutes of Health... even if the young adult section in a library isn't that range.
                                 minAdultAge = Math.Min(age, minAdultAge);
-                                childrenAgeMax = Math.Max(minAdultAge - 90, 0);
+                                childrenAgeMax = Math.Max(minAdultAge - 80, 0);  // Allow people 10 ticks from 'adulthood' to have kids
                                 childrenAgeMin = Math.Max(minAdultAge - 178, 0); // Accounting gestation, which isn't simulated yet (2 ticks)
                             }
 
@@ -334,7 +335,7 @@ namespace WG_CitizenEdit
                                         break;
                                     default:
                                         // Make it that 80% graduate from high school
-                                        education2 = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 10) < 8) ? Citizen.Education.TwoSchools : education2 = Citizen.Education.OneSchool;
+                                        education2 = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) < 80) ? Citizen.Education.TwoSchools : education2 = Citizen.Education.OneSchool;
                                         break;
                                 }
                             }

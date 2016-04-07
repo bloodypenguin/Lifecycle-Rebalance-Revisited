@@ -92,7 +92,7 @@ namespace WG_CitizenEdit
                 {
                     FinishSchoolOrWork(citizenID, ref data);
                 }
-                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None &&  (num % 15 == 0))  // Workspeed multiplier?
+                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % 15 == 0))  // Workspeed multiplier?
                 {
                     FinishSchoolOrWork(citizenID, ref data);
                 }
@@ -118,7 +118,7 @@ namespace WG_CitizenEdit
 
                     if (index < DataStore.survivalProbCalc.Length)
                     {
-                       // Potential allow citizens to live up to 274 ticks
+                       // Potential allow citizens to live up to 274+ ticks
                        died = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100000) > DataStore.survivalProbCalc[index];
                     }
 
