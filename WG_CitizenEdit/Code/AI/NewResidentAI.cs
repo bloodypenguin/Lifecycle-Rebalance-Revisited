@@ -67,7 +67,12 @@ namespace WG_CitizenEdit
             //Randomizer randomizer = new Randomizer((int)citizenID);
 
             // Unlock males within all groups. Find partner except for initial seeding is the exact same age group, so shortcut is allowed
-            return !data.Dead && ((Citizen.Gender.Male == Citizen.GetGender(citizenID)) || (Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult)) 
+            return !data.Dead &&
+                (
+                  // Females are now limited to the time that they have aged. Males are excluded from this calculation so females can still have children
+                  (Citizen.Gender.Male == Citizen.GetGender(citizenID)) ||
+                  (((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter) && (Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult))
+                )
                 && (data.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None;
         }
 
@@ -130,12 +135,16 @@ namespace WG_CitizenEdit
                         {
                             Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
                             return true;
-                        }   
+                        }
                     }
                     else if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100000) < DataStore.sicknessProbCalc[index])
                     {
                         data.BadHealth = 4;
                         data.Sick = true;
+                    }
+                    else
+                    {
+                        // Random move out?
                     } // end die and sick checks
                 } // end moving check
             } // end if canTick
