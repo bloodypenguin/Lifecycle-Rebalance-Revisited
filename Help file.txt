@@ -1,4 +1,4 @@
-﻿Version 1.4.0-f3, After Dark and Snowfall DLC compatible. 
+﻿Version 1.5.0-f4 compatible. 
 
 This mod makes changes the following.
 [h1]Mode of travel[/h1]
@@ -45,7 +45,7 @@ To return everything to defaults, delete the file before starting Cities Skyline
 Be warned that this mod will not solve any impending death wave as this mod does not change the age ranges of groups who have already moved in. New citizens who move in will have a wide range of ages. There will still be peaks and troughs, but that is something that happens in the real world and definitely not as sharp as vanilla.
 
 
-[h1] Mod is NOT compatible with [/h1]
+[h1] Known incompatible mods [/h1]
 WG Travel Rebalance (is already included)
 WG Lifespan Multiplier (is already included)
 Randomize Age Cim Move In
@@ -54,7 +54,6 @@ Slow Citizen Aging
 Very Slow Citizen Aging
 Slow Citizen Aging Configurable
 [ARIS] Early Death
-
 
 
 [h1] Extras [/h1]

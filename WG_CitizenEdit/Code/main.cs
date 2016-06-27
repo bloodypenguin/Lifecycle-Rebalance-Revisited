@@ -36,7 +36,7 @@ namespace WG_CitizenEdit
                 for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)
                 {
                     // Natural log, C# is weird with names and this is approximate anyway
-                    DataStore.survivalProbCalc[i] = (int) (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) / 25)));
+                    DataStore.survivalProbCalc[i] = (int) (100000 - (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) / 25))));
                 }
 
                 // Do conversion from sicknessProbInXML

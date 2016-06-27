@@ -118,13 +118,16 @@ namespace WG_CitizenEdit
                 data.Age = num;
                 if (data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0)
                 {
+                    int modifier = 100000 + ((24 * data.m_health) + (6 * data.m_wellbeing) - 1000); // Range from 99000 to 102000 (-1000 to 2000 variation)
+
                     bool died = true;
                     int index = num / 25;
 
                     if (index < DataStore.survivalProbCalc.Length)
                     {
                        // Potential allow citizens to live up to 274+ ticks
-                       died = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100000) > DataStore.survivalProbCalc[index];
+                       died = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index];
+//Debugging.writeDebugToFile(citizenID + ". Modifier: " + modifier + ", survival: " + DataStore.survivalProbCalc[index] + ", sick: " + DataStore.sicknessProbCalc[index]);
                     }
 
                     if (died)
@@ -137,9 +140,8 @@ namespace WG_CitizenEdit
                             return true;
                         }
                     }
-                    else if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100000) < DataStore.sicknessProbCalc[index])
+                    else if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.sicknessProbCalc[index])
                     {
-                        data.BadHealth = 4;
                         data.Sick = true;
                     }
                     else
