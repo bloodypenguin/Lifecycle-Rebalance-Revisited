@@ -70,7 +70,33 @@ namespace WG_CitizenEdit
 
         public void readImmigrateNode(XmlNode root)
         {
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                int[] array = null;
 
+                if (node.Name.Equals("single_adult"))
+                {
+                    array = DataStore.incomingSingleAge;
+                }
+                else if (node.Name.Equals("family_adult"))
+                {
+                    array = DataStore.incomingAdultAge;
+                }
+                else
+                {
+                    Debugging.bufferWarning("Unknown immigration node");
+                }
+
+                try
+                {
+                    array[0] = Convert.ToInt32(node.Attributes["min"].InnerText);
+                    array[1] = Convert.ToInt32(node.Attributes["max"].InnerText);
+                }
+                catch (Exception e)
+                {
+                    Debugging.bufferWarning("readImmigrateNode: " + e.Message);
+                }
+            }
         }
 
 
@@ -82,14 +108,14 @@ namespace WG_CitizenEdit
             }
             catch (Exception e)
             {
-                Debugging.bufferWarning("lifespan multiplier was not an integer: " + e.Message + ". Setting to 5");
-                DataStore.lifeSpanMultiplier = 5;
+                Debugging.bufferWarning("lifespan multiplier was not an integer: " + e.Message + ". Setting to 3");
+                DataStore.lifeSpanMultiplier = 3;
             }
 
             if (DataStore.lifeSpanMultiplier <= 0)
             {
-                Debugging.bufferWarning("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 5");
-                DataStore.lifeSpanMultiplier = 5;
+                Debugging.bufferWarning("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 3");
+                DataStore.lifeSpanMultiplier = 3;
             }
 
             foreach (XmlNode node in root.ChildNodes)
@@ -162,6 +188,10 @@ namespace WG_CitizenEdit
             xmlDoc.AppendChild(rootNode);
 
             rootNode.AppendChild(makeTravelNode(xmlDoc));
+            XmlComment comment = xmlDoc.CreateComment("Lower age value: Young adult (45), Adult (90), Senior (180)");
+            rootNode.AppendChild(comment);
+            comment = xmlDoc.CreateComment("Numbers lower than young adult may cause economic havoc.");
+            rootNode.AppendChild(comment);
             rootNode.AppendChild(makeImmigrateNode(xmlDoc));
             rootNode.AppendChild(makeLifeNode(xmlDoc));
 
@@ -272,9 +302,27 @@ namespace WG_CitizenEdit
         /// <returns></returns>
         private XmlNode makeImmigrateNode(XmlDocument xmlDoc)
         {
-            XmlNode node = xmlDoc.CreateElement(migrateNodeName);
+            XmlNode rootNode = xmlDoc.CreateElement(migrateNodeName);
 
-            return node;
+            XmlNode node = xmlDoc.CreateElement("single_adult");
+            XmlAttribute attribute = xmlDoc.CreateAttribute("min");
+            attribute.Value = Convert.ToString(DataStore.incomingSingleAge[0]);
+            node.Attributes.Append(attribute);
+            attribute = xmlDoc.CreateAttribute("max");
+            attribute.Value = Convert.ToString(DataStore.incomingSingleAge[1]);
+            node.Attributes.Append(attribute);
+            rootNode.AppendChild(node);
+
+            node = xmlDoc.CreateElement("family_adult");
+            attribute = xmlDoc.CreateAttribute("min");
+            attribute.Value = Convert.ToString(DataStore.incomingAdultAge[0]);
+            node.Attributes.Append(attribute);
+            attribute = xmlDoc.CreateAttribute("max");
+            attribute.Value = Convert.ToString(DataStore.incomingAdultAge[1]);
+            node.Attributes.Append(attribute);
+            rootNode.AppendChild(node);
+
+            return rootNode;
         }
 
 

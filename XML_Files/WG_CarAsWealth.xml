@@ -47,7 +47,12 @@
       </high_wealth>
     </high_density>
   </travel>
-  <migrate />
+  <!--Lower age value: Young adult (45), Adult (90), Senior (180)-->
+  <!--Numbers lower than young adult may cause economic havoc.-->
+  <migrate>
+    <single_adult min="65" max="165" />
+    <family_adult min="85" max="185" />
+  </migrate>
   <lifespan modifier="3">
     <survival>
       <decile num="1" survival="99.514" />
