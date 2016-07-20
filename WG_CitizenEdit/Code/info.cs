@@ -7,7 +7,7 @@ namespace WG_CitizenEdit
     {
         public string Name
         {
-            get { return "WG Citizen Lifecycle Rebalance v2.0"; }
+            get { return "WG Citizen Lifecycle Rebalance v2.1"; }
         }
         public string Description
         {
