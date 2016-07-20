@@ -10,7 +10,7 @@ namespace WG_CitizenEdit
     {
         [RedirectMethod]
         // Copied from game code. Ugh.... 
-        public static new bool StartConnectionTransfer(ushort buildingID, ref Building data, TransferManager.TransferReason material, TransferManager.TransferOffer offer, int touristFactor0, int touristFactor1, int touristFactor2)
+        private static bool StartConnectionTransferImpl(ushort buildingID, ref Building data, TransferManager.TransferReason material, TransferManager.TransferOffer offer, int touristFactor0, int touristFactor1, int touristFactor2)
         {
             BuildingManager instance = Singleton<BuildingManager>.instance;
             VehicleInfo vehicleInfo = null;

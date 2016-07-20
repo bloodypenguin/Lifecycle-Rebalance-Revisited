@@ -147,6 +147,7 @@ namespace WG_CitizenEdit
                     else
                     {
                         // Random move out?
+                        //data.m_homeBuilding;
                     } // end die and sick checks
                 } // end moving check
             } // end if canTick
