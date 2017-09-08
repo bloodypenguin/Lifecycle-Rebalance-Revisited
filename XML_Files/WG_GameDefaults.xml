@@ -1,4 +1,4 @@
-<WG_CitizenEdit version="1">
+<WG_CitizenEdit version="2">
   <travel>
   <low_density>
     <low_wealth>
@@ -54,29 +54,33 @@
     <family_adult min="90" max="105" />
   </migrate>
   <lifespan modifier="1">
+    <!--Percentage of people who survive to the next 10% of their life-->
     <survival>
-      <decile num="1" survival="100" />
-      <decile num="2" survival="100" />
-      <decile num="3" survival="100" />
-      <decile num="4" survival="100" />
-      <decile num="5" survival="100" />
-      <decile num="6" survival="100" />
-      <decile num="7" survival="100" />
-      <decile num="8" survival="100" />
-      <decile num="9" survival="100" />
-      <decile num="10" survival="50" />
+      <decile_1 survival="100" />
+      <decile_2 survival="100" />
+      <decile_3 survival="100" />
+      <decile_4 survival="100" />
+      <decile_5 survival="100" />
+      <decile_6 survival="100" />
+      <decile_7 survival="100" />
+      <decile_8 survival="100" />
+      <decile_9 survival="100" />
+      <decile_10 survival="100" />
     </survival>
+    <!--Percentage of people who become sick over the next 10% of their life-->
     <sickness>
-      <decile num="1" chance="0" />
-      <decile num="2" chance="0" />
-      <decile num="3" chance="0" />
-      <decile num="4" chance="0" />
-      <decile num="5" chance="0" />
-      <decile num="6" chance="0" />
-      <decile num="7" chance="0" />
-      <decile num="8" chance="0" />
-      <decile num="9" chance="0" />
-      <decile num="10" chance="0" />
+      <decile_1 chance="0" />
+      <decile_2 chance="0" />
+      <decile_3 chance="0" />
+      <decile_4 chance="0" />
+      <decile_5 chance="0" />
+      <decile_6 chance="0" />
+      <decile_7 chance="0" />
+      <decile_8 chance="0" />
+      <decile_9 chance="0" />
+      <decile_10 chance="0" />
     </sickness>
+    <!--Percentage of dead who will instantly disappear-->
+    <cheatHearse chance="50" />
   </lifespan>
 </WG_CitizenEdit>

@@ -36,13 +36,14 @@ namespace WG_CitizenEdit
                 for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)
                 {
                     // Natural log, C# is weird with names and this is approximate anyway
+                    // TODO - Fix survival being at 0 log(0) causes issues!
                     DataStore.survivalProbCalc[i] = (int) (100000 - (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) / 25))));
                 }
 
                 // Do conversion from sicknessProbInXML
                 for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
                 {
-                    // Simple division as it is straight division
+                    // Simple division
                     DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25));
                 }
 
@@ -73,7 +74,7 @@ namespace WG_CitizenEdit
 
                 try
                 {
-                    WG_XMLBaseVersion xml = new XML_VersionOne();
+                    WG_XMLBaseVersion xml = new XML_VersionTwo();
                     xml.writeXML(currentFileLocation);
                 }
                 catch (Exception e)
@@ -164,11 +165,30 @@ namespace WG_CitizenEdit
             if (File.Exists(currentFileLocation))
             {
                 // Load in from XML - Designed to be flat file for ease
-                WG_XMLBaseVersion reader = new XML_VersionOne();
+                WG_XMLBaseVersion reader = new XML_VersionTwo();
                 XmlDocument doc = new XmlDocument();
                 try
                 {
                     doc.Load(currentFileLocation);
+                    int version = Convert.ToInt32(doc.DocumentElement.Attributes["version"].InnerText);
+                    if (version == 1)
+                    {
+                        reader = new XML_VersionOne();
+
+                        // Make a back up copy of the old system to be safe
+                        File.Copy(currentFileLocation, currentFileLocation + ".ver1", true);
+                        string error = "Detected an old version of the XML (v1). " + currentFileLocation + ".ver1 has been created for future reference and will be upgraded to the new version.";
+                        Debugging.bufferWarning(error);
+                        UnityEngine.Debug.Log(error);
+                    }
+                    else if (version <= 0) // Uh oh... version 0 was a while back..
+                    {
+                        string error = "Detected an unsupported version of the XML (v0 or less). Backing up for a new configuration as :" + currentFileLocation + ".ver0";
+                        Debugging.bufferWarning(error);
+                        UnityEngine.Debug.Log(error);
+                        File.Copy(currentFileLocation, currentFileLocation + ".ver0", true);
+                        return;
+                    }
                     reader.readXML(doc);
                 }
                 catch (Exception e)

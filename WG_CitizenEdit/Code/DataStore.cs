@@ -12,16 +12,25 @@
         // Source: http://www.aga.gov.au/publications/life_table_2010-12/ (averaged out with both genders and in blocks of 10 years)
         // Per decile, raw data
         public static double[] survivalProbInXML = { 0.99514, 0.99823, 0.99582, 0.99326, 0.98694, 0.97076, 0.93192, 0.82096, 0.50858, 0.11799, 0.01764 };
-        public static int[] survivalProbCalc = new int[survivalProbInXML.Length];
+        public static int[]    survivalProbCalc = new int[survivalProbInXML.Length];
 
         // Per decile who will get sick
         public static double[] sicknessProbInXML = { 0.0125, 0.0075, 0.01, 0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.075, 0.25 };
-        public static int[] sicknessProbCalc = new int[sicknessProbInXML.Length];
+        public static int[]    sicknessProbCalc = new int[sicknessProbInXML.Length];
+
+        // Per decile who will die if in healthcare (Replaces survival)
+        public static double[] sickDeathChance = { 0.005, 0.005, 0.005, 0.0075, 0.01, 0.015, 0.02, 0.025, 0.03, 0.05, 0.1 };
+
+        public static int autoDeadRemovalChance = 50;
 
         public static int[] citizenNumberBounds;
 
         public static int[] incomingSingleAge = { 65, 165 };
         public static int[] incomingAdultAge  = { 85, 185 };
+
+        // Per decile who will leave the city if they are the main person (1st)
+        public static double[] emigrateChance = { 100, 100, 0.0075, 0.01, 0.0125, 0.015, 0.04, 0.1, 0.2, 0.45, 0.75 };
+        public static int[] emigrateProbCalc = new int[emigrateChance.Length];
 
         // Travel -------------------------------------------------------------
         public const int LOW = 0;

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace WG_CitizenEdit
 {
-    //[TargetType(typeof(ResidentAI))]
+    //[TargetType(typeof(Citizen))]
     struct CitizenStruct
     {
     }
