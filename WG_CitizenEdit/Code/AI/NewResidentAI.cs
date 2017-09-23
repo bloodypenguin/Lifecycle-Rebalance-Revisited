@@ -118,23 +118,34 @@ namespace WG_CitizenEdit
                 data.Age = num;
                 if (data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0)
                 {
-                    int modifier = 100000 + ((24 * data.m_health) + (6 * data.m_wellbeing) - 1000); // Range from 99000 to 102000 (-1000 to 2000 variation)
 
-                    bool died = true;
+                    // Potential allow citizens to live up to 274+ ticks
                     int index = num / 25;
+                    bool died = true;
+                    int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000); // 90 - 110
 
                     if (index < DataStore.survivalProbCalc.Length)
                     {
-                       // Potential allow citizens to live up to 274+ ticks
-                       died = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index];
+                        int check = DataStore.survivalProbCalc[index];
+
+                        // Find if at hospital to change death chance
+                        ushort buildingID = data.GetBuildingByLocation();
+                        Building b = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID];
+                        //if (b.Info.m_class.m_service.Equals(ItemClass.Service.HealthCare) && data.Sick)
+                        if (data.Sick)
+                        {
 //Debugging.writeDebugToFile(citizenID + ". Modifier: " + modifier + ", survival: " + DataStore.survivalProbCalc[index] + ", sick: " + DataStore.sicknessProbCalc[index]);
+                            // death chance is flat percentage
+                            //modifier = (int) (modifier * DataStore.sickDeathChance[index]);
+                        }
+
+                        died = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < check;
                     }
 
                     if (died)
                     {
-                        // Feel like splitting this out to spread it out
                         Die(citizenID, ref data);
-                        if (Singleton<SimulationManager>.instance.m_randomizer.Int32(2u) == 0)
+                        if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 99) < DataStore.autoDeadRemovalChance)
                         {
                             Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
                             return true;
@@ -144,11 +155,21 @@ namespace WG_CitizenEdit
                     {
                         data.Sick = true;
                     }
-                    else
+/*
+                    else if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.emigrateChance[index])
                     {
-                        // Random move out?
-                        //data.m_homeBuilding;
+                        // If only one in there, then it's okay. Otherwise
+                        Building b = Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_homeBuilding];
+                        uint unitID = b.FindCitizenUnit(CitizenUnit.Flags.None, citizenID);
+                        CitizenUnit home = Singleton<CitizenManager>.instance.m_units.m_buffer[unitID];
+                        if ((home.m_citizen0 != citizenID) || (home.m_citizen1 != citizenID))
+                        {
+                            // Check if else where
+//                            Debugging.writeDebugToFile("Eject family");
+                        }
+                        // ResidentAI.MoveFamily(uint homeID, ref CitizenUnit data, ushort targetBuilding)
                     } // end die and sick checks
+*/
                 } // end moving check
             } // end if canTick
             return false;
