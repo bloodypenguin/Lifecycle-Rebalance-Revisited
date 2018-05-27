@@ -204,19 +204,40 @@ namespace WG_CitizenEdit
         private static int[] getArray(Citizen.Wealth wealthLevel, ItemClass.SubService subService, Citizen.AgeGroup ageGroup)
         {
             int[][] array;
-            int densityIndex = (subService == ItemClass.SubService.ResidentialHigh) ? 1 : 0;
-            switch (wealthLevel)
+            // TODO - split for eco
+            bool eco = (subService == ItemClass.SubService.ResidentialHighEco) || (subService == ItemClass.SubService.ResidentialLowEco);
+            int densityIndex = (subService == ItemClass.SubService.ResidentialHigh) || (subService == ItemClass.SubService.ResidentialHighEco) ? 1 : 0;
+            if (eco)
             {
-                case Citizen.Wealth.High:
-                    array = DataStore.wealth_high[densityIndex];
-                    break;
-                case Citizen.Wealth.Medium:
-                    array = DataStore.wealth_med[densityIndex];
-                    break;
-                case Citizen.Wealth.Low:
-                default:
-                    array = DataStore.wealth_low[densityIndex];
-                    break;
+                switch (wealthLevel)
+                {
+                    case Citizen.Wealth.High:
+                        array = DataStore.eco_wealth_high[densityIndex];
+                        break;
+                    case Citizen.Wealth.Medium:
+                        array = DataStore.eco_wealth_med[densityIndex];
+                        break;
+                    case Citizen.Wealth.Low:
+                    default:
+                        array = DataStore.eco_wealth_low[densityIndex];
+                        break;
+                }
+            }
+            else
+            {
+                switch (wealthLevel)
+                {
+                    case Citizen.Wealth.High:
+                        array = DataStore.wealth_high[densityIndex];
+                        break;
+                    case Citizen.Wealth.Medium:
+                        array = DataStore.wealth_med[densityIndex];
+                        break;
+                    case Citizen.Wealth.Low:
+                    default:
+                        array = DataStore.wealth_low[densityIndex];
+                        break;
+                }
             }
             return array[(int)ageGroup];
         }

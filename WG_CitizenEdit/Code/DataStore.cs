@@ -80,5 +80,41 @@
                                                               new int [] { 7, 20, 3},
                                                               new int [] { 9, 10, 4},
                                                               new int [] { 8,  1, 5} }};
+
+        public static int[][][] eco_wealth_low = { new int[][] { new int [] { 0, 40, 0},
+                                                                 new int [] { 7, 30, 0},
+                                                                 new int [] {25, 20, 1},
+                                                                 new int [] {40, 10, 2},
+                                                                 new int [] {20,  5, 3} },
+
+                                                   new int[][] { new int [] {0, 40, 0},
+                                                                 new int [] {1, 30, 0},
+                                                                 new int [] {2, 20, 1},
+                                                                 new int [] {4, 10, 2},
+                                                                 new int [] {3,  2, 3} }};
+
+        public static int[][][] eco_wealth_med = { new int[][] { new int [] { 0, 40, 0},
+                                                                 new int [] { 8, 30, 1},
+                                                                 new int [] {33, 20, 2},
+                                                                 new int [] {43, 10, 4},
+                                                                 new int [] {23,  2, 6} },
+
+                                                   new int[][] { new int [] {0, 40, 0},
+                                                                 new int [] {2, 30, 1},
+                                                                 new int [] {4, 20, 2},
+                                                                 new int [] {5, 10, 3},
+                                                                 new int [] {4,  2, 5} }};
+
+        public static int[][][] eco_wealth_high = { new int[][] { new int [] { 0, 40, 0},
+                                                                  new int [] {10, 30, 2},
+                                                                  new int [] {37, 20, 3},
+                                                                  new int [] {46, 10, 4},
+                                                                  new int [] {30,  2, 6} },
+
+                                                    new int[][] { new int [] { 0, 40, 0},
+                                                                  new int [] { 3, 30, 2},
+                                                                  new int [] { 4, 20, 3},
+                                                                  new int [] { 6, 10, 4},
+                                                                  new int [] { 5,  1, 5} }};
     }
 }
