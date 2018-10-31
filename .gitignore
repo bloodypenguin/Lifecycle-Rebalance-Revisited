@@ -1,7 +1,5 @@
 *.dll
-*.csproj
 *.suo
-*.sln
 *.xls*
 Help/*
 WG_CitizenEdit/bin/*

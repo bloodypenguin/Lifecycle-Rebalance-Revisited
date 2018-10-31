@@ -30,7 +30,6 @@ namespace WG_CitizenEdit
                 DistrictManager instance = Singleton<DistrictManager>.instance;
                 Building building = Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)homeBuilding];
                 District district = instance.m_districts.m_buffer[instance.GetDistrict(building.m_position)];
-                district.GetHealCapacity();
                 DistrictPolicies.CityPlanning cityPlanningPolicies = district.m_cityPlanningPolicies;
 
                 livesInBike = (cityPlanningPolicies & DistrictPolicies.CityPlanning.EncourageBiking) != DistrictPolicies.CityPlanning.None;
@@ -98,6 +97,7 @@ namespace WG_CitizenEdit
                     FinishSchoolOrWork(citizenID, ref data);
                 }
                 else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % 15 == 0))  // Workspeed multiplier?
+                //else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % DataStore.workNumberCheck == 0))  // Workspeed multiplier?
                 {
                     FinishSchoolOrWork(citizenID, ref data);
                 }

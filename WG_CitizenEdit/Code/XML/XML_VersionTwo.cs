@@ -119,13 +119,32 @@ namespace WG_CitizenEdit
                 Debugging.bufferWarning("lifespan multiplier was not an integer: " + e.Message + ". Setting to 3");
                 DataStore.lifeSpanMultiplier = 3;
             }
+/*
+            try
+            {
+                DataStore.workSpeedMultiplier = Convert.ToInt32(root.Attributes["workspeed"].InnerText);
+            }
+            catch (Exception e)
+            {
+                Debugging.bufferWarning("workspeed multiplier was not an integer: " + e.Message + ". Setting to 3");
+                DataStore.workSpeedMultiplier = 3;
+            }
+*/
 
             if (DataStore.lifeSpanMultiplier <= 0)
             {
                 Debugging.bufferWarning("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 3");
                 DataStore.lifeSpanMultiplier = 3;
             }
+/*
+            if (DataStore.workSpeedMultiplier <= 0)
+            {
+                Debugging.bufferWarning("Detecting a work speed multiplier less than or equal to 0 . Setting to 3");
+                DataStore.workSpeedMultiplier = 3;
+            }
 
+            DataStore.workNumberCheck = 15 / DataStore.workSpeedMultiplier;
+*/
             foreach (XmlNode node in root.ChildNodes)
             {
                 if (node.Name.Equals(survivalNodeName))
@@ -434,6 +453,9 @@ namespace WG_CitizenEdit
             XmlNode node = xmlDoc.CreateElement(lifeSpanNodeName);
             XmlAttribute attribute = xmlDoc.CreateAttribute("modifier");
             attribute.Value = Convert.ToString(DataStore.lifeSpanMultiplier);
+            node.Attributes.Append(attribute);
+            attribute = xmlDoc.CreateAttribute("workspeed");
+            attribute.Value = Convert.ToString(DataStore.workSpeedMultiplier); 
             node.Attributes.Append(attribute);
 
             XmlComment comment = xmlDoc.CreateComment("Percentage of people who survive to the next 10% of their life");
