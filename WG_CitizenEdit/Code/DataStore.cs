@@ -4,7 +4,8 @@
     {
         // Citizen life span --------------------------------------------------
         public static int lifeSpanMultiplier = 3;
-        public static int workSpeedMultiplier = 2;  // Might as well be half of the multiplier (maybe)
+        public static int workSpeedMultiplier = 1;  // Might as well be half of the multiplier (maybe)
+        public static int workNumberCheck = 15;
 
 
         // Survival number to next decile. In units of 1/100000
