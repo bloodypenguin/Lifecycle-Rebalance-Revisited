@@ -7,6 +7,9 @@ using ICities;
 using System.Diagnostics;
 using Boformer.Redirection;
 using ColossalFramework;
+using ColossalFramework.UI;
+using ColossalFramework.Plugins;
+using System.Linq;
 
 namespace WG_CitizenEdit
 {
@@ -22,10 +25,23 @@ namespace WG_CitizenEdit
         private static volatile bool isLevelLoaded = false;
         private static Stopwatch sw;
 
+        // Used to flag if a conflicting mod is running.
+        private static bool conflictingMod = false;
+        
+        public static bool IsModEnabled(UInt64 id)
+        {
+            return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id && mod.isEnabled));
+        }
+
 
         public override void OnCreated(ILoading loading)
         {
-            if (!isModEnabled)
+            // Check for original WG Citizen Lifecycle Rebalance; if it's enabled, flag and don't activate this mod.
+            if (IsModEnabled(654707599ul))
+            {
+                conflictingMod = true;
+            }
+            else if (!isModEnabled)
             {
                 isModEnabled = true;
                 sw = Stopwatch.StartNew();
@@ -98,7 +114,13 @@ namespace WG_CitizenEdit
 
         public override void OnLevelLoaded(LoadMode mode)
         {
-            if (mode == LoadMode.LoadGame || mode == LoadMode.NewGame)
+            // Check to see if an conflicting mod has been detected - if so, alert the user and abort operation.
+            if (conflictingMod)
+            {
+                ExceptionPanel panel = UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel");
+                panel.SetMessage("Lifecycle Rebalance Revisited", "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!", false);
+            }
+            else if (mode == LoadMode.LoadGame || mode == LoadMode.NewGame)
             {
                 if (!isLevelLoaded)
                 {
