@@ -7,13 +7,11 @@ namespace WG_CitizenEdit
     {
         public string Name
         {
-            get { return "WG Citizen Lifecycle Rebalance v2.6"; }
+            get { return "Lifecycle Rebalance Revisited"; }
         }
         public string Description
         {
-            get { return "Changes how citizens will travel to and from their locations, increases life span and the ages of people who move in"; }
+            get { return "Increases and randomises citizen life span, randomises the ages and education levels of immigrants, and changes how citizens travel to and from work."; }
         }
     }
 }
-
-

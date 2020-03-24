@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WG_CitizenLifecycleRebalance")]
+[assembly: AssemblyTitle("Lifecycle Rebalance Revisited")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WG_CitizenLifecycleRebalanceConfiguration")]
-[assembly: AssemblyCopyright("Copyright Whitefang Greytail ©  2016")]
+[assembly: AssemblyProduct("Lifecycle Rebalance Revisited")]
+[assembly: AssemblyCopyright("Copyright © 2016-2020 algernon, Whitefang Greytail")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("162ab551-ae36-46bb-a9c9-476eb7316f75")]
+[assembly: Guid("9b00e612-8ca7-4425-b8a2-141ab0456232")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,8 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
