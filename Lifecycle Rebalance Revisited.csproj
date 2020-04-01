@@ -101,25 +101,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WG_CitizenEdit\Code\AI\CitizenStruct.cs" />
-    <Compile Include="WG_CitizenEdit\Code\AI\NewOutsideConnectionAI.cs" />
-    <Compile Include="WG_CitizenEdit\Code\AI\NewResidentAI.cs" />
-    <Compile Include="WG_CitizenEdit\Code\AI\Threading.cs" />
-    <Compile Include="WG_CitizenEdit\Code\BP_Redirection\RedirectionHelper.cs" />
-    <Compile Include="WG_CitizenEdit\Code\BP_Redirection\RedirectionUtil.cs" />
-    <Compile Include="WG_CitizenEdit\Code\BP_Redirection\RedirectMethodAttribute.cs" />
-    <Compile Include="WG_CitizenEdit\Code\BP_Redirection\Redirector.cs" />
-    <Compile Include="WG_CitizenEdit\Code\BP_Redirection\RedirectReverseAttribute.cs" />
-    <Compile Include="WG_CitizenEdit\Code\BP_Redirection\TargetTypeAttribute.cs" />
-    <Compile Include="WG_CitizenEdit\Code\BP_Redirection\Tuple.cs" />
-    <Compile Include="WG_CitizenEdit\Code\DataStore.cs" />
-    <Compile Include="WG_CitizenEdit\Code\Debugging.cs" />
-    <Compile Include="WG_CitizenEdit\Code\info.cs" />
-    <Compile Include="WG_CitizenEdit\Code\main.cs" />
-    <Compile Include="WG_CitizenEdit\Code\RedirectionHelper.cs" />
-    <Compile Include="WG_CitizenEdit\Code\XML\WG_XMLBaseVersion.cs" />
-    <Compile Include="WG_CitizenEdit\Code\XML\XML_VerisonOne.cs" />
-    <Compile Include="WG_CitizenEdit\Code\XML\XML_VersionTwo.cs" />
+    <Compile Include="Code\AI\CitizenStruct.cs" />
+    <Compile Include="Code\AI\NewOutsideConnectionAI.cs" />
+    <Compile Include="Code\AI\NewResidentAI.cs" />
+    <Compile Include="Code\AI\Threading.cs" />
+    <Compile Include="Code\BP_Redirection\RedirectionHelper.cs" />
+    <Compile Include="Code\BP_Redirection\RedirectionUtil.cs" />
+    <Compile Include="Code\BP_Redirection\RedirectMethodAttribute.cs" />
+    <Compile Include="Code\BP_Redirection\Redirector.cs" />
+    <Compile Include="Code\BP_Redirection\RedirectReverseAttribute.cs" />
+    <Compile Include="Code\BP_Redirection\TargetTypeAttribute.cs" />
+    <Compile Include="Code\BP_Redirection\Tuple.cs" />
+    <Compile Include="Code\DataStore.cs" />
+    <Compile Include="Code\Debugging.cs" />
+    <Compile Include="Code\info.cs" />
+    <Compile Include="Code\main.cs" />
+    <Compile Include="Code\RedirectionHelper.cs" />
+    <Compile Include="Code\XML\WG_XMLBaseVersion.cs" />
+    <Compile Include="Code\XML\XML_VerisonOne.cs" />
+    <Compile Include="Code\XML\XML_VersionTwo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />
