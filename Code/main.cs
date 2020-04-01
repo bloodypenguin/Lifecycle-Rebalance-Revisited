@@ -88,16 +88,6 @@ namespace LifecycleRebalanceRevisited
             {
                 isModEnabled = false;
 
-                try
-                {
-                    WG_XMLBaseVersion xml = new XML_VersionTwo();
-                    xml.writeXML(currentFileLocation);
-                }
-                catch (Exception e)
-                {
-                    Debugging.panelMessage(e.Message);
-                }
-
                 RevertRedirect();
             }
         }
@@ -132,6 +122,16 @@ namespace LifecycleRebalanceRevisited
                     int temp = (int) (Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
                     Threading.counter = temp % DataStore.lifeSpanMultiplier;
                 }
+            }
+
+            try
+            {
+                WG_XMLBaseVersion xml = new XML_VersionTwo();
+                xml.writeXML(currentFileLocation);
+            }
+            catch (Exception e)
+            {
+                Debugging.panelMessage(e.Message);
             }
         }
 
