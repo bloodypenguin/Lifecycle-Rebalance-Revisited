@@ -10,11 +10,15 @@ using ColossalFramework;
 using ColossalFramework.UI;
 using ColossalFramework.Plugins;
 using System.Linq;
+using Harmony;
 
 namespace LifecycleRebalanceRevisited
 {
     public class LoadingExtension : LoadingExtensionBase
     {
+        const string HarmonyID = "com.github.algernon-A.csl.lifecyclerebalancerevisited";
+        private HarmonyInstance _harmony = HarmonyInstance.Create(HarmonyID);
+
         public const String XML_FILE = "WG_CitizenEdit.xml";
         private readonly Dictionary<MethodInfo, Redirector> redirectsOnCreated = new Dictionary<MethodInfo, Redirector>();
 
@@ -74,6 +78,11 @@ namespace LifecycleRebalanceRevisited
                 }
 
                 Redirect();
+                
+                // Harmony patches.
+                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: version 1.1 loading.");
+                _harmony.PatchAll(GetType().Assembly);
+                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
 
                 sw.Stop();
                 UnityEngine.Debug.Log("WG_CitizenEdit: Successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
