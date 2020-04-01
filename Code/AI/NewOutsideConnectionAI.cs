@@ -3,7 +3,7 @@ using ColossalFramework;
 using System;
 using UnityEngine;
 
-namespace WG_CitizenEdit
+namespace LifecycleRebalanceRevisited
 {
     [TargetType(typeof(OutsideConnectionAI))]
     public class NewOutsideConnectionAI : OutsideConnectionAI

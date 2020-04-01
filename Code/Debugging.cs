@@ -3,7 +3,7 @@ using System.IO;
 using ColossalFramework.Plugins;
 using System.Text;
 
-namespace WG_CitizenEdit
+namespace LifecycleRebalanceRevisited
 {
     class Debugging
     {

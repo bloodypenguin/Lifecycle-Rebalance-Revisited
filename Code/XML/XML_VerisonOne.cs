@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 
-namespace WG_CitizenEdit
+namespace LifecycleRebalanceRevisited
 {
     public class XML_VersionOne : WG_XMLBaseVersion
     {

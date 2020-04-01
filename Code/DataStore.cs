@@ -1,4 +1,4 @@
-﻿namespace WG_CitizenEdit
+﻿namespace LifecycleRebalanceRevisited
 {
     public class DataStore
     {

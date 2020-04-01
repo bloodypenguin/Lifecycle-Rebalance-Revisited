@@ -2,7 +2,7 @@
 using ICities;
 using System.Text;
 
-namespace WG_CitizenEdit
+namespace LifecycleRebalanceRevisited
 {
     public class Threading : ThreadingExtensionBase
     {

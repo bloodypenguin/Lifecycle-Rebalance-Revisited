@@ -4,7 +4,7 @@ using ColossalFramework.Math;
 using System;
 using System.Runtime.CompilerServices;
 
-namespace WG_CitizenEdit
+namespace LifecycleRebalanceRevisited
 {
     //[TargetType(typeof(Citizen))]
     struct CitizenStruct

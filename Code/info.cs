@@ -1,7 +1,7 @@
 ﻿using ICities;
 
 
-namespace WG_CitizenEdit
+namespace LifecycleRebalanceRevisited
 {
     public class ResidentTravelRebalanceMod : IUserMod
     {

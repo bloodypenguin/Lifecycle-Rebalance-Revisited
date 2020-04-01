@@ -11,7 +11,7 @@ using ColossalFramework.UI;
 using ColossalFramework.Plugins;
 using System.Linq;
 
-namespace WG_CitizenEdit
+namespace LifecycleRebalanceRevisited
 {
     public class LoadingExtension : LoadingExtensionBase
     {
