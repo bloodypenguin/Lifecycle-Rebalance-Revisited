@@ -32,6 +32,9 @@
     <RootNamespace>LifecycleRebalanceRevisited</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.1.2.0.1\lib\net35\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -80,6 +83,7 @@
     <None Include=".vs\Lifecycle-Rebalance-Revisited\v16\.suo" />
     <None Include=".vs\slnx.sqlite" />
     <None Include=".vs\VSWorkspaceState.json" />
+    <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -101,22 +105,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Code\AI\CitizenStruct.cs" />
     <Compile Include="Code\AI\NewOutsideConnectionAI.cs" />
     <Compile Include="Code\AI\NewResidentAI.cs" />
     <Compile Include="Code\AI\Threading.cs" />
-    <Compile Include="Code\BP_Redirection\RedirectionHelper.cs" />
-    <Compile Include="Code\BP_Redirection\RedirectionUtil.cs" />
-    <Compile Include="Code\BP_Redirection\RedirectMethodAttribute.cs" />
-    <Compile Include="Code\BP_Redirection\Redirector.cs" />
-    <Compile Include="Code\BP_Redirection\RedirectReverseAttribute.cs" />
-    <Compile Include="Code\BP_Redirection\TargetTypeAttribute.cs" />
-    <Compile Include="Code\BP_Redirection\Tuple.cs" />
     <Compile Include="Code\DataStore.cs" />
     <Compile Include="Code\Debugging.cs" />
     <Compile Include="Code\info.cs" />
     <Compile Include="Code\main.cs" />
-    <Compile Include="Code\RedirectionHelper.cs" />
     <Compile Include="Code\XML\WG_XMLBaseVersion.cs" />
     <Compile Include="Code\XML\XML_VerisonOne.cs" />
     <Compile Include="Code\XML\XML_VersionTwo.cs" />
@@ -133,6 +128,10 @@
   <PropertyGroup>
     <PostBuildEvent>mkdir "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\$(TargetFileName)"
-xcopy /y "$(TargetPath)" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"</PostBuildEvent>
+xcopy /y "$(TargetPath)" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
+del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\*.xml"
+xcopy /y "$(SolutionDir)\XML_Files\*xml" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
+del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\0Harmony.dll"
+xcopy /y "$(SolutionDir)packages\Lib.Harmony.1.2.0.1\lib\net35\0Harmony.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
