@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Xml;
 using ICities;
 using System.Diagnostics;
-using Boformer.Redirection;
 using ColossalFramework;
 using ColossalFramework.UI;
 using ColossalFramework.Plugins;
@@ -20,7 +18,6 @@ namespace LifecycleRebalanceRevisited
         private HarmonyInstance _harmony = HarmonyInstance.Create(HarmonyID);
 
         public const String XML_FILE = "WG_CitizenEdit.xml";
-        private readonly Dictionary<MethodInfo, Redirector> redirectsOnCreated = new Dictionary<MethodInfo, Redirector>();
 
         // This can be with the local application directory, or the directory where the exe file exists.
         // Default location is the local application directory, however the exe directory is checked first
@@ -76,8 +73,6 @@ namespace LifecycleRebalanceRevisited
                 {
                     DataStore.citizenNumberBounds[i] = DataStore.citizenNumberBounds[i - 1] + increment;
                 }
-
-                Redirect();
                 
                 // Harmony patches.
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: version 1.1 loading.");
@@ -97,7 +92,9 @@ namespace LifecycleRebalanceRevisited
             {
                 isModEnabled = false;
 
-                RevertRedirect();
+                // Unapply Harmony patches.
+                _harmony.UnpatchAll(HarmonyID);
+                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patches unapplied.");
             }
         }
 
@@ -144,46 +141,6 @@ namespace LifecycleRebalanceRevisited
             }
         }
 
-
-        private void Redirect()
-        {
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
-            {
-                try
-                {
-                    var r = RedirectionUtil.RedirectType(type);
-                    if (r != null)
-                    {
-                        foreach (var pair in r)
-                        {
-                            redirectsOnCreated.Add(pair.Key, pair.Value);
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    UnityEngine.Debug.Log($"An error occured while applying {type.Name} redirects!");
-                    UnityEngine.Debug.Log(e.StackTrace);
-                }
-            }
-        }
-
-        private void RevertRedirect()
-        {
-            foreach (var kvp in redirectsOnCreated)
-            {
-                try
-                {
-                    kvp.Value.Revert();
-                }
-                catch (Exception e)
-                {
-                    UnityEngine.Debug.Log($"An error occured while reverting {kvp.Key.Name} redirect!");
-                    UnityEngine.Debug.Log(e.StackTrace);
-                }
-            }
-            redirectsOnCreated.Clear();
-        }
 
         /// <summary>
         ///
