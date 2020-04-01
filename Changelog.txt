@@ -1,0 +1,12 @@
+﻿Version 1.1 -
+
+- Migrated from redirection to Harmony
+- XML configuration files now saved when save games are loaded, not after exit (compatibility with 'instant exit' process killing)
+- Update logging
+- Introduced formal versioning
+
+
+Version 1.0 (unlabeled) -
+
+- Initial upload
+- Add check for old mod (via Steam Workshop subscription)
