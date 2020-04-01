@@ -15,7 +15,6 @@ namespace LifecycleRebalanceRevisited
         // OutsideConnectionAI
         private static bool Prefix(bool __result, ushort buildingID, ref Building data, TransferManager.TransferReason material, TransferManager.TransferOffer offer, int touristFactor0, int touristFactor1, int touristFactor2)
         {
-            Debug.Log("CAT!!!! StartConnectionTransferImpl");
             BuildingManager instance = Singleton<BuildingManager>.instance;
             VehicleInfo vehicleInfo = null;
             Citizen.Education education = Citizen.Education.Uneducated;
