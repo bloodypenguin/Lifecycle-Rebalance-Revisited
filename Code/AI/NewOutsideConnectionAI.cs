@@ -27,11 +27,11 @@ namespace LifecycleRebalanceRevisited
                 ushort building = offer.Building;
                 if (building != 0)
                 {
-                    Vector3 position = instance.m_buildings.m_buffer[(int)building].m_position;
+                    Vector3 position = instance.m_buildings.m_buffer[building].m_position;
                     if (Vector3.SqrMagnitude(position - data.m_position) > 40000f)
                     {
                         flag2 = true;
-                        switch (Singleton<SimulationManager>.instance.m_randomizer.Int32(38u))
+                        switch (Singleton<SimulationManager>.instance.m_randomizer.Int32(39u))
                         {
                             case 0:
                                 material = TransferManager.TransferReason.Ore;
@@ -88,63 +88,66 @@ namespace LifecycleRebalanceRevisited
                                 material = TransferManager.TransferReason.Single3B;
                                 break;
                             case 18:
-                                material = TransferManager.TransferReason.Family0;
+                                material = TransferManager.TransferReason.DummyCar;
                                 break;
                             case 19:
-                                material = TransferManager.TransferReason.Family1;
+                                material = TransferManager.TransferReason.Family0;
                                 break;
                             case 20:
-                                material = TransferManager.TransferReason.Family2;
+                                material = TransferManager.TransferReason.Family1;
                                 break;
                             case 21:
-                                material = TransferManager.TransferReason.Family3;
+                                material = TransferManager.TransferReason.Family2;
                                 break;
                             case 22:
-                                material = TransferManager.TransferReason.Shopping;
+                                material = TransferManager.TransferReason.Family3;
                                 break;
                             case 23:
-                                material = TransferManager.TransferReason.ShoppingB;
+                                material = TransferManager.TransferReason.Shopping;
                                 break;
                             case 24:
-                                material = TransferManager.TransferReason.ShoppingC;
+                                material = TransferManager.TransferReason.ShoppingB;
                                 break;
                             case 25:
-                                material = TransferManager.TransferReason.ShoppingD;
+                                material = TransferManager.TransferReason.ShoppingC;
                                 break;
                             case 26:
-                                material = TransferManager.TransferReason.ShoppingE;
+                                material = TransferManager.TransferReason.ShoppingD;
                                 break;
                             case 27:
-                                material = TransferManager.TransferReason.ShoppingF;
+                                material = TransferManager.TransferReason.ShoppingE;
                                 break;
                             case 28:
-                                material = TransferManager.TransferReason.ShoppingG;
+                                material = TransferManager.TransferReason.ShoppingF;
                                 break;
                             case 29:
-                                material = TransferManager.TransferReason.ShoppingH;
+                                material = TransferManager.TransferReason.ShoppingG;
                                 break;
                             case 30:
-                                material = TransferManager.TransferReason.Entertainment;
+                                material = TransferManager.TransferReason.ShoppingH;
                                 break;
                             case 31:
-                                material = TransferManager.TransferReason.EntertainmentB;
+                                material = TransferManager.TransferReason.Entertainment;
                                 break;
                             case 32:
-                                material = TransferManager.TransferReason.EntertainmentC;
+                                material = TransferManager.TransferReason.EntertainmentB;
                                 break;
                             case 33:
-                                material = TransferManager.TransferReason.EntertainmentD;
+                                material = TransferManager.TransferReason.EntertainmentC;
                                 break;
                             case 34:
-                                material = TransferManager.TransferReason.TouristA;
+                                material = TransferManager.TransferReason.EntertainmentD;
                                 break;
                             case 35:
-                                material = TransferManager.TransferReason.TouristB;
+                                material = TransferManager.TransferReason.TouristA;
                                 break;
                             case 36:
-                                material = TransferManager.TransferReason.TouristC;
+                                material = TransferManager.TransferReason.TouristB;
                                 break;
                             case 37:
+                                material = TransferManager.TransferReason.TouristC;
+                                break;
+                            case 38:
                                 material = TransferManager.TransferReason.TouristD;
                                 break;
                         }
@@ -153,95 +156,78 @@ namespace LifecycleRebalanceRevisited
             }
             switch (material)
             {
-                case TransferManager.TransferReason.Oil:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialOil, ItemClass.Level.Level2);
-                    goto IL_63C;
                 case TransferManager.TransferReason.Ore:
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialOre, ItemClass.Level.Level2);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Logs:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialForestry, ItemClass.Level.Level2);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Grain:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialFarming, ItemClass.Level.Level2);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Goods:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialGeneric, ItemClass.Level.Level1);
-                    goto IL_63C;
-                case TransferManager.TransferReason.PassengerTrain:
-                case TransferManager.TransferReason.PartnerYoung:
-                case TransferManager.TransferReason.PartnerAdult:
-                case TransferManager.TransferReason.LeaveCity0:
-                case TransferManager.TransferReason.LeaveCity1:
-                case TransferManager.TransferReason.LeaveCity2:
-                case TransferManager.TransferReason.GarbageMove:
-                case TransferManager.TransferReason.MetroTrain:
-                case TransferManager.TransferReason.PassengerPlane:
-                case TransferManager.TransferReason.PassengerShip:
-                case TransferManager.TransferReason.DeadMove:
-                case TransferManager.TransferReason.DummyCar:
-                IL_33B:
-                    switch (material)
-                    {
-                        case TransferManager.TransferReason.TouristA:
-                        case TransferManager.TransferReason.TouristB:
-                        case TransferManager.TransferReason.TouristC:
-                        case TransferManager.TransferReason.TouristD:
-                            goto IL_53D;
-                        case TransferManager.TransferReason.UnsortedMail:
-                        case TransferManager.TransferReason.OutgoingMail:
-                            flag3 = true;
-                            vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPost, ItemClass.Level.Level5);
-                            goto IL_63C;
-                        case TransferManager.TransferReason.SortedMail:
-                        case TransferManager.TransferReason.IncomingMail:
-                            vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPost, ItemClass.Level.Level5);
-                            goto IL_63C;
-                    }
-                    // Original method return value.
-                    __result = false;
-
-                    // Don't execute base method after this.
-                    return false;
+                    break;
                 case TransferManager.TransferReason.Coal:
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialOre, ItemClass.Level.Level1);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Family0:
-                    education = Citizen.Education.Uneducated;
-                    num = Singleton<SimulationManager>.instance.m_randomizer.Int32(2, 5);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Family1:
-                    education = Citizen.Education.OneSchool;
-                    num = Singleton<SimulationManager>.instance.m_randomizer.Int32(2, 5);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Family2:
-                    education = Citizen.Education.TwoSchools;
-                    num = Singleton<SimulationManager>.instance.m_randomizer.Int32(2, 5);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Family3:
-                    education = Citizen.Education.ThreeSchools;
-                    num = Singleton<SimulationManager>.instance.m_randomizer.Int32(2, 5);
-                    goto IL_63C;
+                    break;
+                case TransferManager.TransferReason.Oil:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialOil, ItemClass.Level.Level2);
+                    break;
+                case TransferManager.TransferReason.Petrol:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialOil, ItemClass.Level.Level1);
+                    break;
+                case TransferManager.TransferReason.Grain:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialFarming, ItemClass.Level.Level2);
+                    break;
+                case TransferManager.TransferReason.Food:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialFarming, ItemClass.Level.Level1);
+                    break;
+                case TransferManager.TransferReason.Logs:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialForestry, ItemClass.Level.Level2);
+                    break;
+                case TransferManager.TransferReason.Lumber:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialForestry, ItemClass.Level.Level1);
+                    break;
+                case TransferManager.TransferReason.Goods:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialGeneric, ItemClass.Level.Level1);
+                    break;
+                case TransferManager.TransferReason.SortedMail:
+                case TransferManager.TransferReason.IncomingMail:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPost, ItemClass.Level.Level5);
+                    break;
+                case TransferManager.TransferReason.UnsortedMail:
+                case TransferManager.TransferReason.OutgoingMail:
+                    flag3 = true;
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPost, ItemClass.Level.Level5);
+                    break;
                 case TransferManager.TransferReason.Single0:
                 case TransferManager.TransferReason.Single0B:
                     education = Citizen.Education.Uneducated;
                     num = 1;
-                    goto IL_63C;
+                    break;
                 case TransferManager.TransferReason.Single1:
                 case TransferManager.TransferReason.Single1B:
                     education = Citizen.Education.OneSchool;
                     num = 1;
-                    goto IL_63C;
+                    break;
                 case TransferManager.TransferReason.Single2:
                 case TransferManager.TransferReason.Single2B:
                     education = Citizen.Education.TwoSchools;
                     num = 1;
-                    goto IL_63C;
+                    break;
                 case TransferManager.TransferReason.Single3:
                 case TransferManager.TransferReason.Single3B:
                     education = Citizen.Education.ThreeSchools;
                     num = 1;
-                    goto IL_63C;
+                    break;
+                case TransferManager.TransferReason.Family0:
+                    education = Citizen.Education.Uneducated;
+                    num = Singleton<SimulationManager>.instance.m_randomizer.Int32(2, 5);
+                    break;
+                case TransferManager.TransferReason.Family1:
+                    education = Citizen.Education.OneSchool;
+                    num = Singleton<SimulationManager>.instance.m_randomizer.Int32(2, 5);
+                    break;
+                case TransferManager.TransferReason.Family2:
+                    education = Citizen.Education.TwoSchools;
+                    num = Singleton<SimulationManager>.instance.m_randomizer.Int32(2, 5);
+                    break;
+                case TransferManager.TransferReason.Family3:
+                    education = Citizen.Education.ThreeSchools;
+                    num = Singleton<SimulationManager>.instance.m_randomizer.Int32(2, 5);
+                    break;
                 case TransferManager.TransferReason.Shopping:
                 case TransferManager.TransferReason.Entertainment:
                 case TransferManager.TransferReason.ShoppingB:
@@ -254,78 +240,42 @@ namespace LifecycleRebalanceRevisited
                 case TransferManager.TransferReason.EntertainmentB:
                 case TransferManager.TransferReason.EntertainmentC:
                 case TransferManager.TransferReason.EntertainmentD:
-                    goto IL_53D;
-                case TransferManager.TransferReason.Petrol:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialOil, ItemClass.Level.Level1);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Food:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialFarming, ItemClass.Level.Level1);
-                    goto IL_63C;
-                case TransferManager.TransferReason.Lumber:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialForestry, ItemClass.Level.Level1);
-                    goto IL_63C;
+                case TransferManager.TransferReason.TouristA:
+                case TransferManager.TransferReason.TouristB:
+                case TransferManager.TransferReason.TouristC:
+                case TransferManager.TransferReason.TouristD:
+                    flag = true;
+                    break;
                 case TransferManager.TransferReason.DummyTrain:
                     if (offer.Building != buildingID)
                     {
                         flag2 = true;
-                        if (Singleton<SimulationManager>.instance.m_randomizer.Int32(2u) == 0)
-                        {
-                            vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportTrain, ItemClass.Level.Level4);
-                        }
-                        else
-                        {
-                            vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportTrain, ItemClass.Level.Level1);
-                        }
+                        vehicleInfo = ((Singleton<SimulationManager>.instance.m_randomizer.Int32(2u) != 0) ? Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportTrain, ItemClass.Level.Level1) : Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportTrain, ItemClass.Level.Level4));
                     }
-                    goto IL_63C;
+                    break;
                 case TransferManager.TransferReason.DummyShip:
                     if (offer.Building != buildingID)
                     {
                         flag2 = true;
-                        if (Singleton<SimulationManager>.instance.m_randomizer.Int32(2u) == 0)
-                        {
-                            vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportShip, ItemClass.Level.Level4);
-                        }
-                        else
-                        {
-                            vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportShip, ItemClass.Level.Level1);
-                        }
+                        vehicleInfo = ((Singleton<SimulationManager>.instance.m_randomizer.Int32(2u) != 0) ? Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportShip, ItemClass.Level.Level1) : Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportShip, ItemClass.Level.Level4));
                     }
-                    goto IL_63C;
+                    break;
                 case TransferManager.TransferReason.DummyPlane:
                     if (offer.Building != buildingID)
                     {
                         flag2 = true;
                         vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPlane, ItemClass.Level.Level1);
                     }
-                    goto IL_63C;
+                    break;
+                case TransferManager.TransferReason.DummyCar:
+                    if (Singleton<TransportManager>.instance.TransportTypeLoaded(TransportInfo.TransportType.Trolleybus) && offer.Building != buildingID && Singleton<SimulationManager>.instance.m_randomizer.Int32(2u) == 0)
+                    {
+                        vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportBus, ItemClass.Level.Level3);
+                    }
+                    break;
+                default:
+                    return false;
             }
-            // Copy paste to get it to work
-            switch (material)
-            {
-                case TransferManager.TransferReason.TouristA:
-                case TransferManager.TransferReason.TouristB:
-                case TransferManager.TransferReason.TouristC:
-                case TransferManager.TransferReason.TouristD:
-                    goto IL_53D;
-                case TransferManager.TransferReason.UnsortedMail:
-                case TransferManager.TransferReason.OutgoingMail:
-                    flag3 = true;
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPost, ItemClass.Level.Level5);
-                    goto IL_63C;
-                case TransferManager.TransferReason.SortedMail:
-                case TransferManager.TransferReason.IncomingMail:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPost, ItemClass.Level.Level5);
-                    goto IL_63C;
-            }
-            // Original method return value.
-            __result = false;
-
-            // Don't execute base method after this.
-            return false;
-        IL_53D:
-            flag = true;
-        IL_63C:
             if (num != 0)
             {
                 CitizenManager instance2 = Singleton<CitizenManager>.instance;
@@ -335,22 +285,23 @@ namespace LifecycleRebalanceRevisited
                     uint num2 = 0u;
                     if (!flag2)
                     {
-                        num2 = instance.m_buildings.m_buffer[(int)building2].GetEmptyCitizenUnit(CitizenUnit.Flags.Home);
+                        num2 = instance.m_buildings.m_buffer[building2].GetEmptyCitizenUnit(CitizenUnit.Flags.Home);
                     }
-                    if (num2 != 0u || flag2)
+                    if (num2 != 0 || flag2)
                     {
                         int family = Singleton<SimulationManager>.instance.m_randomizer.Int32(256u);
                         ushort num3 = 0;
                         Citizen.Gender gender = Citizen.Gender.Male;
-                        int[] ageArray = num == 1 ? DataStore.incomingSingleAge : DataStore.incomingAdultAge;
 
                         // Start of changes! ------------------------------------------------------- -------------------------------------------------------
+                        int[] ageArray = num == 1 ? DataStore.incomingSingleAge : DataStore.incomingAdultAge;
+
                         int childrenAgeMax = 0; // 80 less than the youngest adult
                         int childrenAgeMin = 0; // 180 less than the youngest adult
                         int minAdultAge = 0;
                         for (int i = 0; i < num; i++)
                         {
-                            uint num4 = 0u;
+                            uint citizen = 0u;
                             //int min = (i >= 2) ? 0 : 90;
                             //int max = (i >= 2) ? 15 : 105;
                             int min = ageArray[0];
@@ -413,78 +364,55 @@ namespace LifecycleRebalanceRevisited
                                         break;
                                 }
                             }
+
                             // End of changes? --------------------------------------------------------------------------------------------------------------
-                            bool flag5;
-                            if (i == 1)
-                            {
-                                bool flag4 = Singleton<SimulationManager>.instance.m_randomizer.Int32(100u) < 5;
-                                Citizen.Gender gender2;
-                                if (flag4)
-                                {
-                                    gender2 = gender;
-                                }
-                                else
-                                {
-                                    gender2 = ((gender != Citizen.Gender.Male) ? Citizen.Gender.Male : Citizen.Gender.Female);
-                                }
-                                flag5 = instance2.CreateCitizen(out num4, age, family, ref Singleton<SimulationManager>.instance.m_randomizer, gender2);
-                            }
-                            else
-                            {
-                                flag5 = instance2.CreateCitizen(out num4, age, family, ref Singleton<SimulationManager>.instance.m_randomizer);
-                            }
-                            if (!flag5)
+                            if (!((i != 1) ? instance2.CreateCitizen(out citizen, age, family, ref Singleton<SimulationManager>.instance.m_randomizer) : instance2.CreateCitizen(gender: (Singleton<SimulationManager>.instance.m_randomizer.Int32(100u) >= 5) ? ((gender == Citizen.Gender.Male) ? Citizen.Gender.Female : Citizen.Gender.Male) : gender, citizen: out citizen, age: age, family: family, r: ref Singleton<SimulationManager>.instance.m_randomizer)))
                             {
                                 break;
                             }
                             if (i == 0)
                             {
-                                gender = Citizen.GetGender(num4);
+                                gender = Citizen.GetGender(citizen);
                             }
                             if (education2 >= Citizen.Education.OneSchool)
                             {
-                                instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].Education1 = true;
+                                instance2.m_citizens.m_buffer[citizen].Education1 = true;
                             }
                             if (education2 >= Citizen.Education.TwoSchools)
                             {
-                                instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].Education1 = true;
-                                instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].Education2 = true;
+                                instance2.m_citizens.m_buffer[citizen].Education1 = true;
+                                instance2.m_citizens.m_buffer[citizen].Education2 = true;
                             }
                             if (education2 >= Citizen.Education.ThreeSchools)
                             {
-                                instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].Education1 = true;
-                                instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].Education2 = true;
-                                instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].Education3 = true;
+                                instance2.m_citizens.m_buffer[citizen].Education1 = true;
+                                instance2.m_citizens.m_buffer[citizen].Education2 = true;
+                                instance2.m_citizens.m_buffer[citizen].Education3 = true;
                             }
                             if (flag2)
                             {
-                                Citizen[] expr_85E_cp_0 = instance2.m_citizens.m_buffer;
-                                UIntPtr expr_85E_cp_1 = (UIntPtr)num4;
-                                expr_85E_cp_0[(int)expr_85E_cp_1].m_flags = (expr_85E_cp_0[(int)expr_85E_cp_1].m_flags | Citizen.Flags.DummyTraffic);
+                                instance2.m_citizens.m_buffer[citizen].m_flags |= Citizen.Flags.DummyTraffic;
                             }
                             else
                             {
-                                instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].SetHome(num4, 0, num2);
+                                instance2.m_citizens.m_buffer[citizen].SetHome(citizen, 0, num2);
                             }
-                            Citizen[] expr_8A3_cp_0 = instance2.m_citizens.m_buffer;
-                            UIntPtr expr_8A3_cp_1 = (UIntPtr)num4;
-                            expr_8A3_cp_0[(int)expr_8A3_cp_1].m_flags = (expr_8A3_cp_0[(int)expr_8A3_cp_1].m_flags | Citizen.Flags.MovingIn);
-                            CitizenInfo citizenInfo = instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].GetCitizenInfo(num4);
-                            ushort num5;
-                            if (citizenInfo != null && instance2.CreateCitizenInstance(out num5, ref Singleton<SimulationManager>.instance.m_randomizer, citizenInfo, num4))
+                            instance2.m_citizens.m_buffer[citizen].m_flags |= Citizen.Flags.MovingIn;
+                            CitizenInfo citizenInfo = instance2.m_citizens.m_buffer[citizen].GetCitizenInfo(citizen);
+                            if ((object)citizenInfo != null && instance2.CreateCitizenInstance(out ushort instance3, ref Singleton<SimulationManager>.instance.m_randomizer, citizenInfo, citizen))
                             {
                                 if (num3 == 0)
                                 {
-                                    citizenInfo.m_citizenAI.SetSource(num5, ref instance2.m_instances.m_buffer[(int)num5], buildingID);
-                                    citizenInfo.m_citizenAI.SetTarget(num5, ref instance2.m_instances.m_buffer[(int)num5], building2);
-                                    num3 = num5;
+                                    citizenInfo.m_citizenAI.SetSource(instance3, ref instance2.m_instances.m_buffer[instance3], buildingID);
+                                    citizenInfo.m_citizenAI.SetTarget(instance3, ref instance2.m_instances.m_buffer[instance3], building2);
+                                    num3 = instance3;
                                 }
                                 else
                                 {
-                                    citizenInfo.m_citizenAI.SetSource(num5, ref instance2.m_instances.m_buffer[(int)num5], buildingID);
-                                    citizenInfo.m_citizenAI.JoinTarget(num5, ref instance2.m_instances.m_buffer[(int)num5], num3);
+                                    citizenInfo.m_citizenAI.SetSource(instance3, ref instance2.m_instances.m_buffer[instance3], buildingID);
+                                    citizenInfo.m_citizenAI.JoinTarget(instance3, ref instance2.m_instances.m_buffer[instance3], num3);
                                 }
-                                instance2.m_citizens.m_buffer[(int)((UIntPtr)num4)].CurrentLocation = Citizen.Location.Moving;
+                                instance2.m_citizens.m_buffer[citizen].CurrentLocation = Citizen.Location.Moving;
                             }
                         }
                     }
@@ -492,61 +420,53 @@ namespace LifecycleRebalanceRevisited
             }
             if (flag)
             {
-                CitizenManager instance3 = Singleton<CitizenManager>.instance;
+                CitizenManager instance4 = Singleton<CitizenManager>.instance;
                 ushort building3 = offer.Building;
                 ushort transportLine = offer.TransportLine;
                 if (building3 != 0)
                 {
                     int family2 = Singleton<SimulationManager>.instance.m_randomizer.Int32(256u);
-                    uint num6 = 0u;
+                    uint num4 = 0u;
                     if (!flag2)
                     {
-                        num6 = instance.m_buildings.m_buffer[(int)building3].GetEmptyCitizenUnit(CitizenUnit.Flags.Visit);
+                        num4 = instance.m_buildings.m_buffer[building3].GetEmptyCitizenUnit(CitizenUnit.Flags.Visit);
                     }
-                    if (num6 != 0u || flag2)
+                    if (num4 != 0 || flag2)
                     {
                         int age2 = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 240);
                         Citizen.Wealth wealth = Citizen.Wealth.High;
-                        int num7 = touristFactor0 + touristFactor1 + touristFactor2;
-                        if (num7 != 0)
+                        int num5 = touristFactor0 + touristFactor1 + touristFactor2;
+                        if (num5 != 0)
                         {
-                            int num8 = Singleton<SimulationManager>.instance.m_randomizer.Int32((uint)num7);
-                            if (num8 < touristFactor0)
+                            int num6 = Singleton<SimulationManager>.instance.m_randomizer.Int32((uint)num5);
+                            if (num6 < touristFactor0)
                             {
                                 wealth = Citizen.Wealth.Low;
                             }
-                            else if (num8 < touristFactor0 + touristFactor1)
+                            else if (num6 < touristFactor0 + touristFactor1)
                             {
                                 wealth = Citizen.Wealth.Medium;
                             }
                         }
-                        uint num9;
-                        if (instance3.CreateCitizen(out num9, age2, family2, ref Singleton<SimulationManager>.instance.m_randomizer))
+                        if (instance4.CreateCitizen(out uint citizen2, age2, family2, ref Singleton<SimulationManager>.instance.m_randomizer))
                         {
-                            Citizen[] expr_ABB_cp_0 = instance3.m_citizens.m_buffer;
-                            UIntPtr expr_ABB_cp_1 = (UIntPtr)num9;
-                            expr_ABB_cp_0[(int)expr_ABB_cp_1].m_flags = (expr_ABB_cp_0[(int)expr_ABB_cp_1].m_flags | Citizen.Flags.Tourist);
-                            Citizen[] expr_ADC_cp_0 = instance3.m_citizens.m_buffer;
-                            UIntPtr expr_ADC_cp_1 = (UIntPtr)num9;
-                            expr_ADC_cp_0[(int)expr_ADC_cp_1].m_flags = (expr_ADC_cp_0[(int)expr_ADC_cp_1].m_flags | Citizen.Flags.MovingIn);
-                            instance3.m_citizens.m_buffer[(int)((UIntPtr)num9)].WealthLevel = wealth;
+                            instance4.m_citizens.m_buffer[citizen2].m_flags |= Citizen.Flags.Tourist;
+                            instance4.m_citizens.m_buffer[citizen2].m_flags |= Citizen.Flags.MovingIn;
+                            instance4.m_citizens.m_buffer[citizen2].WealthLevel = wealth;
                             if (flag2)
                             {
-                                Citizen[] expr_B20_cp_0 = instance3.m_citizens.m_buffer;
-                                UIntPtr expr_B20_cp_1 = (UIntPtr)num9;
-                                expr_B20_cp_0[(int)expr_B20_cp_1].m_flags = (expr_B20_cp_0[(int)expr_B20_cp_1].m_flags | Citizen.Flags.DummyTraffic);
+                                instance4.m_citizens.m_buffer[citizen2].m_flags |= Citizen.Flags.DummyTraffic;
                             }
                             else
                             {
-                                instance3.m_citizens.m_buffer[(int)((UIntPtr)num9)].SetVisitplace(num9, 0, num6);
+                                instance4.m_citizens.m_buffer[citizen2].SetVisitplace(citizen2, 0, num4);
                             }
-                            CitizenInfo citizenInfo2 = instance3.m_citizens.m_buffer[(int)((UIntPtr)num9)].GetCitizenInfo(num9);
-                            ushort num10;
-                            if (citizenInfo2 != null && instance3.CreateCitizenInstance(out num10, ref Singleton<SimulationManager>.instance.m_randomizer, citizenInfo2, num9))
+                            CitizenInfo citizenInfo2 = instance4.m_citizens.m_buffer[citizen2].GetCitizenInfo(citizen2);
+                            if ((object)citizenInfo2 != null && instance4.CreateCitizenInstance(out ushort instance5, ref Singleton<SimulationManager>.instance.m_randomizer, citizenInfo2, citizen2))
                             {
-                                citizenInfo2.m_citizenAI.SetSource(num10, ref instance3.m_instances.m_buffer[(int)num10], buildingID);
-                                citizenInfo2.m_citizenAI.SetTarget(num10, ref instance3.m_instances.m_buffer[(int)num10], building3);
-                                instance3.m_citizens.m_buffer[(int)((UIntPtr)num9)].CurrentLocation = Citizen.Location.Moving;
+                                citizenInfo2.m_citizenAI.SetSource(instance5, ref instance4.m_instances.m_buffer[instance5], buildingID);
+                                citizenInfo2.m_citizenAI.SetTarget(instance5, ref instance4.m_instances.m_buffer[instance5], building3);
+                                instance4.m_citizens.m_buffer[citizen2].CurrentLocation = Citizen.Location.Moving;
                             }
                             if (!flag2)
                             {
@@ -559,93 +479,81 @@ namespace LifecycleRebalanceRevisited
                 }
                 else if (transportLine != 0)
                 {
-                    TransportManager instance4 = Singleton<TransportManager>.instance;
-                    int num11 = instance4.m_lines.m_buffer[(int)transportLine].CountStops(transportLine);
-                    if (num11 > 0)
+                    TransportManager instance6 = Singleton<TransportManager>.instance;
+                    int num7 = instance6.m_lines.m_buffer[transportLine].CountStops(transportLine);
+                    if (num7 > 0)
                     {
-                        int index = Singleton<SimulationManager>.instance.m_randomizer.Int32((uint)num11);
-                        ushort stop = instance4.m_lines.m_buffer[(int)transportLine].GetStop(index);
+                        int index = Singleton<SimulationManager>.instance.m_randomizer.Int32((uint)num7);
+                        ushort stop = instance6.m_lines.m_buffer[transportLine].GetStop(index);
                         if (stop != 0)
                         {
                             int family3 = Singleton<SimulationManager>.instance.m_randomizer.Int32(256u);
                             int age3 = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 240);
                             Citizen.Wealth wealth2 = Citizen.Wealth.High;
-                            int num12 = touristFactor0 + touristFactor1 + touristFactor2;
-                            if (num12 != 0)
+                            int num8 = touristFactor0 + touristFactor1 + touristFactor2;
+                            if (num8 != 0)
                             {
-                                int num13 = Singleton<SimulationManager>.instance.m_randomizer.Int32((uint)num12);
-                                if (num13 < touristFactor0)
+                                int num9 = Singleton<SimulationManager>.instance.m_randomizer.Int32((uint)num8);
+                                if (num9 < touristFactor0)
                                 {
                                     wealth2 = Citizen.Wealth.Low;
                                 }
-                                else if (num13 < touristFactor0 + touristFactor1)
+                                else if (num9 < touristFactor0 + touristFactor1)
                                 {
                                     wealth2 = Citizen.Wealth.Medium;
                                 }
                             }
-                            uint num14;
-                            if (instance3.CreateCitizen(out num14, age3, family3, ref Singleton<SimulationManager>.instance.m_randomizer))
+                            if (instance4.CreateCitizen(out uint citizen3, age3, family3, ref Singleton<SimulationManager>.instance.m_randomizer))
                             {
-                                Citizen[] expr_D29_cp_0 = instance3.m_citizens.m_buffer;
-                                UIntPtr expr_D29_cp_1 = (UIntPtr)num14;
-                                expr_D29_cp_0[(int)expr_D29_cp_1].m_flags = (expr_D29_cp_0[(int)expr_D29_cp_1].m_flags | Citizen.Flags.Tourist);
-                                Citizen[] expr_D4A_cp_0 = instance3.m_citizens.m_buffer;
-                                UIntPtr expr_D4A_cp_1 = (UIntPtr)num14;
-                                expr_D4A_cp_0[(int)expr_D4A_cp_1].m_flags = (expr_D4A_cp_0[(int)expr_D4A_cp_1].m_flags | Citizen.Flags.MovingIn);
-                                instance3.m_citizens.m_buffer[(int)((UIntPtr)num14)].WealthLevel = wealth2;
-                                CitizenInfo citizenInfo3 = instance3.m_citizens.m_buffer[(int)((UIntPtr)num14)].GetCitizenInfo(num14);
-                                ushort num15;
-                                if (citizenInfo3 != null && instance3.CreateCitizenInstance(out num15, ref Singleton<SimulationManager>.instance.m_randomizer, citizenInfo3, num14))
+                                instance4.m_citizens.m_buffer[citizen3].m_flags |= Citizen.Flags.Tourist;
+                                instance4.m_citizens.m_buffer[citizen3].m_flags |= Citizen.Flags.MovingIn;
+                                instance4.m_citizens.m_buffer[citizen3].WealthLevel = wealth2;
+                                CitizenInfo citizenInfo3 = instance4.m_citizens.m_buffer[citizen3].GetCitizenInfo(citizen3);
+                                if ((object)citizenInfo3 != null && instance4.CreateCitizenInstance(out ushort instance7, ref Singleton<SimulationManager>.instance.m_randomizer, citizenInfo3, citizen3))
                                 {
-                                    citizenInfo3.m_citizenAI.SetSource(num15, ref instance3.m_instances.m_buffer[(int)num15], buildingID);
-                                    citizenInfo3.m_citizenAI.SetTarget(num15, ref instance3.m_instances.m_buffer[(int)num15], stop, true);
-                                    instance3.m_citizens.m_buffer[(int)((UIntPtr)num14)].CurrentLocation = Citizen.Location.Moving;
+                                    citizenInfo3.m_citizenAI.SetSource(instance7, ref instance4.m_instances.m_buffer[instance7], buildingID);
+                                    citizenInfo3.m_citizenAI.SetTarget(instance7, ref instance4.m_instances.m_buffer[instance7], stop, targetIsNode: true);
+                                    instance4.m_citizens.m_buffer[citizen3].CurrentLocation = Citizen.Location.Moving;
                                     StatisticBase statisticBase2 = Singleton<StatisticsManager>.instance.Acquire<StatisticArray>(StatisticType.IncomingTourists);
                                     statisticBase2 = statisticBase2.Acquire<StatisticInt32>((int)wealth2, 3);
                                     statisticBase2.Add(1);
                                 }
                                 else
                                 {
-                                    instance3.ReleaseCitizen(num14);
+                                    instance4.ReleaseCitizen(citizen3);
                                 }
                             }
                         }
                     }
                 }
             }
-            if (vehicleInfo != null)
+            if ((object)vehicleInfo != null)
             {
                 Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
-                ushort num16;
-                if (Singleton<VehicleManager>.instance.CreateVehicle(out num16, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, data.m_position, material, flag3, !flag3))
+                if (Singleton<VehicleManager>.instance.CreateVehicle(out ushort vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, data.m_position, material, flag3, !flag3))
                 {
                     if (flag2)
                     {
-                        Vehicle[] expr_E93_cp_0 = vehicles.m_buffer;
-                        ushort expr_E93_cp_1 = num16;
-                        expr_E93_cp_0[(int)expr_E93_cp_1].m_flags = (expr_E93_cp_0[(int)expr_E93_cp_1].m_flags | Vehicle.Flags.DummyTraffic);
-                        Vehicle[] expr_EB2_cp_0 = vehicles.m_buffer;
-                        ushort expr_EB2_cp_1 = num16;
-                        expr_EB2_cp_0[(int)expr_EB2_cp_1].m_flags = (expr_EB2_cp_0[(int)expr_EB2_cp_1].m_flags & ~Vehicle.Flags.WaitingCargo);
+                        vehicles.m_buffer[vehicle].m_flags |= Vehicle.Flags.DummyTraffic;
+                        vehicles.m_buffer[vehicle].m_flags &= ~Vehicle.Flags.WaitingCargo;
                     }
-                    vehicleInfo.m_vehicleAI.SetSource(num16, ref vehicles.m_buffer[(int)num16], buildingID);
-                    vehicleInfo.m_vehicleAI.StartTransfer(num16, ref vehicles.m_buffer[(int)num16], material, offer);
+                    vehicleInfo.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
+                    vehicleInfo.m_vehicleAI.StartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offer);
                     if (!flag2)
                     {
                         ushort building4 = offer.Building;
                         if (building4 != 0)
                         {
-                            int amount;
-                            int num17;
-                            vehicleInfo.m_vehicleAI.GetSize(num16, ref vehicles.m_buffer[(int)num16], out amount, out num17);
+                            vehicleInfo.m_vehicleAI.GetSize(vehicle, ref vehicles.m_buffer[vehicle], out int size, out int _);
                             if (!flag3)
                             {
-                                OutsideConnectionAI.ImportResource(building4, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building4], material, amount);
+                                OutsideConnectionAI.ImportResource(building4, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building4], material, size);
                             }
                         }
                     }
                 }
             }
+            
             // Original method return value.
             __result = true;
 
