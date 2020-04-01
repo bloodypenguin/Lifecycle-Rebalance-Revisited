@@ -1,18 +1,21 @@
-﻿using Boformer.Redirection;
+﻿using Harmony;
 using ColossalFramework;
 using System;
 using UnityEngine;
 
 namespace LifecycleRebalanceRevisited
 {
-    [TargetType(typeof(OutsideConnectionAI))]
-    public class NewOutsideConnectionAI : OutsideConnectionAI
+    [HarmonyPatch(typeof(OutsideConnectionAI))]
+    [HarmonyPatch("StartConnectionTransferImpl")]
+    [HarmonyPatch(new Type[] { typeof(ushort), typeof(Building), typeof(TransferManager.TransferReason), typeof(TransferManager.TransferOffer), typeof(int), typeof(int), typeof(int) },
+        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal })]
+    public class NewStartConnectionTransferImpl
     {
-        [RedirectMethod]
         // Copied from game code. Ugh.... 
         // OutsideConnectionAI
-        private static bool StartConnectionTransferImpl(ushort buildingID, ref Building data, TransferManager.TransferReason material, TransferManager.TransferOffer offer, int touristFactor0, int touristFactor1, int touristFactor2)
+        private static bool Prefix(bool __result, ushort buildingID, ref Building data, TransferManager.TransferReason material, TransferManager.TransferOffer offer, int touristFactor0, int touristFactor1, int touristFactor2)
         {
+            Debug.Log("CAT!!!! StartConnectionTransferImpl");
             BuildingManager instance = Singleton<BuildingManager>.instance;
             VehicleInfo vehicleInfo = null;
             Citizen.Education education = Citizen.Education.Uneducated;
@@ -196,6 +199,10 @@ namespace LifecycleRebalanceRevisited
                             vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPost, ItemClass.Level.Level5);
                             goto IL_63C;
                     }
+                    // Original method return value.
+                    __result = false;
+
+                    // Don't execute base method after this.
                     return false;
                 case TransferManager.TransferReason.Coal:
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialOre, ItemClass.Level.Level1);
@@ -312,6 +319,10 @@ namespace LifecycleRebalanceRevisited
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PublicTransport, ItemClass.SubService.PublicTransportPost, ItemClass.Level.Level5);
                     goto IL_63C;
             }
+            // Original method return value.
+            __result = false;
+
+            // Don't execute base method after this.
             return false;
         IL_53D:
             flag = true;
@@ -636,7 +647,11 @@ namespace LifecycleRebalanceRevisited
                     }
                 }
             }
-            return true;
+            // Original method return value.
+            __result = true;
+
+            // Don't execute base method after this.
+            return false;
         } // end
     }
 }
