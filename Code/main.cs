@@ -80,7 +80,7 @@ namespace LifecycleRebalanceRevisited
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
 
                 sw.Stop();
-                UnityEngine.Debug.Log("WG_CitizenEdit: Successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
+                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
 
             }
         }
@@ -110,7 +110,7 @@ namespace LifecycleRebalanceRevisited
 
         public override void OnLevelLoaded(LoadMode mode)
         {
-            // Check to see if an conflicting mod has been detected - if so, alert the user and abort operation.
+            // Check to see if a conflicting mod has been detected - if so, alert the user and abort operation.
             if (conflictingMod)
             {
                 ExceptionPanel panel = UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel");
@@ -122,7 +122,7 @@ namespace LifecycleRebalanceRevisited
                 {
                     isLevelLoaded = true;
                     Debugging.releaseBuffer();
-                    Debugging.panelMessage("Successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
+                    UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
 
                     // Prime Threading.counter to continue from frame index
                     int temp = (int) (Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
@@ -137,7 +137,7 @@ namespace LifecycleRebalanceRevisited
             }
             catch (Exception e)
             {
-                Debugging.panelMessage(e.Message);
+                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
             }
         }
 
@@ -184,12 +184,11 @@ namespace LifecycleRebalanceRevisited
                     // Game will now use defaults
                     Debugging.bufferWarning("The following exception(s) were detected while loading the XML file. Some (or all) values may not be loaded.");
                     Debugging.bufferWarning(e.Message);
-                    UnityEngine.Debug.LogException(e);
                 }
             }
             else
             {
-                UnityEngine.Debug.Log("Configuration file not found. Will output new file to : " + currentFileLocation);
+                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: configuration file not found. Will output new file to : " + currentFileLocation);
             }
         }
     }
