@@ -1,4 +1,9 @@
-﻿Version 1.1 -
+﻿Version 1.1.1 -
+
+- Fix minor error with Harmony migration of NewOutsideConnectionAI
+
+
+Version 1.1 -
 
 - Migrated from redirection to Harmony
 - XML configuration files now saved when save games are loaded, not after exit (compatibility with 'instant exit' process killing)

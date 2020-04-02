@@ -7,7 +7,7 @@ namespace LifecycleRebalanceRevisited
     {
         public string Name
         {
-            get { return "Lifecycle Rebalance Revisited 1.1"; }
+            get { return "Lifecycle Rebalance Revisited 1.1.1"; }
         }
         public string Description
         {

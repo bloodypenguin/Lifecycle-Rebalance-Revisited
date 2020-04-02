@@ -274,6 +274,10 @@ namespace LifecycleRebalanceRevisited
                     }
                     break;
                 default:
+                    // Original method return value.
+                    __result = false;
+
+                    // Don't execute base method after this.
                     return false;
             }
             if (num != 0)
