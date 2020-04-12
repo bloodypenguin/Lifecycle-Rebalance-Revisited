@@ -160,19 +160,20 @@ namespace LifecycleRebalanceRevisited
 
                     // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
                     // If older than the maximum index - lucky them, but keep going using that final index.
-                    int index = Math.Max(num / 35, 10);
-                    bool died = true;
+                    int index = Math.Min(num / 35, 10);
 
                     // Calculate 90% - 110%; using 100,000 as 100% (for precision).
                     int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);
 
                     // Death chance is simply if a random number between 0 and the modifier calculated above is less than the survival probability calculation for that decade of life.
                     // Also set maximum age of 400 (~114 years) to be consistent with the base game.
-                    died = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || num > 400;
+                    bool died = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || num > 400;
 
                     if (died)
                     {
                         NewResidentAI.Die(citizenID, ref data);
+
+                        // Chance for 'vanishing corpse' (no need for deathcare).
                         if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 99) < DataStore.autoDeadRemovalChance)
                         {
                             Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
@@ -181,6 +182,7 @@ namespace LifecycleRebalanceRevisited
                     }
                     else if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.sicknessProbCalc[index])
                     {
+                        // Make people sick, if they're unlucky.
                         data.Sick = true;
                     }
                     /*
@@ -309,8 +311,7 @@ namespace LifecycleRebalanceRevisited
         }
 
 
-        // Copied from game code as placeholder before Harmony 2 becomes viable (reverse redirect required to access private game method).
-        // TODO - convert to reverse redirect when Harmony 2 migration occurs.
+        // Copied from game code with additions for logging of deaths and including all age ranges in deaths, not just seniors.
         public static void Die(uint citizenID, ref Citizen data)
         {
             data.Sick = false;
@@ -334,8 +335,9 @@ namespace LifecycleRebalanceRevisited
                 if (IsSenior(citizenID))
                 {
                     instance.m_districts.m_buffer[district].m_deadSeniorsData.m_tempCount++;
-                    instance.m_districts.m_buffer[district].m_ageAtDeathData.m_tempCount += (uint)data.Age;
                 }
+                instance.m_districts.m_buffer[district].m_ageAtDeathData.m_tempCount += (uint)data.Age;
+                Debugging.writeLogToFile("Citizen died at age: " + data.Age + "(" + (int)(data.Age / 3.5) + " years).");
             }
         }
 

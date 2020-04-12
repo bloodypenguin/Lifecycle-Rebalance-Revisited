@@ -26,5 +26,15 @@ namespace LifecycleRebalanceRevisited
                 sb.Remove(0, sb.Length);
             }
         }
+
+        // Log to dedicated file.
+        public static void writeLogToFile(String text)
+        {
+            using (FileStream fs = new FileStream(ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Deaths.txt", FileMode.Append, FileAccess.Write))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                sw.WriteLine(text);
+            }
+        }
     }
 }
