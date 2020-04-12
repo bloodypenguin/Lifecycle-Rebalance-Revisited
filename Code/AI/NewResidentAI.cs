@@ -185,21 +185,6 @@ namespace LifecycleRebalanceRevisited
                         // Make people sick, if they're unlucky.
                         data.Sick = true;
                     }
-                    /*
-                                        else if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.emigrateChance[index])
-                                        {
-                                            // If only one in there, then it's okay. Otherwise
-                                            Building b = Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_homeBuilding];
-                                            uint unitID = b.FindCitizenUnit(CitizenUnit.Flags.None, citizenID);
-                                            CitizenUnit home = Singleton<CitizenManager>.instance.m_units.m_buffer[unitID];
-                                            if ((home.m_citizen0 != citizenID) || (home.m_citizen1 != citizenID))
-                                            {
-                                                // Check if else where
-                    //                            Debugging.writeDebugToFile("Eject family");
-                                            }
-                                            // ResidentAI.MoveFamily(uint homeID, ref CitizenUnit data, ushort targetBuilding)
-                                        } // end die and sick checks
-                    */
                 } // end moving check
             } // end if canTick
 

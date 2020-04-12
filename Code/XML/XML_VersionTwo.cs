@@ -9,7 +9,6 @@ namespace LifecycleRebalanceRevisited
         private const string travelNodeName = "travel";
 
         private const string migrateNodeName = "migrate";
-        private const string emigrateNodeName = "emigrate";
 
         private const string lifeSpanNodeName = "lifespan";
         private const string familyName = "family";
@@ -35,10 +34,6 @@ namespace LifecycleRebalanceRevisited
                     readTravelNode(node);
                 }
                 else if (node.Name.Equals(migrateNodeName))
-                {
-                    readImmigrateNode(node);
-                }
-                else if (node.Name.Equals(emigrateNodeName))
                 {
                     readImmigrateNode(node);
                 }
@@ -226,30 +221,6 @@ namespace LifecycleRebalanceRevisited
                     try
                     {
                         DataStore.sickDeathChance[level] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
-                    }
-                    catch (Exception e)
-                    {
-                        Debugging.bufferWarning(e.Message);
-                    }
-                }
-            }
-        }
-
-
-
-        public void readEmigrationNode(XmlNode root)
-        {
-            foreach (XmlNode node in root.ChildNodes)
-            {
-                string[] attr = node.Name.Split(new char[] { '_' });
-                string name = attr[0];
-                int level = Convert.ToInt32(attr[1]) - 1;
-
-                if (name.Equals("decile"))
-                {
-                    try
-                    {
-                        DataStore.emigrateChance[level] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
                     }
                     catch (Exception e)
                     {
@@ -540,28 +511,6 @@ namespace LifecycleRebalanceRevisited
             }
 
             return hospitalNode;
-        }
-
-
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
-        private XmlNode makeEmigrationNode(XmlDocument xmlDoc)
-        {
-            XmlNode emigrationNode = xmlDoc.CreateElement(emigrateNodeName);
-
-            // 0 to 9, 10 deciles.
-            for (int i = 0; i < 10; ++i)
-            {
-                XmlNode node = xmlDoc.CreateElement("decile_" + (i + 1));
-
-                XmlAttribute attribute = xmlDoc.CreateAttribute("chance");
-                attribute.Value = Convert.ToString(DataStore.emigrateChance[i] * 100.0);
-                node.Attributes.Append(attribute);
-
-                emigrationNode.AppendChild(node);
-            }
-
-            return emigrationNode;
         }
 
 

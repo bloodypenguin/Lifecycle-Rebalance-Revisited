@@ -27,10 +27,6 @@
         public static int[] incomingSingleAge = { 65, 165 };
         public static int[] incomingAdultAge  = { 85, 185 };
 
-        // Per decile who will leave the city if they are the main person (1st)
-        public static double[] emigrateChance = { 100, 100, 0.0075, 0.01, 0.0125, 0.015, 0.04, 0.1, 0.2, 0.45, 0.75 };
-        public static int[] emigrateProbCalc = new int[emigrateChance.Length];
-
         // Travel -------------------------------------------------------------
         public const int LOW = 0;
         public const int HIGH = 1;
