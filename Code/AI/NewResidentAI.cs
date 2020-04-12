@@ -1,8 +1,6 @@
 ﻿using Harmony;
 using ColossalFramework;
-using ColossalFramework.Math;
 using System;
-using System.Runtime.CompilerServices;
 // TODO - These two only required for base game code pending conversion to Harmony 2 reverse redirect.
 using UnityEngine;
 using ColossalFramework.Threading;
