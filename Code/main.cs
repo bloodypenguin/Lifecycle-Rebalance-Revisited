@@ -64,16 +64,6 @@ namespace LifecycleRebalanceRevisited
                     // Simple division
                     DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25));
                 }
-
-                DataStore.citizenNumberBounds = new int[DataStore.lifeSpanMultiplier + 1];
-                DataStore.citizenNumberBounds[0] = 0;
-                DataStore.citizenNumberBounds[DataStore.citizenNumberBounds.Length - 1] = CitizenManager.MAX_CITIZEN_COUNT + 1;
-                int increment = CitizenManager.MAX_CITIZEN_COUNT / DataStore.lifeSpanMultiplier;
-
-                for (int i = 1; i < DataStore.citizenNumberBounds.Length - 1; ++i) // Ignore ends
-                {
-                    DataStore.citizenNumberBounds[i] = DataStore.citizenNumberBounds[i - 1] + increment;
-                }
                 
                 // Harmony patches.
                 _harmony.PatchAll(GetType().Assembly);

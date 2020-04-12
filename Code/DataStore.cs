@@ -24,8 +24,6 @@
 
         public static int autoDeadRemovalChance = 50;
 
-        public static int[] citizenNumberBounds;
-
         public static int[] incomingSingleAge = { 65, 165 };
         public static int[] incomingAdultAge  = { 85, 185 };
 
