@@ -3,7 +3,6 @@ using System.IO;
 using System.Xml;
 using System.Text;
 using ICities;
-using System.Diagnostics;
 using ColossalFramework;
 using ColossalFramework.UI;
 using ColossalFramework.Plugins;
@@ -26,7 +25,6 @@ namespace LifecycleRebalanceRevisited
         private string currentFileLocation = "";
         private static volatile bool isModEnabled = false;
         private static volatile bool isLevelLoaded = false;
-        private static Stopwatch sw;
 
         // Used to flag if a conflicting mod is running.
         private static bool conflictingMod = false;
@@ -47,7 +45,6 @@ namespace LifecycleRebalanceRevisited
             else if (!isModEnabled)
             {
                 isModEnabled = true;
-                sw = Stopwatch.StartNew();
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalanceRevisitedMod.version + " loading.");
 
                 readFromXML();
@@ -78,10 +75,6 @@ namespace LifecycleRebalanceRevisited
                 // Harmony patches.
                 _harmony.PatchAll(GetType().Assembly);
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
-
-                sw.Stop();
-                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
-
             }
         }
 
@@ -122,7 +115,6 @@ namespace LifecycleRebalanceRevisited
                 {
                     isLevelLoaded = true;
                     Debugging.releaseBuffer();
-                    UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded in " + sw.ElapsedMilliseconds + " ms.");
 
                     // Prime Threading.counter to continue from frame index
                     int temp = (int) (Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
@@ -139,6 +131,8 @@ namespace LifecycleRebalanceRevisited
             {
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
             }
+
+            UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded.");
         }
 
 
