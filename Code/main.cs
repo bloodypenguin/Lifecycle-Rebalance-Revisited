@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using System.Text;
 using ICities;
 using System.Diagnostics;
 using ColossalFramework;
@@ -8,6 +9,7 @@ using ColossalFramework.UI;
 using ColossalFramework.Plugins;
 using System.Linq;
 using Harmony;
+using UnityEngine;
 
 
 namespace LifecycleRebalanceRevisited
@@ -50,13 +52,21 @@ namespace LifecycleRebalanceRevisited
 
                 readFromXML();
 
+                StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: survival probability table:\r\n");
+
                 // Do conversion from survivalProbInXML
                 for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)
                 {
-                    // Natural log, C# is weird with names and this is approximate anyway
-                    // TODO - Fix survival being at 0 log(0) causes issues!
-                    DataStore.survivalProbCalc[i] = (int) (100000 - (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) / 25))));
+                    // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
+                    double power = 1 / 35d;
+
+                    // Using 100,000 as equivalent to 100%, for precision (as final figures are integer).
+                    // Calculation is chance of death: 100% - (DecadeSurvival% ^ (1/IncrementsPerDecade)).
+                    DataStore.survivalProbCalc[i] = (int)(100000 - (Math.Pow(DataStore.survivalProbInXML[i], power) * 100000));
+                    logMessage.AppendLine(i + ": " + DataStore.survivalProbInXML[i] + " = " + DataStore.survivalProbCalc[i]);
                 }
+                UnityEngine.Debug.Log(logMessage);
+
 
                 // Do conversion from sicknessProbInXML
                 for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)

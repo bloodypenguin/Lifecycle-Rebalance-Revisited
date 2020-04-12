@@ -137,7 +137,6 @@ namespace LifecycleRebalanceRevisited
                     NewResidentAI.FinishSchoolOrWork(ref __instance, citizenID, ref data);
                 }
                 else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % 15 == 0))  // Workspeed multiplier?
-                //else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % DataStore.workNumberCheck == 0))  // Workspeed multiplier?
                 {
                     NewResidentAI.FinishSchoolOrWork(ref __instance, citizenID, ref data);
                 }
@@ -159,28 +158,17 @@ namespace LifecycleRebalanceRevisited
                 if (data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0)
                 {
 
-                    // Potential allow citizens to live up to 274+ ticks
-                    int index = num / 25;
+                    // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
+                    // If older than the maximum index - lucky them, but keep going using that final index.
+                    int index = Math.Max(num / 35, 10);
                     bool died = true;
-                    int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000); // 90 - 110
 
-                    if (index < DataStore.survivalProbCalc.Length)
-                    {
-                        int check = DataStore.survivalProbCalc[index];
+                    // Calculate 90% - 110%; using 100,000 as 100% (for precision).
+                    int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);
 
-                        // Find if at hospital to change death chance
-                        ushort buildingID = data.GetBuildingByLocation();
-                        Building b = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID];
-                        //if (b.Info.m_class.m_service.Equals(ItemClass.Service.HealthCare) && data.Sick)
-                        if (data.Sick)
-                        {
-                            //Debugging.writeDebugToFile(citizenID + ". Modifier: " + modifier + ", survival: " + DataStore.survivalProbCalc[index] + ", sick: " + DataStore.sicknessProbCalc[index]);
-                            // death chance is flat percentage
-                            //modifier = (int) (modifier * DataStore.sickDeathChance[index]);
-                        }
-
-                        died = Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < check;
-                    }
+                    // Death chance is simply if a random number between 0 and the modifier calculated above is less than the survival probability calculation for that decade of life.
+                    // Also set maximum age of 400 (~114 years) to be consistent with the base game.
+                    died = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || num > 400;
 
                     if (died)
                     {

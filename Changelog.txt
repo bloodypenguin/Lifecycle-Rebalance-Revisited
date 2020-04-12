@@ -1,4 +1,11 @@
-﻿Version 1.1.1 -
+﻿Version 1.2-
+
+- Update lifecycle scaling to match game version 1.13
+- Reimplement probability calculations using exponential (rather than logarithmic) calcs for improved probability accuracy
+- Code cleanup
+
+
+Version 1.1.1 -
 
 - Fix minor error with Harmony migration of NewOutsideConnectionAI
 
