@@ -46,6 +46,7 @@ namespace LifecycleRebalanceRevisited
             {
                 isModEnabled = true;
                 sw = Stopwatch.StartNew();
+                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalanceRevisitedMod.version + " loading.");
 
                 readFromXML();
 
@@ -75,7 +76,6 @@ namespace LifecycleRebalanceRevisited
                 }
                 
                 // Harmony patches.
-                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: version 1.1 loading.");
                 _harmony.PatchAll(GetType().Assembly);
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
 

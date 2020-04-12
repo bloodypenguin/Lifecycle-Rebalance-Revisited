@@ -111,7 +111,7 @@
     <Compile Include="Code\AI\Threading.cs" />
     <Compile Include="Code\DataStore.cs" />
     <Compile Include="Code\Debugging.cs" />
-    <Compile Include="Code\info.cs" />
+    <Compile Include="Code\Mod.cs" />
     <Compile Include="Code\main.cs" />
     <Compile Include="Code\XML\WG_XMLBaseVersion.cs" />
     <Compile Include="Code\XML\XML_VerisonOne.cs" />
@@ -132,6 +132,8 @@ del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName
 xcopy /y "$(TargetPath)" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\*.xml"
 xcopy /y "$(SolutionDir)\XML_Files\*xml" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
+del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\XMLFileAndEditDiscussion.txt"
+xcopy /y "$(SolutionDir)\XMLFileAndEditDiscussion.txt" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\0Harmony.dll"
 xcopy /y "$(SolutionDir)packages\Lib.Harmony.1.2.0.1\lib\net35\0Harmony.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"</PostBuildEvent>
   </PropertyGroup>
