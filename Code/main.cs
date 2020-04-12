@@ -37,15 +37,21 @@ namespace LifecycleRebalanceRevisited
 
         public override void OnCreated(ILoading loading)
         {
+            UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalanceRevisitedMod.version + " loading.");
+
             // Check for original WG Citizen Lifecycle Rebalance; if it's enabled, flag and don't activate this mod.
             if (IsModEnabled(654707599ul))
             {
                 conflictingMod = true;
+                Debug.Log("Lifecycle Rebalance Revisited: incompatible mod detected.  Shutting down.");
             }
             else if (!isModEnabled)
             {
+                // Harmony patches.
+                _harmony.PatchAll(GetType().Assembly);
+                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
+
                 isModEnabled = true;
-                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalanceRevisitedMod.version + " loading.");
 
                 readFromXML();
 
@@ -71,10 +77,6 @@ namespace LifecycleRebalanceRevisited
                     // Simple division
                     DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25));
                 }
-                
-                // Harmony patches.
-                _harmony.PatchAll(GetType().Assembly);
-                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
             }
         }
 
