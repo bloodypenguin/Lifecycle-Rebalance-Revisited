@@ -301,9 +301,11 @@ namespace LifecycleRebalanceRevisited
                         // Start of changes! ------------------------------------------------------- -------------------------------------------------------
                         int[] ageArray = num == 1 ? DataStore.incomingSingleAge : DataStore.incomingAdultAge;
 
-                        int childrenAgeMax = 0; // 80 less than the youngest adult
-                        int childrenAgeMin = 0; // 180 less than the youngest adult
+                        int childrenAgeMax = 0;
+                        int childrenAgeMin = 0;
                         int minAdultAge = 0;
+
+                        // i is is the family member number for this incoming family.  0 is primary adult, 1 is secondary adults, and after that are children.
                         for (int i = 0; i < num; i++)
                         {
                             uint citizen = 0u;
@@ -314,18 +316,21 @@ namespace LifecycleRebalanceRevisited
 
                             if (i == 1)
                             {
-                                // min max shouldn't be too far from the first. Just because.
+                                // Age of second adult - shouldn't be too far from the first. Just because.
                                 min = Math.Max(minAdultAge - 20, DataStore.incomingAdultAge[0]);
                                 max = Math.Min(minAdultAge + 20, DataStore.incomingAdultAge[1]);
                             }
                             else if (i >= 2)
                             {
+                                // Children.
                                 min = childrenAgeMin;
                                 max = childrenAgeMax;
                             }
 
+                            // Calculate actual age randomly between minumum and maxiumum.
                             int age = Singleton<SimulationManager>.instance.m_randomizer.Int32(min, max);
 
+                            // Adust age brackets for subsequent family members.
                             if (i == 0)
                             {
                                 minAdultAge = age;
@@ -334,6 +339,8 @@ namespace LifecycleRebalanceRevisited
                             {
                                 // Restrict to adult age. Young adult is 18 according to National Institutes of Health... even if the young adult section in a library isn't that range.
                                 minAdultAge = Math.Min(age, minAdultAge);
+
+                                // Children should be between 80 and 180 younger than the youngest adult.
                                 childrenAgeMax = Math.Max(minAdultAge - 80, 0);  // Allow people 10 ticks from 'adulthood' to have kids
                                 childrenAgeMin = Math.Max(minAdultAge - 178, 0); // Accounting gestation, which isn't simulated yet (2 ticks)
                             }
@@ -341,6 +348,7 @@ namespace LifecycleRebalanceRevisited
                             Citizen.Education education2 = education;
                             if (i < 2)
                             {
+                                // Adults.
                                 // 24% different education levels
                                 int eduModifier = Singleton<SimulationManager>.instance.m_randomizer.Int32(-12, 12) / 10;
                                 education2 += eduModifier;
@@ -353,8 +361,9 @@ namespace LifecycleRebalanceRevisited
                                     education2 = Citizen.Education.ThreeSchools;
                                 }
                             }
-                            else // children
+                            else
                             {
+                                // Children.
                                 switch (Citizen.GetAgeGroup(age))
                                 {
                                     case Citizen.AgeGroup.Child:
@@ -368,6 +377,11 @@ namespace LifecycleRebalanceRevisited
                                         education2 = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) < 80) ? Citizen.Education.TwoSchools : education2 = Citizen.Education.OneSchool;
                                         break;
                                 }
+                            }
+
+                            if (Debugging.UseImmigrationLog)
+                            {
+                                Debugging.WriteToLog(Debugging.ImmigrationLogName, "Family member " + i + " immigrating with age " + age + " (" + (int)(age / 3.5) + " years old) and education level " + education2 +".");
                             }
 
                             // End of changes? --------------------------------------------------------------------------------------------------------------

@@ -116,7 +116,7 @@ namespace LifecycleRebalanceRevisited
                 if (!isLevelLoaded)
                 {
                     isLevelLoaded = true;
-                    Debugging.releaseBuffer();
+                    Debugging.ReleaseBuffer();
 
                     // Prime Threading.counter to continue from frame index
                     int temp = (int) (Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
@@ -133,6 +133,8 @@ namespace LifecycleRebalanceRevisited
             {
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
             }
+
+            Debugging.SetUpDebugging();
 
             UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded.");
         }

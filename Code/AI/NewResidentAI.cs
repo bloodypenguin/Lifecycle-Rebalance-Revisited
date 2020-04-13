@@ -41,6 +41,11 @@ namespace LifecycleRebalanceRevisited
             // Original method return value.
             __result = NewResidentAI.cacheArray[DataStore.CAR];
 
+            if (Debugging.UseTransportLog)
+            {
+                Debugging.WriteToLog(Debugging.TransportLogName, citizen.WealthLevel + "-wealth " + ageGroup + " has " + __result + "% chance of driving.");
+            }
+
             // Don't execute base method after this.
             return false;
         }
@@ -58,7 +63,13 @@ namespace LifecycleRebalanceRevisited
             int bike = NewResidentAI.livesInBike ? DataStore.bikeIncrease : 0;
 
             // Original method return value.
+            // Array cache has already been set when GetCarProbability was called.
             __result = (NewResidentAI.cacheArray[DataStore.BIKE] + bike);
+
+            if (Debugging.UseTransportLog)
+            {
+                Debugging.WriteToLog(Debugging.TransportLogName, "The same " + ageGroup + " has " + __result + "% chance of cycling.");
+            }
 
             // Don't execute base method after this.
             return false;
@@ -75,7 +86,13 @@ namespace LifecycleRebalanceRevisited
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
             // Original method return value.
+            // Array cache has already been set when GetCarProbability was called.
             __result = NewResidentAI.cacheArray[DataStore.TAXI];
+
+            if (Debugging.UseTransportLog)
+            {
+                Debugging.WriteToLog(Debugging.TransportLogName, "The same " + ageGroup + " has " + __result + "% chance of using a taxi.");
+            }
 
             // Don't execute base method after this.
             return false;
@@ -157,7 +174,6 @@ namespace LifecycleRebalanceRevisited
                 data.Age = num;
                 if (data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0)
                 {
-
                     // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
                     // If older than the maximum index - lucky them, but keep going using that final index.
                     int index = Math.Min(num / 35, 10);
@@ -322,7 +338,12 @@ namespace LifecycleRebalanceRevisited
                     instance.m_districts.m_buffer[district].m_deadSeniorsData.m_tempCount++;
                 }
                 instance.m_districts.m_buffer[district].m_ageAtDeathData.m_tempCount += (uint)data.Age;
-                Debugging.writeLogToFile("Citizen died at age: " + data.Age + "(" + (int)(data.Age / 3.5) + " years).");
+
+
+                if (Debugging.UseDeathLog)
+                {
+                    Debugging.WriteToLog(Debugging.DeathLogName, "Citizen died at age: " + data.Age + " (" + (int)(data.Age / 3.5) + " years old).");
+                }
             }
         }
 
