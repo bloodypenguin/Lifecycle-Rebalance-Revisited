@@ -36,7 +36,7 @@ namespace LifecycleRebalanceRevisited
                 sunsetCheckbox.isChecked = !isChecked;
                 Configuration<LifecycleRebalanceSettingsFile>.Save();
             });
-            group.AddGroup(" ");
+            group.AddGroup("NOTE: Option changes only take effect on game load!");
             group.AddCheckbox("Log deaths to 'Lifecycle death log.txt'", settings.LogDeaths, (isChecked) => { settings.LogDeaths = isChecked; Configuration<LifecycleRebalanceSettingsFile>.Save(); });
             group.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", settings.LogImmigrants, (isChecked) => { settings.LogImmigrants = isChecked; Configuration<LifecycleRebalanceSettingsFile>.Save(); });
             group.AddCheckbox("Log transport choices to 'Lifecycle transport log.txt'", settings.LogTransport, (isChecked) => { settings.LogTransport = isChecked; Configuration<LifecycleRebalanceSettingsFile>.Save(); });
