@@ -64,6 +64,11 @@ namespace LifecycleRebalanceRevisited
                 // Load configuation file.
                 readFromXML();
 
+                // Apply debugging settings.
+                Debugging.UseDeathLog = settings.LogDeaths;
+                Debugging.UseImmigrationLog = settings.LogImmigrants;
+                Debugging.UseTransportLog = settings.LogTransport;
+
                 StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: survival probability table using factor of " + LifecycleRebalanceSettings.agePerDecadeFactor + ":\r\n");
 
                 // Do conversion from survivalProbInXML
@@ -151,7 +156,7 @@ namespace LifecycleRebalanceRevisited
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
             }
 
-            Debugging.SetUpDebugging();
+            Debug.Log("Lifecycle Rebalance Revisited: death logging " + (Debugging.UseDeathLog ? "enabled" : "disabled") + ", immigration logging " + (Debugging.UseImmigrationLog ? "enabled" : "disabled") + ", transportation logging " + (Debugging.UseTransportLog ? "enabled." : "disabled."));
 
             UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded.");
         }

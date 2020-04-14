@@ -1,6 +1,7 @@
 ﻿
 - Add options panel
 - Add choice of reverting to legacy (pre-1.13) lifespan calculations
+- Move custom logging selection to options panel
 
 
 Version 1.2-

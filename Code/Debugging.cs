@@ -38,17 +38,6 @@ namespace LifecycleRebalanceRevisited
         }
 
 
-        // Check for debugging files and prepare to use them if they exists.
-        public static void SetUpDebugging()
-        {
-            UseDeathLog = File.Exists(DeathLogName);
-            UseImmigrationLog = File.Exists(ImmigrationLogName);
-            UseTransportLog = File.Exists(TransportLogName);
-
-            Debug.Log("Lifecycle Rebalance Revisited: death logging " + (UseDeathLog ? "enabled" : "disabled") + ", immigration logging " + (UseImmigrationLog ? "enabled" : "disabled") + ", transportation logging " + (UseTransportLog ? "enabled." : "disabled."));
-        }
-
-
         // Log to dedicated file.
         public static void WriteToLog(string filename, String text)
         {
