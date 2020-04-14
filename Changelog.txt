@@ -1,8 +1,13 @@
-﻿Version 1.2-
+﻿
+- Add options panel
+- Add choice of reverting to legacy (pre-1.13) lifespan calculations
+
+
+Version 1.2-
 
 - Update lifecycle scaling to match game version 1.13
 - Reimplement probability calculations using exponential (rather than logarithmic) calcs for improved probability accuracy
-- Add option custom logfiles to log deaths, immigrant details, and/or transportation probability results.
+- Add option custom logfiles to log deaths, immigrant details, and/or transportation probability results
 - Code cleanup
 - Logging tweaks
 

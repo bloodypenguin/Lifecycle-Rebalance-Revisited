@@ -28,6 +28,7 @@ namespace LifecycleRebalanceRevisited
 
         // Used to flag if a conflicting mod is running.
         private static bool conflictingMod = false;
+
         
         public static bool IsModEnabled(UInt64 id)
         {
@@ -53,19 +54,35 @@ namespace LifecycleRebalanceRevisited
 
                 isModEnabled = true;
 
+                // Load mod settings.
+                LifecycleRebalanceSettingsFile settings = Configuration<LifecycleRebalanceSettingsFile>.Load();
+
+                // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
+                // Legacy mod behaviour worked on 25 increments per decade.
+                LifecycleRebalanceSettings.agePerDecadeFactor = 1d / (settings.UseLegacy ? 25d : 35d);
+
+                // Load configuation file.
                 readFromXML();
 
-                StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: survival probability table:\r\n");
+                StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: survival probability table using factor of " + LifecycleRebalanceSettings.agePerDecadeFactor + ":\r\n");
 
                 // Do conversion from survivalProbInXML
                 for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)
                 {
-                    // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
-                    double power = 1 / 35d;
-
                     // Using 100,000 as equivalent to 100%, for precision (as final figures are integer).
-                    // Calculation is chance of death: 100% - (DecadeSurvival% ^ (1/IncrementsPerDecade)).
-                    DataStore.survivalProbCalc[i] = (int)(100000 - (Math.Pow(DataStore.survivalProbInXML[i], power) * 100000));
+                    if (settings.UseLegacy)
+                    {
+                        // Legacy WG calculation, using natural logarithm. Original author acknowledges its inaccuracy.
+                        // Accurate for factors above ~0.95, but gets increasingly inaccurate below that, providing higher mortality than mathematical models.
+                        // With default acutarial settings, mathematical model overstates 8th decade mortality by 1.3%, 9th decade by 4.3%, 10th decade by 8.3%.
+                        DataStore.survivalProbCalc[i] = (int)(100000 - (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) * LifecycleRebalanceSettings.agePerDecadeFactor))));
+                    }
+                    else
+                    {
+                        // Updated calculation balanced for 1.13, using exponent - exactly matches mathematical models.
+                        // Calculation is chance of death: 100% - (DecadeSurvival% ^ (1/IncrementsPerDecade)).
+                        DataStore.survivalProbCalc[i] = (int)(100000 - (Math.Pow(DataStore.survivalProbInXML[i], LifecycleRebalanceSettings.agePerDecadeFactor) * 100000));
+                    }
                     logMessage.AppendLine(i + ": " + DataStore.survivalProbInXML[i] + " = " + DataStore.survivalProbCalc[i]);
                 }
                 UnityEngine.Debug.Log(logMessage);
