@@ -177,7 +177,7 @@ namespace LifecycleRebalanceRevisited
                     // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
                     // Legacy mod behaviour worked on 25 increments per decade.
                     // If older than the maximum index - lucky them, but keep going using that final index.
-                    int index = Math.Min((int)(num * LifecycleRebalanceSettings.agePerDecadeFactor), 10);
+                    int index = Math.Min((int)(num * ModSettings.decadeFactor), 10);
 
                     // Calculate 90% - 110%; using 100,000 as 100% (for precision).
                     int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);

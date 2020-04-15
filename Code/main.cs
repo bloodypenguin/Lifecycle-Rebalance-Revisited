@@ -23,8 +23,8 @@ namespace LifecycleRebalanceRevisited
         // This can be with the local application directory, or the directory where the exe file exists.
         // Default location is the local application directory, however the exe directory is checked first
         private string currentFileLocation = "";
-        private static volatile bool isModEnabled = false;
         private static volatile bool isLevelLoaded = false;
+        public static volatile bool isModCreated = false;
 
         // Used to flag if a conflicting mod is running.
         private static bool conflictingMod = false;
@@ -46,20 +46,20 @@ namespace LifecycleRebalanceRevisited
                 conflictingMod = true;
                 Debug.Log("Lifecycle Rebalance Revisited: incompatible mod detected.  Shutting down.");
             }
-            else if (!isModEnabled)
+            else if (!isModCreated)
             {
                 // Harmony patches.
                 _harmony.PatchAll(GetType().Assembly);
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
 
-                isModEnabled = true;
+                isModCreated = true;
 
                 // Load mod settings.
-                LifecycleRebalanceSettingsFile settings = Configuration<LifecycleRebalanceSettingsFile>.Load();
+                SettingsFile settings = Configuration<SettingsFile>.Load();
 
                 // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
                 // Legacy mod behaviour worked on 25 increments per decade.
-                LifecycleRebalanceSettings.agePerDecadeFactor = 1d / (settings.UseLegacy ? 25d : 35d);
+                ModSettings.decadeFactor = 1d / (settings.UseLegacy ? 25d : 35d);
 
                 // Load configuation file.
                 readFromXML();
@@ -69,29 +69,8 @@ namespace LifecycleRebalanceRevisited
                 Debugging.UseImmigrationLog = settings.LogImmigrants;
                 Debugging.UseTransportLog = settings.LogTransport;
 
-                StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: survival probability table using factor of " + LifecycleRebalanceSettings.agePerDecadeFactor + ":\r\n");
-
-                // Do conversion from survivalProbInXML
-                for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)
-                {
-                    // Using 100,000 as equivalent to 100%, for precision (as final figures are integer).
-                    if (settings.UseLegacy)
-                    {
-                        // Legacy WG calculation, using natural logarithm. Original author acknowledges its inaccuracy.
-                        // Accurate for factors above ~0.95, but gets increasingly inaccurate below that, providing higher mortality than mathematical models.
-                        // With default acutarial settings, mathematical model overstates 8th decade mortality by 1.3%, 9th decade by 4.3%, 10th decade by 8.3%.
-                        DataStore.survivalProbCalc[i] = (int)(100000 - (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) * LifecycleRebalanceSettings.agePerDecadeFactor))));
-                    }
-                    else
-                    {
-                        // Updated calculation balanced for 1.13, using exponent - exactly matches mathematical models.
-                        // Calculation is chance of death: 100% - (DecadeSurvival% ^ (1/IncrementsPerDecade)).
-                        DataStore.survivalProbCalc[i] = (int)(100000 - (Math.Pow(DataStore.survivalProbInXML[i], LifecycleRebalanceSettings.agePerDecadeFactor) * 100000));
-                    }
-                    logMessage.AppendLine(i + ": " + DataStore.survivalProbInXML[i] + " = " + DataStore.survivalProbCalc[i]);
-                }
-                UnityEngine.Debug.Log(logMessage);
-
+                // Build survivial probability table.
+                ModSettings.SetSurvivalProb();
 
                 // Do conversion from sicknessProbInXML
                 for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
@@ -105,9 +84,9 @@ namespace LifecycleRebalanceRevisited
 
         public override void OnReleased()
         {
-            if (isModEnabled)
+            if (isModCreated)
             {
-                isModEnabled = false;
+                isModCreated = false;
 
                 // Unapply Harmony patches.
                 _harmony.UnpatchAll(HarmonyID);

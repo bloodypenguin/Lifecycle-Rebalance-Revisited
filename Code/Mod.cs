@@ -1,5 +1,6 @@
 ﻿using ICities;
 using ColossalFramework.UI;
+using UnityEngine;
 
 
 namespace LifecycleRebalanceRevisited
@@ -20,27 +21,67 @@ namespace LifecycleRebalanceRevisited
         public void OnSettingsUI(UIHelperBase helper)
         {
             // Load configuration
-            LifecycleRebalanceSettingsFile settings = Configuration<LifecycleRebalanceSettingsFile>.Load();
+            SettingsFile settings = Configuration<SettingsFile>.Load();
 
-            UIHelperBase group = helper.AddGroup("Lifecycle Balance Revisited");
+            UIHelperBase group = helper.AddGroup("Lifecycle Balance Revisited v" + version);
 
-            sunsetCheckbox = (UICheckBox)group.AddCheckbox("Use Sunset Harbor lifespans - longer lifespans and more seniors", !settings.UseLegacy, delegate (bool isChecked)
+            sunsetCheckbox = (UICheckBox)group.AddCheckbox("Use Sunset Harbor lifespans - longer lifespans and more seniors", !settings.UseLegacy, (isChecked) =>
             {
-                settings.UseLegacy = !isChecked;
+                // There Can Only Be One (selected checkbox in this group).
                 legacyCheckbox.isChecked = !isChecked;
-                Configuration<LifecycleRebalanceSettingsFile>.Save();
+
+                // Update mod settings.
+                ModSettings.Legacy = !isChecked;
+
+                // Update configuration file.
+                settings.UseLegacy = !isChecked;
+                Configuration<SettingsFile>.Save();
             });
-            legacyCheckbox = (UICheckBox)group.AddCheckbox("Use legacy lifespans (original WG mod) - shorter lifespans and fewer seniors", settings.UseLegacy, delegate (bool isChecked)
+            legacyCheckbox = (UICheckBox)group.AddCheckbox("Use legacy lifespans (original WG mod) - shorter lifespans and fewer seniors", settings.UseLegacy, (isChecked) =>
             {
-                settings.UseLegacy = isChecked;
+                // There Can Only Be One (selected checkbox in this group).
                 sunsetCheckbox.isChecked = !isChecked;
-                Configuration<LifecycleRebalanceSettingsFile>.Save();
+
+                // Update mod settings.
+                ModSettings.Legacy = isChecked;
+
+                // Update configuration file.
+                settings.UseLegacy = isChecked;
+                Configuration<SettingsFile>.Save();
             });
-            group.AddGroup("NOTE: Option changes only take effect on game load!");
-            group.AddCheckbox("Log deaths to 'Lifecycle death log.txt'", settings.LogDeaths, (isChecked) => { settings.LogDeaths = isChecked; Configuration<LifecycleRebalanceSettingsFile>.Save(); });
-            group.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", settings.LogImmigrants, (isChecked) => { settings.LogImmigrants = isChecked; Configuration<LifecycleRebalanceSettingsFile>.Save(); });
-            group.AddCheckbox("Log transport choices to 'Lifecycle transport log.txt'", settings.LogTransport, (isChecked) => { settings.LogTransport = isChecked; Configuration<LifecycleRebalanceSettingsFile>.Save(); });
-            group.AddGroup("WARNING: Logging transport choices will slow your game!");
+
+            UIHelperBase group2 = helper.AddGroup("Logging");
+
+            group2.AddCheckbox("Log deaths to 'Lifecycle death log.txt'", settings.LogDeaths, (isChecked) =>
+            {
+                // Update mod settings.
+                Debugging.UseDeathLog = isChecked;
+                Debug.Log("Lifecycle Rebalance Revisited: death logging " + (settings.UseLegacy ? "enabled." : "disabled."));
+
+                // Update configuration file.
+                settings.LogDeaths = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+            group2.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", settings.LogImmigrants, (isChecked) =>
+            {
+                // Update mod settings.
+                Debugging.UseImmigrationLog = isChecked;
+                Debug.Log("Lifecycle Rebalance Revisited: immigrant logging " + (settings.UseLegacy ? "enabled." : "disabled."));
+
+                // Update configuration file.
+                settings.LogImmigrants = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+            group2.AddCheckbox("Log transport choices to 'Lifecycle transport log.txt'    WARNING - SLOW!", settings.LogTransport, (isChecked) =>
+            {
+                // Update mod settings.
+                Debugging.UseTransportLog = isChecked;
+                Debug.Log("Lifecycle Rebalance Revisited: transport choices logging " + (settings.UseLegacy ? "enabled." : "disabled."));
+
+                // Update configuration file.
+                settings.LogTransport = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
         }
 
     }
