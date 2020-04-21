@@ -54,23 +54,17 @@ namespace LifecycleRebalanceRevisited
 
                 isModCreated = true;
 
-                // Load mod settings.
-                SettingsFile settings = Configuration<SettingsFile>.Load();
-
-                // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
-                // Legacy mod behaviour worked on 25 increments per decade.
-                ModSettings.decadeFactor = 1d / (settings.UseLegacy ? 25d : 35d);
-
                 // Load configuation file.
                 readFromXML();
 
-                // Apply debugging settings.
+                // Load and apply mod settings.
+                SettingsFile settings = Configuration<SettingsFile>.Load();
+                ModSettings.LegacyCalcs = settings.UseLegacy;
+                ModSettings.CustomRetirement = settings.CustomRetirement;
+                ModSettings.RetirementYear = settings.RetirementYear;
                 Debugging.UseDeathLog = settings.LogDeaths;
                 Debugging.UseImmigrationLog = settings.LogImmigrants;
                 Debugging.UseTransportLog = settings.LogTransport;
-
-                // Build survivial probability table.
-                ModSettings.SetSurvivalProb();
 
                 // Do conversion from sicknessProbInXML
                 for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)

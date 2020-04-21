@@ -1,4 +1,7 @@
-﻿Version 1.3.1 -
+﻿- Add configurable retirement age option (not applicable to legacy lifespan calculations)
+
+
+Version 1.3.1 -
 
 - Option panel changes now take effect immediately (not just on game load)
 

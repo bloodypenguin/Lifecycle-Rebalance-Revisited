@@ -1,6 +1,7 @@
 ﻿using Harmony;
 using ColossalFramework;
 using System;
+
 // TODO - These two only required for base game code pending conversion to Harmony 2 reverse redirect.
 using UnityEngine;
 using ColossalFramework.Threading;
@@ -116,8 +117,10 @@ namespace LifecycleRebalanceRevisited
             // Unlock males within all groups. Find partner except for initial seeding is the exact same age group, so shortcut is allowed
             __result = !data.Dead &&
                 (
-                  // Females are now limited to the time that they have aged. Males are excluded from this calculation so females can still have children
+                  // Females are now limited to the time that they have aged.  Males are excluded from this calculation so females can still have children.
                   (Citizen.Gender.Male == Citizen.GetGender(citizenID)) ||
+                  // Exclude females over default maximum adult age (51.4 years).
+                  data.Age > 180 ||
                   (((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter) && (Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult))
                 )
                 && (data.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None;
@@ -149,7 +152,7 @@ namespace LifecycleRebalanceRevisited
                         NewResidentAI.FinishSchoolOrWork(ref __instance, citizenID, ref data);
                     }
                 }
-                else if (num == 90 || num == 180)
+                else if (num == 90 || num >= ModSettings.retirementAge)
                 {
                     NewResidentAI.FinishSchoolOrWork(ref __instance, citizenID, ref data);
                 }
@@ -212,6 +215,41 @@ namespace LifecycleRebalanceRevisited
             return false;
         }
     } // end UpdateAge
+
+
+
+    [HarmonyPatch(typeof(Citizen))]
+    [HarmonyPatch("GetAgeGroup")]
+    //[HarmonyPatch(new Type[] { typeof(int) })]
+    public static class NewGetAgeGroup
+    {
+        public static bool Prefix(ref Citizen.AgeGroup __result, int age)
+        {
+            if (age < 15)
+            {
+                __result = Citizen.AgeGroup.Child;
+            }
+            if (age < 45)
+            {
+                __result = Citizen.AgeGroup.Teen;
+            }
+            if (age < 90)
+            {
+                __result = Citizen.AgeGroup.Young;
+            }
+            if (age <  ModSettings.retirementAge)
+            {
+                __result = Citizen.AgeGroup.Adult;
+            }
+            else
+            {
+                __result = Citizen.AgeGroup.Senior;
+            }
+
+            // Don't execute original method after this.
+            return false;
+        }
+    }
 
 
     public static class NewResidentAI

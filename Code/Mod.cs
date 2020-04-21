@@ -16,6 +16,8 @@ namespace LifecycleRebalanceRevisited
         private UICheckBox sunsetCheckbox;
         private UICheckBox legacyCheckbox;
 
+        private UICheckBox retireCheckbox;
+
 
         // Setup options UI
         public void OnSettingsUI(UIHelperBase helper)
@@ -31,28 +33,47 @@ namespace LifecycleRebalanceRevisited
                 legacyCheckbox.isChecked = !isChecked;
 
                 // Update mod settings.
-                ModSettings.Legacy = !isChecked;
+                ModSettings.LegacyCalcs = !isChecked;
 
                 // Update configuration file.
                 settings.UseLegacy = !isChecked;
                 Configuration<SettingsFile>.Save();
             });
+
             legacyCheckbox = (UICheckBox)group.AddCheckbox("Use legacy lifespans (original WG mod) - shorter lifespans and fewer seniors", settings.UseLegacy, (isChecked) =>
             {
                 // There Can Only Be One (selected checkbox in this group).
+                // Leave all processing to be done by sunsetCheckbox via state change.
                 sunsetCheckbox.isChecked = !isChecked;
+            });
 
+            UIHelperBase group2 = helper.AddGroup("EXPERIMENTAL FEATURES - Sunset Harbor lifespans only");
+
+            retireCheckbox = (UICheckBox)group2.AddCheckbox("Use custom retirement age (Sunset Harbor lifespans only)", settings.CustomRetirement, (isChecked) =>
+            {
                 // Update mod settings.
-                ModSettings.Legacy = isChecked;
+                ModSettings.CustomRetirement = isChecked;
 
                 // Update configuration file.
-                settings.UseLegacy = isChecked;
+                settings.CustomRetirement = isChecked;
                 Configuration<SettingsFile>.Save();
             });
 
-            UIHelperBase group2 = helper.AddGroup("Logging");
+            group2.AddDropdown("Custom retirement age", new string[] { "50", "55", "60", "65" }, (settings.RetirementYear - 50) / 5, (index) => 
+            {
+                int ageYears = 50 + (index * 5);
 
-            group2.AddCheckbox("Log deaths to 'Lifecycle death log.txt'", settings.LogDeaths, (isChecked) =>
+                // Update mod settings.
+                ModSettings.RetirementYear = ageYears;
+
+                // Update configuration file.
+                settings.RetirementYear = ageYears;
+                Configuration<SettingsFile>.Save();
+            });
+
+            UIHelperBase group3 = helper.AddGroup("Logging");
+
+            group3.AddCheckbox("Log deaths to 'Lifecycle death log.txt'", settings.LogDeaths, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseDeathLog = isChecked;
@@ -62,7 +83,7 @@ namespace LifecycleRebalanceRevisited
                 settings.LogDeaths = isChecked;
                 Configuration<SettingsFile>.Save();
             });
-            group2.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", settings.LogImmigrants, (isChecked) =>
+            group3.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", settings.LogImmigrants, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseImmigrationLog = isChecked;
@@ -72,7 +93,7 @@ namespace LifecycleRebalanceRevisited
                 settings.LogImmigrants = isChecked;
                 Configuration<SettingsFile>.Save();
             });
-            group2.AddCheckbox("Log transport choices to 'Lifecycle transport log.txt'    WARNING - SLOW!", settings.LogTransport, (isChecked) =>
+            group3.AddCheckbox("Log transport choices to 'Lifecycle transport log.txt'    WARNING - SLOW!", settings.LogTransport, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseTransportLog = isChecked;
@@ -83,6 +104,5 @@ namespace LifecycleRebalanceRevisited
                 Configuration<SettingsFile>.Save();
             });
         }
-
     }
 }
