@@ -15,8 +15,8 @@ namespace LifecycleRebalanceRevisited
 {
     public class LoadingExtension : LoadingExtensionBase
     {
-        const string HarmonyID = "com.github.algernon-A.csl.lifecyclerebalancerevisited";
-        private HarmonyInstance _harmony = HarmonyInstance.Create(HarmonyID);
+        public const string HarmonyID = "com.github.algernon-A.csl.lifecyclerebalancerevisited";
+        public static HarmonyInstance harmony = HarmonyInstance.Create(HarmonyID);
 
         public const String XML_FILE = "WG_CitizenEdit.xml";
 
@@ -49,7 +49,7 @@ namespace LifecycleRebalanceRevisited
             else if (!isModCreated)
             {
                 // Harmony patches.
-                _harmony.PatchAll(GetType().Assembly);
+                harmony.PatchAll(GetType().Assembly);
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
 
                 isModCreated = true;
@@ -83,7 +83,7 @@ namespace LifecycleRebalanceRevisited
                 isModCreated = false;
 
                 // Unapply Harmony patches.
-                _harmony.UnpatchAll(HarmonyID);
+                harmony.UnpatchAll(HarmonyID);
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patches unapplied.");
             }
         }

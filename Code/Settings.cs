@@ -96,11 +96,15 @@ namespace LifecycleRebalanceRevisited
             if (!LegacyCalcs && CustomRetirement)
             {
                 retirementAge = (int)(_retirementYear * 3.5);
+                // Apply Harmony patch to GetAgeGroup.
+                NewGetAgeGroup.Apply(LoadingExtension.harmony);
             }
             else
             {
                 // Game default retirement age is 180.
                 retirementAge = 180;
+                // Unapply Harmony patch from GetAgeGroup.
+                NewGetAgeGroup.Revert(LoadingExtension.harmony);
             }
             Debug.Log("Lifecycle Rebalance Revisited: retirement age set to " + retirementAge + ".");
         }

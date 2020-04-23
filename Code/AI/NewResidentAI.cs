@@ -1,8 +1,7 @@
 ﻿using Harmony;
 using ColossalFramework;
 using System;
-
-// TODO - These two only required for base game code pending conversion to Harmony 2 reverse redirect.
+using System.Reflection;
 using UnityEngine;
 using ColossalFramework.Threading;
 using ColossalFramework.PlatformServices;
@@ -218,26 +217,76 @@ namespace LifecycleRebalanceRevisited
 
 
 
-    [HarmonyPatch(typeof(Citizen))]
-    [HarmonyPatch("GetAgeGroup")]
-    //[HarmonyPatch(new Type[] { typeof(int) })]
+    //[HarmonyPatch(typeof(Citizen))]
+    //[HarmonyPatch("GetAgeGroup")]
     public static class NewGetAgeGroup
     {
+        private static MethodInfo OriginalMethod => typeof(Citizen).GetMethod("GetAgeGroup");
+
+        public static void Apply(HarmonyInstance harmony)
+        {
+            // Check if the patch is already installed before proceeding.
+            if (!IsInstalled(harmony))
+            {
+                Debug.Log("Lifecycle Rebalance Revisited: applying GetAgeGroup patch.");
+                var getAgePrefix = typeof(NewGetAgeGroup).GetMethod("Prefix");
+                harmony.Patch(OriginalMethod, new HarmonyMethod(getAgePrefix), null);
+            }
+            else
+            {
+                Debug.Log("Lifecycle Rebalance Revisited: GetAgeGroup patch already applied, doing nothing.");
+            }
+        }
+
+
+        public static void Revert(HarmonyInstance harmony)
+        {
+            // Check if the patch is installed before proceeding.
+            if (IsInstalled(harmony))
+            {
+                Debug.Log("Lifecycle Rebalance Revisited: removing GetAgeGroup patch.");
+                harmony.Unpatch(OriginalMethod, HarmonyPatchType.Prefix);
+            }
+            else
+            {
+                Debug.Log("Lifecycle Rebalance Revisited: GetAgeGroup patch not applied, doing nothing.");
+            }
+        }
+
+
+        public static bool IsInstalled(HarmonyInstance harmony)
+        {
+            var patches = harmony.GetPatchInfo(OriginalMethod);
+            if (patches != null)
+            {
+                foreach(var patch in patches.Prefixes)
+                {
+                    if (patch.owner == LoadingExtension.HarmonyID)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
         public static bool Prefix(ref Citizen.AgeGroup __result, int age)
         {
             if (age < 15)
             {
                 __result = Citizen.AgeGroup.Child;
             }
-            if (age < 45)
+            else if (age < 45)
             {
                 __result = Citizen.AgeGroup.Teen;
             }
-            if (age < 90)
+            else if (age < 90)
             {
                 __result = Citizen.AgeGroup.Young;
             }
-            if (age <  ModSettings.retirementAge)
+            else if (age <  ModSettings.retirementAge)
             {
                 __result = Citizen.AgeGroup.Adult;
             }
