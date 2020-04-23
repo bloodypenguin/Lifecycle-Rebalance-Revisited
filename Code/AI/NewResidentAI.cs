@@ -245,7 +245,7 @@ namespace LifecycleRebalanceRevisited
             if (IsInstalled(harmony))
             {
                 Debug.Log("Lifecycle Rebalance Revisited: removing GetAgeGroup patch.");
-                harmony.Unpatch(OriginalMethod, HarmonyPatchType.Prefix);
+                harmony.Unpatch(OriginalMethod, typeof(NewGetAgeGroup).GetMethod("Prefix"));
             }
             else
             {
