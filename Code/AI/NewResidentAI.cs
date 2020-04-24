@@ -119,8 +119,8 @@ namespace LifecycleRebalanceRevisited
                   // Females are now limited to the time that they have aged.  Males are excluded from this calculation so females can still have children.
                   (Citizen.Gender.Male == Citizen.GetGender(citizenID)) ||
                   // Exclude females over default maximum adult age (51.4 years).
-                  data.Age > 180 ||
-                  (((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter) && (Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult))
+                  (data.Age <= 180 &&
+                  (((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter) && (Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult)))
                 )
                 && (data.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None;
 

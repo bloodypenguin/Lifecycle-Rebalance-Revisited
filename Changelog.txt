@@ -1,4 +1,9 @@
-﻿Version 1.3.2 -
+﻿Version 1.3.3 -
+
+- Minor correction to childbearing age
+
+
+Version 1.3.2 -
 
 - Add configurable retirement age option (not applicable to legacy lifespan calculations)
 
