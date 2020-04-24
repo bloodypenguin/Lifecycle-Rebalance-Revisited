@@ -25,9 +25,15 @@ namespace LifecycleRebalanceRevisited
             // Load configuration
             SettingsFile settings = Configuration<SettingsFile>.Load();
 
-            UIHelperBase group = helper.AddGroup("Lifecycle Balance Revisited v" + version);
+            UIHelperBase group0 = helper.AddGroup("Lifecycle Balance Revisited v" + version);
 
-            sunsetCheckbox = (UICheckBox)group.AddCheckbox("Use Sunset Harbor lifespans - longer lifespans and more seniors", !settings.UseLegacy, (isChecked) =>
+            // Add warning text messages.
+            UITextField warningText = (UITextField)group0.AddTextfield("WARNING:\r\nChanging settings during a game can temporarily disrupt city balance.\r\nSaving a backup before changing is HIGHLY recommended.", "", delegate { });
+            warningText.Disable();
+
+            UIHelperBase group1 = helper.AddGroup("Lifecycle calculation model");
+
+            sunsetCheckbox = (UICheckBox)group1.AddCheckbox("Use Sunset Harbor lifespans - longer lifespans and more seniors", !settings.UseLegacy, (isChecked) =>
             {
                 // There Can Only Be One (selected checkbox in this group).
                 legacyCheckbox.isChecked = !isChecked;
@@ -40,7 +46,7 @@ namespace LifecycleRebalanceRevisited
                 Configuration<SettingsFile>.Save();
             });
 
-            legacyCheckbox = (UICheckBox)group.AddCheckbox("Use legacy lifespans (original WG mod) - shorter lifespans and fewer seniors", settings.UseLegacy, (isChecked) =>
+            legacyCheckbox = (UICheckBox)group1.AddCheckbox("Use legacy lifespans (original WG mod) - shorter lifespans and fewer seniors", settings.UseLegacy, (isChecked) =>
             {
                 // There Can Only Be One (selected checkbox in this group).
                 // Leave all processing to be done by sunsetCheckbox via state change.
@@ -70,6 +76,10 @@ namespace LifecycleRebalanceRevisited
                 settings.RetirementYear = ageYears;
                 Configuration<SettingsFile>.Save();
             });
+
+            // Add text about retirement age.
+            UITextField retirementText = (UITextField)group2.AddTextfield("Decreasing retirement age won't change the status of citizens who have\r\n        already retired under previous settings.\r\nIncreasing retirement age won't change the appearance of citzens who have\r\n        already retired under previous settings.", "", delegate { });
+            retirementText.Disable();
 
             UIHelperBase group3 = helper.AddGroup("Logging");
 

@@ -13,7 +13,7 @@ namespace LifecycleRebalanceRevisited
     {
         public bool UseLegacy { get; set; } = false;
         public bool CustomRetirement { get ; set; } = false;
-        public int RetirementYear { get; set; }
+        public int RetirementYear { get; set; } = 65;
         public bool LogDeaths { get; set; } = false;
         public bool LogImmigrants { get; set; } = false;
         public bool LogTransport { get; set; } = false;
