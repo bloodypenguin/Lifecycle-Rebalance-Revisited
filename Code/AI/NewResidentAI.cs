@@ -400,7 +400,8 @@ namespace LifecycleRebalanceRevisited
         }
 
 
-        // Copied from game code with additions for logging of deaths and including all age ranges in deaths, not just seniors.
+        // Copied from game code with additions for logging of deaths.
+        // TODO: Replace with Harmony2 reverse redirect.
         public static void Die(uint citizenID, ref Citizen data)
         {
             data.Sick = false;
@@ -424,8 +425,8 @@ namespace LifecycleRebalanceRevisited
                 if (IsSenior(citizenID))
                 {
                     instance.m_districts.m_buffer[district].m_deadSeniorsData.m_tempCount++;
+                    instance.m_districts.m_buffer[district].m_ageAtDeathData.m_tempCount += (uint)data.Age;
                 }
-                instance.m_districts.m_buffer[district].m_ageAtDeathData.m_tempCount += (uint)data.Age;
 
 
                 if (Debugging.UseDeathLog)

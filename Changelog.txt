@@ -1,4 +1,9 @@
-﻿Version 1.3.3 -
+﻿Version 1.3.4 -
+
+- Fix average citizen age sometimes not displaying correctly.
+
+
+Version 1.3.3 -
 
 - Minor correction to childbearing age
 
