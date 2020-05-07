@@ -1,4 +1,4 @@
-﻿namespace LifecycleRebalanceRevisited
+﻿namespace LifecycleRebalance
 {
     public class DataStore
     {

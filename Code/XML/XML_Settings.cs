@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     public abstract class Configuration<C> where C : class, new()
     {

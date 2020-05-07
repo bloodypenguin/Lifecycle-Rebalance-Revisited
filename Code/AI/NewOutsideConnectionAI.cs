@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     [HarmonyPatch(typeof(OutsideConnectionAI))]
     [HarmonyPatch("StartConnectionTransferImpl")]

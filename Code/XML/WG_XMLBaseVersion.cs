@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     public abstract class WG_XMLBaseVersion
     {

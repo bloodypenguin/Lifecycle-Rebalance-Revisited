@@ -10,7 +10,7 @@ using Harmony;
 using UnityEngine;
 
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     public class Loading : LoadingExtensionBase
     {
@@ -37,7 +37,7 @@ namespace LifecycleRebalanceRevisited
 
         public override void OnCreated(ILoading loading)
         {
-            UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalanceRevisitedMod.version + " loading.");
+            UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.version + " loading.");
 
             // Check for original WG Citizen Lifecycle Rebalance; if it's enabled, flag and don't activate this mod.
             if (IsModEnabled(654707599ul))

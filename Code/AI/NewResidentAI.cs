@@ -7,7 +7,7 @@ using ColossalFramework.Threading;
 using ColossalFramework.PlatformServices;
 
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     [HarmonyPatch(typeof(ResidentAI))]
     [HarmonyPatch("GetCarProbability")]

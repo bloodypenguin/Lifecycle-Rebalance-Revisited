@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     public class XML_VersionOne : WG_XMLBaseVersion
     {

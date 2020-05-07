@@ -105,6 +105,7 @@
     <Content Include="XML_Files\WG_GameDefaults.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Settings\OptionsPanel.cs" />
     <Compile Include="Code\Settings\Settings.cs" />
     <Compile Include="Code\XML\XML_Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

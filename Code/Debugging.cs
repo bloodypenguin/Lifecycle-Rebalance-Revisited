@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using ColossalFramework.Plugins;
 using System.Text;
 using UnityEngine;
 
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     class Debugging
     {

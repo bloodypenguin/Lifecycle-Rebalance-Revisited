@@ -3,7 +3,7 @@ using System.Text;
 using UnityEngine;
 
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     /// <summary>
     /// Values stored in the mod's settings file.

@@ -2,7 +2,7 @@
 using ICities;
 
 
-namespace LifecycleRebalanceRevisited
+namespace LifecycleRebalance
 {
     public class Threading : ThreadingExtensionBase
     {
