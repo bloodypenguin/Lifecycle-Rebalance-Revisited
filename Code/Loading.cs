@@ -21,7 +21,7 @@ namespace LifecycleRebalance
 
         // This can be with the local application directory, or the directory where the exe file exists.
         // Default location is the local application directory, however the exe directory is checked first
-        private string currentFileLocation = "";
+        public static string currentFileLocation = "";
         private static volatile bool isLevelLoaded = false;
         public static volatile bool isModCreated = false;
 
@@ -51,10 +51,11 @@ namespace LifecycleRebalance
                 harmony.PatchAll(GetType().Assembly);
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
 
-                isModCreated = true;
-
                 // Load configuation file.
                 readFromXML();
+
+                // Set flag.
+                isModCreated = true;
 
                 // Load and apply mod settings.
                 SettingsFile settings = Configuration<SettingsFile>.Load();
@@ -69,7 +70,7 @@ namespace LifecycleRebalance
                 for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
                 {
                     // Simple division
-                    DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25));
+                    DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) / ModSettings.decadeFactor));
                 }
             }
         }
@@ -137,7 +138,7 @@ namespace LifecycleRebalance
         /// <summary>
         ///
         /// </summary>
-        private void readFromXML()
+        public static void readFromXML()
         {
             // Switch to default which is the cities skylines in the application data area.
             currentFileLocation = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + XML_FILE;
