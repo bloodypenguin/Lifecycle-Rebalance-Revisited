@@ -47,7 +47,7 @@ namespace LifecycleRebalanceRevisited
                 decadeFactor = 1d / (value ? 25d : 35d);
 
                 // Also recalculate the survival probability table if the game has been loaded (i.e. not from main menu options panel).
-                if (LoadingExtension.isModCreated)
+                if (Loading.isModCreated)
                 {
                     SetSurvivalProb();
                 }
@@ -97,14 +97,14 @@ namespace LifecycleRebalanceRevisited
             {
                 retirementAge = (int)(_retirementYear * 3.5);
                 // Apply Harmony patch to GetAgeGroup.
-                NewGetAgeGroup.Apply(LoadingExtension.harmony);
+                NewGetAgeGroup.Apply(Loading.harmony);
             }
             else
             {
                 // Game default retirement age is 180.
                 retirementAge = 180;
                 // Unapply Harmony patch from GetAgeGroup.
-                NewGetAgeGroup.Revert(LoadingExtension.harmony);
+                NewGetAgeGroup.Revert(Loading.harmony);
             }
             Debug.Log("Lifecycle Rebalance Revisited: retirement age set to " + retirementAge + ".");
         }

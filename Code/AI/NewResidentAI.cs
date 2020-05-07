@@ -261,7 +261,7 @@ namespace LifecycleRebalanceRevisited
             {
                 foreach(var patch in patches.Prefixes)
                 {
-                    if (patch.owner == LoadingExtension.HarmonyID)
+                    if (patch.owner == Loading.HarmonyID)
                     {
                         return true;
                     }

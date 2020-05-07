@@ -114,7 +114,7 @@
     <Compile Include="Code\DataStore.cs" />
     <Compile Include="Code\Debugging.cs" />
     <Compile Include="Code\Mod.cs" />
-    <Compile Include="Code\main.cs" />
+    <Compile Include="Code\Loading.cs" />
     <Compile Include="Code\XML\WG_XMLBaseVersion.cs" />
     <Compile Include="Code\XML\XML_VerisonOne.cs" />
     <Compile Include="Code\XML\XML_VersionTwo.cs" />

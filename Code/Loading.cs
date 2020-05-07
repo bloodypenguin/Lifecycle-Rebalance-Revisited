@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
-using System.Text;
 using ICities;
 using ColossalFramework;
 using ColossalFramework.UI;
@@ -13,7 +12,7 @@ using UnityEngine;
 
 namespace LifecycleRebalanceRevisited
 {
-    public class LoadingExtension : LoadingExtensionBase
+    public class Loading : LoadingExtensionBase
     {
         public const string HarmonyID = "com.github.algernon-A.csl.lifecyclerebalancerevisited";
         public static HarmonyInstance harmony = HarmonyInstance.Create(HarmonyID);
