@@ -11,6 +11,7 @@ namespace LifecycleRebalance
     [ConfigurationPath("LifecycleRebalance.xml")]
     public class SettingsFile
     {
+        public int NotificationVersion { get; set; } = 0;
         public bool UseLegacy { get; set; } = false;
         public bool CustomRetirement { get ; set; } = false;
         public int RetirementYear { get; set; } = 65;

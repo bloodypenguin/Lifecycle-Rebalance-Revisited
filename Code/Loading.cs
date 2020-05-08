@@ -18,6 +18,7 @@ namespace LifecycleRebalance
         public static HarmonyInstance harmony = HarmonyInstance.Create(HarmonyID);
 
         public const String XML_FILE = "WG_CitizenEdit.xml";
+        public static SettingsFile settingsFile;
 
         // This can be with the local application directory, or the directory where the exe file exists.
         // Default location is the local application directory, however the exe directory is checked first
@@ -58,13 +59,13 @@ namespace LifecycleRebalance
                 isModCreated = true;
 
                 // Load and apply mod settings.
-                SettingsFile settings = Configuration<SettingsFile>.Load();
-                ModSettings.LegacyCalcs = settings.UseLegacy;
-                ModSettings.CustomRetirement = settings.CustomRetirement;
-                ModSettings.RetirementYear = settings.RetirementYear;
-                Debugging.UseDeathLog = settings.LogDeaths;
-                Debugging.UseImmigrationLog = settings.LogImmigrants;
-                Debugging.UseTransportLog = settings.LogTransport;
+                settingsFile = Configuration<SettingsFile>.Load();
+                ModSettings.LegacyCalcs = settingsFile.UseLegacy;
+                ModSettings.CustomRetirement = settingsFile.CustomRetirement;
+                ModSettings.RetirementYear = settingsFile.RetirementYear;
+                Debugging.UseDeathLog = settingsFile.LogDeaths;
+                Debugging.UseImmigrationLog = settingsFile.LogImmigrants;
+                Debugging.UseTransportLog = settingsFile.LogTransport;
 
                 // Do conversion from sicknessProbInXML
                 for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
@@ -132,6 +133,15 @@ namespace LifecycleRebalance
             Debug.Log("Lifecycle Rebalance Revisited: death logging " + (Debugging.UseDeathLog ? "enabled" : "disabled") + ", immigration logging " + (Debugging.UseImmigrationLog ? "enabled" : "disabled") + ", transportation logging " + (Debugging.UseTransportLog ? "enabled." : "disabled."));
 
             UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded.");
+
+            // Check if we need to display update notification.
+            if (settingsFile.NotificationVersion != 1)
+            {
+                // No update notification "Don't show again" flag found; show the notification.
+                UpdateNotification notification = new UpdateNotification();
+                notification.Create();
+                notification.Show();
+            }
         }
 
 

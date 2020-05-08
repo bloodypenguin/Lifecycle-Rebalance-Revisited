@@ -1,6 +1,7 @@
 ﻿Version 1.3.5 -
 - Add options panel slider for hearse chance
 - Add options panel sliders for sickness probabilities by decile
+- Add update notification
 - Update namespace and project hierachy
 
 
