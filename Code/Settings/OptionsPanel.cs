@@ -94,14 +94,14 @@ namespace LifecycleRebalance
             // Deathcare options.
             UIHelperBase group3 = helper.AddGroup("The dearly departed");
 
-            // Percentage of corpses requiring transport.
-            vanishingStiffs = AddSliderWithValue(group3, "% of corpses requiring deathcare transportation\r\n(Game default 33%, mod default 50%)", 0, 100, 1, DataStore.autoDeadRemovalChance, (value) => { });
+            // Percentage of corpses requiring transport.  % of bodies requiring transport is more intuitive to user than % of vanishing corpses, so we invert the value.
+            vanishingStiffs = AddSliderWithValue(group3, "% of dead bodies requiring deathcare transportation\r\n(Game default 67%, mod default 50%)", 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
 
             // Reset to saved button.
             UIButton vanishingStiffReset = (UIButton)group3.AddButton("Reset to saved", () =>
             {
-                // Retrieve saved value from datastore.
-                vanishingStiffs.value = DataStore.autoDeadRemovalChance;
+                // Retrieve saved value from datastore - inverted value (see above).
+                vanishingStiffs.value = 100 - DataStore.autoDeadRemovalChance;
             });
 
             // Turn off autolayout to fit next button to the right at the same y-value and increase button Y-value to clear slider.
@@ -112,9 +112,9 @@ namespace LifecycleRebalance
             // Save settings button.
             UIButton vanishingStiffsSave = (UIButton)group3.AddButton("Save and apply", () =>
             {
-                // Update mod settings.
-                DataStore.autoDeadRemovalChance = (int)vanishingStiffs.value;
-                Debug.Log("Lifecycle Rebalance Revisited: autoDeadRemovalChance set to: " + (int)vanishingStiffs.value + "%.");
+                // Update mod settings - inverted value (see above).
+                DataStore.autoDeadRemovalChance = 100 - (int)vanishingStiffs.value;
+                Debug.Log("Lifecycle Rebalance Revisited: autoDeadRemovalChance set to: " + DataStore.autoDeadRemovalChance + "%.");
 
                 // Update WG configuration file.
                 SaveXML();
@@ -122,18 +122,18 @@ namespace LifecycleRebalance
             vanishingStiffsSave.relativePosition = PositionRightOf(vanishingStiffReset);
 
             // Illness options.
-            UIHelperBase group4 = helper.AddGroup("Random illness % chance per decade of life");
+            UIHelperBase group4 = helper.AddGroup("Random illness % chance per decade of life\r\nDoes not affect sickness from specific causes, e.g. pollution or noise.");
 
             // Illness chance sliders.
             illnessChance = new UISlider[DataStore.sicknessProbInXML.Length];
             for (int i = 0; i < numDeciles; i++)
             {
                 // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
-                illnessChance[i] = AddSliderWithValue(group4, "Ages " + (i * 10) + "-" + ((i * 10) + 9), 0, 100, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
+                illnessChance[i] = AddSliderWithValue(group4, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
             }
 
             // Reset to saved button.
-            UIButton illnessResetToSaved = (UIButton)group4.AddButton("Reset to saved", () =>
+            UIButton illnessResetSaved = (UIButton)group4.AddButton("Reset to saved", () =>
             {
                 for (int i = 0; i < numDeciles; i++)
                 {
@@ -141,20 +141,6 @@ namespace LifecycleRebalance
                     illnessChance[i].value = (float)DataStore.sicknessProbInXML[i] * 100;
                 }
             });
-
-            // Turn off autolayout to fit next buttons to the right at the same y-value.
-            ((UIPanel)illnessResetToSaved.parent).autoLayout = false;
-
-            // Reset to default button.
-            UIButton illnessResetToDefault = (UIButton)group4.AddButton("Reset to default", () =>
-            {
-                for (int i = 0; i < numDeciles; i++)
-                {
-                    // Retrieve default values.
-                    illnessChance[i].value = defaultSicknessProbs[i] * 100;
-                }
-            });
-            illnessResetToDefault.relativePosition = PositionRightOf(illnessResetToSaved);
 
             // Save settings button.
             UIButton illnessSave = (UIButton)group4.AddButton("Save and apply", () =>
@@ -169,8 +155,31 @@ namespace LifecycleRebalance
                 // Write to file.
                 SaveXML();
             });
-            illnessSave.relativePosition = PositionRightOf(illnessResetToDefault);
 
+            // Turn off autolayout to fit next buttons to the right of the illness saved button.
+            ((UIPanel)illnessResetSaved.parent).autoLayout = false;
+
+            // Reset to default button.
+            UIButton illnessResetDefault = (UIButton)group4.AddButton("Reset to default", () =>
+            {
+                for (int i = 0; i < numDeciles; i++)
+                {
+                    // Retrieve default values.
+                    illnessChance[i].value = defaultSicknessProbs[i] * 100;
+                }
+            });
+            illnessResetDefault.relativePosition = PositionRightOf(illnessResetSaved);
+
+            // Reset to default button.
+            UIButton illnessSetZero = (UIButton)group4.AddButton("Set all to zero", () =>
+            {
+                for (int i = 0; i < numDeciles; i++)
+                {
+                    // Reset everything to zero.
+                    illnessChance[i].value = 0;
+                }
+            });
+            illnessSetZero.relativePosition = PositionRightOf(illnessResetDefault);
 
             // Logging options.
             UIHelperBase group5 = helper.AddGroup("Logging");
