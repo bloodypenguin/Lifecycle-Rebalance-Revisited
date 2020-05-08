@@ -3,6 +3,7 @@ using UnityEngine;
 using ICities;
 using ColossalFramework.UI;
 using System.Text.RegularExpressions;
+using System.ComponentModel;
 
 namespace LifecycleRebalance
 {
@@ -24,8 +25,14 @@ namespace LifecycleRebalance
 
         public OptionsPanel(UIHelperBase helper)
         {
-            // Load configuration
+            // Load settings.
             SettingsFile settings = Configuration<SettingsFile>.Load();
+
+            // Read configuration XML if we haven't already.
+            if (!Loading.isModCreated)
+            {
+                Loading.readFromXML();
+            }
 
             UIHelperBase group0 = helper.AddGroup("Lifecycle Balance Revisited v" + LifecycleRebalance.version);
 
@@ -69,7 +76,7 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
             });
 
-            group2.AddDropdown("Custom retirement age", new string[] { "50", "55", "60", "65" }, (settings.RetirementYear - 50) / 5, (index) =>
+            UIDropDown ageDropdown = (UIDropDown)group2.AddDropdown("Custom retirement age", new string[] { "50", "55", "60", "65" }, (settings.RetirementYear - 50) / 5, (index) =>
             {
                 int ageYears = 50 + (index * 5);
 
@@ -81,40 +88,41 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
             });
 
-            // Add text about retirement age.
-            UITextField retirementText = (UITextField)group2.AddTextfield("Decreasing retirement age won't change the status of citizens who have\r\n        already retired under previous settings.\r\nIncreasing retirement age won't change the appearance of citzens who have\r\n        already retired under previous settings.", "", delegate { });
-            retirementText.Disable();
+            AddLabel((UIPanel)ageDropdown.parent, "Decreasing retirement age won't change the status of citizens who have already retired under previous settings.");
+            AddLabel((UIPanel)ageDropdown.parent, "Increasing retirement age won't change the appearance of citzens who have already retired under previous settings.");
 
             // Deathcare options.
             UIHelperBase group3 = helper.AddGroup("The dearly departed");
 
             // Percentage of corpses requiring transport.
-            vanishingStiffs = AddSliderWithValue(group3, "% of corpses requiring deathcare transportation (game default 33%)", 0, 100, 1, DataStore.autoDeadRemovalChance, (value) =>
-            {
-                // Update mod settings.
-                DataStore.autoDeadRemovalChance = (int)value;
-                Debug.Log("Lifecycle Rebalance Revisited: autoDeadRemovalChance set to: " + (int)value + "%.");
+            vanishingStiffs = AddSliderWithValue(group3, "% of corpses requiring deathcare transportation\r\n(Game default 33%, mod default 50%)", 0, 100, 1, DataStore.autoDeadRemovalChance, (value) => { });
 
-                // Update WG configuration file.
-                try
-                {
-                    WG_XMLBaseVersion xml = new XML_VersionTwo();
-                    xml.writeXML(Loading.currentFileLocation);
-                }
-                catch (Exception e)
-                {
-                    Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
-                }
+            // Reset to saved button.
+            UIButton vanishingStiffReset = (UIButton)group3.AddButton("Reset to saved", () =>
+            {
+                // Retrieve saved value from datastore.
+                vanishingStiffs.value = DataStore.autoDeadRemovalChance;
             });
 
-            // Illness options.
-            UIHelperBase group4 = helper.AddGroup("Random illness chance per decade of life");
+            // Turn off autolayout to fit next button to the right at the same y-value and increase button Y-value to clear slider.
+            ((UIPanel)vanishingStiffReset.parent).autoLayout = false;
+            ((UIPanel)vanishingStiffReset.parent).height += 20;
+            vanishingStiffReset.relativePosition = new Vector3(vanishingStiffReset.relativePosition.x, vanishingStiffReset.relativePosition.y + 30);
 
-            // Read XML if we haven't already.
-            if (!Loading.isModCreated)
+            // Save settings button.
+            UIButton vanishingStiffsSave = (UIButton)group3.AddButton("Save and apply", () =>
             {
-                Loading.readFromXML();
-            }
+                // Update mod settings.
+                DataStore.autoDeadRemovalChance = (int)vanishingStiffs.value;
+                Debug.Log("Lifecycle Rebalance Revisited: autoDeadRemovalChance set to: " + (int)vanishingStiffs.value + "%.");
+
+                // Update WG configuration file.
+                SaveXML();
+            });
+            vanishingStiffsSave.relativePosition = PositionRightOf(vanishingStiffReset);
+
+            // Illness options.
+            UIHelperBase group4 = helper.AddGroup("Random illness % chance per decade of life");
 
             // Illness chance sliders.
             illnessChance = new UISlider[DataStore.sicknessProbInXML.Length];
@@ -134,6 +142,9 @@ namespace LifecycleRebalance
                 }
             });
 
+            // Turn off autolayout to fit next buttons to the right at the same y-value.
+            ((UIPanel)illnessResetToSaved.parent).autoLayout = false;
+
             // Reset to default button.
             UIButton illnessResetToDefault = (UIButton)group4.AddButton("Reset to default", () =>
             {
@@ -143,9 +154,10 @@ namespace LifecycleRebalance
                     illnessChance[i].value = defaultSicknessProbs[i] * 100;
                 }
             });
+            illnessResetToDefault.relativePosition = PositionRightOf(illnessResetToSaved);
 
             // Save settings button.
-            UIButton illnessSave = (UIButton)group4.AddButton("Save", () =>
+            UIButton illnessSave = (UIButton)group4.AddButton("Save and apply", () =>
             {
                 // Update datastore with slider values.
                 for (int i = 0; i < numDeciles; i++)
@@ -155,16 +167,9 @@ namespace LifecycleRebalance
                 }
 
                 // Write to file.
-                try
-                {
-                    WG_XMLBaseVersion xml = new XML_VersionTwo();
-                    xml.writeXML(Loading.currentFileLocation);
-                }
-                catch (Exception e)
-                {
-                    Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
-                }
+                SaveXML();
             });
+            illnessSave.relativePosition = PositionRightOf(illnessResetToDefault);
 
 
             // Logging options.
@@ -201,7 +206,41 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
             });
         }
-        
+
+
+
+        /// <summary>
+        /// Adds a plain text label to the specified UI panel.
+        /// </summary>
+        /// <param name="panel">UI panel to add the label to</param>
+        /// <param name="text">Label text</param>
+        /// <returns></returns>
+        private static void AddLabel(UIPanel panel, string text)
+        {
+            // Add label.
+            UILabel label = (UILabel)panel.AddUIComponent<UILabel>();
+            label.autoSize = false;
+            label.autoHeight = true;
+            label.wordWrap = true;
+            label.width = 700;
+            label.text = text;
+
+            // Increase panel height to compensate.
+            panel.height += label.height;
+        }
+
+
+        /// <summary>
+        /// Adds a slider with a descriptive text label above and an automatically updating value label immediately to the right.
+        /// </summary>
+        /// <param name="helper">UIHelper panel to add the control to</param>
+        /// <param name="text">Descriptive label text</param>
+        /// <param name="min">Slider minimum value</param>
+        /// <param name="max">Slider maximum value</param>
+        /// <param name="step">Slider minimum step</param>
+        /// <param name="defaultValue">Slider initial value</param>
+        /// <param name="eventCallback">Slider event handler</param>
+        /// <returns></returns>
         private static UISlider AddSliderWithValue(UIHelperBase helper, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback)
         {
             // Slider control.
@@ -238,14 +277,48 @@ namespace LifecycleRebalance
             return newSlider;
         }
 
+
+        /// <summary>
+        /// Returns a relative position below a specified UI component, suitable for placing an adjacent component.
+        /// </summary>
+        /// <param name="uIComponent">Original (anchor) UI component</param>
+        /// <param name="margin">Margin between components</param>
+        /// <param name="horizontalOffset">Horizontal offset from first to second component</param>
+        /// <returns></returns>
         private static Vector3 PositionUnder(UIComponent uIComponent, float margin = 8f, float horizontalOffset = 0f)
         {
             return new Vector3(uIComponent.relativePosition.x + horizontalOffset, uIComponent.relativePosition.y + uIComponent.height + margin);
         }
 
-        private static Vector3 PositionRightOf(UIComponent uIComponent, float margin = 8f, float verticalOffset = 0f)
+
+        /// <summary>
+        /// Returns a relative position to the right of a specified UI component, suitable for placing an adjacent component.
+        /// </summary>
+        /// <param name="uIComponent">Original (anchor) UI component</param>
+        /// <param name="margin">Margin between components</param>
+        /// <param name="verticalOffset">Vertical offset from first to second component</param>
+        /// <returns></returns>
+        private static Vector3 PositionRightOf(UIComponent uIComponent, float margin = 10f, float verticalOffset = 0f)
         {
             return new Vector3(uIComponent.relativePosition.x + uIComponent.width + margin, uIComponent.relativePosition.y + verticalOffset);
+        }
+
+
+        /// <summary>
+        /// Updates XML configuration file with current settings.
+        /// </summary>
+        private static void SaveXML()
+        {
+            // Write to file.
+            try
+            {
+                WG_XMLBaseVersion xml = new XML_VersionTwo();
+                xml.writeXML(Loading.currentFileLocation);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
+            }
         }
     }
 }

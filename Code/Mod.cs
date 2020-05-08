@@ -5,7 +5,7 @@ namespace LifecycleRebalance
 {
     public class LifecycleRebalance : IUserMod
     {
-        public static string version = "1.3.4";
+        public static string version = "1.3.5";
 
         public string Name => "Lifecycle Rebalance Revisited v" + version;
         
