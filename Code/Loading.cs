@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using System.Text;
 using ICities;
 using ColossalFramework;
 using ColossalFramework.UI;
@@ -66,13 +67,10 @@ namespace LifecycleRebalance
                 Debugging.UseDeathLog = settingsFile.LogDeaths;
                 Debugging.UseImmigrationLog = settingsFile.LogImmigrants;
                 Debugging.UseTransportLog = settingsFile.LogTransport;
+                Debugging.UseSicknessLog = settingsFile.LogSickness;
 
-                // Do conversion from sicknessProbInXML
-                for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
-                {
-                    // Simple division
-                    DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) * ModSettings.decadeFactor));
-                }
+                // Apply sickness probabilities;
+                CalculateSicknessProbabilities();
             }
         }
 
@@ -193,6 +191,20 @@ namespace LifecycleRebalance
             {
                 UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: configuration file not found. Will output new file to : " + currentFileLocation);
             }
+        }
+
+        public static void CalculateSicknessProbabilities()
+        {
+            StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
+
+            // Do conversion from sicknessProbInXML
+            for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
+            {
+                // Simple division
+                DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) * ModSettings.decadeFactor));
+                logMessage.AppendLine(i + ": " + DataStore.sicknessProbInXML[i] + " : " + DataStore.sicknessProbCalc[i] + " : " + (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25)));
+            }
+            Debug.Log(logMessage);
         }
     }
 }

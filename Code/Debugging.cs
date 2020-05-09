@@ -13,10 +13,12 @@ namespace LifecycleRebalance
         public static bool UseDeathLog;
         public static bool UseImmigrationLog;
         public static bool UseTransportLog;
+        public static bool UseSicknessLog;
 
         public static string DeathLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle death log.txt";
         public static string ImmigrationLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle immigration log.txt";
         public static string TransportLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle transport log.txt";
+        public static string SicknessLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle sickness log.txt";
 
 
         // Buffer warning

@@ -203,6 +203,11 @@ namespace LifecycleRebalance
                     {
                         // Make people sick, if they're unlucky.
                         data.Sick = true;
+
+                        if (Debugging.UseSicknessLog)
+                        {
+                            Debugging.WriteToLog(Debugging.SicknessLogName, "Citizen became sick with chance factor " + DataStore.sicknessProbCalc[index] + ".");
+                        }
                     }
                 } // end moving check
             } // end if canTick

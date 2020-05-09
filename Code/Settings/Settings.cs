@@ -18,6 +18,7 @@ namespace LifecycleRebalance
         public bool LogDeaths { get; set; } = false;
         public bool LogImmigrants { get; set; } = false;
         public bool LogTransport { get; set; } = false;
+        public bool LogSickness { get; set; } = false;
 
     }
 

@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Text;
 using UnityEngine;
 using ICities;
 using ColossalFramework.UI;
-using System.Text.RegularExpressions;
-using System.ComponentModel;
+
 
 namespace LifecycleRebalance
 {
@@ -145,11 +145,18 @@ namespace LifecycleRebalance
             // Save settings button.
             UIButton illnessSave = (UIButton)group4.AddButton("Save and apply", () =>
             {
+                StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
+
                 // Update datastore with slider values.
                 for (int i = 0; i < numDeciles; i++)
                 {
                     DataStore.sicknessProbInXML[i] = illnessChance[i].value / 100;
-                    DataStore.sicknessProbCalc[i] = (int)(1000 * illnessChance[i].value);
+
+                    // Recalculate probabilities if the mod is loaded.
+                    if (Loading.isModCreated)
+                    {
+                        Loading.CalculateSicknessProbabilities();
+                    }
                 }
 
                 // Write to file.
@@ -212,6 +219,16 @@ namespace LifecycleRebalance
 
                 // Update configuration file.
                 settings.LogTransport = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+            group5.AddCheckbox("Log sickness events to 'Lifecycle sickness log.txt'", settings.LogSickness, (isChecked) =>
+            {
+                // Update mod settings.
+                Debugging.UseSicknessLog = isChecked;
+                Debug.Log("Lifecycle Rebalance Revisited: sickness logging " + (settings.UseLegacy ? "enabled." : "disabled."));
+
+                // Update configuration file.
+                settings.LogSickness = isChecked;
                 Configuration<SettingsFile>.Save();
             });
         }
