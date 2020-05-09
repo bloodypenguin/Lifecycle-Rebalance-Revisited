@@ -71,7 +71,7 @@ namespace LifecycleRebalance
                 for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
                 {
                     // Simple division
-                    DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) / ModSettings.decadeFactor));
+                    DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) * ModSettings.decadeFactor));
                 }
             }
         }
