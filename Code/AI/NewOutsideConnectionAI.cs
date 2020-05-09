@@ -14,6 +14,8 @@ namespace LifecycleRebalance
     {
         // Copied from game code. Ugh.... 
         // OutsideConnectionAI
+        // // Allow AdvancedOutsideConnection's prefix to execute before this one.
+        [HarmonyAfter(new string[] { "connection.outside.advanced" })]
         private static bool Prefix(bool __result, ushort buildingID, ref Building data, TransferManager.TransferReason material, TransferManager.TransferOffer offer, int touristFactor0, int touristFactor1, int touristFactor2)
         {
             BuildingManager instance = Singleton<BuildingManager>.instance;

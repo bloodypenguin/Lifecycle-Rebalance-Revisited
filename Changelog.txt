@@ -2,6 +2,7 @@
 - Add options panel slider for hearse chance
 - Add options panel sliders for sickness probabilities by decile
 - Add update notification
+- Add Harmony prefix prioritisation for AdvancedOutsideConnection compatibility
 - Update namespace and project hierachy
 
 
