@@ -1,10 +1,9 @@
-﻿using Harmony;
-using ColossalFramework;
-using System;
-using System.Reflection;
+﻿using System;
 using UnityEngine;
+using ColossalFramework;
 using ColossalFramework.Threading;
 using ColossalFramework.PlatformServices;
+using HarmonyLib;
 
 
 namespace LifecycleRebalance
@@ -226,57 +225,6 @@ namespace LifecycleRebalance
     //[HarmonyPatch("GetAgeGroup")]
     public static class NewGetAgeGroup
     {
-        private static MethodInfo OriginalMethod => typeof(Citizen).GetMethod("GetAgeGroup");
-
-        public static void Apply(HarmonyInstance harmony)
-        {
-            // Check if the patch is already installed before proceeding.
-            if (!IsInstalled(harmony))
-            {
-                Debug.Log("Lifecycle Rebalance Revisited: applying GetAgeGroup patch.");
-                var getAgePrefix = typeof(NewGetAgeGroup).GetMethod("Prefix");
-                harmony.Patch(OriginalMethod, new HarmonyMethod(getAgePrefix), null);
-            }
-            else
-            {
-                Debug.Log("Lifecycle Rebalance Revisited: GetAgeGroup patch already applied, doing nothing.");
-            }
-        }
-
-
-        public static void Revert(HarmonyInstance harmony)
-        {
-            // Check if the patch is installed before proceeding.
-            if (IsInstalled(harmony))
-            {
-                Debug.Log("Lifecycle Rebalance Revisited: removing GetAgeGroup patch.");
-                harmony.Unpatch(OriginalMethod, typeof(NewGetAgeGroup).GetMethod("Prefix"));
-            }
-            else
-            {
-                Debug.Log("Lifecycle Rebalance Revisited: GetAgeGroup patch not applied, doing nothing.");
-            }
-        }
-
-
-        public static bool IsInstalled(HarmonyInstance harmony)
-        {
-            var patches = harmony.GetPatchInfo(OriginalMethod);
-            if (patches != null)
-            {
-                foreach(var patch in patches.Prefixes)
-                {
-                    if (patch.owner == Loading.HarmonyID)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-
         public static bool Prefix(ref Citizen.AgeGroup __result, int age)
         {
             if (age < 15)

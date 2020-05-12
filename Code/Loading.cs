@@ -2,22 +2,18 @@
 using System.IO;
 using System.Xml;
 using System.Text;
+using System.Linq;
+using UnityEngine;
 using ICities;
 using ColossalFramework;
 using ColossalFramework.UI;
 using ColossalFramework.Plugins;
-using System.Linq;
-using Harmony;
-using UnityEngine;
 
 
 namespace LifecycleRebalance
 {
     public class Loading : LoadingExtensionBase
     {
-        public const string HarmonyID = "com.github.algernon-A.csl.lifecyclerebalancerevisited";
-        public static HarmonyInstance harmony = HarmonyInstance.Create(HarmonyID);
-
         public const String XML_FILE = "WG_CitizenEdit.xml";
         public static SettingsFile settingsFile;
 
@@ -39,19 +35,25 @@ namespace LifecycleRebalance
 
         public override void OnCreated(ILoading loading)
         {
-            UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.version + " loading.");
+            UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + " loading.");
 
             // Check for original WG Citizen Lifecycle Rebalance; if it's enabled, flag and don't activate this mod.
             if (IsModEnabled(654707599ul))
             {
                 conflictingMod = true;
                 Debug.Log("Lifecycle Rebalance Revisited: incompatible mod detected.  Shutting down.");
+
+                // Unapply Harmony patches before returning without doing anything
+                Patcher.UnpatchAll();
             }
             else if (!isModCreated)
             {
-                // Harmony patches.
-                harmony.PatchAll(GetType().Assembly);
-                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patching complete.");
+                // Make sure patches have been applied before proceeding.
+                if (!Patcher.patched)
+                {
+                    Debug.Log("Lifecycle Rebalance Revisited: Harmony patches not applied, exiting.");
+                    return;
+                }
 
                 // Load configuation file.
                 readFromXML();
@@ -80,10 +82,6 @@ namespace LifecycleRebalance
             if (isModCreated)
             {
                 isModCreated = false;
-
-                // Unapply Harmony patches.
-                harmony.UnpatchAll(HarmonyID);
-                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: patches unapplied.");
             }
         }
 

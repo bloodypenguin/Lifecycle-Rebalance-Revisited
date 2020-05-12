@@ -34,7 +34,7 @@ namespace LifecycleRebalance
                 Loading.readFromXML();
             }
 
-            UIHelperBase group0 = helper.AddGroup("Lifecycle Balance Revisited v" + LifecycleRebalance.version);
+            UIHelperBase group0 = helper.AddGroup("Lifecycle Balance Revisited v" + LifecycleRebalance.Version);
 
             // Add warning text messages.
             UITextField warningText = (UITextField)group0.AddTextfield("WARNING:\r\nChanging settings during a game can temporarily disrupt city balance.\r\nSaving a backup before changing is HIGHLY recommended.", "", delegate { });
