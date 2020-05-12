@@ -12,7 +12,7 @@ namespace LifecycleRebalance
     [HarmonyPatch("GetCarProbability")]
     [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
         new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
-    class NewGetCarProbability
+    class GetCarProbabilityPatch
     {
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
@@ -55,7 +55,7 @@ namespace LifecycleRebalance
     [HarmonyPatch("GetBikeProbability")]
     [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
         new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
-    class NewGetBikeProbability
+    class GetBikeProbabilityPatch
     {
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
@@ -80,7 +80,7 @@ namespace LifecycleRebalance
     [HarmonyPatch("GetTaxiProbability")]
     [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
         new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
-    class NewGetTaxiProbability
+    class GetTaxiProbabilityPatch
     {
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
@@ -103,7 +103,7 @@ namespace LifecycleRebalance
     [HarmonyPatch("CanMakeBabies")]
     [HarmonyPatch(new Type[] { typeof(uint), typeof(Citizen) },
         new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref })]
-    class NewCanMakeBabies
+    class CanMakeBabiesPatch
     {
         private static bool Prefix(ref bool __result, uint citizenID, ref Citizen data)
         {
@@ -133,7 +133,7 @@ namespace LifecycleRebalance
     [HarmonyPatch("UpdateAge")]
     [HarmonyPatch(new Type[] { typeof(uint), typeof(Citizen) },
         new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref })]
-    class NewUpdateAge
+    class UpdateAgePatch
     {
         private static bool Prefix(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
         {
@@ -223,7 +223,7 @@ namespace LifecycleRebalance
 
     //[HarmonyPatch(typeof(Citizen))]
     //[HarmonyPatch("GetAgeGroup")]
-    public static class NewGetAgeGroup
+    public static class GetAgeGroupPatch
     {
         public static bool Prefix(ref Citizen.AgeGroup __result, int age)
         {

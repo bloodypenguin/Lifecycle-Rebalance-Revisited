@@ -1,5 +1,7 @@
 ﻿Version 1.4 BETA
 
+- StartConnectionTransferImpl transpiler by MacSergey
+- Migrate to Harmony 2.0
 
 Version 1.3.7 -
 

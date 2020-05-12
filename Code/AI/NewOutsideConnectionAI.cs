@@ -6,10 +6,10 @@ using HarmonyLib;
 
 namespace LifecycleRebalance
 {
-    [HarmonyPatch(typeof(OutsideConnectionAI))]
-    [HarmonyPatch("StartConnectionTransferImpl")]
-    [HarmonyPatch(new Type[] { typeof(ushort), typeof(Building), typeof(TransferManager.TransferReason), typeof(TransferManager.TransferOffer), typeof(int), typeof(int), typeof(int) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal })]
+    //[HarmonyPatch(typeof(OutsideConnectionAI))]
+    //[HarmonyPatch("StartConnectionTransferImpl")]
+    //[HarmonyPatch(new Type[] { typeof(ushort), typeof(Building), typeof(TransferManager.TransferReason), typeof(TransferManager.TransferOffer), typeof(int), typeof(int), typeof(int) },
+     //   new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal })]
     public class NewStartConnectionTransferImpl
     {
         // Copied from game code. Ugh.... 

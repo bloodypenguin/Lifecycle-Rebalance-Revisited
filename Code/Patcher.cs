@@ -69,7 +69,7 @@ namespace LifecycleRebalance
             if (!IsGetAgeGroupInstalled(harmonyInstance))
             {
                 Debug.Log("Lifecycle Rebalance Revisited: applying GetAgeGroup patch.");
-                var getAgePrefix = typeof(NewGetAgeGroup).GetMethod("Prefix");
+                var getAgePrefix = typeof(GetAgeGroupPatch).GetMethod("Prefix");
                 harmonyInstance.Patch(OriginalMethod, new HarmonyMethod(getAgePrefix), null);
             }
             else
@@ -87,7 +87,7 @@ namespace LifecycleRebalance
             if (IsGetAgeGroupInstalled(harmonyInstance))
             {
                 Debug.Log("Lifecycle Rebalance Revisited: removing GetAgeGroup patch.");
-                harmonyInstance.Unpatch(OriginalMethod, typeof(NewGetAgeGroup).GetMethod("Prefix"));
+                harmonyInstance.Unpatch(OriginalMethod, typeof(GetAgeGroupPatch).GetMethod("Prefix"));
             }
             else
             {
