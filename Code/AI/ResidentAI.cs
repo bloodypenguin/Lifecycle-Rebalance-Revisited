@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using ColossalFramework;
-using ColossalFramework.Threading;
-using ColossalFramework.PlatformServices;
 using HarmonyLib;
 
 
 namespace LifecycleRebalance
 {
+    /// <summary>
+    /// Harmony pre-emptive Prefix patch for ResidentAI.GetCarProbability - implements mod's transport probability settings for cars.
+    /// </summary>
     [HarmonyPatch(typeof(ResidentAI))]
     [HarmonyPatch("GetCarProbability")]
     [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
@@ -17,7 +19,7 @@ namespace LifecycleRebalance
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
             // Cache as best we can. The order of calls is car, bike, taxi
-            NewResidentAI.citizenCache = citizenData.m_citizen;  // Not needed, but just in case
+            AIUtils.citizenCache = citizenData.m_citizen;  // Not needed, but just in case
 
             Citizen citizen = Singleton<CitizenManager>.instance.m_citizens.m_buffer[(int)((UIntPtr)citizenData.m_citizen)];
             ushort homeBuilding = citizen.m_homeBuilding;
@@ -30,15 +32,15 @@ namespace LifecycleRebalance
                 District district = instance.m_districts.m_buffer[instance.GetDistrict(building.m_position)];
                 DistrictPolicies.CityPlanning cityPlanningPolicies = district.m_cityPlanningPolicies;
 
-                NewResidentAI.livesInBike = (cityPlanningPolicies & DistrictPolicies.CityPlanning.EncourageBiking) != DistrictPolicies.CityPlanning.None;
+                AIUtils.livesInBike = (cityPlanningPolicies & DistrictPolicies.CityPlanning.EncourageBiking) != DistrictPolicies.CityPlanning.None;
                 subService = Singleton<BuildingManager>.instance.m_buildings.m_buffer[homeBuilding].Info.GetSubService();
             }
 
             // Set the cache
-            NewResidentAI.cacheArray = NewResidentAI.GetArray(citizen.WealthLevel, subService, ageGroup);
+            AIUtils.cacheArray = AIUtils.GetArray(citizen.WealthLevel, subService, ageGroup);
 
             // Original method return value.
-            __result = NewResidentAI.cacheArray[DataStore.CAR];
+            __result = AIUtils.cacheArray[DataStore.CAR];
 
             if (Debugging.UseTransportLog)
             {
@@ -51,6 +53,9 @@ namespace LifecycleRebalance
     }
 
 
+    /// <summary>
+    /// Harmony pre-emptive Prefix patch for ResidentAI.GetBikeProbability - implements mod's transport probability settings for bicycles.
+    /// </summary>
     [HarmonyPatch(typeof(ResidentAI))]
     [HarmonyPatch("GetBikeProbability")]
     [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
@@ -59,11 +64,11 @@ namespace LifecycleRebalance
     {
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
-            int bike = NewResidentAI.livesInBike ? DataStore.bikeIncrease : 0;
+            int bike = AIUtils.livesInBike ? DataStore.bikeIncrease : 0;
 
             // Original method return value.
             // Array cache has already been set when GetCarProbability was called.
-            __result = (NewResidentAI.cacheArray[DataStore.BIKE] + bike);
+            __result = (AIUtils.cacheArray[DataStore.BIKE] + bike);
 
             if (Debugging.UseTransportLog)
             {
@@ -76,6 +81,9 @@ namespace LifecycleRebalance
     }
 
 
+    /// <summary>
+    /// Harmony pre-emptive Prefix patch for ResidentAI.GetTaxiProbability - implements mod's transport probability settings for taxis.
+    /// </summary>
     [HarmonyPatch(typeof(ResidentAI))]
     [HarmonyPatch("GetTaxiProbability")]
     [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
@@ -86,7 +94,7 @@ namespace LifecycleRebalance
         {
             // Original method return value.
             // Array cache has already been set when GetCarProbability was called.
-            __result = NewResidentAI.cacheArray[DataStore.TAXI];
+            __result = AIUtils.cacheArray[DataStore.TAXI];
 
             if (Debugging.UseTransportLog)
             {
@@ -99,6 +107,9 @@ namespace LifecycleRebalance
     }
 
 
+    /// <summary>
+    /// Harmony pre-emptive Prefix patch for ResidentAI.CanMakeBabies - implements mod's minor fix so that only adult females (of less than age 180) give birth.
+    /// </summary>
     [HarmonyPatch(typeof(ResidentAI))]
     [HarmonyPatch("CanMakeBabies")]
     [HarmonyPatch(new Type[] { typeof(uint), typeof(Citizen) },
@@ -129,6 +140,10 @@ namespace LifecycleRebalance
     }
 
 
+    /// <summary>
+    /// Harmony pre-emptive Prefix patch for ResidentAI.UpdateAge - implements mod's ageing and deathcare rate functions.
+    /// CRITICAL for mod functionality.
+    /// </summary>
     [HarmonyPatch(typeof(ResidentAI))]
     [HarmonyPatch("UpdateAge")]
     [HarmonyPatch(new Type[] { typeof(uint), typeof(Citizen) },
@@ -147,16 +162,16 @@ namespace LifecycleRebalance
                 {
                     if (num == 15 || num == 45)
                     {
-                        NewResidentAI.FinishSchoolOrWork(ref __instance, citizenID, ref data);
+                        FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                     }
                 }
                 else if (num == 90 || num >= ModSettings.retirementAge)
                 {
-                    NewResidentAI.FinishSchoolOrWork(ref __instance, citizenID, ref data);
+                    FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
                 else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % 15 == 0))  // Workspeed multiplier?
                 {
-                    NewResidentAI.FinishSchoolOrWork(ref __instance, citizenID, ref data);
+                    FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
 
                 if ((data.m_flags & Citizen.Flags.Original) != Citizen.Flags.None)
@@ -189,7 +204,7 @@ namespace LifecycleRebalance
 
                     if (died)
                     {
-                        NewResidentAI.Die(citizenID, ref data);
+                        DieRev(__instance, citizenID, ref data);
 
                         // Chance for 'vanishing corpse' (no need for deathcare).
                         if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 99) < DataStore.autoDeadRemovalChance)
@@ -217,12 +232,47 @@ namespace LifecycleRebalance
             // Don't execute base method after this.
             return false;
         }
-    } // end UpdateAge
 
 
+        /// <summary>
+        /// Reverse patch for ResidentAI.FinishSchoolOrWork to access private method of original instance.
+        /// </summary>
+        /// <param name="instance">Object instance</param>
+        /// <param name="citizenID">ID of this citizen (for game method)</param>
+        /// <param name="data">Citizen data (for game method)</param>
+        [HarmonyReversePatch]
+        [HarmonyPatch((typeof(ResidentAI)), "FinishSchoolOrWork")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void FinishSchoolOrWorkRev(object instance, uint citizenID, ref Citizen data)
+        {
+            string message = "Lifecycle Rebalance Revisited: FinishSchoolOrWork reverse Harmony patch wasn't applied.";
+            Debug.Log(message);
+            throw new NotImplementedException(message);
+        }
 
-    //[HarmonyPatch(typeof(Citizen))]
-    //[HarmonyPatch("GetAgeGroup")]
+
+        /// <summary>
+        /// Reverse patch for ResidentAI.Die to access private method of original instance.
+        /// </summary>
+        /// <param name="instance">Object instance</param>
+        /// <param name="citizenID">ID of this citizen (for game method)</param>
+        /// <param name="data">Citizen data (for game method)</param>
+        [HarmonyReversePatch]
+        [HarmonyPatch((typeof(ResidentAI)), "Die")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void DieRev(object instance, uint citizenID, ref Citizen data)
+        {
+            string message = "Lifecycle Rebalance Revisited: Die reverse Harmony patch wasn't applied.";
+            Debug.Log(message);
+            throw new NotImplementedException(message);
+        }
+    }
+
+
+    /// <summary>
+    /// Harmony pre-emptive Prefix patch for ResidentAI.GetAgeGroup - part of custom retirement age implementation.
+    /// Patch is manually applied (and unapplied) depending if custom retirement age setting is active or not.
+    /// </summary>
     public static class GetAgeGroupPatch
     {
         public static bool Prefix(ref Citizen.AgeGroup __result, int age)
@@ -250,193 +300,6 @@ namespace LifecycleRebalance
 
             // Don't execute original method after this.
             return false;
-        }
-    }
-
-
-    public static class NewResidentAI
-    {
-        // Cache items with lowest values
-        public static uint citizenCache = 0u;
-        public static int[] cacheArray;
-        public static bool livesInBike = false;
-
-
-        // Copied from game code as placeholder before Harmony 2 becomes viable (reverse redirect required to access private game method).
-        // TODO - convert to reverse redirect when Harmony 2 migration occurs.
-        public static void FinishSchoolOrWork(ref ResidentAI __instance, uint citizenID, ref Citizen data)
-        {
-            if (data.m_workBuilding == 0)
-            {
-                return;
-            }
-            if (data.CurrentLocation == Citizen.Location.Work && data.m_homeBuilding != 0)
-            {
-                data.m_flags &= ~Citizen.Flags.Evacuating;
-                __instance.StartMoving(citizenID, ref data, data.m_workBuilding, data.m_homeBuilding);
-            }
-            BuildingManager instance = Singleton<BuildingManager>.instance;
-            CitizenManager instance2 = Singleton<CitizenManager>.instance;
-            uint num = instance.m_buildings.m_buffer[data.m_workBuilding].m_citizenUnits;
-            int num2 = 0;
-            do
-            {
-                if (num == 0)
-                {
-                    return;
-                }
-                uint nextUnit = instance2.m_units.m_buffer[num].m_nextUnit;
-                CitizenUnit.Flags flags = instance2.m_units.m_buffer[num].m_flags;
-                if ((flags & (CitizenUnit.Flags.Work | CitizenUnit.Flags.Student)) != 0)
-                {
-                    if ((flags & CitizenUnit.Flags.Student) != 0)
-                    {
-                        if (data.RemoveFromUnit(citizenID, ref instance2.m_units.m_buffer[num]))
-                        {
-                            BuildingInfo info = instance.m_buildings.m_buffer[data.m_workBuilding].Info;
-                            if (info.m_buildingAI.GetEducationLevel1())
-                            {
-                                data.Education1 = true;
-                            }
-                            if (info.m_buildingAI.GetEducationLevel2())
-                            {
-                                if (!data.Education1)
-                                {
-                                    data.Education1 = true;
-                                }
-                                else
-                                {
-                                    data.Education2 = true;
-                                }
-                            }
-                            if (info.m_buildingAI.GetEducationLevel3())
-                            {
-                                if (!data.Education1)
-                                {
-                                    data.Education1 = true;
-                                }
-                                else if (!data.Education2)
-                                {
-                                    data.Education2 = true;
-                                }
-                                else
-                                {
-                                    data.Education3 = true;
-                                }
-                            }
-                            data.m_workBuilding = 0;
-                            data.m_flags &= ~Citizen.Flags.Student;
-                            if ((data.m_flags & Citizen.Flags.Original) != 0 && data.EducationLevel == Citizen.Education.ThreeSchools && instance2.m_fullyEducatedOriginalResidents++ == 0 && Singleton<SimulationManager>.instance.m_metaData.m_disableAchievements != SimulationMetaData.MetaBool.True)
-                            {
-                                ThreadHelper.dispatcher.Dispatch(delegate
-                                {
-                                    if (!PlatformService.achievements["ClimbingTheSocialLadder"].achieved)
-                                    {
-                                        PlatformService.achievements["ClimbingTheSocialLadder"].Unlock();
-                                    }
-                                });
-                            }
-                            return;
-                        }
-                    }
-                    else if (data.RemoveFromUnit(citizenID, ref instance2.m_units.m_buffer[num]))
-                    {
-                        data.m_workBuilding = 0;
-                        data.m_flags &= ~Citizen.Flags.Student;
-                        return;
-                    }
-                }
-                num = nextUnit;
-            }
-            while (++num2 <= 524288);
-            CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
-        }
-
-
-        // Copied from game code with additions for logging of deaths.
-        // TODO: Replace with Harmony2 reverse redirect.
-        public static void Die(uint citizenID, ref Citizen data)
-        {
-            data.Sick = false;
-            data.Dead = true;
-            data.SetParkedVehicle(citizenID, 0);
-            if ((data.m_flags & Citizen.Flags.MovingIn) != 0)
-            {
-                return;
-            }
-            ushort num = data.GetBuildingByLocation();
-            if (num == 0)
-            {
-                num = data.m_homeBuilding;
-            }
-            if (num != 0)
-            {
-                DistrictManager instance = Singleton<DistrictManager>.instance;
-                Vector3 position = Singleton<BuildingManager>.instance.m_buildings.m_buffer[num].m_position;
-                byte district = instance.GetDistrict(position);
-                instance.m_districts.m_buffer[district].m_deathData.m_tempCount++;
-                if (IsSenior(citizenID))
-                {
-                    instance.m_districts.m_buffer[district].m_deadSeniorsData.m_tempCount++;
-                    instance.m_districts.m_buffer[district].m_ageAtDeathData.m_tempCount += (uint)data.Age;
-                }
-
-
-                if (Debugging.UseDeathLog)
-                {
-                    Debugging.WriteToLog(Debugging.DeathLogName, "Citizen died at age: " + data.Age + " (" + (int)(data.Age / 3.5) + " years old).");
-                }
-            }
-        }
-
-
-        // Copied from game code as placeholder before Harmony 2 becomes viable (reverse redirect required to access private game method).
-        // TODO - won't be needed after Harmony 2 reverse redirect applied above.
-        private static bool IsSenior(uint citizenID)
-        {
-            return Citizen.GetAgeGroup(Singleton<CitizenManager>.instance.m_citizens.m_buffer[citizenID].Age) == Citizen.AgeGroup.Senior;
-        }
-
-
-        public static int[] GetArray(Citizen.Wealth wealthLevel, ItemClass.SubService subService, Citizen.AgeGroup ageGroup)
-        {
-            int[][] array;
-            // TODO - split for eco
-            bool eco = (subService == ItemClass.SubService.ResidentialHighEco) || (subService == ItemClass.SubService.ResidentialLowEco);
-            int densityIndex = (subService == ItemClass.SubService.ResidentialHigh) || (subService == ItemClass.SubService.ResidentialHighEco) ? 1 : 0;
-            if (eco)
-            {
-                switch (wealthLevel)
-                {
-                    case Citizen.Wealth.High:
-                        array = DataStore.eco_wealth_high[densityIndex];
-                        break;
-                    case Citizen.Wealth.Medium:
-                        array = DataStore.eco_wealth_med[densityIndex];
-                        break;
-                    case Citizen.Wealth.Low:
-                    default:
-                        array = DataStore.eco_wealth_low[densityIndex];
-                        break;
-                }
-            }
-            else
-            {
-                switch (wealthLevel)
-                {
-                    case Citizen.Wealth.High:
-                        array = DataStore.wealth_high[densityIndex];
-                        break;
-                    case Citizen.Wealth.Medium:
-                        array = DataStore.wealth_med[densityIndex];
-                        break;
-                    case Citizen.Wealth.Low:
-                    default:
-                        array = DataStore.wealth_low[densityIndex];
-                        break;
-                }
-            }
-            return array[(int)ageGroup];
         }
     }
 }

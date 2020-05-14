@@ -108,6 +108,7 @@
     <Content Include="XML_Files\WG_GameDefaults.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\AI\AIUtils.cs" />
     <Compile Include="Code\AI\StartConnectionTransferImpl.cs" />
     <Compile Include="Code\Patcher.cs" />
     <Compile Include="Code\Settings\OptionsPanel.cs" />

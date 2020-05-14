@@ -113,7 +113,7 @@ namespace LifecycleRebalance
             yield return new CodeInstruction(OpCodes.Ldloca_S, ageVarIndex);
 
             // Add call to patch method.
-            yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StartConnectionTransferImplPatch), nameof(StartConnectionTransferImplPatch.PatchMethod)));
+            yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StartConnectionTransferImplPatch), nameof(StartConnectionTransferImplPatch.RandomizeImmigrants)));
 
             // Patch done; add remaining instructions.
             while (instructionsEnumerator.MoveNext())
@@ -139,7 +139,7 @@ namespace LifecycleRebalance
         /// <param name="minAdultAge">Minimum adult immigrant age; placed on stack in advance via Transpiler insertion</param>
         /// <param name="resultEducation">Resultant education level for immigrant after mod calculations (StartConnectionTransferImpl local variable 'education2')</param>
         /// <param name="resultAge">Resultant age level for immigrant after mod calculations (StartConnectionTransferImpl local variable 'age')</param>
-        public static void PatchMethod(int i, Citizen.Education education, int[] ageArray, ref int childrenAgeMax, ref int childrenAgeMin, ref int minAdultAge, out Citizen.Education resultEducation, out int resultAge)
+        public static void RandomizeImmigrants(int i, Citizen.Education education, int[] ageArray, ref int childrenAgeMax, ref int childrenAgeMin, ref int minAdultAge, out Citizen.Education resultEducation, out int resultAge)
         {
             // Minimum and maximum ages.
             int min = ageArray[0];
