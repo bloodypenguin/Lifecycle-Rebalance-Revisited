@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using ColossalFramework;
 using HarmonyLib;
-
+using System.Diagnostics.Eventing.Reader;
 
 namespace LifecycleRebalance
 {
@@ -204,10 +204,16 @@ namespace LifecycleRebalance
 
                     if (died)
                     {
+                        if (Debugging.UseDeathLog)
+                        {
+                            Debugging.WriteToLog(Debugging.DeathLogName, "Citizen died at age: " + data.Age + " (" + (int)(data.Age / 3.5) + " years old).");
+                        }
+
+                        // Reverse redirect to access private method Die().
                         DieRev(__instance, citizenID, ref data);
 
                         // Chance for 'vanishing corpse' (no need for deathcare).
-                        if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 99) < DataStore.autoDeadRemovalChance)
+                        if (!AIUtils.KeepCorpse())
                         {
                             Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
                             return true;
@@ -223,8 +229,8 @@ namespace LifecycleRebalance
                             Debugging.WriteToLog(Debugging.SicknessLogName, "Citizen became sick with chance factor " + DataStore.sicknessProbCalc[index] + ".");
                         }
                     }
-                } // end moving check
-            } // end if canTick
+                }
+            }
 
             // Original method return value.
             __result = false;

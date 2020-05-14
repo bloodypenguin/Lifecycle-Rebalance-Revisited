@@ -1,4 +1,7 @@
-﻿namespace LifecycleRebalance
+﻿using ColossalFramework;
+
+
+namespace LifecycleRebalance
 {
     /// <summary>
     /// Utility methods for AI patches.
@@ -57,6 +60,16 @@
                 }
             }
             return array[(int)ageGroup];
+        }
+
+
+        /// <summary>
+        /// Calculates whether or not a corpse should remain (to be picked up deathcare services), or 'vanish into thin air'.
+        /// </summary>
+        /// <returns>True if the corpse should remain, False if the corpse should vanish</returns>
+        public static bool KeepCorpse()
+        {
+            return Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 99) > DataStore.autoDeadRemovalChance;
         }
     }
 }

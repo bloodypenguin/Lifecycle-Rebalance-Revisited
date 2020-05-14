@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Code\AI\AIUtils.cs" />
     <Compile Include="Code\AI\StartConnectionTransferImpl.cs" />
+    <Compile Include="Code\AI\UpdateHealthTranspiler.cs" />
     <Compile Include="Code\Patcher.cs" />
     <Compile Include="Code\Settings\OptionsPanel.cs" />
     <Compile Include="Code\Settings\Settings.cs" />
