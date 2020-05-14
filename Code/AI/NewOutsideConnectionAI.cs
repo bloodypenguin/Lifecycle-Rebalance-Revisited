@@ -9,13 +9,13 @@ namespace LifecycleRebalance
     //[HarmonyPatch(typeof(OutsideConnectionAI))]
     //[HarmonyPatch("StartConnectionTransferImpl")]
     //[HarmonyPatch(new Type[] { typeof(ushort), typeof(Building), typeof(TransferManager.TransferReason), typeof(TransferManager.TransferOffer), typeof(int), typeof(int), typeof(int) },
-     //   new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal })]
+    //    new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal })]
     public class NewStartConnectionTransferImpl
     {
         // Copied from game code. Ugh.... 
         // OutsideConnectionAI
         // // Allow AdvancedOutsideConnection's prefix to execute before this one.
-        [HarmonyAfter(new string[] { "connection.outside.advanced" })]
+        //[HarmonyAfter(new string[] { "connection.outside.advanced" })]
         private static bool Prefix(bool __result, ushort buildingID, ref Building data, TransferManager.TransferReason material, TransferManager.TransferOffer offer, int touristFactor0, int touristFactor1, int touristFactor2)
         {
             BuildingManager instance = Singleton<BuildingManager>.instance;

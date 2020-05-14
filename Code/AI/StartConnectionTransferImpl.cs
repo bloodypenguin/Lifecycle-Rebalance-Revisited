@@ -5,50 +5,75 @@ using System.Reflection.Emit;
 using UnityEngine;
 using ColossalFramework;
 using HarmonyLib;
+using System.Text;
 
 
 namespace LifecycleRebalance
 {
-    [HarmonyPatch]
-
+    /// <summary>
+    /// Transpiler to patch OutsideConnectionAI.StartConnectionTransferImpl.
+    /// This implements the mods custom immigrant (age, education level) settings.
+    /// </summary>
+    [HarmonyPatch(typeof(OutsideConnectionAI))]
+    [HarmonyPatch("StartConnectionTransferImpl")]
     public static class StartConnectionTransferImplPatch
     {
+        // Local variable ILCode indexes (original method).
         const int educationVarIndex = 2;
         const int numVarIndex = 3;
-        const int iVarIndex = 16;
+        const int iLoopVarIndex = 16;
+        const int ageVarIndex = 20;
+        const int education2VarIndex = 21;
+
+        // Not used in patch - for determining patch location.
         const int flag4VarIndex = 22;
 
-        public static MethodBase TargetMethod() => AccessTools.Method(typeof(OutsideConnectionAI), "StartConnectionTransferImpl");
 
+        /// <summary>
+        /// StartConnectionTransferImpl transpiler.
+        /// </summary>
+        /// <param name="original">Original method to patch</param>
+        /// <param name="instructions">ILCode</param>
+        /// <param name="generator">ILCode generator</param>
+        /// <returns></returns>
         public static IEnumerable<CodeInstruction> Transpiler(MethodBase original, IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-            Debug.Log($"LifecycleRebalance Transpiler start");
+            StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: starting StartConnectionTransferImpl transpiler:\r\n");
 
+            // Local variables used by the patch.
+            // These need to be set up prior to the i loop that the patch goes into.
             var ageArray = generator.DeclareLocal(typeof(int[]));
             var childrenAgeMax = generator.DeclareLocal(typeof(int));
             var childrenAgeMin = generator.DeclareLocal(typeof(int));
             var minAdultAge = generator.DeclareLocal(typeof(int));
 
+            // Transpiler meta.
             var instructionsEnumerator = instructions.GetEnumerator();
             var instruction = (CodeInstruction)null;
-            var forStartFounded = false;
-            var left = 1;
+            var startFound = false;
+            var instructionsRemaining = 1;
 
-            //find for start
-            while (instructionsEnumerator.MoveNext() && left > 0)
+            // Find start pont of patch - keep going while we have instructions left and we've got instructions remaining to patch.
+            while (instructionsEnumerator.MoveNext() && instructionsRemaining > 0)
             {
+                // Get next instruction and add it to output.
                 instruction = instructionsEnumerator.Current;
-                Debug.Log(instruction.ToString());
-
+                logMessage.AppendLine(instruction.ToString());
                 yield return instruction;
 
-                if (forStartFounded)
-                    left -= 1;
-                else if (instruction.opcode == OpCodes.Stloc_S && instruction.operand is LocalBuilder builder && builder.LocalIndex == iVarIndex)
+                // Decrement remaining instructions counter if we're patching.
+                if (startFound)
                 {
-                    forStartFounded = true;
+                    instructionsRemaining -= 1;
+                }
+                // Otherwise, check to see if we've found the start.
+                // We're looking for stloc.s 16 (initialising the for i = 0 at the start of the key loop); this only occurs twice in the original method, and we want the first.
+                else if (instruction.opcode == OpCodes.Stloc_S && instruction.operand is LocalBuilder builder && builder.LocalIndex == iLoopVarIndex)
+                {
+                    // Set the flag.
+                    startFound = true;
 
-                    //set additional local variable value
+                    // Set additional local variable values before we start the loop.
                     yield return new CodeInstruction(OpCodes.Ldc_I4_0);
                     yield return new CodeInstruction(OpCodes.Stloc_S, childrenAgeMax.LocalIndex);
 
@@ -65,46 +90,63 @@ namespace LifecycleRebalance
 
             }
 
-            //save first for operation lable
+            // Save the labels from the current (original) instruction.
             var startForLabels = instructionsEnumerator.Current.labels;
 
-            //skip
+            // Now we've got the location and added the local variable setup, skip forward until we find the location for the end of the patch.
+            // Looking for Stloc_S 22 (initialising bool flag4 = false).
             do
             {
                 instruction = instructionsEnumerator.Current;
-                Debug.Log($"SKIP {instruction}");
+                logMessage.AppendLine("SKIP " + instruction);
             }
             while ((instruction.opcode != OpCodes.Stloc_S || !(instruction.operand is LocalBuilder builder && builder.LocalIndex == flag4VarIndex)) && instructionsEnumerator.MoveNext());
 
-            //call changes method block
-            yield return new CodeInstruction(OpCodes.Ldloc_S, iVarIndex) { labels = startForLabels };
+            // Load required variables for patch method onto stack.
+            yield return new CodeInstruction(OpCodes.Ldloc_S, iLoopVarIndex) { labels = startForLabels };
             yield return new CodeInstruction(OpCodes.Ldloc_S, educationVarIndex);
             yield return new CodeInstruction(OpCodes.Ldloc_S, ageArray.LocalIndex);
             yield return new CodeInstruction(OpCodes.Ldloca_S, childrenAgeMax.LocalIndex);
             yield return new CodeInstruction(OpCodes.Ldloca_S, childrenAgeMin.LocalIndex);
             yield return new CodeInstruction(OpCodes.Ldloca_S, minAdultAge.LocalIndex);
-            yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StartConnectionTransferImplPatch), nameof(StartConnectionTransferImplPatch.Changes)));
+            yield return new CodeInstruction(OpCodes.Ldloca_S, education2VarIndex);
+            yield return new CodeInstruction(OpCodes.Ldloca_S, ageVarIndex);
 
+            // Add call to patch method.
+            yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StartConnectionTransferImplPatch), nameof(StartConnectionTransferImplPatch.PatchMethod)));
+
+            // Patch done; add remaining instructions.
             while (instructionsEnumerator.MoveNext())
             {
-                instruction = instructionsEnumerator.Current;
-                Debug.Log(instruction.ToString());
-                yield return instruction;
+                yield return instructionsEnumerator.Current;
             }
 
-            Debug.Log($"LifecycleRebalance Transpiler complite");
+            logMessage.AppendLine("Lifecycle Rebalance Revisited: StartConnectionTransferImpl transpiler completed.");
+            Debug.Log(logMessage);
         }
 
-        public static void Changes(int i, Citizen.Education education, int[] ageArray, ref int childrenAgeMax, ref int childrenAgeMin, ref int minAdultAge)
+
+        /// <summary>
+        /// Method called by OutsideConnectionAI.StartConnectionTransferImpl Transpiler insertion.
+        /// Randomises (within parameters) age and education levels of immigrants.
+        /// All variables are local variables within OutsideConnectionAI.StartConnectionTransferImpl.
+        /// </summary>
+        /// <param name="i">Loop counter (for loop containing method call)</param>
+        /// <param name="education">Education level input (StartConnectionTransferImpl local variable)</param>
+        /// <param name="ageArray">Array of acceptible ages (from mod DataStore); placed on stack in advance via Transpiler insertion</param>
+        /// <param name="childrenAgeMax">Maximum child immigrant age; placed on stack in advance via Transpiler insertion </param>
+        /// <param name="childrenAgeMin">Minimum child immigrant age; placed on stack in advance via Transpiler insertion</param>
+        /// <param name="minAdultAge">Minimum adult immigrant age; placed on stack in advance via Transpiler insertion</param>
+        /// <param name="resultEducation">Resultant education level for immigrant after mod calculations (StartConnectionTransferImpl local variable 'education2')</param>
+        /// <param name="resultAge">Resultant age level for immigrant after mod calculations (StartConnectionTransferImpl local variable 'age')</param>
+        public static void PatchMethod(int i, Citizen.Education education, int[] ageArray, ref int childrenAgeMax, ref int childrenAgeMin, ref int minAdultAge, out Citizen.Education resultEducation, out int resultAge)
         {
+            // Minimum and maximum ages.
             int min = ageArray[0];
             int max = ageArray[1];
 
-            if (Debugging.UseImmigrationLog)
-            {
-                Debugging.WriteToLog(Debugging.ImmigrationLogName, $"{nameof(i)}={i};{nameof(childrenAgeMin)}={childrenAgeMin};{nameof(childrenAgeMax)}={childrenAgeMax};{nameof(minAdultAge)}={minAdultAge};{nameof(min)}={min};{nameof(max)}={max};");
-            }
-
+            // We start inside an i loop.
+            // i is is the family member number for this incoming family.  0 is primary adult, 1 is secondary adults, and after that are children.
             if (i == 1)
             {
                 // Age of second adult - shouldn't be too far from the first. Just because.
@@ -119,62 +161,69 @@ namespace LifecycleRebalance
             }
 
             // Calculate actual age randomly between minumum and maxiumum.
-            int age = Singleton<SimulationManager>.instance.m_randomizer.Int32(min, max);
+            resultAge = Singleton<SimulationManager>.instance.m_randomizer.Int32(min, max);
 
             // Adust age brackets for subsequent family members.
             if (i == 0)
             {
-                minAdultAge = age;
+                minAdultAge = resultAge;
             }
             else if (i == 1)
             {
                 // Restrict to adult age. Young adult is 18 according to National Institutes of Health... even if the young adult section in a library isn't that range.
-                minAdultAge = Math.Min(age, minAdultAge);
+                minAdultAge = Math.Min(resultAge, minAdultAge);
 
                 // Children should be between 80 and 180 younger than the youngest adult.
                 childrenAgeMax = Math.Max(minAdultAge - 80, 0);  // Allow people 10 ticks from 'adulthood' to have kids
                 childrenAgeMin = Math.Max(minAdultAge - 178, 0); // Accounting gestation, which isn't simulated yet (2 ticks)
             }
 
+            resultEducation = education;
             if (i < 2)
             {
                 // Adults.
                 // 24% different education levels
                 int eduModifier = Singleton<SimulationManager>.instance.m_randomizer.Int32(-12, 12) / 10;
-                education += eduModifier;
-                if (education < Citizen.Education.Uneducated)
+                resultEducation += eduModifier;
+                if (resultEducation < Citizen.Education.Uneducated)
                 {
-                    education = Citizen.Education.Uneducated;
+                    resultEducation = Citizen.Education.Uneducated;
                 }
-                else if (education > Citizen.Education.ThreeSchools)
+                else if (resultEducation > Citizen.Education.ThreeSchools)
                 {
-                    education = Citizen.Education.ThreeSchools;
+                    resultEducation = Citizen.Education.ThreeSchools;
                 }
             }
             else
             {
                 // Children.
-                switch (Citizen.GetAgeGroup(age))
+                switch (Citizen.GetAgeGroup(resultAge))
                 {
                     case Citizen.AgeGroup.Child:
-                        education = Citizen.Education.Uneducated;
+                        resultEducation = Citizen.Education.Uneducated;
                         break;
                     case Citizen.AgeGroup.Teen:
-                        education = Citizen.Education.OneSchool;
+                        resultEducation = Citizen.Education.OneSchool;
                         break;
                     default:
                         // Make it that 80% graduate from high school
-                        education = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) < 80) ? Citizen.Education.TwoSchools : education = Citizen.Education.OneSchool;
+                        resultEducation = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) < 80) ? Citizen.Education.TwoSchools : Citizen.Education.OneSchool;
                         break;
                 }
             }
 
             if (Debugging.UseImmigrationLog)
             {
-                Debugging.WriteToLog(Debugging.ImmigrationLogName, "Family member " + i + " immigrating with age " + age + " (" + (int)(age / 3.5) + " years old) and education level " + education + ".");
+                Debugging.WriteToLog(Debugging.ImmigrationLogName, "Family member " + i + " immigrating with age " + resultAge + " (" + (int)(resultAge / 3.5) + " years old) and education level " + education + ".");
             }
         }
 
+
+        /// <summary>
+        /// Invoked by Transpiler insertion to set up age array data from DataStore prior to immigrant calculation method call.
+        /// </summary>
+        /// <param name="num">Number of immigrants; '1' will select single immigrant age range, other values select ages for initial adult family member</param>
+        /// <returns></returns>
         public static int[] GetAgeArray(int num) => num == 1 ? DataStore.incomingSingleAge : DataStore.incomingAdultAge;
     }
 }
