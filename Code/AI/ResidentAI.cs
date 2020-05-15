@@ -3,110 +3,10 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using ColossalFramework;
 using HarmonyLib;
-using System.Diagnostics.Eventing.Reader;
+
 
 namespace LifecycleRebalance
 {
-    /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.GetCarProbability - implements mod's transport probability settings for cars.
-    /// </summary>
-    [HarmonyPatch(typeof(ResidentAI))]
-    [HarmonyPatch("GetCarProbability")]
-    [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
-    class GetCarProbabilityPatch
-    {
-        static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
-        {
-            // Cache as best we can. The order of calls is car, bike, taxi
-            AIUtils.citizenCache = citizenData.m_citizen;  // Not needed, but just in case
-
-            Citizen citizen = Singleton<CitizenManager>.instance.m_citizens.m_buffer[(int)((UIntPtr)citizenData.m_citizen)];
-            ushort homeBuilding = citizen.m_homeBuilding;
-
-            ItemClass.SubService subService = ItemClass.SubService.ResidentialLow;
-            if (homeBuilding != 0)
-            {
-                DistrictManager instance = Singleton<DistrictManager>.instance;
-                Building building = Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)homeBuilding];
-                District district = instance.m_districts.m_buffer[instance.GetDistrict(building.m_position)];
-                DistrictPolicies.CityPlanning cityPlanningPolicies = district.m_cityPlanningPolicies;
-
-                AIUtils.livesInBike = (cityPlanningPolicies & DistrictPolicies.CityPlanning.EncourageBiking) != DistrictPolicies.CityPlanning.None;
-                subService = Singleton<BuildingManager>.instance.m_buildings.m_buffer[homeBuilding].Info.GetSubService();
-            }
-
-            // Set the cache
-            AIUtils.cacheArray = AIUtils.GetArray(citizen.WealthLevel, subService, ageGroup);
-
-            // Original method return value.
-            __result = AIUtils.cacheArray[DataStore.CAR];
-
-            if (Debugging.UseTransportLog)
-            {
-                Debugging.WriteToLog(Debugging.TransportLogName, citizen.WealthLevel + "-wealth " + ageGroup + " has " + __result + "% chance of driving.");
-            }
-
-            // Don't execute base method after this.
-            return false;
-        }
-    }
-
-
-    /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.GetBikeProbability - implements mod's transport probability settings for bicycles.
-    /// </summary>
-    [HarmonyPatch(typeof(ResidentAI))]
-    [HarmonyPatch("GetBikeProbability")]
-    [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
-    class GetBikeProbabilityPatch
-    {
-        static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
-        {
-            int bike = AIUtils.livesInBike ? DataStore.bikeIncrease : 0;
-
-            // Original method return value.
-            // Array cache has already been set when GetCarProbability was called.
-            __result = (AIUtils.cacheArray[DataStore.BIKE] + bike);
-
-            if (Debugging.UseTransportLog)
-            {
-                Debugging.WriteToLog(Debugging.TransportLogName, "The same " + ageGroup + " has " + __result + "% chance of cycling.");
-            }
-
-            // Don't execute base method after this.
-            return false;
-        }
-    }
-
-
-    /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.GetTaxiProbability - implements mod's transport probability settings for taxis.
-    /// </summary>
-    [HarmonyPatch(typeof(ResidentAI))]
-    [HarmonyPatch("GetTaxiProbability")]
-    [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
-    class GetTaxiProbabilityPatch
-    {
-        static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
-        {
-            // Original method return value.
-            // Array cache has already been set when GetCarProbability was called.
-            __result = AIUtils.cacheArray[DataStore.TAXI];
-
-            if (Debugging.UseTransportLog)
-            {
-                Debugging.WriteToLog(Debugging.TransportLogName, "The same " + ageGroup + " has " + __result + "% chance of using a taxi.");
-            }
-
-            // Don't execute base method after this.
-            return false;
-        }
-    }
-
-
     /// <summary>
     /// Harmony pre-emptive Prefix patch for ResidentAI.CanMakeBabies - implements mod's minor fix so that only adult females (of less than age 180) give birth.
     /// </summary>
@@ -188,19 +88,57 @@ namespace LifecycleRebalance
                 }
 
                 data.Age = num;
+
+                // Checking for death and sickness chances.
+                // Citizens who are currently moving or currently in a vehicle aren't affected.
                 if (data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0)
                 {
-                    // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
-                    // Legacy mod behaviour worked on 25 increments per decade.
-                    // If older than the maximum index - lucky them, but keep going using that final index.
-                    int index = Math.Min((int)(num * ModSettings.decadeFactor), 10);
+                    bool died = false;
 
-                    // Calculate 90% - 110%; using 100,000 as 100% (for precision).
-                    int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);
+                    if (ModSettings.VanillaCalcs)
+                    {
+                        // Using vanilla lifecycle calculations.
+                        int num2 = 240;
+                        int num3 = 255;
+                        int num4 = Mathf.Max(0, 145 - (100 - data.m_health) * 3);
+                        if (num4 != 0)
+                        {
+                            num2 += num4 / 3;
+                            num3 += num4;
+                        }
+                        if (num >= num2)
+                        {
+                            bool flag = Singleton<SimulationManager>.instance.m_randomizer.Int32(2000u) < 3;
+                            died = (Singleton<SimulationManager>.instance.m_randomizer.Int32(num2 * 100, num3 * 100) / 100 <= num || flag);
+                        }
+                    }
+                    else
+                    {
+                        // Using custom lifecycle calculations.
+                        // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
+                        // Legacy mod behaviour worked on 25 increments per decade.
+                        // If older than the maximum index - lucky them, but keep going using that final index.
+                        int index = Math.Min((int)(num * ModSettings.decadeFactor), 10);
 
-                    // Death chance is simply if a random number between 0 and the modifier calculated above is less than the survival probability calculation for that decade of life.
-                    // Also set maximum age of 400 (~114 years) to be consistent with the base game.
-                    bool died = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || num > 400;
+                        // Calculate 90% - 110%; using 100,000 as 100% (for precision).
+                        int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);
+
+                        // Death chance is simply if a random number between 0 and the modifier calculated above is less than the survival probability calculation for that decade of life.
+                        // Also set maximum age of 400 (~114 years) to be consistent with the base game.
+                        died = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || num > 400;
+
+                        // Check for sickness chance if they haven't died.
+                        if (!died && Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.sicknessProbCalc[index])
+                        {
+                            // Make people sick, if they're unlucky.
+                            data.Sick = true;
+
+                            if (Debugging.UseSicknessLog)
+                            {
+                                Debugging.WriteToLog(Debugging.SicknessLogName, "Citizen became sick with chance factor " + DataStore.sicknessProbCalc[index] + ".");
+                            }
+                        }
+                    }
 
                     if (died)
                     {
@@ -217,16 +155,6 @@ namespace LifecycleRebalance
                         {
                             Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
                             return true;
-                        }
-                    }
-                    else if (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.sicknessProbCalc[index])
-                    {
-                        // Make people sick, if they're unlucky.
-                        data.Sick = true;
-
-                        if (Debugging.UseSicknessLog)
-                        {
-                            Debugging.WriteToLog(Debugging.SicknessLogName, "Citizen became sick with chance factor " + DataStore.sicknessProbCalc[index] + ".");
                         }
                     }
                 }

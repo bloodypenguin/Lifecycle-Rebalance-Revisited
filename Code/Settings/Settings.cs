@@ -12,6 +12,7 @@ namespace LifecycleRebalance
     public class SettingsFile
     {
         public int NotificationVersion { get; set; } = 0;
+        public bool UseVanilla { get; set; } = false;
         public bool UseLegacy { get; set; } = false;
         public bool CustomRetirement { get ; set; } = false;
         public int RetirementYear { get; set; } = 65;
@@ -35,6 +36,27 @@ namespace LifecycleRebalance
         /// <summary>
         /// Tracks if we're using legacy lifecycle calculations and handles any changes.
         /// </summary>
+        public static bool VanillaCalcs
+        {
+            get => _vanillaCalcs;
+
+            set
+            {
+                _vanillaCalcs = value;
+
+                // When we set this value, also recalculate age increments per decade.
+                SetDecadeFactor();
+
+                // A change here can affect retirement age in combination with other settings.
+                SetRetirementAge();
+            }
+        }
+        private static bool _vanillaCalcs;
+
+
+        /// <summary>
+        /// Tracks if we're using legacy lifecycle calculations and handles any changes.
+        /// </summary>
         public static bool LegacyCalcs
         {
             get => _legacyCalcs;
@@ -44,9 +66,7 @@ namespace LifecycleRebalance
                 _legacyCalcs = value;
 
                 // When we set this value, also recalculate age increments per decade.
-                // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
-                // Legacy mod behaviour worked on 25 increments per decade.
-                decadeFactor = 1d / (value ? 25d : 35d);
+                SetDecadeFactor();
 
                 // Also recalculate the survival probability table if the game has been loaded (i.e. not from main menu options panel).
                 if (Loading.isModCreated)
@@ -92,10 +112,33 @@ namespace LifecycleRebalance
         private static int _retirementYear;
 
 
+        /// <summary>
+        /// Sets ageing decade factor based on current settings.
+        /// </summary>
+        private static void SetDecadeFactor()
+        {
+            // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
+            // Legacy mod behaviour worked on 25 increments per decade.
+
+            // Decade factor is 1/35, unless legacy calcs are used.
+            if (LegacyCalcs && !VanillaCalcs)
+            {
+                decadeFactor = 1d / 25d;
+            }
+            else
+            {
+                decadeFactor = 1d / 35d;
+            }
+        }
+
+
+        /// <summary>
+        /// Sets retirement age based on current settings.
+        /// </summary>
         private static void SetRetirementAge()
         {
-            // Only set custom retirement age if not using legacy calculations and the custom retirement option is enabled.
-            if (!LegacyCalcs && CustomRetirement)
+            // Only set custom retirement age if not using vanilla or legacy calculations and the custom retirement option is enabled.
+            if (!LegacyCalcs && !VanillaCalcs && CustomRetirement)
             {
                 retirementAge = (int)(_retirementYear * 3.5);
                 // Apply Harmony patch to GetAgeGroup.

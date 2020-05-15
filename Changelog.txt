@@ -1,8 +1,9 @@
 ﻿Version 1.4 BETA
 
+- Add vanilla lifecycle calculation option
+- Extend hearse chance to deaths from sickness (as well as old age)
 - Add tabs to options panel
 - Migrate to Harmony 2.0
-- Extend hearse chance to deaths from sickness (as well as old age)
 - Add StartConnectionTransferImpl Transpiler by MacSergey
 - Implement Harmony reverse patches for ResidentAI private methods
 

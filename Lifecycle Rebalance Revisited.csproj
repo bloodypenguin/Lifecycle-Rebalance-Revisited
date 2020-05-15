@@ -109,10 +109,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\AI\AIUtils.cs" />
+    <Compile Include="Code\AI\ResidentAITransport.cs" />
     <Compile Include="Code\AI\StartConnectionTransferImpl.cs" />
     <Compile Include="Code\AI\UpdateHealthTranspiler.cs" />
     <Compile Include="Code\Patcher.cs" />
+    <Compile Include="Code\Settings\OptionsPanelTabs\DeathOptions.cs" />
+    <Compile Include="Code\Settings\OptionsPanelTabs\LoggingOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanel.cs" />
+    <Compile Include="Code\Settings\OptionsPanelTabs\CalculationOptions.cs" />
+    <Compile Include="Code\Settings\OptionsPanelTabs\HealthOptions.cs" />
     <Compile Include="Code\Settings\PanelUtils.cs" />
     <Compile Include="Code\Settings\Settings.cs" />
     <Compile Include="Code\Settings\UpdateNotification.cs" />

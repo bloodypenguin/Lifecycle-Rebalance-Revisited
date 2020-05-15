@@ -63,6 +63,7 @@ namespace LifecycleRebalance
 
                 // Load and apply mod settings.
                 settingsFile = Configuration<SettingsFile>.Load();
+                ModSettings.VanillaCalcs = settingsFile.UseVanilla;
                 ModSettings.LegacyCalcs = settingsFile.UseLegacy;
                 ModSettings.CustomRetirement = settingsFile.CustomRetirement;
                 ModSettings.RetirementYear = settingsFile.RetirementYear;
