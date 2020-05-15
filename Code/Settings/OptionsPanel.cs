@@ -43,7 +43,8 @@ namespace LifecycleRebalance
             new CalculationOptions(tabStrip, 0);
             new DeathOptions(tabStrip, 1);
             new HealthOptions(tabStrip, 2);
-            new LoggingOptions(tabStrip, 3);
+            new TransportOptions(tabStrip, 3);
+            new LoggingOptions(tabStrip, 4);
         }
     }
 }

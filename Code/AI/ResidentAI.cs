@@ -207,9 +207,9 @@ namespace LifecycleRebalance
     /// Harmony pre-emptive Prefix patch for ResidentAI.GetAgeGroup - part of custom retirement age implementation.
     /// Patch is manually applied (and unapplied) depending if custom retirement age setting is active or not.
     /// </summary>
-    public static class GetAgeGroupPatch
+    class GetAgeGroupPatch
     {
-        public static bool Prefix(ref Citizen.AgeGroup __result, int age)
+        private static bool Prefix(ref Citizen.AgeGroup __result, int age)
         {
             if (age < 15)
             {

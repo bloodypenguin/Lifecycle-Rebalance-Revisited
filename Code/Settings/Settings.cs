@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Text;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace LifecycleRebalance
         public bool UseLegacy { get; set; } = false;
         public bool CustomRetirement { get ; set; } = false;
         public int RetirementYear { get; set; } = 65;
+        public bool UseTransportModes { get; set; } = true;
         public bool LogDeaths { get; set; } = false;
         public bool LogImmigrants { get; set; } = false;
         public bool LogTransport { get; set; } = false;
@@ -43,6 +45,7 @@ namespace LifecycleRebalance
             set
             {
                 _vanillaCalcs = value;
+                Debug.Log("Lifecycle Rebalance Revisited: vanilla lifecycle calculations " + (_vanillaCalcs ? "enabled." : "disabled."));
 
                 // When we set this value, also recalculate age increments per decade.
                 SetDecadeFactor();
@@ -81,6 +84,9 @@ namespace LifecycleRebalance
         private static bool _legacyCalcs;
 
 
+        /// <summary>
+        /// Tracks if we're using custom retirement ages and handles any changes.
+        /// </summary>
         public static bool CustomRetirement
         {
             get => _customRetirement;
@@ -96,6 +102,11 @@ namespace LifecycleRebalance
         }
         private static bool _customRetirement;
 
+
+
+        /// <summary>
+        /// Tracks custom retirement ages and handles any changes.
+        /// </summary>
         public static int RetirementYear
         {
             get => _retirementYear;
@@ -110,6 +121,36 @@ namespace LifecycleRebalance
             }
         }
         private static int _retirementYear;
+
+
+        /// <summary>
+        /// Tracks if we're using custom transport mode options and handles any changes.
+        /// </summary>
+        public static bool UseTransportModes
+        {
+            get => _useTransportModes;
+
+            set
+            {
+                _useTransportModes = value;
+                Debug.Log("Lifecycle Rebalance Revisited: custom transport mode probabilities " + (_useTransportModes ? "enabled." : "disabled."));
+
+                // Apply choices by applying or unapplying Harmony transport choice patches as required.
+                if (value)
+                {
+                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
+                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
+                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                }
+                else
+                {
+                    Patcher.RevertPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
+                    Patcher.RevertPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
+                    Patcher.RevertPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                }
+            }
+        }
+        private static bool _useTransportModes;
 
 
         /// <summary>
@@ -142,14 +183,14 @@ namespace LifecycleRebalance
             {
                 retirementAge = (int)(_retirementYear * 3.5);
                 // Apply Harmony patch to GetAgeGroup.
-                Patcher.ApplyGetAgeGroup();
+                Patcher.ApplyPrefixPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
             }
             else
             {
                 // Game default retirement age is 180.
                 retirementAge = 180;
                 // Unapply Harmony patch from GetAgeGroup.
-                Patcher.RevertGetAgeGroup();
+                Patcher.RevertPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
             }
             Debug.Log("Lifecycle Rebalance Revisited: retirement age set to " + retirementAge + ".");
         }

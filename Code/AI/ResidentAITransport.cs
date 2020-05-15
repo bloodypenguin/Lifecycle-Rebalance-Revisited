@@ -7,11 +7,8 @@ namespace LifecycleRebalance
 {
     /// <summary>
     /// Harmony pre-emptive Prefix patch for ResidentAI.GetCarProbability - implements mod's transport probability settings for cars.
+    /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
     /// </summary>
-    [HarmonyPatch(typeof(ResidentAI))]
-    [HarmonyPatch("GetCarProbability")]
-    [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
     class GetCarProbabilityPatch
     {
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
@@ -53,11 +50,8 @@ namespace LifecycleRebalance
 
     /// <summary>
     /// Harmony pre-emptive Prefix patch for ResidentAI.GetBikeProbability - implements mod's transport probability settings for bicycles.
+    /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
     /// </summary>
-    [HarmonyPatch(typeof(ResidentAI))]
-    [HarmonyPatch("GetBikeProbability")]
-    [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
     class GetBikeProbabilityPatch
     {
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
@@ -81,11 +75,8 @@ namespace LifecycleRebalance
 
     /// <summary>
     /// Harmony pre-emptive Prefix patch for ResidentAI.GetTaxiProbability - implements mod's transport probability settings for taxis.
+    /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
     /// </summary>
-    [HarmonyPatch(typeof(ResidentAI))]
-    [HarmonyPatch("GetTaxiProbability")]
-    [HarmonyPatch(new Type[] { typeof(ushort), typeof(CitizenInstance), typeof(Citizen.AgeGroup) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal })]
     class GetTaxiProbabilityPatch
     {
         static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)

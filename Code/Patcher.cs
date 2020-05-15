@@ -18,6 +18,27 @@ namespace LifecycleRebalance
         public static bool patched = false;
 
 
+        // Target methods for patches that are dynamically applied (instead of through Harmony annotations).
+        // These are methods who can be either patched or unpatched depending on option settings.
+        public static MethodInfo OriginalGetAgeGroup => typeof(Citizen).GetMethod("GetAgeGroup");
+        public static MethodInfo OriginalGetCarProbability => typeof(ResidentAI).GetMethod("GetCarProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
+            new System.Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
+            new ParameterModifier[0]);
+        public static MethodInfo OriginalGetBikeProbability => typeof(ResidentAI).GetMethod("GetBikeProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
+            new System.Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
+            new ParameterModifier[0]);
+        public static MethodInfo OriginalGetTaxiProbability => typeof(ResidentAI).GetMethod("GetTaxiProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
+            new System.Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
+            new ParameterModifier[0]);
+
+        // Patch methods for patches that are dynamically applied.
+
+        public static MethodInfo GetAgeGroupPrefix => typeof(GetAgeGroupPatch).GetMethod("Prefix", BindingFlags.NonPublic | BindingFlags.Static);
+        public static MethodInfo GetCarProbabilityPrefix => typeof(GetCarProbabilityPatch).GetMethod("Prefix", BindingFlags.NonPublic | BindingFlags.Static);
+        public static MethodInfo GetBikeProbabilityPrefix => typeof(GetBikeProbabilityPatch).GetMethod("Prefix", BindingFlags.NonPublic | BindingFlags.Static);
+        public static MethodInfo GetTaxiProbabilityPrefix => typeof(GetTaxiProbabilityPatch).GetMethod("Prefix", BindingFlags.NonPublic | BindingFlags.Static);
+
+
         /// <summary>
         /// Apply all Harmony patches.
         /// </summary>
@@ -44,6 +65,9 @@ namespace LifecycleRebalance
         }
 
 
+        /// <summary>
+        /// Remove all Harmony patches applied by this mod.
+        /// </summary>
         public static void UnpatchAll()
         {
             // Only unapply if patches appplied.
@@ -59,51 +83,71 @@ namespace LifecycleRebalance
         }
 
 
-        private static MethodInfo OriginalMethod => typeof(Citizen).GetMethod("GetAgeGroup");
-
-        public static void ApplyGetAgeGroup()
+        /// <summary>
+        /// Manually applies Harmony patches.
+        /// </summary>
+        public static void ApplyPrefixPatch(MethodInfo originalMethod, MethodInfo patchMethod)
         {
             Harmony harmonyInstance = new Harmony(harmonyID);
 
             // Check if the patch is already installed before proceeding.
-            if (!IsGetAgeGroupInstalled(harmonyInstance))
+            if (!IsPatchInstalled(originalMethod))
             {
-                Debug.Log("Lifecycle Rebalance Revisited: applying GetAgeGroup patch.");
-                var getAgePrefix = typeof(GetAgeGroupPatch).GetMethod("Prefix");
-                harmonyInstance.Patch(OriginalMethod, new HarmonyMethod(getAgePrefix), null);
+                if (originalMethod == null)
+                {
+                    string message = "Lifecycle Rebalance Revisited: null original method passed for patching.";
+                    Debug.Log(message);
+                    throw new UnassignedReferenceException(message);
+                }
+
+                if (patchMethod == null)
+                {
+                    string message = "Lifecycle Rebalance Revisited: null patch method passed for patching.";
+                    Debug.Log(message);
+                    throw new UnassignedReferenceException(message);
+                }
+
+                Debug.Log("Lifecycle Rebalance Revisited: patching '" + originalMethod.Name + "'.");
+                harmonyInstance.Patch(originalMethod, prefix: new HarmonyMethod(patchMethod));
             }
             else
             {
-                Debug.Log("Lifecycle Rebalance Revisited: GetAgeGroup patch already applied, doing nothing.");
+                Debug.Log("Lifecycle Rebalance Revisited: '" + originalMethod.Name + "' patch already applied, doing nothing.");
             }
         }
 
 
-        public static void RevertGetAgeGroup()
+        /// <summary>
+        /// Manually removes specified Harmony patches.
+        /// </summary>
+        public static void RevertPatch(MethodInfo originalMethod, MethodInfo patchMethod)
         {
             Harmony harmonyInstance = new Harmony(harmonyID);
 
             // Check if the patch is installed before proceeding.
-            if (IsGetAgeGroupInstalled(harmonyInstance))
+            if (IsPatchInstalled(originalMethod))
             {
-                Debug.Log("Lifecycle Rebalance Revisited: removing GetAgeGroup patch.");
-                harmonyInstance.Unpatch(OriginalMethod, typeof(GetAgeGroupPatch).GetMethod("Prefix"));
+                Debug.Log("Lifecycle Rebalance Revisited: removing patch from '" + originalMethod.Name + "'.");
+                harmonyInstance.Unpatch(originalMethod, patchMethod);
             }
             else
             {
-                Debug.Log("Lifecycle Rebalance Revisited: GetAgeGroup patch not applied, doing nothing.");
+                Debug.Log("Lifecycle Rebalance Revisited: '" + originalMethod.Name + "' patch not applied, doing nothing.");
             }
         }
 
 
-        public static bool IsGetAgeGroupInstalled(Harmony harmonyInstance)
+        /// <summary>
+        /// Checks to see if Harmony Citizen.GetAgeGroup() pre-emptive Prefix patch is currently applied.
+        /// </summary>
+        public static bool IsPatchInstalled(MethodInfo originalMethod)
         {
-            var patches = Harmony.GetPatchInfo(OriginalMethod);
+            var patches = Harmony.GetPatchInfo(originalMethod);
             if (patches != null)
             {
                 foreach (var patch in patches.Prefixes)
                 {
-                    if (patch.owner == Patcher.harmonyID)
+                    if (patch.owner == harmonyID)
                     {
                         return true;
                     }

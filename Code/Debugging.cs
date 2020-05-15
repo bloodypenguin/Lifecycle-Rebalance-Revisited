@@ -42,10 +42,17 @@ namespace LifecycleRebalance
         // Log to dedicated file.
         public static void WriteToLog(string filename, String text)
         {
-            using (FileStream fs = new FileStream(filename, FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs))
+            try
             {
-                sw.WriteLine(text);
+                using (FileStream fs = new FileStream(filename, FileMode.Append, FileAccess.Write))
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine(text);
+                }
+            }
+            catch
+            {
+                Debug.Log("Lifecycle Rebalance Revisited: custom logging exception.");
             }
         }
     }

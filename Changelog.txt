@@ -2,6 +2,7 @@
 
 - Add vanilla lifecycle calculation option
 - Extend hearse chance to deaths from sickness (as well as old age)
+- Add option to enable/disable custom transport choices
 - Add tabs to options panel
 - Migrate to Harmony 2.0
 - Add StartConnectionTransferImpl Transpiler by MacSergey

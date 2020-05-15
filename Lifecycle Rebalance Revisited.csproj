@@ -118,6 +118,7 @@
     <Compile Include="Code\Settings\OptionsPanel.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\CalculationOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\HealthOptions.cs" />
+    <Compile Include="Code\Settings\OptionsPanelTabs\TransportOptions.cs" />
     <Compile Include="Code\Settings\PanelUtils.cs" />
     <Compile Include="Code\Settings\Settings.cs" />
     <Compile Include="Code\Settings\UpdateNotification.cs" />

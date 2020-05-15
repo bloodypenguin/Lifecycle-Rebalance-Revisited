@@ -24,41 +24,45 @@ namespace LifecycleRebalance
             {
                 // Update mod settings.
                 Debugging.UseDeathLog = isChecked;
-                Debug.Log("Lifecycle Rebalance Revisited: death logging " + (OptionsPanel.settings.UseLegacy ? "enabled." : "disabled."));
 
                 // Update configuration file.
                 OptionsPanel.settings.LogDeaths = isChecked;
                 Configuration<SettingsFile>.Save();
+
+                Debug.Log("Lifecycle Rebalance Revisited: death logging " + (OptionsPanel.settings.LogDeaths ? "enabled." : "disabled."));
             });
             loggingTab.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", OptionsPanel.settings.LogImmigrants, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseImmigrationLog = isChecked;
-                Debug.Log("Lifecycle Rebalance Revisited: immigrant logging " + (OptionsPanel.settings.UseLegacy ? "enabled." : "disabled."));
 
                 // Update configuration file.
                 OptionsPanel.settings.LogImmigrants = isChecked;
                 Configuration<SettingsFile>.Save();
+
+                Debug.Log("Lifecycle Rebalance Revisited: immigrant logging " + (OptionsPanel.settings.LogImmigrants ? "enabled." : "disabled."));
             });
-            loggingTab.AddCheckbox("Log transport choices to 'Lifecycle transport log.txt'    WARNING - SLOW!", OptionsPanel.settings.LogTransport, (isChecked) =>
+            loggingTab.AddCheckbox("Log custom transport choices to 'Lifecycle transport log.txt'    WARNING - SLOW!", OptionsPanel.settings.LogTransport, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseTransportLog = isChecked;
-                Debug.Log("Lifecycle Rebalance Revisited: transport choices logging " + (OptionsPanel.settings.UseLegacy ? "enabled." : "disabled."));
 
                 // Update configuration file.
                 OptionsPanel.settings.LogTransport = isChecked;
                 Configuration<SettingsFile>.Save();
+
+                Debug.Log("Lifecycle Rebalance Revisited: transport choices logging " + (OptionsPanel.settings.LogTransport ? "enabled." : "disabled."));
             });
             loggingTab.AddCheckbox("Log sickness events to 'Lifecycle sickness log.txt'", OptionsPanel.settings.LogSickness, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseSicknessLog = isChecked;
-                Debug.Log("Lifecycle Rebalance Revisited: sickness logging " + (OptionsPanel.settings.UseLegacy ? "enabled." : "disabled."));
 
                 // Update configuration file.
                 OptionsPanel.settings.LogSickness = isChecked;
                 Configuration<SettingsFile>.Save();
+                 
+                Debug.Log("Lifecycle Rebalance Revisited: sickness logging " + (OptionsPanel.settings.LogSickness ? "enabled." : "disabled."));
             });
         }
     }
