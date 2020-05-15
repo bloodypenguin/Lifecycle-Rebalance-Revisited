@@ -1,5 +1,6 @@
 ﻿Version 1.4 BETA
 
+- Add tabs to options panel
 - Migrate to Harmony 2.0
 - Extend hearse chance to deaths from sickness (as well as old age)
 - Add StartConnectionTransferImpl Transpiler by MacSergey

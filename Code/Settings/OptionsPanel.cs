@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using UnityEngine;
 using ICities;
 using ColossalFramework.UI;
@@ -12,21 +11,17 @@ namespace LifecycleRebalance
     /// </summary>
     public class OptionsPanel
     {
-        // Components.
-        private UICheckBox sunsetCheckbox;
-        private UICheckBox legacyCheckbox;
-        private UICheckBox retireCheckbox;
-        private UISlider vanishingStiffs;
-        private UISlider[] illnessChance;
-
         // Sickness deciles; set to 10 (even though 11 in DataStore) as current WG XML v2 only stores the first 10.
         private const int numDeciles = 10;
         private static float[] defaultSicknessProbs = { 0.0125f, 0.0075f, 0.01f, 0.01f, 0.015f, 0.02f, 0.03f, 0.04f, 0.05f, 0.075f, 0.25f };
 
+        // Settings file.
+        private static SettingsFile settings;
+
         public OptionsPanel(UIHelperBase helper)
         {
             // Load settings.
-            SettingsFile settings = Configuration<SettingsFile>.Load();
+            settings = Configuration<SettingsFile>.Load();
 
             // Read configuration XML if we haven't already.
             if (!Loading.isModCreated)
@@ -34,47 +29,53 @@ namespace LifecycleRebalance
                 Loading.readFromXML();
             }
 
-            UIHelperBase group0 = helper.AddGroup("Lifecycle Balance Revisited v" + LifecycleRebalance.Version);
+            // Set up tab strip and containers.
+            UIScrollablePanel optionsPanel = ((UIHelper)helper).self as UIScrollablePanel;
+            optionsPanel.autoLayout = false;
+
+            UITabstrip tabStrip = optionsPanel.AddUIComponent<UITabstrip>();
+            tabStrip.relativePosition = new Vector3(0, 0);
+            tabStrip.size = new Vector2(744, 713);
+
+            UITabContainer tabContainer = optionsPanel.AddUIComponent<UITabContainer>();
+            tabContainer.relativePosition = new Vector3(0, 40);
+            tabContainer.size = new Vector3(744, 713);
+            tabStrip.tabPages = tabContainer;
+
+            // Add tabs and panels.
+            CalculationsTab(tabStrip, 0);
+            DeathTab(tabStrip, 1);
+            HealthTab(tabStrip, 2);
+            LoggingTab(tabStrip, 3);
+        }
+
+
+        /// <summary>
+        /// Adds calculation options tab to tabstrip.
+        /// </summary>
+        /// <param name="tabStrip">Tab strip to add to</param>
+        /// <param name="tabIndex">Index number of tab</param>
+        private static void CalculationsTab(UITabstrip tabStrip, int tabIndex)
+        {
+            // Add tab.
+            UIHelper calculationsTab = PanelUtils.AddTab(tabStrip, "Calculations", tabIndex);
+
+            UIHelperBase group0 = calculationsTab.AddGroup("Lifecycle Balance Revisited v" + LifecycleRebalance.Version);
 
             // Add warning text messages.
             UITextField warningText = (UITextField)group0.AddTextfield("WARNING:\r\nChanging settings during a game can temporarily disrupt city balance.\r\nSaving a backup before changing is HIGHLY recommended.", "", delegate { });
             warningText.Disable();
 
             // Calculation models.
-            UIHelperBase group1 = helper.AddGroup("Lifecycle calculation model");
+            UIHelperBase group1 = calculationsTab.AddGroup("Lifecycle calculation model");
 
-            sunsetCheckbox = (UICheckBox)group1.AddCheckbox("Use Sunset Harbor lifespans - longer lifespans and more seniors", !settings.UseLegacy, (isChecked) =>
-            {
-                // There Can Only Be One (selected checkbox in this group).
-                legacyCheckbox.isChecked = !isChecked;
-
-                // Update mod settings.
-                ModSettings.LegacyCalcs = !isChecked;
-
-                // Update configuration file.
-                settings.UseLegacy = !isChecked;
-                Configuration<SettingsFile>.Save();
-            });
-
-            legacyCheckbox = (UICheckBox)group1.AddCheckbox("Use legacy lifespans (original WG mod) - shorter lifespans and fewer seniors", settings.UseLegacy, (isChecked) =>
-            {
-                // There Can Only Be One (selected checkbox in this group).
-                // Leave all processing to be done by sunsetCheckbox via state change.
-                sunsetCheckbox.isChecked = !isChecked;
-            });
+            UICheckBox sunsetCheckbox = (UICheckBox)group1.AddCheckbox("Use Sunset Harbor lifespans - longer lifespans and more seniors", !settings.UseLegacy, (isChecked) => { });
+            UICheckBox legacyCheckbox = (UICheckBox)group1.AddCheckbox("Use legacy lifespans (original WG mod) - shorter lifespans and fewer seniors", settings.UseLegacy, (isChecked) => { });
 
             // Custom retirement ages.
-            UIHelperBase group2 = helper.AddGroup("EXPERIMENTAL FEATURES - Sunset Harbor lifespans only");
+            UIHelperBase group2 = calculationsTab.AddGroup("EXPERIMENTAL FEATURES - Sunset Harbor lifespans only");
 
-            retireCheckbox = (UICheckBox)group2.AddCheckbox("Use custom retirement age (Sunset Harbor lifespans only)", settings.CustomRetirement, (isChecked) =>
-            {
-                // Update mod settings.
-                ModSettings.CustomRetirement = isChecked;
-
-                // Update configuration file.
-                settings.CustomRetirement = isChecked;
-                Configuration<SettingsFile>.Save();
-            });
+            UICheckBox retireCheckbox = (UICheckBox)group2.AddCheckbox("Use custom retirement age (Sunset Harbor lifespans only)", settings.CustomRetirement, (isChecked) => { });
 
             UIDropDown ageDropdown = (UIDropDown)group2.AddDropdown("Custom retirement age", new string[] { "50", "55", "60", "65" }, (settings.RetirementYear - 50) / 5, (index) =>
             {
@@ -88,17 +89,101 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
             });
 
-            AddLabel((UIPanel)ageDropdown.parent, "Decreasing retirement age won't change the status of citizens who have already retired under previous settings.");
-            AddLabel((UIPanel)ageDropdown.parent, "Increasing retirement age won't change the appearance of citzens who have already retired under previous settings.");
+            UILabel retireNote1 = PanelUtils.AddLabel((UIPanel)ageDropdown.parent, "Decreasing retirement age won't change the status of citizens who have already retired under previous settings.");
+            UILabel retireNote2 = PanelUtils.AddLabel((UIPanel)ageDropdown.parent, "Increasing retirement age won't change the appearance of citzens who have already retired under previous settings.");
 
-            // Deathcare options.
-            UIHelperBase group3 = helper.AddGroup("The dearly departed");
+            // Show/hide controls based on initial settings.
+            if (!settings.CustomRetirement)
+            {
+                ageDropdown.Disable();
+                ageDropdown.Hide();
+                retireNote1.Hide();
+                retireNote2.Hide();
+            }
+
+            if (settings.UseLegacy)
+            {
+                retireCheckbox.Disable();
+                ageDropdown.Disable();
+                retireCheckbox.parent.Hide();
+            }
+
+            // Event handlers (here so other controls referenced are all set up prior to referencing in handlers).
+            sunsetCheckbox.eventCheckChanged += (control, isChecked) =>
+            {
+                // There Can Only Be One (selected checkbox in this group).
+                legacyCheckbox.isChecked = !isChecked;
+
+                // Update mod settings.
+                ModSettings.LegacyCalcs = !isChecked;
+
+                // Update configuration file.
+                settings.UseLegacy = !isChecked;
+                Configuration<SettingsFile>.Save();
+
+                retireCheckbox.parent.Hide();
+
+                // Show custom retirement age options.
+                retireCheckbox.Enable();
+                ageDropdown.Enable();
+                retireCheckbox.parent.Show();
+            };
+
+            legacyCheckbox.eventCheckChanged += (control, isChecked) =>
+            {
+                // There Can Only Be One (selected checkbox in this group).
+                // Leave all processing to be done by sunsetCheckbox via state change.
+                sunsetCheckbox.isChecked = !isChecked;
+
+                // Hide custom retirement options.
+                retireCheckbox.Disable();
+                ageDropdown.Disable();
+                retireCheckbox.parent.Hide();
+            };
+
+            retireCheckbox.eventCheckChanged += (control, isChecked) =>
+            {
+                // Update mod settings.
+                ModSettings.CustomRetirement = isChecked;
+
+                // Show/hide retirement age dropdown.
+                if (isChecked)
+                {
+                    ageDropdown.Enable();
+                    ageDropdown.Show();
+                    retireNote1.Show();
+                    retireNote2.Show();
+                }
+                else
+                {
+                    ageDropdown.Disable();
+                    ageDropdown.Hide();
+                    retireNote1.Hide();
+                    retireNote2.Hide();
+                }
+
+                // Update configuration file.
+                settings.CustomRetirement = isChecked;
+                Configuration<SettingsFile>.Save();
+            };
+        }
+
+
+        /// <summary>
+        /// Adds death options tab to tabstrip.
+        /// </summary>
+        /// <param name="tabStrip">Tab strip to add to</param>
+        /// <param name="tabIndex">Index number of tab</param>
+        private static void DeathTab(UITabstrip tabStrip, int tabIndex)
+        {
+            // Add tab.
+            UIHelper deathTab = PanelUtils.AddTab(tabStrip, "Death", tabIndex);
 
             // Percentage of corpses requiring transport.  % of bodies requiring transport is more intuitive to user than % of vanishing corpses, so we invert the value.
-            vanishingStiffs = AddSliderWithValue(group3, "% of dead bodies requiring deathcare transportation\r\n(Game default 67%, mod default 50%)", 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
+            UISlider vanishingStiffs = PanelUtils.AddSliderWithValue(deathTab, "% of dead bodies requiring deathcare transportation\r\n(Game default 67%, mod default 50%)", 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
 
             // Reset to saved button.
-            UIButton vanishingStiffReset = (UIButton)group3.AddButton("Reset to saved", () =>
+            UIButton vanishingStiffReset = (UIButton)deathTab.AddButton("Reset to saved", () =>
             {
                 // Retrieve saved value from datastore - inverted value (see above).
                 vanishingStiffs.value = 100 - DataStore.autoDeadRemovalChance;
@@ -110,30 +195,42 @@ namespace LifecycleRebalance
             vanishingStiffReset.relativePosition = new Vector3(vanishingStiffReset.relativePosition.x, vanishingStiffReset.relativePosition.y + 30);
 
             // Save settings button.
-            UIButton vanishingStiffsSave = (UIButton)group3.AddButton("Save and apply", () =>
+            UIButton vanishingStiffsSave = (UIButton)deathTab.AddButton("Save and apply", () =>
             {
                 // Update mod settings - inverted value (see above).
                 DataStore.autoDeadRemovalChance = 100 - (int)vanishingStiffs.value;
                 Debug.Log("Lifecycle Rebalance Revisited: autoDeadRemovalChance set to: " + DataStore.autoDeadRemovalChance + "%.");
 
                 // Update WG configuration file.
-                SaveXML();
+                PanelUtils.SaveXML();
             });
-            vanishingStiffsSave.relativePosition = PositionRightOf(vanishingStiffReset);
+            vanishingStiffsSave.relativePosition = PanelUtils.PositionRightOf(vanishingStiffReset);
+        }
+
+
+        /// <summary>
+        /// Adds health options tab to tabstrip.
+        /// </summary>
+        /// <param name="tabStrip">Tab strip to add to</param>
+        /// <param name="tabIndex">Index number of tab</param>
+        private static void HealthTab(UITabstrip tabStrip, int tabIndex)
+        {
+            // Add tab.
+            UIHelper healthTab = PanelUtils.AddTab(tabStrip, "Health", tabIndex);
 
             // Illness options.
-            UIHelperBase group4 = helper.AddGroup("Random illness % chance per decade of life\r\nDoes not affect sickness from specific causes, e.g. pollution or noise.");
+            UIHelperBase healthGroup = healthTab.AddGroup("Random illness % chance per decade of life\r\nDoes not affect sickness from specific causes, e.g. pollution or noise.");
 
             // Illness chance sliders.
-            illnessChance = new UISlider[DataStore.sicknessProbInXML.Length];
+            UISlider[] illnessChance = new UISlider[DataStore.sicknessProbInXML.Length];
             for (int i = 0; i < numDeciles; i++)
             {
                 // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
-                illnessChance[i] = AddSliderWithValue(group4, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
+                illnessChance[i] = PanelUtils.AddSliderWithValue(healthGroup, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
             }
 
             // Reset to saved button.
-            UIButton illnessResetSaved = (UIButton)group4.AddButton("Reset to saved", () =>
+            UIButton illnessResetSaved = (UIButton)healthGroup.AddButton("Reset to saved", () =>
             {
                 for (int i = 0; i < numDeciles; i++)
                 {
@@ -143,7 +240,7 @@ namespace LifecycleRebalance
             });
 
             // Save settings button.
-            UIButton illnessSave = (UIButton)group4.AddButton("Save and apply", () =>
+            UIButton illnessSave = (UIButton)healthGroup.AddButton("Save and apply", () =>
             {
                 StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
 
@@ -160,14 +257,14 @@ namespace LifecycleRebalance
                 }
 
                 // Write to file.
-                SaveXML();
+                PanelUtils.SaveXML();
             });
 
             // Turn off autolayout to fit next buttons to the right of the illness saved button.
             ((UIPanel)illnessResetSaved.parent).autoLayout = false;
 
             // Reset to default button.
-            UIButton illnessResetDefault = (UIButton)group4.AddButton("Reset to default", () =>
+            UIButton illnessResetDefault = (UIButton)healthGroup.AddButton("Reset to default", () =>
             {
                 for (int i = 0; i < numDeciles; i++)
                 {
@@ -175,10 +272,10 @@ namespace LifecycleRebalance
                     illnessChance[i].value = defaultSicknessProbs[i] * 100;
                 }
             });
-            illnessResetDefault.relativePosition = PositionRightOf(illnessResetSaved);
+            illnessResetDefault.relativePosition = PanelUtils.PositionRightOf(illnessResetSaved);
 
             // Reset to default button.
-            UIButton illnessSetZero = (UIButton)group4.AddButton("Set all to zero", () =>
+            UIButton illnessSetZero = (UIButton)healthGroup.AddButton("Set all to zero", () =>
             {
                 for (int i = 0; i < numDeciles; i++)
                 {
@@ -186,12 +283,22 @@ namespace LifecycleRebalance
                     illnessChance[i].value = 0;
                 }
             });
-            illnessSetZero.relativePosition = PositionRightOf(illnessResetDefault);
+            illnessSetZero.relativePosition = PanelUtils.PositionRightOf(illnessResetDefault);
+        }
+
+
+        /// <summary>
+        /// Adds logging options tab to tabstrip.
+        /// </summary
+        /// <param name="tabStrip">Tab strip to add to</param>
+        /// <param name="tabIndex">Index number of tab</param>
+        private static void LoggingTab(UITabstrip tabStrip, int tabIndex)
+        {
+            // Add tab.
+            UIHelper loggingTab = PanelUtils.AddTab(tabStrip, "Logging", tabIndex);
 
             // Logging options.
-            UIHelperBase group5 = helper.AddGroup("Logging");
-
-            group5.AddCheckbox("Log deaths to 'Lifecycle death log.txt'", settings.LogDeaths, (isChecked) =>
+            loggingTab.AddCheckbox("Log deaths to 'Lifecycle death log.txt'", settings.LogDeaths, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseDeathLog = isChecked;
@@ -201,7 +308,7 @@ namespace LifecycleRebalance
                 settings.LogDeaths = isChecked;
                 Configuration<SettingsFile>.Save();
             });
-            group5.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", settings.LogImmigrants, (isChecked) =>
+            loggingTab.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", settings.LogImmigrants, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseImmigrationLog = isChecked;
@@ -211,7 +318,7 @@ namespace LifecycleRebalance
                 settings.LogImmigrants = isChecked;
                 Configuration<SettingsFile>.Save();
             });
-            group5.AddCheckbox("Log transport choices to 'Lifecycle transport log.txt'    WARNING - SLOW!", settings.LogTransport, (isChecked) =>
+            loggingTab.AddCheckbox("Log transport choices to 'Lifecycle transport log.txt'    WARNING - SLOW!", settings.LogTransport, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseTransportLog = isChecked;
@@ -221,7 +328,7 @@ namespace LifecycleRebalance
                 settings.LogTransport = isChecked;
                 Configuration<SettingsFile>.Save();
             });
-            group5.AddCheckbox("Log sickness events to 'Lifecycle sickness log.txt'", settings.LogSickness, (isChecked) =>
+            loggingTab.AddCheckbox("Log sickness events to 'Lifecycle sickness log.txt'", settings.LogSickness, (isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseSicknessLog = isChecked;
@@ -231,120 +338,6 @@ namespace LifecycleRebalance
                 settings.LogSickness = isChecked;
                 Configuration<SettingsFile>.Save();
             });
-        }
-
-
-
-        /// <summary>
-        /// Adds a plain text label to the specified UI panel.
-        /// </summary>
-        /// <param name="panel">UI panel to add the label to</param>
-        /// <param name="text">Label text</param>
-        /// <returns></returns>
-        private static void AddLabel(UIPanel panel, string text)
-        {
-            // Add label.
-            UILabel label = (UILabel)panel.AddUIComponent<UILabel>();
-            label.autoSize = false;
-            label.autoHeight = true;
-            label.wordWrap = true;
-            label.width = 700;
-            label.text = text;
-
-            // Increase panel height to compensate.
-            panel.height += label.height;
-        }
-
-
-        /// <summary>
-        /// Adds a slider with a descriptive text label above and an automatically updating value label immediately to the right.
-        /// </summary>
-        /// <param name="helper">UIHelper panel to add the control to</param>
-        /// <param name="text">Descriptive label text</param>
-        /// <param name="min">Slider minimum value</param>
-        /// <param name="max">Slider maximum value</param>
-        /// <param name="step">Slider minimum step</param>
-        /// <param name="defaultValue">Slider initial value</param>
-        /// <param name="eventCallback">Slider event handler</param>
-        /// <returns></returns>
-        private static UISlider AddSliderWithValue(UIHelperBase helper, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback)
-        {
-            // Slider control.
-            UISlider newSlider = helper.AddSlider(text, min, max, step, defaultValue, value => { }) as UISlider;
-
-            // Get parent.
-            UIPanel parentPanel = newSlider.parent as UIPanel;
-            parentPanel.autoLayout = false;
-
-            // Change default slider label position and size.
-            UILabel sliderLabel = parentPanel.Find<UILabel>("Label");
-            sliderLabel.width = 500;
-            sliderLabel.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
-            sliderLabel.relativePosition = Vector3.zero;
-
-            // Move default slider position to match resized labe.
-            newSlider.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
-            newSlider.relativePosition = PositionUnder(sliderLabel);
-            newSlider.width = 500;
-
-            // Value label.
-            UILabel valueLabel = parentPanel.AddUIComponent<UILabel>();
-            valueLabel.name = "ValueLabel";
-            valueLabel.text = newSlider.value.ToString();
-            valueLabel.relativePosition = PositionRightOf(newSlider, 8f, 1f);
-
-            // Event handler to update value label.
-            newSlider.eventValueChanged += (component, value) =>
-            {
-                valueLabel.text = value.ToString();
-                eventCallback(value);
-            };
-
-            return newSlider;
-        }
-
-
-        /// <summary>
-        /// Returns a relative position below a specified UI component, suitable for placing an adjacent component.
-        /// </summary>
-        /// <param name="uIComponent">Original (anchor) UI component</param>
-        /// <param name="margin">Margin between components</param>
-        /// <param name="horizontalOffset">Horizontal offset from first to second component</param>
-        /// <returns></returns>
-        private static Vector3 PositionUnder(UIComponent uIComponent, float margin = 8f, float horizontalOffset = 0f)
-        {
-            return new Vector3(uIComponent.relativePosition.x + horizontalOffset, uIComponent.relativePosition.y + uIComponent.height + margin);
-        }
-
-
-        /// <summary>
-        /// Returns a relative position to the right of a specified UI component, suitable for placing an adjacent component.
-        /// </summary>
-        /// <param name="uIComponent">Original (anchor) UI component</param>
-        /// <param name="margin">Margin between components</param>
-        /// <param name="verticalOffset">Vertical offset from first to second component</param>
-        /// <returns></returns>
-        private static Vector3 PositionRightOf(UIComponent uIComponent, float margin = 10f, float verticalOffset = 0f)
-        {
-            return new Vector3(uIComponent.relativePosition.x + uIComponent.width + margin, uIComponent.relativePosition.y + verticalOffset);
-        }
-
-
-        /// <summary>
-        /// Updates XML configuration file with current settings.
-        /// </summary>
-        private static void SaveXML()
-        {
-            // Write to file.
-            try
-            {
-                WG_XMLBaseVersion xml = new XML_VersionTwo();
-                xml.writeXML(Loading.currentFileLocation);
-            }
-            catch (Exception e)
-            {
-                Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
-            }
         }
     }
 }

@@ -42,13 +42,13 @@ namespace LifecycleRebalance
                     i++;
 
 
-                    // Now, count forward from this operand until we encounter callvirt instance void CitizenManager::ReleaseCitizen(uint32) - the key is callvirt.
-                    // ACtually, ldc.i4.2
+                    // Now, count forward from this operand until we encounter ldc.i4.2; that's the last instruction to be cut.
                     while (codes[i + cutCount].opcode != OpCodes.Ldc_I4_2)
                     {
                         cutCount++;
                     }
 
+                    // The following instruction is a call to ColossalFramework.Math.Randomizer; we keep the call and replace the operand with our own KeepCorpse method.
                     codes[i + cutCount + 1].operand = AccessTools.Method(typeof(AIUtils), "KeepCorpse");
 
                     StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: ResidentAI.Die transpiler removing CIL (offset ");
