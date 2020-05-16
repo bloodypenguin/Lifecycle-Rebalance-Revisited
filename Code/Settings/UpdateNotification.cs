@@ -68,18 +68,19 @@ namespace LifecycleRebalance
                 backgroundSprite = "UnlockingPanel2";
 
                 // Title.
-                AddText("Lifecycle Rebalance Revisited 1.3.5 update", spacing, spacing, 1.0f);
+                AddText("Lifecycle Rebalance Revisited 1.4 BETA", spacing, spacing, 1.0f);
 
                 // Note 1.
 
-                float currentX = AddText("Lifecycle Rebalance Revisited has been updated to version 1.3.5.  This update expands the options panel to enable easy changing of the following configuration settings:", spacing, 40);
+                float currentX = AddText("Lifecycle Rebalance Revisited version 1.4 BETA - TESTING PURPOSES ONLY", spacing, 40);
+                //float currentX = AddText("Lifecycle Rebalance Revisited has been updated to version 1.4.  Key update changes are:", spacing, 40);
 
                 // Note 2.
-                currentX = AddText("The percentage of dead bodies that require transport(set to zero to remove the need for deathcare completely).\r\n\r\nThe chance of citizens randomly becoming ill (per decade of life) - note that this does not affect illness from other factors, such as pollution or noise.", spacing * 2, currentX + 20);
+                currentX = AddText("The setting changing the percentage of dead bodies that require transport now applies to ALL deaths (including those from sickness and pollution, not just old age).  Setting this to zero will should now completely remove the need for deathcare transportation (hearses) in your city.\r\n\r\nVanilla lifecycle calculation option - revert to base-game lifespans while still using other aspects of this mod.\r\n\r\nYou can now easily choose between using this mod's custom transport mode probabilities (from the configuration file) and using the game defaults.\r\n", spacing * 2, currentX + 20);
 
                 // Note 3.
 
-                currentX = AddText("These changes only provide the ability to change the existing configuration without having to manually edit the XML file; no calculations have been changed in this update and all mod behaviour remains the same.", spacing, currentX + 20);
+                currentX = AddText("Additional behind-the-scenes code changes have occured with this mod to enable the above changes, so please be mindful of the chance of game-breaking behaviour.  Remember, this is a BETA for TESTING PURPOSES ONLY.", spacing, currentX + 20);
 
                 // Auto resize panel to accomodate note.
                 this.height = currentX + 60;
@@ -101,8 +102,10 @@ namespace LifecycleRebalance
                 // "Don't show again" button.
                 UIButton noShowButton = CreateButton(this);
                 noShowButton.relativePosition = new Vector3(this.width - noShowButton.width - spacing, this.height - closeButton.height - spacing);
-                noShowButton.text = "Don't show again";
-                noShowButton.Enable();
+                //noShowButton.text = "Don't show again";
+                //noShowButton.Enable();
+                noShowButton.text = "Always shown in BETA";
+                noShowButton.enabled = false;
 
                 // Event handler.
                 noShowButton.eventClick += (c, p) =>

@@ -92,6 +92,7 @@
   <ItemGroup>
     <Content Include="Help file.txt" />
     <Content Include="Images\PreviewImage.png" />
+    <Content Include="Images\PreviewImage_BETA.png" />
     <Content Include="Images\PreviewImage_WG.png" />
     <Content Include="Images\Screen_AcceleratedSickness.jpg" />
     <Content Include="Images\Screen_AgeGroupExample.jpg" />
