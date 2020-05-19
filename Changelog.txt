@@ -1,4 +1,15 @@
-﻿Version 1.3.7 -
+﻿Version 1.4 BETA
+
+- Add vanilla lifecycle calculation option
+- Extend hearse chance to deaths from sickness (as well as old age)
+- Add option to enable/disable custom transport choices
+- Add tabs to options panel
+- Migrate to Harmony 2.0
+- Add StartConnectionTransferImpl Transpiler by MacSergey
+- Implement Harmony reverse patches for ResidentAI private methods
+
+
+Version 1.3.7 -
 
 - Add additional sickness chance logging.
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Text;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ namespace LifecycleRebalance
     public class SettingsFile
     {
         public int NotificationVersion { get; set; } = 0;
+        public bool UseVanilla { get; set; } = false;
         public bool UseLegacy { get; set; } = false;
         public bool CustomRetirement { get ; set; } = false;
         public int RetirementYear { get; set; } = 65;
+        public bool UseTransportModes { get; set; } = true;
         public bool LogDeaths { get; set; } = false;
         public bool LogImmigrants { get; set; } = false;
         public bool LogTransport { get; set; } = false;
@@ -35,6 +38,28 @@ namespace LifecycleRebalance
         /// <summary>
         /// Tracks if we're using legacy lifecycle calculations and handles any changes.
         /// </summary>
+        public static bool VanillaCalcs
+        {
+            get => _vanillaCalcs;
+
+            set
+            {
+                _vanillaCalcs = value;
+                Debug.Log("Lifecycle Rebalance Revisited: vanilla lifecycle calculations " + (_vanillaCalcs ? "enabled." : "disabled."));
+
+                // When we set this value, also recalculate age increments per decade.
+                SetDecadeFactor();
+
+                // A change here can affect retirement age in combination with other settings.
+                SetRetirementAge();
+            }
+        }
+        private static bool _vanillaCalcs;
+
+
+        /// <summary>
+        /// Tracks if we're using legacy lifecycle calculations and handles any changes.
+        /// </summary>
         public static bool LegacyCalcs
         {
             get => _legacyCalcs;
@@ -44,9 +69,7 @@ namespace LifecycleRebalance
                 _legacyCalcs = value;
 
                 // When we set this value, also recalculate age increments per decade.
-                // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
-                // Legacy mod behaviour worked on 25 increments per decade.
-                decadeFactor = 1d / (value ? 25d : 35d);
+                SetDecadeFactor();
 
                 // Also recalculate the survival probability table if the game has been loaded (i.e. not from main menu options panel).
                 if (Loading.isModCreated)
@@ -61,6 +84,9 @@ namespace LifecycleRebalance
         private static bool _legacyCalcs;
 
 
+        /// <summary>
+        /// Tracks if we're using custom retirement ages and handles any changes.
+        /// </summary>
         public static bool CustomRetirement
         {
             get => _customRetirement;
@@ -76,6 +102,11 @@ namespace LifecycleRebalance
         }
         private static bool _customRetirement;
 
+
+
+        /// <summary>
+        /// Tracks custom retirement ages and handles any changes.
+        /// </summary>
         public static int RetirementYear
         {
             get => _retirementYear;
@@ -92,21 +123,74 @@ namespace LifecycleRebalance
         private static int _retirementYear;
 
 
+        /// <summary>
+        /// Tracks if we're using custom transport mode options and handles any changes.
+        /// </summary>
+        public static bool UseTransportModes
+        {
+            get => _useTransportModes;
+
+            set
+            {
+                _useTransportModes = value;
+                Debug.Log("Lifecycle Rebalance Revisited: custom transport mode probabilities " + (_useTransportModes ? "enabled." : "disabled."));
+
+                // Apply choices by applying or unapplying Harmony transport choice patches as required.
+                if (value)
+                {
+                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
+                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
+                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                }
+                else
+                {
+                    Patcher.RevertPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
+                    Patcher.RevertPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
+                    Patcher.RevertPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                }
+            }
+        }
+        private static bool _useTransportModes;
+
+
+        /// <summary>
+        /// Sets ageing decade factor based on current settings.
+        /// </summary>
+        private static void SetDecadeFactor()
+        {
+            // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
+            // Legacy mod behaviour worked on 25 increments per decade.
+
+            // Decade factor is 1/35, unless legacy calcs are used.
+            if (LegacyCalcs && !VanillaCalcs)
+            {
+                decadeFactor = 1d / 25d;
+            }
+            else
+            {
+                decadeFactor = 1d / 35d;
+            }
+        }
+
+
+        /// <summary>
+        /// Sets retirement age based on current settings.
+        /// </summary>
         private static void SetRetirementAge()
         {
-            // Only set custom retirement age if not using legacy calculations and the custom retirement option is enabled.
-            if (!LegacyCalcs && CustomRetirement)
+            // Only set custom retirement age if not using vanilla or legacy calculations and the custom retirement option is enabled.
+            if (!LegacyCalcs && !VanillaCalcs && CustomRetirement)
             {
                 retirementAge = (int)(_retirementYear * 3.5);
                 // Apply Harmony patch to GetAgeGroup.
-                NewGetAgeGroup.Apply(Loading.harmony);
+                Patcher.ApplyPrefixPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
             }
             else
             {
                 // Game default retirement age is 180.
                 retirementAge = 180;
                 // Unapply Harmony patch from GetAgeGroup.
-                NewGetAgeGroup.Revert(Loading.harmony);
+                Patcher.RevertPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
             }
             Debug.Log("Lifecycle Rebalance Revisited: retirement age set to " + retirementAge + ".");
         }
