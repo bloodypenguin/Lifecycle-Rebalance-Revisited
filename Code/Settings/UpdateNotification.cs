@@ -67,6 +67,9 @@ namespace LifecycleRebalance
                 relativePosition = new Vector3(Mathf.Floor((GetUIView().fixedWidth - width) / 2), Mathf.Floor((GetUIView().fixedHeight - height) / 2));
                 backgroundSprite = "UnlockingPanel2";
 
+                // Put this behind other panels.
+                zOrder = 1;
+
                 // Title.
                 AddText("Lifecycle Rebalance Revisited 1.4 BETA", spacing, spacing, 1.0f);
 
