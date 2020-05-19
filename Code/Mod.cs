@@ -9,7 +9,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// The base mod class for instantiation by the game.
         /// </summary>
-        public static string Version => "1.4 BETA";
+        public static string Version => "1.4";
 
         public string Name => "Lifecycle Rebalance Revisited v" + Version;
         

@@ -71,19 +71,13 @@ namespace LifecycleRebalance
                 zOrder = 1;
 
                 // Title.
-                AddText("Lifecycle Rebalance Revisited 1.4 BETA", spacing, spacing, 1.0f);
+                AddText("Lifecycle Rebalance Revisited 1.4", spacing, spacing, 1.0f);
 
                 // Note 1.
-
-                float currentX = AddText("Lifecycle Rebalance Revisited version 1.4 BETA - TESTING PURPOSES ONLY", spacing, 40);
-                //float currentX = AddText("Lifecycle Rebalance Revisited has been updated to version 1.4.  Key update changes are:", spacing, 40);
+                float currentX = AddText("Lifecycle Rebalance Revisited has been updated to version 1.4.  Key update changes are:", spacing, 40);
 
                 // Note 2.
-                currentX = AddText("The setting changing the percentage of dead bodies that require transport now applies to ALL deaths (including those from sickness and pollution, not just old age).  Setting this to zero will should now completely remove the need for deathcare transportation (hearses) in your city.\r\n\r\nVanilla lifecycle calculation option - revert to base-game lifespans while still using other aspects of this mod.\r\n\r\nYou can now easily choose between using this mod's custom transport mode probabilities (from the configuration file) and using the game defaults.\r\n", spacing * 2, currentX + 20);
-
-                // Note 3.
-
-                currentX = AddText("Additional behind-the-scenes code changes have occured with this mod to enable the above changes, so please be mindful of the chance of game-breaking behaviour.  Remember, this is a BETA for TESTING PURPOSES ONLY.", spacing, currentX + 20);
+                currentX = AddText("The setting changing the percentage of dead bodies that require transport now applies to ALL deaths (including those from sickness and pollution, not just old age).  Setting this to zero will should now completely remove the need for deathcare transportation (hearses) in your city.\r\n\r\nVanilla lifecycle calculation option - revert to base-game lifespans while still using other aspects of this mod.\r\n\r\nYou can now use the options panel to easily choose between using this mod's custom transport mode probabilities (from the configuration file) and using the game defaults.\r\n\r\nThe mod's option panel is now split into tabs for easier navigation.", spacing * 2, currentX + 20);
 
                 // Auto resize panel to accomodate note.
                 this.height = currentX + 60;
@@ -105,16 +99,14 @@ namespace LifecycleRebalance
                 // "Don't show again" button.
                 UIButton noShowButton = CreateButton(this);
                 noShowButton.relativePosition = new Vector3(this.width - noShowButton.width - spacing, this.height - closeButton.height - spacing);
-                //noShowButton.text = "Don't show again";
-                //noShowButton.Enable();
-                noShowButton.text = "Always shown in BETA";
-                noShowButton.enabled = false;
+                noShowButton.text = "Don't show again";
+                noShowButton.Enable();
 
                 // Event handler.
                 noShowButton.eventClick += (c, p) =>
                 {
                     // Update and save settings file.
-                    Loading.settingsFile.NotificationVersion = 1;
+                    Loading.settingsFile.NotificationVersion = 2;
                     Configuration<SettingsFile>.Save();
 
                     // Just hide this panel and destroy the game object - nothing more to do.
