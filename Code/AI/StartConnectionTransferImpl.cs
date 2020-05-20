@@ -38,7 +38,7 @@ namespace LifecycleRebalance
         /// <returns></returns>
         public static IEnumerable<CodeInstruction> Transpiler(MethodBase original, IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-            StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: starting StartConnectionTransferImpl transpiler:\r\n");
+           Debug.Log("Lifecycle Rebalance Revisited: starting StartConnectionTransferImpl transpiler.");
 
             // Local variables used by the patch.
             // These need to be set up prior to the i loop that the patch goes into.
@@ -58,7 +58,6 @@ namespace LifecycleRebalance
             {
                 // Get next instruction and add it to output.
                 instruction = instructionsEnumerator.Current;
-                logMessage.AppendLine(instruction.ToString());
                 yield return instruction;
 
                 // Decrement remaining instructions counter if we're patching.
@@ -98,7 +97,6 @@ namespace LifecycleRebalance
             do
             {
                 instruction = instructionsEnumerator.Current;
-                logMessage.AppendLine("SKIP " + instruction);
             }
             while ((instruction.opcode != OpCodes.Stloc_S || !(instruction.operand is LocalBuilder builder && builder.LocalIndex == flag4VarIndex)) && instructionsEnumerator.MoveNext());
 
@@ -121,8 +119,7 @@ namespace LifecycleRebalance
                 yield return instructionsEnumerator.Current;
             }
 
-            logMessage.AppendLine("Lifecycle Rebalance Revisited: StartConnectionTransferImpl transpiler completed.");
-            Debug.Log(logMessage);
+            Debug.Log("Lifecycle Rebalance Revisited: StartConnectionTransferImpl transpiler completed.");
         }
 
 
