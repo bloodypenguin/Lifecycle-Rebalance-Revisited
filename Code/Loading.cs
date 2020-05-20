@@ -55,12 +55,18 @@ namespace LifecycleRebalance
                 // Check for original WG Citizen Lifecycle Rebalance; if it's enabled, flag and don't activate this mod.
                 if (IsModEnabled(654707599ul))
                 {
-                    ExceptionPanel panel = UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel");
-                    panel.SetMessage("Lifecycle Rebalance Revisited", "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!", false);
+                    // Show error notification to user.
+                    ErrorNotification notification = new ErrorNotification();
+                    notification.Create();
+                    ErrorNotification.headerText = "Mod conflict detected!";
+                    ErrorNotification.messageText = "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!";
+                    notification.Show();
+
                     Debug.Log("Lifecycle Rebalance Revisited: incompatible mod detected.  Shutting down.");
 
                     // Unapply Harmony patches before returning without doing anything
                     Patcher.UnpatchAll();
+                    return;
                 }
 
                 // Load configuation file.
@@ -83,10 +89,10 @@ namespace LifecycleRebalance
                                 break;
                             }
 
-                            // Two minutes should be sufficient wait.
-                            if (DateTime.Now > startTime.AddMinutes(2))
+                            // Three minutes should be sufficient wait.
+                            if (DateTime.Now > startTime.AddMinutes(3))
                             {
-                                throw new TimeoutException("Harmony loading timeout");
+                                throw new TimeoutException("Harmony loading timeout: " + startTime.ToString() + " : " + DateTime.Now.ToString());
                             }
                         }
                     }
@@ -94,8 +100,13 @@ namespace LifecycleRebalance
                     {
                         Debug.Log("Lifecycle Rebalance Revisited: Harmony loading exception!");
                         Debug.LogException(e);
-                        ExceptionPanel panel = UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel");
-                        panel.SetMessage("Lifecycle Rebalance Revisited", "Lifecycle Rebalance Revisited can't load properly because the Harmony mod dependency didn't load.  Please subscribe to the Harmony mod on the Steam workshop and restart your game.", false);
+
+                        // Show error notification to user.
+                        ErrorNotification notification = new ErrorNotification();
+                        notification.Create();
+                        ErrorNotification.headerText = "Harmony loading error!";
+                        ErrorNotification.messageText = "Lifecycle Rebalance Revisited can't load properly because the required Harmony mod dependency didn't load.  In most cases, a simple game restart should be enough to fix this.\r\n\r\nIf this notification persists, please manually subscribe to the Harmony mod on the Steam workshop (if you're already subscribed, try unsubscribing and re-subscribing) and restart your game again.";
+                        notification.Show();
                         return;
                     }
                 }

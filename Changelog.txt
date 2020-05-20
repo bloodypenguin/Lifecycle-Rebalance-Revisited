@@ -8,6 +8,8 @@
 - Add StartConnectionTransferImpl Transpiler by MacSergey
 - Implement Harmony reverse patches for ResidentAI private methods
 - Move mod initialisation from OnCreated to OnLoaded
+- Overhaul error reporting
+- Removed redundant logging detail
 
 
 Version 1.3.7 -

@@ -182,10 +182,20 @@ namespace LifecycleRebalance
         /// </summary>
         private static void SetRetirementAge()
         {
+            // Store current retirement age - used to avoid unnecessary logging.
+            int oldRetirementAge = retirementAge;
+
             // Only set custom retirement age if not using vanilla or legacy calculations and the custom retirement option is enabled.
             if (!LegacyCalcs && !VanillaCalcs && CustomRetirement)
             {
                 retirementAge = (int)(_retirementYear * 3.5);
+
+                // Catch situations where retirementYear hasn't initialised yet.
+                if (retirementAge == 0)
+                {
+                    retirementAge = 180;
+                }
+
                 // Apply Harmony patch to GetAgeGroup.
                 if (Loading.isModCreated)
                 {
@@ -202,7 +212,12 @@ namespace LifecycleRebalance
                     Patcher.RevertPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
                 }
             }
-            Debug.Log("Lifecycle Rebalance Revisited: retirement age set to " + retirementAge + ".");
+
+            // Only log messages when the retirement age changes.
+            if (retirementAge != oldRetirementAge)
+            {
+                Debug.Log("Lifecycle Rebalance Revisited: retirement age set to " + retirementAge + ".");
+            }
         }
 
         public static int retirementAge;

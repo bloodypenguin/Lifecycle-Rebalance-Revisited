@@ -14,6 +14,10 @@ namespace LifecycleRebalance
         public static SettingsFile settings;
 
 
+        /// <summary>
+        /// Options panel constructor.
+        /// </summary>
+        /// <param name="helper">UIHelperBase parent</param>
         public OptionsPanel(UIHelperBase helper)
         {
             // Load settings.

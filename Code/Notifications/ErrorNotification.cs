@@ -6,41 +6,36 @@ using ColossalFramework.UI;
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Base class of the update notification panel.
+    /// Base class of the error notification panel.
     /// </summary>
-    public class UpdateNotification : UIPanel
+    public class ErrorNotification : UIPanel
     {
         // Constants.
-        private const float panelWidth = 600;
-        private const float panelHeight = 300;
-        private const float spacing = 10;
+        protected const float panelWidth = 600;
+        protected const float panelHeight = 300;
+        protected const float spacing = 10;
 
         // Instance references.
-        private static GameObject uiGameObject;
-        private static UpdateNotification _instance;
-        public static UpdateNotification instance { get { return _instance; } }
+        protected static GameObject uiGameObject;
+        protected static ErrorNotification _instance;
+        protected static ErrorNotification instance => _instance;
+
+        // Message.
+        public static string headerText, messageText;
 
 
         /// <summary>
         /// Creates the panel object in-game.
         /// </summary>
-        public void Create()
+        public virtual void Create()
         {
             try
             {
-                // Destroy existing (if any) instances.
-                uiGameObject = GameObject.Find("LifecycleRebalanceUpgradeNotification");
-                if (uiGameObject != null)
-                {
-                    UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: found existing upgrade notification instance.");
-                    GameObject.Destroy(uiGameObject);
-                }
-
                 // Create new instance.
                 // Give it a unique name for easy finding with ModTools.
-                uiGameObject = new GameObject("LifecycleRebalanceUpgradeNotification");
+                uiGameObject = new GameObject("LifecycleRebalanceErrorNotification");
                 uiGameObject.transform.parent = UIView.GetAView().transform;
-                _instance = uiGameObject.AddComponent<UpdateNotification>();
+                _instance = uiGameObject.AddComponent<ErrorNotification>();
             }
             catch (Exception e)
             {
@@ -68,16 +63,16 @@ namespace LifecycleRebalance
                 backgroundSprite = "UnlockingPanel2";
 
                 // Put this behind other panels.
-                zOrder = 1;
+                zOrder = 2;
 
                 // Title.
-                AddText("Lifecycle Rebalance Revisited 1.4", spacing, spacing, 1.0f);
+                AddText("Lifecycle Rebalance Revisited", spacing, spacing, 1.0f);
 
                 // Note 1.
-                float currentX = AddText("Lifecycle Rebalance Revisited has been updated to version 1.4.  Key update changes are:", spacing, 40);
+                float currentX = AddText(headerText, spacing, 40);
 
                 // Note 2.
-                currentX = AddText("The setting changing the percentage of dead bodies that require transport now applies to ALL deaths (including those from sickness and pollution, not just old age).  Setting this to zero will should now completely remove the need for deathcare transportation (hearses) in your city.\r\n\r\nVanilla lifecycle calculation option - revert to base-game lifespans while still using other aspects of this mod.\r\n\r\nYou can now use the options panel to easily choose between using this mod's custom transport mode probabilities (from the configuration file) and using the game defaults.\r\n\r\nThe mod's option panel is now split into tabs for easier navigation.", spacing * 2, currentX + 20);
+                currentX = AddText(messageText, spacing * 2, currentX + 20);
 
                 // Auto resize panel to accomodate note.
                 this.height = currentX + 60;
@@ -95,24 +90,6 @@ namespace LifecycleRebalance
                     this.Hide();
                     GameObject.Destroy(uiGameObject);
                 };
-
-                // "Don't show again" button.
-                UIButton noShowButton = CreateButton(this);
-                noShowButton.relativePosition = new Vector3(this.width - noShowButton.width - spacing, this.height - closeButton.height - spacing);
-                noShowButton.text = "Don't show again";
-                noShowButton.Enable();
-
-                // Event handler.
-                noShowButton.eventClick += (c, p) =>
-                {
-                    // Update and save settings file.
-                    Loading.settingsFile.NotificationVersion = 2;
-                    Configuration<SettingsFile>.Save();
-
-                    // Just hide this panel and destroy the game object - nothing more to do.
-                    this.Hide();
-                    GameObject.Destroy(uiGameObject);
-                };
             }
             catch (Exception e)
             {
@@ -121,7 +98,15 @@ namespace LifecycleRebalance
         }
 
 
-        private float AddText(string text, float x, float y, float size = 0.8f)
+        /// <summary>
+        /// Adds text to the notification panel.
+        /// </summary>
+        /// <param name="text">Text to add</param>
+        /// <param name="x">Relative x position</param>
+        /// <param name="y">Relative y position</param>
+        /// <param name="size">Text font size (default 0.8)</param>
+        /// <returns>Relative y coordinate of the bottom of the new text field</returns>
+        protected float AddText(string text, float x, float y, float size = 0.8f)
         {
             // Note 1.
             UILabel textLabel = this.AddUIComponent<UILabel>();
@@ -138,8 +123,12 @@ namespace LifecycleRebalance
         }
 
 
-
-        private UIButton CreateButton(UIComponent parent)
+        /// <summary>
+        /// Creates a simple UI pushbutton.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        protected UIButton CreateButton(UIComponent parent)
         {
             UIButton button = parent.AddUIComponent<UIButton>();
 

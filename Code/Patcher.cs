@@ -102,10 +102,6 @@ namespace LifecycleRebalance
                 Debug.Log("Lifecycle Rebalance Revisited: patching '" + originalMethod.Name + "'.");
                 harmonyInstance.Patch(originalMethod, prefix: new HarmonyMethod(patchMethod));
             }
-            else
-            {
-                Debug.Log("Lifecycle Rebalance Revisited: '" + originalMethod.Name + "' patch already applied, doing nothing.");
-            }
         }
 
 
@@ -121,10 +117,6 @@ namespace LifecycleRebalance
             {
                 Debug.Log("Lifecycle Rebalance Revisited: removing patch from '" + originalMethod.Name + "'.");
                 harmonyInstance.Unpatch(originalMethod, patchMethod);
-            }
-            else
-            {
-                Debug.Log("Lifecycle Rebalance Revisited: '" + originalMethod.Name + "' patch not applied, doing nothing.");
             }
         }
 
