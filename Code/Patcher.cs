@@ -2,7 +2,7 @@
 using UnityEngine;
 using HarmonyLib;
 using CitiesHarmony.API;
-
+using System;
 
 namespace LifecycleRebalance
 {
@@ -47,20 +47,12 @@ namespace LifecycleRebalance
             // Don't do anything if already patched.
             if (!patched)
             {
-                // Ensure Harmony is ready before patching.
-                if (HarmonyHelper.IsHarmonyInstalled)
-                {
-                    Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + ": deploying Harmony patches.");
+                Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + ": deploying Harmony patches.");
 
-                    // Apply all annotated patches and update flag.
-                    Harmony harmonyInstance = new Harmony(harmonyID);
-                    harmonyInstance.PatchAll();
-                    patched = true;
-                }
-                else
-                {
-                    Debug.Log("Lifecycle Rebalance Revisited: Harmony not ready.");
-                }
+                // Apply all annotated patches and update flag.
+                Harmony harmonyInstance = new Harmony(harmonyID);
+                harmonyInstance.PatchAll();
+                patched = true;
             }
         }
 

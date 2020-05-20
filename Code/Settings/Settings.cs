@@ -136,17 +136,21 @@ namespace LifecycleRebalance
                 Debug.Log("Lifecycle Rebalance Revisited: custom transport mode probabilities " + (_useTransportModes ? "enabled." : "disabled."));
 
                 // Apply choices by applying or unapplying Harmony transport choice patches as required.
-                if (value)
+
+                if (Loading.isModCreated)
                 {
-                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
-                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
-                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
-                }
-                else
-                {
-                    Patcher.RevertPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
-                    Patcher.RevertPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
-                    Patcher.RevertPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                    if (value)
+                    {
+                        Patcher.ApplyPrefixPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
+                        Patcher.ApplyPrefixPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
+                        Patcher.ApplyPrefixPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                    }
+                    else
+                    {
+                        Patcher.RevertPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
+                        Patcher.RevertPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
+                        Patcher.RevertPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                    }
                 }
             }
         }
@@ -183,14 +187,20 @@ namespace LifecycleRebalance
             {
                 retirementAge = (int)(_retirementYear * 3.5);
                 // Apply Harmony patch to GetAgeGroup.
-                Patcher.ApplyPrefixPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
+                if (Loading.isModCreated)
+                {
+                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
+                }
             }
             else
             {
                 // Game default retirement age is 180.
                 retirementAge = 180;
                 // Unapply Harmony patch from GetAgeGroup.
-                Patcher.RevertPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
+                if (Loading.isModCreated)
+                {
+                    Patcher.RevertPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
+                }
             }
             Debug.Log("Lifecycle Rebalance Revisited: retirement age set to " + retirementAge + ".");
         }

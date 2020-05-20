@@ -20,62 +20,12 @@ namespace LifecycleRebalance
         // This can be with the local application directory, or the directory where the exe file exists.
         // Default location is the local application directory, however the exe directory is checked first
         public static string currentFileLocation = "";
-        private static volatile bool isLevelLoaded = false;
         public static volatile bool isModCreated = false;
-
-        // Used to flag if a conflicting mod is running.
-        private static bool conflictingMod = false;
-
         
+
         public static bool IsModEnabled(UInt64 id)
         {
             return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id && mod.isEnabled));
-        }
-
-
-        public override void OnCreated(ILoading loading)
-        {
-            UnityEngine.Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + " loading.");
-
-            // Check for original WG Citizen Lifecycle Rebalance; if it's enabled, flag and don't activate this mod.
-            if (IsModEnabled(654707599ul))
-            {
-                conflictingMod = true;
-                Debug.Log("Lifecycle Rebalance Revisited: incompatible mod detected.  Shutting down.");
-
-                // Unapply Harmony patches before returning without doing anything
-                Patcher.UnpatchAll();
-            }
-            else if (!isModCreated)
-            {
-                // Make sure patches have been applied before proceeding.
-                if (!Patcher.patched)
-                {
-                    Debug.Log("Lifecycle Rebalance Revisited: Harmony patches not applied, exiting.");
-                    return;
-                }
-
-                // Load configuation file.
-                readFromXML();
-
-                // Set flag.
-                isModCreated = true;
-
-                // Load and apply mod settings.
-                settingsFile = Configuration<SettingsFile>.Load();
-                ModSettings.VanillaCalcs = settingsFile.UseVanilla;
-                ModSettings.LegacyCalcs = settingsFile.UseLegacy;
-                ModSettings.CustomRetirement = settingsFile.CustomRetirement;
-                ModSettings.RetirementYear = settingsFile.RetirementYear;
-                ModSettings.UseTransportModes = settingsFile.UseTransportModes;
-                Debugging.UseDeathLog = settingsFile.LogDeaths;
-                Debugging.UseImmigrationLog = settingsFile.LogImmigrants;
-                Debugging.UseTransportLog = settingsFile.LogTransport;
-                Debugging.UseSicknessLog = settingsFile.LogSickness;
-
-                // Apply sickness probabilities;
-                CalculateSicknessProbabilities();
-            }
         }
 
 
@@ -88,57 +38,115 @@ namespace LifecycleRebalance
         }
 
 
-        public override void OnLevelUnloading()
-        {
-            if (isLevelLoaded)
-            {
-                isLevelLoaded = false;
-            }
-        }
-
-
         public override void OnLevelLoaded(LoadMode mode)
         {
-            // Check to see if a conflicting mod has been detected - if so, alert the user and abort operation.
-            if (conflictingMod)
+            // Don't do anything if not in game.
+            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
             {
-                ExceptionPanel panel = UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel");
-                panel.SetMessage("Lifecycle Rebalance Revisited", "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!", false);
+                Debug.Log("Lifecycle Rebalance Revisited: not loading into game; exiting.");
+                return;
             }
-            else if (mode == LoadMode.LoadGame || mode == LoadMode.NewGame)
+
+            // Don't do anything if we've already been here.
+            if (!isModCreated)
             {
-                if (!isLevelLoaded)
+                Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + " loading.");
+
+                // Check for original WG Citizen Lifecycle Rebalance; if it's enabled, flag and don't activate this mod.
+                if (IsModEnabled(654707599ul))
                 {
-                    isLevelLoaded = true;
-                    Debugging.ReleaseBuffer();
+                    ExceptionPanel panel = UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel");
+                    panel.SetMessage("Lifecycle Rebalance Revisited", "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!", false);
+                    Debug.Log("Lifecycle Rebalance Revisited: incompatible mod detected.  Shutting down.");
 
-                    // Prime Threading.counter to continue from frame index
-                    int temp = (int) (Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
-                    Threading.counter = temp % DataStore.lifeSpanMultiplier;
+                    // Unapply Harmony patches before returning without doing anything
+                    Patcher.UnpatchAll();
                 }
-            }
 
-            try
-            {
-                WG_XMLBaseVersion xml = new XML_VersionTwo();
-                xml.writeXML(currentFileLocation);
-            }
-            catch (Exception e)
-            {
-                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
-            }
+                // Load configuation file.
+                readFromXML();
 
-            Debug.Log("Lifecycle Rebalance Revisited: death logging " + (Debugging.UseDeathLog ? "enabled" : "disabled") + ", immigration logging " + (Debugging.UseImmigrationLog ? "enabled" : "disabled") + ", transportation logging " + (Debugging.UseTransportLog ? "enabled." : "disabled."));
+                // Wait for Harmony if it hasn't already happened.
+                if (!Patcher.patched)
+                {
+                    // Set timeout counter, just in case.
+                    DateTime startTime = DateTime.Now;
 
-            UnityEngine.Debug.Log("Lifecycle Rebalance Revisited successfully loaded.");
+                    try
+                    {
+                        Debug.Log("Lifecycle Rebalance Revisited: waiting for Harmony.");
+                        while (!Patcher.patched)
+                        {
+                            if (CitiesHarmony.API.HarmonyHelper.IsHarmonyInstalled)
+                            {
+                                Patcher.PatchAll();
+                                break;
+                            }
 
-            // Check if we need to display update notification.
-            if (settingsFile.NotificationVersion != 2)
-            {
-                // No update notification "Don't show again" flag found; show the notification.
-                UpdateNotification notification = new UpdateNotification();
-                notification.Create();
-                notification.Show();
+                            // Two minutes should be sufficient wait.
+                            if (DateTime.Now > startTime.AddMinutes(2))
+                            {
+                                throw new TimeoutException("Harmony loading timeout");
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Log("Lifecycle Rebalance Revisited: Harmony loading exception!");
+                        Debug.LogException(e);
+                        ExceptionPanel panel = UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel");
+                        panel.SetMessage("Lifecycle Rebalance Revisited", "Lifecycle Rebalance Revisited can't load properly because the Harmony mod dependency didn't load.  Please subscribe to the Harmony mod on the Steam workshop and restart your game.", false);
+                        return;
+                    }
+                }
+
+                Debug.Log("Lifecycle Rebalance Revisited: Harmony ready, proceeding.");
+
+                // Set flag.
+                isModCreated = true;
+
+                // Load and apply mod settings (configuration file loaded above).
+                settingsFile = Configuration<SettingsFile>.Load();
+                ModSettings.VanillaCalcs = settingsFile.UseVanilla;
+                ModSettings.LegacyCalcs = settingsFile.UseLegacy;
+                ModSettings.CustomRetirement = settingsFile.CustomRetirement;
+                ModSettings.RetirementYear = settingsFile.RetirementYear;
+                ModSettings.UseTransportModes = settingsFile.UseTransportModes;
+                Debugging.UseDeathLog = settingsFile.LogDeaths;
+                Debugging.UseImmigrationLog = settingsFile.LogImmigrants;
+                Debugging.UseTransportLog = settingsFile.LogTransport;
+                Debugging.UseSicknessLog = settingsFile.LogSickness;
+
+                // Apply sickness probabilities.
+                CalculateSicknessProbabilities();
+
+                // Report status and any debugging messages.
+                Debug.Log("Lifecycle Rebalance Revisited: death logging " + (Debugging.UseDeathLog ? "enabled" : "disabled") + ", immigration logging " + (Debugging.UseImmigrationLog ? "enabled" : "disabled") + ", transportation logging " + (Debugging.UseTransportLog ? "enabled." : "disabled."));
+                Debugging.ReleaseBuffer();
+
+                // Prime Threading.counter to continue from frame index.
+                int temp = (int)(Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
+                Threading.counter = temp % DataStore.lifeSpanMultiplier;
+                try
+                {
+                    WG_XMLBaseVersion xml = new XML_VersionTwo();
+                    xml.writeXML(currentFileLocation);
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
+                }
+
+                Debug.Log("Lifecycle Rebalance Revisited successfully loaded.");
+
+                // Check if we need to display update notification.
+                if (settingsFile.NotificationVersion != 2)
+                {
+                    // No update notification "Don't show again" flag found; show the notification.
+                    UpdateNotification notification = new UpdateNotification();
+                    notification.Create();
+                    notification.Show();
+                }
             }
         }
 
