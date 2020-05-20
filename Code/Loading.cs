@@ -2,32 +2,30 @@
 using System.IO;
 using System.Xml;
 using System.Text;
-using System.Linq;
 using UnityEngine;
 using ICities;
 using ColossalFramework;
-using ColossalFramework.UI;
-using ColossalFramework.Plugins;
 
 
 namespace LifecycleRebalance
 {
+    /// <summary>
+    /// Main loading class: the mod runs from here.
+    /// </summary>
     public class Loading : LoadingExtensionBase
     {
         public const String XML_FILE = "WG_CitizenEdit.xml";
         public static SettingsFile settingsFile;
 
         // This can be with the local application directory, or the directory where the exe file exists.
-        // Default location is the local application directory, however the exe directory is checked first
+        // Default location is the local application directory, however the exe directory is checked first.
         public static string currentFileLocation = "";
         public static volatile bool isModCreated = false;
         
 
-        public static bool IsModEnabled(UInt64 id)
-        {
-            return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id && mod.isEnabled));
-        }
-
+        /// <summary>
+        /// Called by the game when the mode is released.
+        /// </summary>
 
         public override void OnReleased()
         {
@@ -38,6 +36,10 @@ namespace LifecycleRebalance
         }
 
 
+        /// <summary>
+        /// Called by the game when level loading is complete.
+        /// </summary>
+        /// <param name="mode">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnLevelLoaded(LoadMode mode)
         {
             // Don't do anything if not in game.
@@ -50,24 +52,16 @@ namespace LifecycleRebalance
             // Don't do anything if we've already been here.
             if (!isModCreated)
             {
-                Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + " loading.");
-
-                // Check for original WG Citizen Lifecycle Rebalance; if it's enabled, flag and don't activate this mod.
-                if (IsModEnabled(654707599ul))
+                // Check for mod conflicts.
+                ModConflicts modConflicts = new ModConflicts();
+                if (modConflicts.CheckConflicts())
                 {
-                    // Show error notification to user.
-                    ErrorNotification notification = new ErrorNotification();
-                    notification.Create();
-                    ErrorNotification.headerText = "Mod conflict detected!";
-                    ErrorNotification.messageText = "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!";
-                    notification.Show();
-
-                    Debug.Log("Lifecycle Rebalance Revisited: incompatible mod detected.  Shutting down.");
-
-                    // Unapply Harmony patches before returning without doing anything
+                    // Conflict detected.  Unpatch everything before exiting without doing anything further.
                     Patcher.UnpatchAll();
                     return;
                 }
+
+                Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + " loading.");
 
                 // Load configuation file.
                 readFromXML();
@@ -212,6 +206,10 @@ namespace LifecycleRebalance
             }
         }
 
+
+        /// <summary>
+        /// Calculates and populates the sickness probabilities DataStore table from the configuration file.
+        /// </summary>
         public static void CalculateSicknessProbabilities()
         {
             StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");

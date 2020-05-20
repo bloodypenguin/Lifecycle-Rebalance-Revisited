@@ -113,6 +113,7 @@
     <Compile Include="Code\AI\ResidentAITransport.cs" />
     <Compile Include="Code\AI\StartConnectionTransferImpl.cs" />
     <Compile Include="Code\AI\UpdateHealthTranspiler.cs" />
+    <Compile Include="Code\Notifications\ModConflicts.cs" />
     <Compile Include="Code\Patcher.cs" />
     <Compile Include="Code\Notifications\ErrorNotification.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\DeathOptions.cs" />
