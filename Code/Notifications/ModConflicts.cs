@@ -51,7 +51,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Checks whether the given mod is subscribed via the workshop and enabled.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Steam Workshop ID of the mod</param>
         /// <returns></returns>
         public bool IsModEnabled(UInt64 id)
         {
@@ -62,7 +62,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Checks whether the given mod is subscribed via the workshop.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Steam Workshop ID of the mod</param>
         /// <returns></returns>
         public bool IsModInstalled(UInt64 id)
         {
