@@ -1,4 +1,7 @@
-﻿- Add options panel slider for lifespan multiplier
+﻿Version 1.4.1
+
+- Add options panel slider for lifespan multiplier
+- Update bundled Cities Harmony to 1.0.5
 
 
 Version 1.4
