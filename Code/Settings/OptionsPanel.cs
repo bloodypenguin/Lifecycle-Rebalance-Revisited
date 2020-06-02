@@ -44,10 +44,11 @@ namespace LifecycleRebalance
 
             // Add tabs and panels.
             new CalculationOptions(tabStrip, 0);
-            new DeathOptions(tabStrip, 1);
-            new HealthOptions(tabStrip, 2);
-            new TransportOptions(tabStrip, 3);
-            new LoggingOptions(tabStrip, 4);
+            new SpeedOptions(tabStrip, 1);
+            new DeathOptions(tabStrip, 2);
+            new HealthOptions(tabStrip, 3);
+            new TransportOptions(tabStrip, 4);
+            new LoggingOptions(tabStrip, 5);
         }
     }
 }

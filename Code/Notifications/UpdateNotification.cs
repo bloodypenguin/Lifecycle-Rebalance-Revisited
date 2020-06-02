@@ -46,8 +46,8 @@ namespace LifecycleRebalance
         public override void Start()
         {
             // Add text.
-            headerText = "Lifecycle Rebalance Revisited has been updated to version 1.4.  Key update changes are:";
-            messageText = "The setting changing the percentage of dead bodies that require transport now applies to ALL deaths (including those from sickness and pollution, not just old age).  Setting this to zero will should now completely remove the need for deathcare transportation (hearses) in your city.\r\n\r\nVanilla lifecycle calculation option - revert to base-game lifespans while still using other aspects of this mod.\r\n\r\nYou can now use the options panel to easily choose between using this mod's custom transport mode probabilities (from the configuration file) and using the game defaults.\r\n\r\nThe mod's option panel is now split into tabs for easier navigation.";
+            headerText = "Lifecycle Rebalance Revisited BETA has been updated to version 1.4.1.";
+            messageText = "You can now set the speed at which citizens age via the options panel.";
 
             base.Start();
 
@@ -63,7 +63,7 @@ namespace LifecycleRebalance
                 noShowButton.eventClick += (c, p) =>
                 {
                     // Update and save settings file.
-                    Loading.settingsFile.NotificationVersion = 2;
+                    Loading.settingsFile.NotificationVersion = 3;
                     Configuration<SettingsFile>.Save();
 
                     // Just hide this panel and destroy the game object - nothing more to do.

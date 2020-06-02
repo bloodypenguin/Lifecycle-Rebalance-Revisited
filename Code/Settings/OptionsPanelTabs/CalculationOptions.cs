@@ -35,9 +35,9 @@ namespace LifecycleRebalance
             // Calculation models.
             UIHelperBase group1 = calculationsTab.AddGroup("Lifecycle calculation model");
 
-            sunsetCheckbox = (UICheckBox)group1.AddCheckbox("Use mod's Sunset Harbor lifespans (default)", !OptionsPanel.settings.UseLegacy, (isChecked) => { });
-            legacyCheckbox = (UICheckBox)group1.AddCheckbox("Use mod's legacy lifespans (original WG mod) - shorter lifespans, fewer seniors", OptionsPanel.settings.UseLegacy, (isChecked) => { });
-            vanillaCheckbox = (UICheckBox)group1.AddCheckbox("Use vanilla Sunset Harbor lifespans - less variable lifespans and slightly more seniors", OptionsPanel.settings.UseVanilla, (isChecked) => { });
+            sunsetCheckbox = (UICheckBox)group1.AddCheckbox("Mod Sunset Harbor lifespans (default)", !OptionsPanel.settings.UseLegacy, (isChecked) => { });
+            legacyCheckbox = (UICheckBox)group1.AddCheckbox("Mod legacy lifespans (original WG mod) - shorter lifespans, fewer seniors", OptionsPanel.settings.UseLegacy, (isChecked) => { });
+            vanillaCheckbox = (UICheckBox)group1.AddCheckbox("Vanilla Sunset Harbor lifespans - less variable lifespans, slightly more seniors", OptionsPanel.settings.UseVanilla, (isChecked) => { });
 
             // Custom retirement ages.
             UIHelperBase group2 = calculationsTab.AddGroup("Retirement age options (only when using mod's Sunset Harbor lifespans)");

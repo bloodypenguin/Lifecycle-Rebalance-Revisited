@@ -1,4 +1,7 @@
-﻿Version 1.4
+﻿- Add options panel slider for lifespan multiplier
+
+
+Version 1.4
 
 - Add vanilla lifecycle calculation option
 - Extend hearse chance to deaths from sickness (as well as old age)
