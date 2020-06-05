@@ -46,7 +46,7 @@ namespace LifecycleRebalance
         public override void Start()
         {
             // Add text.
-            headerText = "Lifecycle Rebalance Revisited BETA has been updated to version 1.4.1.";
+            headerText = "Lifecycle Rebalance Revisited has been updated to version 1.4.1.";
             messageText = "You can now set the speed at which citizens age via the options panel.";
 
             base.Start();

@@ -25,11 +25,11 @@ namespace LifecycleRebalance
                 conflictDetected = true;
                 ErrorNotification.messageText = "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!";
             }
-            // Otherwise, check for beta.
-            else if (IsModInstalled(2097938060))
+            // Otherwise, check for beta and main version simultaneously installed.
+            else if (IsModInstalled(2097938060) && IsModInstalled(2027161563))
             {
                 conflictDetected = true;
-                ErrorNotification.messageText = "Lifecycle Rebalance Revisited BETA detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Please only subscribe to one of these at a time.";
+                ErrorNotification.messageText = "Lifecycle Rebalance Revisited: both Beta and production versions detected.  Lifecycle Rebalance Revisited is shutting down to protect your game.  Please only subscribe to one of these at a time.";
             }
 
             // Mod conflict was detected.  Notify the user.
