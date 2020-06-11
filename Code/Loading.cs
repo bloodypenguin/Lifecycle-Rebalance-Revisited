@@ -142,6 +142,9 @@ namespace LifecycleRebalance
                     Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
                 }
 
+                // Set up options panel event handler.
+                OptionsPanel.OptionsEventHook();
+
                 Debug.Log("Lifecycle Rebalance Revisited successfully loaded.");
 
                 // Check if we need to display update notification.

@@ -1,4 +1,5 @@
 ﻿using ICities;
+using ColossalFramework.UI;
 using CitiesHarmony.API;
 
 
@@ -24,6 +25,18 @@ namespace LifecycleRebalance
             // Apply Harmony patches via Cities Harmony.
             // Called here instead of OnCreated to allow the auto-downloader to do its work prior to launch.
             HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
+
+            // Check to see if UIView is ready (to attach the options panel event handler).
+            if (UIView.GetAView() != null)
+            {
+                // It's ready - attach options panel event handler now.
+                OptionsPanel.OptionsEventHook();
+            }
+            else
+            {
+                // Otherwise, queue the hook for when the intro's finished loading.
+                LoadingManager.instance.m_introLoaded += OptionsPanel.OptionsEventHook;
+            }
         }
 
 

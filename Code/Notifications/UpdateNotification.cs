@@ -10,8 +10,6 @@ namespace LifecycleRebalance
     /// </summary>
     public class UpdateNotification : ErrorNotification
     {
-
-
         /// <summary>
         /// Creates the panel object in-game.
         /// </summary>

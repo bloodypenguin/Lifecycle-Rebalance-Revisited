@@ -69,13 +69,13 @@ namespace LifecycleRebalance
                 AddText("Lifecycle Rebalance Revisited", spacing, spacing, 1.0f);
 
                 // Note 1.
-                float currentX = AddText(headerText, spacing, 40);
+                float currentY = AddText(headerText, spacing, 40);
 
                 // Note 2.
-                currentX = AddText(messageText, spacing * 2, currentX + 20);
+                currentY = AddText(messageText, spacing * 2, currentY + 20);
 
                 // Auto resize panel to accomodate note.
-                this.height = currentX + 60;
+                this.height = currentY + 60;
 
                 // Close button.
                 UIButton closeButton = CreateButton(this);
