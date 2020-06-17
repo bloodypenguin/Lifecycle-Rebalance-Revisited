@@ -1,4 +1,6 @@
-﻿- Fix sickness options panel layout not working with some panel-affecting mods
+﻿Version 1.4.2
+
+- Fix sickness options panel layout not working with some panel-affecting mods
 - Performance improvement: deactivate options panel when not visible
 
 
