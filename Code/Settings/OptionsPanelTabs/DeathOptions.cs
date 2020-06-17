@@ -20,7 +20,7 @@ namespace LifecycleRebalance
             UIHelper deathTab = PanelUtils.AddTab(tabStrip, "Death", tabIndex);
 
             // Percentage of corpses requiring transport.  % of bodies requiring transport is more intuitive to user than % of vanishing corpses, so we invert the value.
-            UISlider vanishingStiffs = PanelUtils.AddSliderWithValue(deathTab, "% of dead bodies requiring deathcare transportation\r\n(Game default 67%, mod default 50%)", 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
+            UISlider vanishingStiffs = PanelUtils.AddSliderWithValue((UIPanel)deathTab.self, "% of dead bodies requiring deathcare transportation\r\n(Game default 67%, mod default 50%)", 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
 
             // Reset to saved button.
             UIButton vanishingStiffReset = (UIButton)deathTab.AddButton("Reset to saved", () =>

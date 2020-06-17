@@ -33,7 +33,7 @@ namespace LifecycleRebalance
             for (int i = 0; i < numDeciles; i++)
             {
                 // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
-                illnessChance[i] = PanelUtils.AddSliderWithValue(healthGroup, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
+                illnessChance[i] = PanelUtils.AddSliderWithValue((UIPanel)healthTab.self, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
             }
 
             // Reset to saved button.
@@ -71,7 +71,7 @@ namespace LifecycleRebalance
             ((UIPanel)illnessResetSaved.parent).autoLayout = false;
 
             // Reset to default button.
-            UIButton illnessResetDefault = (UIButton)healthGroup.AddButton("Reset to default", () =>
+            UIButton illnessResetDefault = (UIButton)healthTab.AddButton("Reset to default", () =>
             {
                 for (int i = 0; i < numDeciles; i++)
                 {
@@ -82,7 +82,7 @@ namespace LifecycleRebalance
             illnessResetDefault.relativePosition = PanelUtils.PositionRightOf(illnessResetSaved);
 
             // Reset to default button.
-            UIButton illnessSetZero = (UIButton)healthGroup.AddButton("Set all to zero", () =>
+            UIButton illnessSetZero = (UIButton)healthTab.AddButton("Set all to zero", () =>
             {
                 for (int i = 0; i < numDeciles; i++)
                 {

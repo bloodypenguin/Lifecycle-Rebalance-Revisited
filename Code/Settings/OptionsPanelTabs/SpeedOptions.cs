@@ -20,7 +20,7 @@ namespace LifecycleRebalance
             UIHelper speedTab = PanelUtils.AddTab(tabStrip, "Age speed", tabIndex);
 
             // Lifespan multiplier.  Simple integer.
-            UISlider lifeMult = PanelUtils.AddSliderWithValue(speedTab, "Factor to slow down how fast citizens age, compared to base game.\r\n\r\n1 is base game speed (35 in-game weeks is equal to 10 years of age), 2 is twice as slow (70 in-game weeks for 10 years of age), 3 is three times as slow, etc.\r\n\r\nDoes not affect lifecycles or ages - only the speed at which citizens age relative to game speed.\r\n\r\n(Game default 1, mod default 3)", 1f, 10f, 1f, DataStore.lifeSpanMultiplier, (value) => { });
+            UISlider lifeMult = PanelUtils.AddSliderWithValue((UIPanel)speedTab.self, "Factor to slow down how fast citizens age, compared to base game.\r\n\r\n1 is base game speed (35 in-game weeks is equal to 10 years of age), 2 is twice as slow (70 in-game weeks for 10 years of age), 3 is three times as slow, etc.\r\n\r\nDoes not affect lifecycles or ages - only the speed at which citizens age relative to game speed.\r\n\r\n(Game default 1, mod default 3)", 1f, 10f, 1f, DataStore.lifeSpanMultiplier, (value) => { });
 
             // Reset to saved button.
             UIButton lifeMultReset = (UIButton)speedTab.AddButton("Reset to saved", () =>

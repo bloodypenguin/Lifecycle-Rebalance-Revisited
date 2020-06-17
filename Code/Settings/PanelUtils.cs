@@ -78,7 +78,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Adds a slider with a descriptive text label above and an automatically updating value label immediately to the right.
         /// </summary>
-        /// <param name="helper">UIHelper panel to add the control to</param>
+        /// <param name="parent">Panel to add the control to</param>
         /// <param name="text">Descriptive label text</param>
         /// <param name="min">Slider minimum value</param>
         /// <param name="max">Slider maximum value</param>
@@ -86,28 +86,33 @@ namespace LifecycleRebalance
         /// <param name="defaultValue">Slider initial value</param>
         /// <param name="eventCallback">Slider event handler</param>
         /// <returns></returns>
-        public static UISlider AddSliderWithValue(UIHelperBase helper, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback)
+        public static UISlider AddSliderWithValue(UIPanel parent, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback)
         {
-            // Slider control.
-            UISlider newSlider = helper.AddSlider(text, min, max, step, defaultValue, value => { }) as UISlider;
+            // Add slider component.
+            UIPanel sliderPanel = parent.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsSliderTemplate")) as UIPanel;
+            sliderPanel.Find<UILabel>("Label").text = text;
 
-            // Get parent.
-            UIPanel parentPanel = newSlider.parent as UIPanel;
-            parentPanel.autoLayout = false;
+            // Slider configuration.
+            UISlider newSlider = sliderPanel.Find<UISlider>("Slider");
+            newSlider.minValue = min;
+            newSlider.maxValue = max;
+            newSlider.stepSize = step;
+            newSlider.value = defaultValue;
 
-            // Change default slider label position and size.
-            UILabel sliderLabel = parentPanel.Find<UILabel>("Label");
+            // Label.
+            UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
             sliderLabel.width = 500;
             sliderLabel.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
             sliderLabel.relativePosition = Vector3.zero;
 
-            // Move default slider position to match resized labe.
+            // Move default slider position to match resized label.
             newSlider.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
             newSlider.relativePosition = PositionUnder(sliderLabel);
             newSlider.width = 500;
 
             // Value label.
-            UILabel valueLabel = parentPanel.AddUIComponent<UILabel>();
+            sliderPanel.autoLayout = false;
+            UILabel valueLabel = sliderPanel.AddUIComponent<UILabel>();
             valueLabel.name = "ValueLabel";
             valueLabel.text = newSlider.value.ToString();
             valueLabel.relativePosition = PositionRightOf(newSlider, 8f, 1f);
