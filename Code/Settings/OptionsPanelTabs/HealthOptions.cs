@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using ICities;
 using ColossalFramework.UI;
 
 
@@ -26,20 +25,20 @@ namespace LifecycleRebalance
             UIHelper healthTab = PanelUtils.AddTab(tabStrip, "Health", tabIndex);
 
             // Illness options.
-            UIHelperBase healthGroup = healthTab.AddGroup("Random illness % chance per decade of life\r\nDoes not affect sickness from specific causes, e.g. pollution or noise.");
+            PanelUtils.AddLabel((UIPanel)healthTab.self, "Random illness % chance per decade of life\r\nDoes not affect sickness from specific causes, e.g. pollution or noise.");
 
             // Illness chance sliders.
             UISlider[] illnessChance = new UISlider[DataStore.sicknessProbInXML.Length];
-            for (int i = 0; i < numDeciles; i++)
+            for (int i = 0; i < numDeciles; ++ i)
             {
                 // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
                 illnessChance[i] = PanelUtils.AddSliderWithValue((UIPanel)healthTab.self, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
             }
 
             // Reset to saved button.
-            UIButton illnessResetSaved = (UIButton)healthGroup.AddButton("Reset to saved", () =>
+            UIButton illnessResetSaved = (UIButton)healthTab.AddButton("Reset to saved", () =>
             {
-                for (int i = 0; i < numDeciles; i++)
+                for (int i = 0; i < numDeciles; ++ i)
                 {
                     // Retrieve saved values from datastore.
                     illnessChance[i].value = (float)DataStore.sicknessProbInXML[i] * 100;
@@ -47,12 +46,12 @@ namespace LifecycleRebalance
             });
 
             // Save settings button.
-            UIButton illnessSave = (UIButton)healthGroup.AddButton("Save and apply", () =>
+            UIButton illnessSave = (UIButton)healthTab.AddButton("Save and apply", () =>
             {
                 StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
 
                 // Update datastore with slider values.
-                for (int i = 0; i < numDeciles; i++)
+                for (int i = 0; i < numDeciles; ++ i)
                 {
                     DataStore.sicknessProbInXML[i] = illnessChance[i].value / 100;
 
@@ -67,13 +66,13 @@ namespace LifecycleRebalance
                 PanelUtils.SaveXML();
             });
 
-            // Turn off autolayout to fit next buttons to the right of the illness saved button.
+            // Turn off autolayout to fit next buttons to the right of the illness saved button (above the save settings button).
             ((UIPanel)illnessResetSaved.parent).autoLayout = false;
 
             // Reset to default button.
             UIButton illnessResetDefault = (UIButton)healthTab.AddButton("Reset to default", () =>
             {
-                for (int i = 0; i < numDeciles; i++)
+                for (int i = 0; i < numDeciles; ++ i)
                 {
                     // Retrieve default values.
                     illnessChance[i].value = defaultSicknessProbs[i] * 100;
@@ -81,10 +80,10 @@ namespace LifecycleRebalance
             });
             illnessResetDefault.relativePosition = PanelUtils.PositionRightOf(illnessResetSaved);
 
-            // Reset to default button.
+            // Set to zero button.
             UIButton illnessSetZero = (UIButton)healthTab.AddButton("Set all to zero", () =>
             {
-                for (int i = 0; i < numDeciles; i++)
+                for (int i = 0; i < numDeciles; ++ i)
                 {
                     // Reset everything to zero.
                     illnessChance[i].value = 0;
