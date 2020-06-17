@@ -1,6 +1,7 @@
 ﻿Version 1.4.2
 
 - Fix sickness options panel layout not working with some panel-affecting mods
+- Lifespan multiplier slider maximum extended to 15
 - Performance improvement: deactivate options panel when not visible
 
 
