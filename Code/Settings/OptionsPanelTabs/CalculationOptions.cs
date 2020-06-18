@@ -9,6 +9,9 @@ namespace LifecycleRebalance
     /// </summary>
     public class CalculationOptions
     {
+        //
+        public static readonly string[] retirementAges = { "50", "55", "60", "65" };
+
         // Key components.
         private UICheckBox sunsetCheckbox;
         private UICheckBox legacyCheckbox;
@@ -44,7 +47,7 @@ namespace LifecycleRebalance
 
             retireCheckbox = (UICheckBox)group2.AddCheckbox("Use custom retirement age", OptionsPanel.settings.CustomRetirement, (isChecked) => { });
 
-            ageDropdown = (UIDropDown)group2.AddDropdown("Custom retirement age", new string[] { "50", "55", "60", "65" }, (OptionsPanel.settings.RetirementYear - 50) / 5, (index) =>
+            ageDropdown = (UIDropDown)group2.AddDropdown("Custom retirement age", retirementAges, (OptionsPanel.settings.RetirementYear - 50) / 5, (index) =>
             {
                 int ageYears = 50 + (index * 5);
 
@@ -56,7 +59,17 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
             });
 
-            UILabel retireNote1 = PanelUtils.AddLabel((UIPanel)ageDropdown.parent, "Decreasing retirement age won't change the status of citizens who have already retired under previous settings.");
+            // Add enabled/disabled event handler to age dropdown to repopulate items on re-enabling. 
+            ageDropdown.eventIsEnabledChanged += (control, isEnabled) =>
+            {
+                if (isEnabled)
+                {
+                    ageDropdown.items = retirementAges;
+                    ageDropdown.selectedIndex = (OptionsPanel.settings.RetirementYear - 50) / 5;
+                }
+            };
+
+       UILabel retireNote1 = PanelUtils.AddLabel((UIPanel)ageDropdown.parent, "Decreasing retirement age won't change the status of citizens who have already retired under previous settings.");
             UILabel retireNote2 = PanelUtils.AddLabel((UIPanel)ageDropdown.parent, "Increasing retirement age won't change the appearance of citzens who have already retired under previous settings.");
 
             // Show/hide controls based on initial settings.

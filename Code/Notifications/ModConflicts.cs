@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using ColossalFramework.Plugins;
 
@@ -18,17 +19,37 @@ namespace LifecycleRebalance
         public bool CheckConflicts()
         {
             bool conflictDetected = false;
+            string conflictName = string.Empty;
 
-            // Check for original WG Citizen Lifecycle Rebalance.
+
+            // Check for conflicting mods.
             if (IsModEnabled(654707599ul))
             {
+                // Original WG Citizen Lifecycle Rebalance.
                 conflictDetected = true;
+                conflictName = "WG Citizen Lifecycle Rebalance";
                 ErrorNotification.messageText = "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!";
             }
-            // Otherwise, check for beta and main version simultaneously installed.
+            else if (IsModInstalled(1372431101ul))
+            {
+                // Painter mod detected.
+                conflictDetected = true;
+                conflictName = "Painter";
+                ErrorNotification.messageText = "The old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement.";
+            }
+            else if (IsModInstalled("VanillaGarbageBinBlocker"))
+            {
+                // Garbage Bin Conroller mod detected.
+                conflictDetected = true;
+                conflictName = "Garbage Bin Controller";
+                Debug.Log("Garbage Bin Controller mod detected - Lifecycle Rebalance Revisited exiting");
+                ErrorNotification.messageText = "The Garbage Bin Controller mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Garbage Bin Controller (merely disabling is NOT sufficient).";
+            }
             else if (IsModInstalled(2097938060) && IsModInstalled(2027161563))
             {
+                // Beta and main version simultaneously installed.
                 conflictDetected = true;
+                conflictName = "Beta";
                 ErrorNotification.messageText = "Lifecycle Rebalance Revisited: both Beta and production versions detected.  Lifecycle Rebalance Revisited is shutting down to protect your game.  Please only subscribe to one of these at a time.";
             }
 
@@ -41,7 +62,7 @@ namespace LifecycleRebalance
                 ErrorNotification.headerText = "Mod conflict detected!";
                 notification.Show();
 
-                Debug.Log("Lifecycle Rebalance Revisited: incompatible mod detected.  Shutting down.");
+                Debug.Log("Lifecycle Rebalance Revisited: incompatible " + conflictName + " mod detected.  Shutting down.");
             }
 
             return conflictDetected;
@@ -67,6 +88,42 @@ namespace LifecycleRebalance
         public bool IsModInstalled(UInt64 id)
         {
             return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id));
+        }
+
+
+        /// <summary>
+        /// Checks to see if another mod is installed, based on a provided assembly name.
+        /// </summary>
+        /// <param name="assemblyName">Name of the mod assembly</param>
+        /// <param name="enabledOnly">True if the mod needs to be enabled for the purposes of this check; false if it doesn't matter</param>
+        /// <returns>True if the mod is installed (and, if enabledOnly is true, is also enabled), false otherwise</returns>
+        internal bool IsModInstalled(string assemblyName, bool enabledOnly = false)
+        {
+            // Convert assembly name to lower case.
+            string assemblyNameLower = assemblyName.ToLower();
+
+            // Iterate through the full list of plugins.
+            foreach (PluginManager.PluginInfo plugin in PluginManager.instance.GetPluginsInfo())
+            {
+                foreach (Assembly assembly in plugin.GetAssemblies())
+                {
+                    if (assembly.GetName().Name.ToLower().Equals(assemblyNameLower))
+                    {
+                        Debug.Log("found mod assembly " + assemblyName);
+                        if (enabledOnly)
+                        {
+                            return plugin.isEnabled;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            // If we've made it here, then we haven't found a matching assembly.
+            return false;
         }
     }
 }
