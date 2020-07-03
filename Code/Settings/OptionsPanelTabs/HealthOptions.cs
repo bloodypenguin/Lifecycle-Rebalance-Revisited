@@ -30,14 +30,14 @@ namespace LifecycleRebalance
             illnessLabel.relativePosition = Vector3.zero;
 
             // Set the intial Y position of the illness chance sliders.
-            float currentY = illnessLabel.height + 5f;
+            float currentY = illnessLabel.height + 10f;
 
             // Illness chance sliders.
             UISlider[] illnessChance = new UISlider[DataStore.sicknessProbInXML.Length];
             for (int i = 0; i < numDeciles; ++ i)
             {
                 // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
-                illnessChance[i] = PanelUtils.AddSliderWithValue(healthTab, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
+                illnessChance[i] = PanelUtils.AddSliderWithValue(healthTab, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { }, textScale: 0.9f);
                 illnessChance[i].parent.relativePosition = new Vector3(0, currentY);
                 currentY += illnessChance[i].parent.height;
             }

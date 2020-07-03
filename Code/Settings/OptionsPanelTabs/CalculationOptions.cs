@@ -29,13 +29,12 @@ namespace LifecycleRebalance
             // Add tab.
             UIPanel calculationsTab = PanelUtils.AddTab(tabStrip, "Calculations", tabIndex, true);
 
-            PanelUtils.AddLabel(calculationsTab, "Lifecycle Balance Revisited v" + LifecycleRebalance.Version);
-
             // Add warning text message.
             PanelUtils.AddLabel(calculationsTab, "WARNING:\r\nChanging settings during a game can temporarily disrupt city balance.\r\nSaving a backup before changing is HIGHLY recommended.");
 
             // Calculation models.
-            PanelUtils.AddLabel(calculationsTab, "Lifecycle calculation model");
+            PanelUtils.AddPanelSpacer(calculationsTab);
+            PanelUtils.AddLabel(calculationsTab, "Lifecycle calculation model", 1.3f);
 
             sunsetCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, "Mod Sunset Harbor lifespans (default)");
             sunsetCheckBox.isChecked = !OptionsPanel.settings.UseLegacy;
@@ -45,7 +44,8 @@ namespace LifecycleRebalance
             vanillaCheckBox.isChecked = OptionsPanel.settings.UseVanilla;
 
             // Custom retirement ages.
-            PanelUtils.AddLabel(calculationsTab, "Retirement age options (only when using mod's Sunset Harbor lifespans)");
+            PanelUtils.AddPanelSpacer(calculationsTab);
+            PanelUtils.AddLabel(calculationsTab, "Retirement age options (only when using mod's Sunset Harbor lifespans)", 1.3f);
 
             retireCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, "Use custom retirement age");
             retireCheckBox.isChecked = OptionsPanel.settings.CustomRetirement;

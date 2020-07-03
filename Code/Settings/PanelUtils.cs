@@ -57,7 +57,7 @@ namespace LifecycleRebalance
         /// <param name="panel">UI panel to add the label to</param>
         /// <param name="text">Label text</param>
         /// <returns></returns>
-        public static UILabel AddLabel(UIPanel panel, string text)
+        public static UILabel AddLabel(UIPanel panel, string text, float scale = 1.0f)
         {
             // Add label.
             UILabel label = (UILabel)panel.AddUIComponent<UILabel>();
@@ -65,6 +65,7 @@ namespace LifecycleRebalance
             label.autoHeight = true;
             label.wordWrap = true;
             label.width = 700;
+            label.textScale = scale;
             label.text = text;
 
             // Increase panel height to compensate.
@@ -89,7 +90,7 @@ namespace LifecycleRebalance
         /// <param name="eventCallback">Slider event handler</param>
         /// <param name="width">Slider width (excluding value label to right) (default 600)</param>
         /// <returns>New UI slider with attached labels</returns>
-        internal static UISlider AddSliderWithValue(UIComponent parent, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback, float width = 600f)
+        internal static UISlider AddSliderWithValue(UIComponent parent, string text, float min, float max, float step, float defaultValue, OnValueChanged eventCallback, float width = 600f, float textScale = 1f)
         {
             // Add slider component.
             UIPanel sliderPanel = parent.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsSliderTemplate")) as UIPanel;
@@ -102,6 +103,7 @@ namespace LifecycleRebalance
             sliderLabel.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
             sliderLabel.relativePosition = Vector3.zero;
             sliderLabel.relativePosition = Vector3.zero;
+            sliderLabel.textScale = textScale;
             sliderLabel.text = text;
 
             // Slider configuration.
@@ -148,7 +150,7 @@ namespace LifecycleRebalance
         /// <param name="xPos">Relative x position (default 0)</param>
         /// <param name="yPos">Relative y position (default 0)</param>
         /// <returns></returns>
-        internal static UIButton CreateButton(UIComponent parent, string text, float width = 150f, float xPos = 0f, float yPos = 0f)
+        internal static UIButton CreateButton(UIComponent parent, string text, float width = 200f, float xPos = 0f, float yPos = 0f)
         {
             // Constants.
             const float Height = 30f;
@@ -166,7 +168,7 @@ namespace LifecycleRebalance
             // Button size parameters.
             button.relativePosition = new Vector3(xPos, yPos);
             button.size = new Vector2(width, Height);
-            button.textScale = 0.9f;
+            button.textScale = 1f;
 
             // Label.
             button.text = text;
@@ -218,6 +220,25 @@ namespace LifecycleRebalance
             dropDown.selectedIndex = selectedIndex;
 
             return dropDown;
+        }
+
+
+        /// <summary>
+        /// Creates a blank options-panel spacer.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="parent">Spacer height (default 35)</param>
+        /// <returns></returns>
+        public static UIPanel AddPanelSpacer(UIComponent parent, float height = 35f)
+        {
+            UIPanel panel = parent.AddUIComponent<UIPanel>();
+
+            panel.autoSize = false;
+            panel.height = height;
+            panel.width = parent.width - (panel.relativePosition.x * 2);
+            panel.backgroundSprite = "ContentManagerItemBackground";
+
+            return panel;
         }
 
 
