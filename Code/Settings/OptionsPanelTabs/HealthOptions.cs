@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using UnityEngine;
 using ColossalFramework.UI;
 
 
@@ -22,31 +23,44 @@ namespace LifecycleRebalance
         public HealthOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIHelper healthTab = PanelUtils.AddTab(tabStrip, "Health", tabIndex);
+            UIPanel healthTab = PanelUtils.AddTab(tabStrip, "Health", tabIndex);
 
             // Illness options.
-            PanelUtils.AddLabel((UIPanel)healthTab.self, "Random illness % chance per decade of life\r\nDoes not affect sickness from specific causes, e.g. pollution or noise.");
+            UILabel illnessLabel = PanelUtils.AddLabel(healthTab, "Random illness % chance per decade of life\r\nDoes not affect sickness from specific causes, e.g. pollution or noise.");
+            illnessLabel.relativePosition = Vector3.zero;
+
+            // Set the intial Y position of the illness chance sliders.
+            float currentY = illnessLabel.height + 5f;
 
             // Illness chance sliders.
             UISlider[] illnessChance = new UISlider[DataStore.sicknessProbInXML.Length];
             for (int i = 0; i < numDeciles; ++ i)
             {
                 // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
-                illnessChance[i] = PanelUtils.AddSliderWithValue((UIPanel)healthTab.self, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
+                illnessChance[i] = PanelUtils.AddSliderWithValue(healthTab, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { });
+                illnessChance[i].parent.relativePosition = new Vector3(0, currentY);
+                currentY += illnessChance[i].parent.height;
             }
 
+            // Add vertical gap for buttons.
+            currentY += 5;
+
             // Reset to saved button.
-            UIButton illnessResetSaved = (UIButton)healthTab.AddButton("Reset to saved", () =>
+            UIButton illnessResetSaved = PanelUtils.CreateButton(healthTab, "Reset to saved");
+            illnessResetSaved.relativePosition = new Vector3(0f, currentY);
+            illnessResetSaved.eventClicked += (control, clickEvent) =>
             {
                 for (int i = 0; i < numDeciles; ++ i)
                 {
                     // Retrieve saved values from datastore.
                     illnessChance[i].value = (float)DataStore.sicknessProbInXML[i] * 100;
                 }
-            });
-
+            };
+            
             // Save settings button.
-            UIButton illnessSave = (UIButton)healthTab.AddButton("Save and apply", () =>
+            UIButton illnessSave = PanelUtils.CreateButton(healthTab, "Save and apply");
+            illnessSave.relativePosition = PanelUtils.PositionUnder(illnessResetSaved);
+            illnessSave.eventClicked += (control, clickEvent) =>
             {
                 StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
 
@@ -64,32 +78,31 @@ namespace LifecycleRebalance
 
                 // Write to file.
                 PanelUtils.SaveXML();
-            });
-
-            // Turn off autolayout to fit next buttons to the right of the illness saved button (above the save settings button).
-            ((UIPanel)illnessResetSaved.parent).autoLayout = false;
+            };
 
             // Reset to default button.
-            UIButton illnessResetDefault = (UIButton)healthTab.AddButton("Reset to default", () =>
+            UIButton illnessResetDefault = PanelUtils.CreateButton(healthTab, "Reset to default");
+            illnessResetDefault.relativePosition = PanelUtils.PositionRightOf(illnessResetSaved);
+            illnessResetDefault.eventClicked += (control, clickEvent) =>
             {
                 for (int i = 0; i < numDeciles; ++ i)
                 {
                     // Retrieve default values.
                     illnessChance[i].value = defaultSicknessProbs[i] * 100;
                 }
-            });
-            illnessResetDefault.relativePosition = PanelUtils.PositionRightOf(illnessResetSaved);
+            };
 
             // Set to zero button.
-            UIButton illnessSetZero = (UIButton)healthTab.AddButton("Set all to zero", () =>
+            UIButton illnessSetZero = PanelUtils.CreateButton(healthTab, "Set all to zero");
+            illnessSetZero.relativePosition = PanelUtils.PositionRightOf(illnessResetDefault);
+            illnessSetZero.eventClicked += (control, clickEvent) =>
             {
                 for (int i = 0; i < numDeciles; ++ i)
                 {
                     // Reset everything to zero.
                     illnessChance[i].value = 0;
                 }
-            });
-            illnessSetZero.relativePosition = PanelUtils.PositionRightOf(illnessResetDefault);
+            };
         }
     }
 }

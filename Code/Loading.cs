@@ -63,9 +63,6 @@ namespace LifecycleRebalance
 
                 Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + " loading.");
 
-                // Load configuation file.
-                readFromXML();
-
                 // Wait for Harmony if it hasn't already happened.
                 if (!Patcher.patched)
                 {

@@ -37,6 +37,9 @@ namespace LifecycleRebalance
                 // Otherwise, queue the hook for when the intro's finished loading.
                 LoadingManager.instance.m_introLoaded += OptionsPanel.OptionsEventHook;
             }
+
+            // Load configuation file.
+            Loading.readFromXML();
         }
 
 
@@ -58,8 +61,9 @@ namespace LifecycleRebalance
         /// </summary>
         public void OnSettingsUI(UIHelperBase helper)
         {
-            // Create options panel.
-            OptionsPanel optionsPanel = new OptionsPanel(helper);
+            // Setup options panel reference.
+            OptionsPanel.optionsPanel = ((UIHelper)helper).self as UIScrollablePanel;
+            OptionsPanel.optionsPanel.autoLayout = false;
         }
     }
 }

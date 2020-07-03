@@ -17,10 +17,12 @@ namespace LifecycleRebalance
         public LoggingOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIHelper loggingTab = PanelUtils.AddTab(tabStrip, "Logging", tabIndex);
+            UIPanel loggingTab = PanelUtils.AddTab(tabStrip, "Logging", tabIndex, true);
 
             // Logging options.
-            loggingTab.AddCheckbox("Log deaths to 'Lifecycle death log.txt'", OptionsPanel.settings.LogDeaths, (isChecked) =>
+            UICheckBox deathCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log deaths to 'Lifecycle death log.txt'");
+            deathCheckBox.isChecked = OptionsPanel.settings.LogDeaths;
+            deathCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseDeathLog = isChecked;
@@ -30,8 +32,11 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
 
                 Debug.Log("Lifecycle Rebalance Revisited: death logging " + (OptionsPanel.settings.LogDeaths ? "enabled." : "disabled."));
-            });
-            loggingTab.AddCheckbox("Log immigrants to 'Lifecycle immigration log.txt'", OptionsPanel.settings.LogImmigrants, (isChecked) =>
+            };
+
+            UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log immigrants to 'Lifecycle immigration log.txt'");
+            immigrantCheckBox.isChecked = OptionsPanel.settings.LogImmigrants;
+            immigrantCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseImmigrationLog = isChecked;
@@ -41,8 +46,11 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
 
                 Debug.Log("Lifecycle Rebalance Revisited: immigrant logging " + (OptionsPanel.settings.LogImmigrants ? "enabled." : "disabled."));
-            });
-            loggingTab.AddCheckbox("Log custom transport choices to 'Lifecycle transport log.txt'    WARNING - SLOW!", OptionsPanel.settings.LogTransport, (isChecked) =>
+            };
+
+            UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log custom transport choices to 'Lifecycle transport log.txt' WARNING - SLOW!");
+            transportCheckBox.isChecked = OptionsPanel.settings.LogTransport;
+            transportCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseTransportLog = isChecked;
@@ -52,8 +60,11 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
 
                 Debug.Log("Lifecycle Rebalance Revisited: transport choices logging " + (OptionsPanel.settings.LogTransport ? "enabled." : "disabled."));
-            });
-            loggingTab.AddCheckbox("Log sickness events to 'Lifecycle sickness log.txt'", OptionsPanel.settings.LogSickness, (isChecked) =>
+            };
+
+            UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log sickness events to 'Lifecycle sickness log.txt'");
+            sicknessCheckBox.isChecked = OptionsPanel.settings.LogSickness;
+            sicknessCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
                 Debugging.UseSicknessLog = isChecked;
@@ -63,7 +74,7 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
                  
                 Debug.Log("Lifecycle Rebalance Revisited: sickness logging " + (OptionsPanel.settings.LogSickness ? "enabled." : "disabled."));
-            });
+            };
         }
     }
 }

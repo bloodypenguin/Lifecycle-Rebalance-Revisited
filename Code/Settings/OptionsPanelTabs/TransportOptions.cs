@@ -17,17 +17,19 @@ namespace LifecycleRebalance
         public TransportOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIHelper transportTab = PanelUtils.AddTab(tabStrip, "Transport", tabIndex);
+            UIPanel transportTab = PanelUtils.AddTab(tabStrip, "Transport", tabIndex, true);
 
-            transportTab.AddCheckbox("Use custom transport mode probabilities (from configuration file)", OptionsPanel.settings.UseTransportModes, (isChecked) =>
+            UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(transportTab, "Use custom transport mode probabilities (from configuration file)");
+            transportCheckBox.isChecked = OptionsPanel.settings.UseTransportModes;
+            transportCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
                 ModSettings.UseTransportModes = isChecked;
 
                 // Update configuration file.
                 OptionsPanel.settings.UseTransportModes = isChecked;
-                Configuration<SettingsFile>.Save(); ;
-            });
+                Configuration<SettingsFile>.Save();
+            };
         }
     }
 }

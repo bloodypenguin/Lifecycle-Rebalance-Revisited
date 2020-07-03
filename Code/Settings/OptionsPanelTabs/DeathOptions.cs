@@ -17,25 +17,27 @@ namespace LifecycleRebalance
         public DeathOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIHelper deathTab = PanelUtils.AddTab(tabStrip, "Death", tabIndex);
+            UIPanel deathTab = PanelUtils.AddTab(tabStrip, "Death", tabIndex, true);
 
             // Percentage of corpses requiring transport.  % of bodies requiring transport is more intuitive to user than % of vanishing corpses, so we invert the value.
-            UISlider vanishingStiffs = PanelUtils.AddSliderWithValue((UIPanel)deathTab.self, "% of dead bodies requiring deathcare transportation\r\n(Game default 67%, mod default 50%)", 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
+            UISlider vanishingStiffs = PanelUtils.AddSliderWithValue(deathTab, "% of dead bodies requiring deathcare transportation\r\n(Game default 67%, mod default 50%)", 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
 
             // Reset to saved button.
-            UIButton vanishingStiffReset = (UIButton)deathTab.AddButton("Reset to saved", () =>
+            UIButton vanishingStiffReset = PanelUtils.CreateButton(deathTab, "Reset to saved");
+            vanishingStiffReset.eventClicked += (control, clickEvent) =>
             {
                 // Retrieve saved value from datastore - inverted value (see above).
                 vanishingStiffs.value = 100 - DataStore.autoDeadRemovalChance;
-            });
+            };
 
             // Turn off autolayout to fit next button to the right at the same y-value and increase button Y-value to clear slider.
-            ((UIPanel)vanishingStiffReset.parent).autoLayout = false;
-            ((UIPanel)vanishingStiffReset.parent).height += 20;
+            //deathTab.autoLayout = false;
             vanishingStiffReset.relativePosition = new Vector3(vanishingStiffReset.relativePosition.x, vanishingStiffReset.relativePosition.y + 30);
 
             // Save settings button.
-            UIButton vanishingStiffsSave = (UIButton)deathTab.AddButton("Save and apply", () =>
+            UIButton vanishingStiffsSave = PanelUtils.CreateButton(deathTab, "Save and apply");
+            vanishingStiffsSave.relativePosition = PanelUtils.PositionRightOf(vanishingStiffReset);
+            vanishingStiffsSave.eventClicked += (control, clickEvent) =>
             {
                 // Update mod settings - inverted value (see above).
                 DataStore.autoDeadRemovalChance = 100 - (int)vanishingStiffs.value;
@@ -43,8 +45,7 @@ namespace LifecycleRebalance
 
                 // Update WG configuration file.
                 PanelUtils.SaveXML();
-            });
-            vanishingStiffsSave.relativePosition = PanelUtils.PositionRightOf(vanishingStiffReset);
+            };
         }
     }
 }
