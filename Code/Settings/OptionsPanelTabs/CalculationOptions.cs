@@ -80,7 +80,6 @@ namespace LifecycleRebalance
             if (!OptionsPanel.settings.CustomRetirement)
             {
                 ageDropDown.Disable();
-                ageDropDown.Hide();
             }
 
             UpdateCheckboxes(OptionsPanel.settings.UseVanilla ? 2 : OptionsPanel.settings.UseLegacy ? 1 : 0);
@@ -91,13 +90,13 @@ namespace LifecycleRebalance
             {
                 if (isChecked)
                 {
-                // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 0.
-                UpdateCheckboxes(0);
+                    // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 0.
+                    UpdateCheckboxes(0);
                 }
                 else if (!legacyCheckBox.isChecked && !vanillaCheckBox.isChecked)
                 {
-                // This has been unchecked when no others have been selected; reset it and make no changes.
-                sunsetCheckBox.isChecked = true;
+                    // This has been unchecked when no others have been selected; reset it and make no changes.
+                    sunsetCheckBox.isChecked = true;
                 }
             };
 
@@ -105,13 +104,13 @@ namespace LifecycleRebalance
             {
                 if (isChecked)
                 {
-                // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 1.
-                UpdateCheckboxes(1);
+                    // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 1.
+                    UpdateCheckboxes(1);
                 }
                 else if (!sunsetCheckBox.isChecked && !vanillaCheckBox.isChecked)
                 {
-                // This has been unchecked when no others have been selected; reset it and make no changes.
-                legacyCheckBox.isChecked = true;
+                    // This has been unchecked when no others have been selected; reset it and make no changes.
+                    legacyCheckBox.isChecked = true;
                 }
             };
 
@@ -119,31 +118,29 @@ namespace LifecycleRebalance
             {
                 if (isChecked)
                 {
-                // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 2.
-                UpdateCheckboxes(2);
+                    // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 2.
+                    UpdateCheckboxes(2);
                 }
                 else if (!sunsetCheckBox.isChecked && !legacyCheckBox.isChecked)
                 {
-                // This has been unchecked when no others have been selected; reset it and make no changes.
-                vanillaCheckBox.isChecked = true;
+                    // This has been unchecked when no others have been selected; reset it and make no changes.
+                    vanillaCheckBox.isChecked = true;
                 }
             };
 
             retireCheckBox.eventCheckChanged += (control, isChecked) =>
             {
-            // Update mod settings.
-            ModSettings.CustomRetirement = isChecked;
+                // Update mod settings.
+                ModSettings.CustomRetirement = isChecked;
 
-            // Show/hide retirement age dropdown.
-            if (isChecked)
+                // Show/hide retirement age dropdown.
+                if (isChecked)
                 {
                     ageDropDown.Enable();
-                    ageDropDown.Show();
                 }
                 else
                 {
                     ageDropDown.Disable();
-                    ageDropDown.Hide();
                 }
 
                 // Update configuration file.
@@ -152,17 +149,19 @@ namespace LifecycleRebalance
             };
 
             // Show or hide notes attached to age dropdown to match visibility of dropdown itself.
-            ageDropDown.eventVisibilityChanged += delegate
+            ageDropDown.eventIsEnabledChanged += (control, isEnabled) =>
             {
-                if (ageDropDown.isVisible)
+                if (isEnabled)
                 {
                     retireNote1.Show();
                     retireNote2.Show();
+                    ageDropDown.parent.Show();
                 }
                 else
                 {
                     retireNote1.Hide();
                     retireNote2.Hide();
+                    ageDropDown.parent.Hide();
                 }
             };
         }
@@ -183,15 +182,19 @@ namespace LifecycleRebalance
                 // Hide custom retirement options.
                 retireCheckBox.Disable();
                 ageDropDown.Disable();
-                retireCheckBox.Hide();
             }
             else
             {
                 // Sunset Harbor calculations selected.
                 // Show custom retirement options.
                 retireCheckBox.Enable();
-                ageDropDown.Enable();
                 retireCheckBox.Show();
+
+                // Show custom retirement options if the selection is checked.
+                if (retireCheckBox.isChecked)
+                {
+                    ageDropDown.Enable();
+                }
             }
 
             // Legacy calcs.
