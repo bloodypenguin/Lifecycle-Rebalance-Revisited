@@ -28,7 +28,7 @@ namespace LifecycleRebalance
                 }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    Debugging.LogException(e);
                 }
             }
             return instance ?? (instance = new C());
@@ -52,7 +52,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 
@@ -67,7 +67,7 @@ namespace LifecycleRebalance
             }
             else
             {
-                Debug.LogError("ConfigurationPath attribute missing in " + typeof(C).Name);
+                Debugging.Message("ConfigurationPath attribute missing in " + typeof(C).Name);
                 return typeof(C).Name + ".xml";
             }
         }

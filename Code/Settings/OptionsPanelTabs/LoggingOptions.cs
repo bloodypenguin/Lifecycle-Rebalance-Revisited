@@ -31,7 +31,7 @@ namespace LifecycleRebalance
                 OptionsPanel.settings.LogDeaths = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debug.Log("Lifecycle Rebalance Revisited: death logging " + (OptionsPanel.settings.LogDeaths ? "enabled." : "disabled."));
+                Debugging.Message("death logging " + (OptionsPanel.settings.LogDeaths ? "enabled" : "disabled"));
             };
 
             UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log immigrants to 'Lifecycle immigration log.txt'");
@@ -45,7 +45,7 @@ namespace LifecycleRebalance
                 OptionsPanel.settings.LogImmigrants = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debug.Log("Lifecycle Rebalance Revisited: immigrant logging " + (OptionsPanel.settings.LogImmigrants ? "enabled." : "disabled."));
+                Debugging.Message("immigrant logging " + (OptionsPanel.settings.LogImmigrants ? "enabled" : "disabled"));
             };
 
             UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log custom transport choices to 'Lifecycle transport log.txt' WARNING - SLOW!");
@@ -59,7 +59,7 @@ namespace LifecycleRebalance
                 OptionsPanel.settings.LogTransport = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debug.Log("Lifecycle Rebalance Revisited: transport choices logging " + (OptionsPanel.settings.LogTransport ? "enabled." : "disabled."));
+                Debugging.Message("transport choices logging " + (OptionsPanel.settings.LogTransport ? "enabled" : "disabled"));
             };
 
             UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log sickness events to 'Lifecycle sickness log.txt'");
@@ -72,8 +72,8 @@ namespace LifecycleRebalance
                 // Update configuration file.
                 OptionsPanel.settings.LogSickness = isChecked;
                 Configuration<SettingsFile>.Save();
-                 
-                Debug.Log("Lifecycle Rebalance Revisited: sickness logging " + (OptionsPanel.settings.LogSickness ? "enabled." : "disabled."));
+
+                Debugging.Message("sickness logging " + (OptionsPanel.settings.LogSickness ? "enabled" : "disabled"));
             };
         }
     }

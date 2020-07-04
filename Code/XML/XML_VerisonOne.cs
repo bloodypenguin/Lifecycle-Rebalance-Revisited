@@ -208,7 +208,7 @@ namespace LifecycleRebalance
                 }
                 catch (Exception e)
                 {
-                    UnityEngine.Debug.LogException(e);
+                    Debugging.LogException(e);
                 }
             }
 
@@ -218,7 +218,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debugging.LogException(e);
                 return false;  // Only time when we say there's an error
             }
 

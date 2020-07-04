@@ -44,7 +44,6 @@ namespace LifecycleRebalance
             set
             {
                 _vanillaCalcs = value;
-                Debug.Log("Lifecycle Rebalance Revisited: vanilla lifecycle calculations " + (_vanillaCalcs ? "enabled." : "disabled."));
 
                 // When we set this value, also recalculate age increments per decade.
                 SetDecadeFactor();
@@ -93,7 +92,6 @@ namespace LifecycleRebalance
             set
             {
                 _customRetirement = value;
-                Debug.Log("Lifecycle Rebalance Revisited: custom retirement age " + (_customRetirement ? "enabled." : "disabled."));
 
                 // A change here can affect retirement age in combination with other settings.
                 SetRetirementAge();
@@ -132,7 +130,6 @@ namespace LifecycleRebalance
             set
             {
                 _useTransportModes = value;
-                Debug.Log("Lifecycle Rebalance Revisited: custom transport mode probabilities " + (_useTransportModes ? "enabled." : "disabled."));
 
                 // Apply choices by applying or unapplying Harmony transport choice patches as required.
 
@@ -215,7 +212,7 @@ namespace LifecycleRebalance
             // Only log messages when the retirement age changes.
             if (retirementAge != oldRetirementAge)
             {
-                Debug.Log("Lifecycle Rebalance Revisited: retirement age set to " + retirementAge + ".");
+                Debugging.Message("retirement age set to " + retirementAge);
             }
         }
 
@@ -227,7 +224,7 @@ namespace LifecycleRebalance
         /// </summary>
         public static void SetSurvivalProb()
         {
-            StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: survival probability table using factor of " + decadeFactor + ":\r\n");
+            StringBuilder logMessage = new StringBuilder("survival probability table using factor of " + decadeFactor + ":\r\n");
 
             // Do conversion from survivalProbInXML
             for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)
@@ -248,7 +245,7 @@ namespace LifecycleRebalance
                 }
                 logMessage.AppendLine(i + ": " + DataStore.survivalProbInXML[i] + " = " + DataStore.survivalProbCalc[i]);
             }
-            UnityEngine.Debug.Log(logMessage);
+            Debugging.Message(logMessage.ToString());
         }
     }
 }

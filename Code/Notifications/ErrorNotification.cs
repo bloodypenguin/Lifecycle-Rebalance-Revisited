@@ -39,7 +39,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 
@@ -93,7 +93,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 

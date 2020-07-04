@@ -32,7 +32,7 @@ namespace LifecycleRebalance
 
             if (gameOptionsPanel == null)
             {
-                Debug.Log("couldn't find OptionsPanel");
+                Debugging.Message("couldn't find OptionsPanel");
             }
             else
             {
@@ -111,7 +111,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 

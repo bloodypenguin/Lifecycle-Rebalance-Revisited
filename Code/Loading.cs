@@ -45,7 +45,7 @@ namespace LifecycleRebalance
             // Don't do anything if not in game.
             if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
             {
-                Debug.Log("Lifecycle Rebalance Revisited: not loading into game; exiting.");
+                Debugging.Message("not loading into game; exiting");
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace LifecycleRebalance
                     return;
                 }
 
-                Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + " loading.");
+                Debugging.Message("v" + LifecycleRebalance.Version + " loading");
 
                 // Wait for Harmony if it hasn't already happened.
                 if (!Patcher.patched)
@@ -71,7 +71,7 @@ namespace LifecycleRebalance
 
                     try
                     {
-                        Debug.Log("Lifecycle Rebalance Revisited: waiting for Harmony.");
+                        Debugging.Message("waiting for Harmony");
                         while (!Patcher.patched)
                         {
                             if (CitiesHarmony.API.HarmonyHelper.IsHarmonyInstalled)
@@ -89,8 +89,8 @@ namespace LifecycleRebalance
                     }
                     catch (Exception e)
                     {
-                        Debug.Log("Lifecycle Rebalance Revisited: Harmony loading exception!");
-                        Debug.LogException(e);
+                        Debugging.Message("Harmony loading exception");
+                        Debugging.LogException(e);
 
                         // Show error notification to user.
                         ErrorNotification notification = new ErrorNotification();
@@ -102,7 +102,7 @@ namespace LifecycleRebalance
                     }
                 }
 
-                Debug.Log("Lifecycle Rebalance Revisited: Harmony ready, proceeding.");
+                Debugging.Message("Harmony ready, proceeding");
 
                 // Set flag.
                 isModCreated = true;
@@ -123,7 +123,7 @@ namespace LifecycleRebalance
                 CalculateSicknessProbabilities();
 
                 // Report status and any debugging messages.
-                Debug.Log("Lifecycle Rebalance Revisited: death logging " + (Debugging.UseDeathLog ? "enabled" : "disabled") + ", immigration logging " + (Debugging.UseImmigrationLog ? "enabled" : "disabled") + ", transportation logging " + (Debugging.UseTransportLog ? "enabled." : "disabled."));
+                Debugging.Message("death logging " + (Debugging.UseDeathLog ? "enabled" : "disabled") + ", immigration logging " + (Debugging.UseImmigrationLog ? "enabled" : "disabled") + ", transportation logging " + (Debugging.UseTransportLog ? "enabled" : "disabled"));
                 Debugging.ReleaseBuffer();
 
                 // Prime Threading.counter to continue from frame index.
@@ -136,13 +136,13 @@ namespace LifecycleRebalance
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
+                    Debugging.LogException(e);
                 }
 
                 // Set up options panel event handler.
                 OptionsPanel.OptionsEventHook();
 
-                Debug.Log("Lifecycle Rebalance Revisited successfully loaded.");
+                Debugging.Message("successfully loaded");
 
                 // Check if we need to display update notification.
                 if (settingsFile.NotificationVersion != 3)
@@ -181,13 +181,13 @@ namespace LifecycleRebalance
                         File.Copy(currentFileLocation, currentFileLocation + ".ver1", true);
                         string error = "Detected an old version of the XML (v1). " + currentFileLocation + ".ver1 has been created for future reference and will be upgraded to the new version.";
                         Debugging.bufferWarning(error);
-                        UnityEngine.Debug.Log(error);
+                        Debugging.Message(error);
                     }
                     else if (version <= 0) // Uh oh... version 0 was a while back..
                     {
                         string error = "Detected an unsupported version of the XML (v0 or less). Backing up for a new configuration as :" + currentFileLocation + ".ver0";
                         Debugging.bufferWarning(error);
-                        UnityEngine.Debug.Log(error);
+                        Debugging.Message(error);
                         File.Copy(currentFileLocation, currentFileLocation + ".ver0", true);
                         return;
                     }
@@ -202,7 +202,7 @@ namespace LifecycleRebalance
             }
             else
             {
-                UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: configuration file not found. Will output new file to : " + currentFileLocation);
+                Debugging.Message("configuration file not found. Will output new file to : " + currentFileLocation);
             }
         }
 
@@ -212,7 +212,7 @@ namespace LifecycleRebalance
         /// </summary>
         public static void CalculateSicknessProbabilities()
         {
-            StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
+            StringBuilder logMessage = new StringBuilder("sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
 
             // Do conversion from sicknessProbInXML
             for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
@@ -221,7 +221,7 @@ namespace LifecycleRebalance
                 DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) * ModSettings.decadeFactor));
                 logMessage.AppendLine(i + ": " + DataStore.sicknessProbInXML[i] + " : " + DataStore.sicknessProbCalc[i] + " : " + (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25)));
             }
-            Debug.Log(logMessage);
+            Debugging.Message(logMessage.ToString());
         }
     }
 }

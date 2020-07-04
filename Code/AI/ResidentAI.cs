@@ -179,8 +179,8 @@ namespace LifecycleRebalance
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void FinishSchoolOrWorkRev(object instance, uint citizenID, ref Citizen data)
         {
-            string message = "Lifecycle Rebalance Revisited: FinishSchoolOrWork reverse Harmony patch wasn't applied.";
-            Debug.Log(message);
+            string message = "FinishSchoolOrWork reverse Harmony patch wasn't applied";
+            Debugging.Message(message);
             throw new NotImplementedException(message);
         }
 
@@ -196,8 +196,8 @@ namespace LifecycleRebalance
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void DieRev(object instance, uint citizenID, ref Citizen data)
         {
-            string message = "Lifecycle Rebalance Revisited: Die reverse Harmony patch wasn't applied.";
-            Debug.Log(message);
+            string message = "Die reverse Harmony patch wasn't applied";
+            Debugging.Message(message);
             throw new NotImplementedException(message);
         }
     }

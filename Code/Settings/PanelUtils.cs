@@ -281,7 +281,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debug.Log("Lifecycle Rebalance Revisited: XML writing exception:\r\n" + e.Message);
+                Debugging.LogException(e);
             }
         }
     }

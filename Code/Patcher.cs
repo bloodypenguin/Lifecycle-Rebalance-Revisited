@@ -46,7 +46,7 @@ namespace LifecycleRebalance
             // Don't do anything if already patched.
             if (!patched)
             {
-                Debug.Log("Lifecycle Rebalance Revisited v" + LifecycleRebalance.Version + ": deploying Harmony patches.");
+                Debugging.Message("deploying Harmony patches");
 
                 // Apply all annotated patches and update flag.
                 Harmony harmonyInstance = new Harmony(harmonyID);
@@ -64,7 +64,7 @@ namespace LifecycleRebalance
             // Only unapply if patches appplied.
             if (patched)
             {
-                Debug.Log("Lifecycle Rebalance Revisited: reverting Harmony patches.");
+                Debugging.Message("reverting Harmony patches");
 
                 // Unapply patches, but only with our HarmonyID.
                 Harmony harmonyInstance = new Harmony(harmonyID);
@@ -86,19 +86,19 @@ namespace LifecycleRebalance
             {
                 if (originalMethod == null)
                 {
-                    string message = "Lifecycle Rebalance Revisited: null original method passed for patching.";
-                    Debug.Log(message);
+                    string message = "null original method passed for patching";
+                    Debugging.Message(message);
                     throw new UnassignedReferenceException(message);
                 }
 
                 if (patchMethod == null)
                 {
-                    string message = "Lifecycle Rebalance Revisited: null patch method passed for patching.";
-                    Debug.Log(message);
+                    string message = "null patch method passed for patching";
+                    Debugging.Message(message);
                     throw new UnassignedReferenceException(message);
                 }
 
-                Debug.Log("Lifecycle Rebalance Revisited: patching '" + originalMethod.Name + "'.");
+                Debugging.Message("patching " + originalMethod.Name);
                 harmonyInstance.Patch(originalMethod, prefix: new HarmonyMethod(patchMethod));
             }
         }
@@ -114,7 +114,7 @@ namespace LifecycleRebalance
             // Check if the patch is installed before proceeding.
             if (IsPatchInstalled(originalMethod))
             {
-                Debug.Log("Lifecycle Rebalance Revisited: removing patch from '" + originalMethod.Name + "'.");
+                Debugging.Message("removing patch from " + originalMethod.Name);
                 harmonyInstance.Unpatch(originalMethod, patchMethod);
             }
         }

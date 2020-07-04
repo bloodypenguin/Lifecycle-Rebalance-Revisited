@@ -64,7 +64,7 @@ namespace LifecycleRebalance
                     logMessage.Append(" ");
                     logMessage.Append(codes[i + cutCount].operand);
                     logMessage.AppendLine(")");
-                    Debug.Log(logMessage);
+                    Debugging.Message(logMessage.ToString());
 
                     // Remove the CIL from the ldarg.0 to the throw (inclusive).
                     // +1 to avoid fencepost error (need to include original instruction as well).

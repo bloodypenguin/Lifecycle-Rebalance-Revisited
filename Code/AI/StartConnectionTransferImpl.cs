@@ -38,7 +38,7 @@ namespace LifecycleRebalance
         /// <returns></returns>
         public static IEnumerable<CodeInstruction> Transpiler(MethodBase original, IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-           Debug.Log("Lifecycle Rebalance Revisited: starting StartConnectionTransferImpl transpiler.");
+           Debugging.Message("starting StartConnectionTransferImpl transpiler");
 
             // Local variables used by the patch.
             // These need to be set up prior to the i loop that the patch goes into.
@@ -119,7 +119,7 @@ namespace LifecycleRebalance
                 yield return instructionsEnumerator.Current;
             }
 
-            Debug.Log("Lifecycle Rebalance Revisited: StartConnectionTransferImpl transpiler completed.");
+           Debugging.Message("StartConnectionTransferImpl transpiler completed");
         }
 
 

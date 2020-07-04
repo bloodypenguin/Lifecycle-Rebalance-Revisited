@@ -41,7 +41,7 @@ namespace LifecycleRebalance
             {
                 // Update mod settings - inverted value (see above).
                 DataStore.lifeSpanMultiplier = (int)lifeMult.value;
-                Debug.Log("Lifecycle Rebalance Revisited: lifespan multiplier set to: " + DataStore.lifeSpanMultiplier + ".");
+                Debugging.Message("lifespan multiplier set to: " + DataStore.lifeSpanMultiplier);
 
                 // Update WG configuration file.
                 PanelUtils.SaveXML();

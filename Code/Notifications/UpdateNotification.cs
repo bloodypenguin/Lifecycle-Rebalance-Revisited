@@ -21,7 +21,6 @@ namespace LifecycleRebalance
                 uiGameObject = GameObject.Find("LifecycleRebalanceUpgradeNotification");
                 if (uiGameObject != null)
                 {
-                    UnityEngine.Debug.Log("Lifecycle Rebalance Revisited: found existing upgrade notification instance.");
                     GameObject.Destroy(uiGameObject);
                 }
 
@@ -33,7 +32,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 
@@ -71,7 +70,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
     }

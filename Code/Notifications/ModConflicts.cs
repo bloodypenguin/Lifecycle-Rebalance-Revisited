@@ -42,7 +42,7 @@ namespace LifecycleRebalance
                 // Garbage Bin Conroller mod detected.
                 conflictDetected = true;
                 conflictName = "Garbage Bin Controller";
-                Debug.Log("Garbage Bin Controller mod detected - Lifecycle Rebalance Revisited exiting");
+                Debugging.Message("Garbage Bin Controller mod detected - Lifecycle Rebalance Revisited exiting");
                 ErrorNotification.messageText = "The Garbage Bin Controller mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Garbage Bin Controller (merely disabling is NOT sufficient).";
             }
             else if (IsModInstalled(2097938060) && IsModInstalled(2027161563))
@@ -62,7 +62,7 @@ namespace LifecycleRebalance
                 ErrorNotification.headerText = "Mod conflict detected!";
                 notification.Show();
 
-                Debug.Log("Lifecycle Rebalance Revisited: incompatible " + conflictName + " mod detected.  Shutting down.");
+                Debugging.Message("incompatible " + conflictName + " mod detected.  Shutting down");
             }
 
             return conflictDetected;
@@ -109,7 +109,7 @@ namespace LifecycleRebalance
                 {
                     if (assembly.GetName().Name.ToLower().Equals(assemblyNameLower))
                     {
-                        Debug.Log("found mod assembly " + assemblyName);
+                        Debugging.Message("found mod assembly " + assemblyName);
                         if (enabledOnly)
                         {
                             return plugin.isEnabled;
