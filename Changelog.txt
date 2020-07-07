@@ -1,4 +1,6 @@
-﻿- Options panel now fully dynamic (created and destroyed on demand)
+﻿Version 1.4.3 BETA
+
+- Options panel now fully dynamic (created and destroyed on demand)
 - Convert options panel layouts from UIHelper to manual layout
 - Standardise logging
 
