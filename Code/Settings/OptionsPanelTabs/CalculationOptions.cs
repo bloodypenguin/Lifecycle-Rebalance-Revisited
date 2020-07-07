@@ -76,15 +76,6 @@ namespace LifecycleRebalance
             UILabel retireNote1 = PanelUtils.AddLabel(calculationsTab, "Decreasing retirement age won't change the status of citizens who have already retired under previous settings.");
             UILabel retireNote2 = PanelUtils.AddLabel(calculationsTab, "Increasing retirement age won't change the appearance of citzens who have already retired under previous settings.");
 
-            // Show/hide controls based on initial settings.
-            if (!OptionsPanel.settings.CustomRetirement)
-            {
-                ageDropDown.Disable();
-            }
-
-            UpdateCheckboxes(OptionsPanel.settings.UseVanilla ? 2 : OptionsPanel.settings.UseLegacy ? 1 : 0);
-
-
             // Event handlers (here so other controls referenced are all set up prior to referencing in handlers).
             sunsetCheckBox.eventCheckChanged += (control, isChecked) =>
             {
@@ -164,6 +155,9 @@ namespace LifecycleRebalance
                     ageDropDown.parent.Hide();
                 }
             };
+
+            // Update our visibility status based on current settings.
+            UpdateCheckboxes(OptionsPanel.settings.UseVanilla ? 2 : OptionsPanel.settings.UseLegacy ? 1 : 0);
         }
 
 
