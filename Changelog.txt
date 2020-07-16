@@ -1,4 +1,4 @@
-﻿Version 1.4.3 BETA
+﻿Version 1.4.3
 
 - Options panel now fully dynamic (created and destroyed on demand)
 - Convert options panel layouts from UIHelper to manual layout
