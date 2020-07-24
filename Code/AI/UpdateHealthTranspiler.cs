@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Linq;
-using UnityEngine;
 using HarmonyLib;
 using System.Text;
 
@@ -9,17 +8,17 @@ using System.Text;
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Harmony transpiler to remove 'vanishing corpse' check from ResidentAI.UpdateHealth, so that it can be replaced wiht this mod's custom probabilities.
+    /// Harmony transpiler to remove 'vanishing corpse' check from ResidentAI.UpdateHealth, so that it can be replaced with this mod's custom probabilities.
     /// </summary>
     [HarmonyPatch(typeof(ResidentAI))]
     [HarmonyPatch("UpdateHealth")]
     public static class UpdateHealthTranspiler
     {
         /// <summary>
-        /// Harmony transpiler removing two checks from BuildingInfo.InitializePrefab.
+        /// Harmony transpiler patching ResidentAI.UpdateHealth.
         /// </summary>
         /// <param name="instructions">CIL code to alter.</param>
-        /// <returns></returns>
+        /// <returns>Patched CIL code</returns>
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             // The checks we're targeting for removal are fortunately clearly flagged by the call to Die().

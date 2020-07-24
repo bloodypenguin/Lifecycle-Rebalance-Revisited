@@ -82,7 +82,7 @@ namespace LifecycleRebalance
             Harmony harmonyInstance = new Harmony(harmonyID);
 
             // Check if the patch is already installed before proceeding.
-            if (!IsPatchInstalled(originalMethod))
+            if (!IsPrefixInstalled(originalMethod))
             {
                 if (originalMethod == null)
                 {
@@ -107,12 +107,12 @@ namespace LifecycleRebalance
         /// <summary>
         /// Manually removes specified Harmony patches.
         /// </summary>
-        public static void RevertPatch(MethodInfo originalMethod, MethodInfo patchMethod)
+        public static void RevertPrefix(MethodInfo originalMethod, MethodInfo patchMethod)
         {
             Harmony harmonyInstance = new Harmony(harmonyID);
 
             // Check if the patch is installed before proceeding.
-            if (IsPatchInstalled(originalMethod))
+            if (IsPrefixInstalled(originalMethod))
             {
                 Debugging.Message("removing patch from " + originalMethod.Name);
                 harmonyInstance.Unpatch(originalMethod, patchMethod);
@@ -121,9 +121,9 @@ namespace LifecycleRebalance
 
 
         /// <summary>
-        /// Checks to see if Harmony Citizen.GetAgeGroup() pre-emptive Prefix patch is currently applied.
+        /// Checks to see if a Harmony Prefix patch is currently applied.
         /// </summary>
-        public static bool IsPatchInstalled(MethodInfo originalMethod)
+        public static bool IsPrefixInstalled(MethodInfo originalMethod)
         {
             var patches = Harmony.GetPatchInfo(originalMethod);
             if (patches != null)

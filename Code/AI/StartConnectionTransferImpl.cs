@@ -33,9 +33,9 @@ namespace LifecycleRebalance
         /// StartConnectionTransferImpl transpiler.
         /// </summary>
         /// <param name="original">Original method to patch</param>
-        /// <param name="instructions">ILCode</param>
+        /// <param name="instructions">Original ILCode</param>
         /// <param name="generator">ILCode generator</param>
-        /// <returns></returns>
+        /// <returns>Replacement ILCode</returns>
         public static IEnumerable<CodeInstruction> Transpiler(MethodBase original, IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
            Debugging.Message("starting StartConnectionTransferImpl transpiler");
