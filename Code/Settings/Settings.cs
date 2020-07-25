@@ -137,15 +137,15 @@ namespace LifecycleRebalance
                 {
                     if (value)
                     {
-                        Patcher.ApplyPrefixPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
-                        Patcher.ApplyPrefixPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
-                        Patcher.ApplyPrefixPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                        Patcher.ApplyPrefix(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
+                        Patcher.ApplyPrefix(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
+                        Patcher.ApplyPrefix(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
                     }
                     else
                     {
-                        Patcher.RevertPatch(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
-                        Patcher.RevertPatch(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
-                        Patcher.RevertPatch(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
+                        Patcher.RevertPrefix(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
+                        Patcher.RevertPrefix(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
+                        Patcher.RevertPrefix(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
                     }
                 }
             }
@@ -195,7 +195,7 @@ namespace LifecycleRebalance
                 // Apply Harmony patch to GetAgeGroup.
                 if (Loading.isModCreated)
                 {
-                    Patcher.ApplyPrefixPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
+                    Patcher.ApplyPrefix(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
                 }
             }
             else
@@ -205,7 +205,7 @@ namespace LifecycleRebalance
                 // Unapply Harmony patch from GetAgeGroup.
                 if (Loading.isModCreated)
                 {
-                    Patcher.RevertPatch(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
+                    Patcher.RevertPrefix(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
                 }
             }
 

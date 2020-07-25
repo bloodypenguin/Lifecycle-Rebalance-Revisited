@@ -77,7 +77,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Manually applies Harmony patches.
         /// </summary>
-        public static void ApplyPrefixPatch(MethodInfo originalMethod, MethodInfo patchMethod)
+        public static void ApplyPrefix(MethodInfo originalMethod, MethodInfo patchMethod)
         {
             Harmony harmonyInstance = new Harmony(harmonyID);
 
