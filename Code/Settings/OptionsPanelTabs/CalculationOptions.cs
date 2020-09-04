@@ -1,5 +1,4 @@
-﻿using ICities;
-using ColossalFramework.UI;
+﻿using ColossalFramework.UI;
 
 
 namespace LifecycleRebalance
@@ -27,7 +26,7 @@ namespace LifecycleRebalance
         public CalculationOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel calculationsTab = PanelUtils.AddTab(tabStrip, "Calculations", tabIndex, true);
+            UIPanel calculationsTab = PanelUtils.AddTab(tabStrip, "Lifespan", tabIndex, true);
 
             // Add warning text message.
             PanelUtils.AddLabel(calculationsTab, "WARNING:\r\nChanging settings during a game can temporarily disrupt city balance.\r\nSaving a backup before changing is HIGHLY recommended.");

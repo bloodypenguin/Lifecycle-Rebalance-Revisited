@@ -107,7 +107,15 @@ namespace LifecycleRebalance
                 new DeathOptions(tabStrip, 2);
                 new HealthOptions(tabStrip, 3);
                 new TransportOptions(tabStrip, 4);
-                new LoggingOptions(tabStrip, 5);
+                new ImmigrationOptions(tabStrip, 5);
+                new LoggingOptions(tabStrip, 6);
+
+                // Change tab size and text scale (to fit them all in...).
+                foreach (UIButton button in tabStrip.components)
+                {
+                    button.textScale = 0.8f;
+                    button.width = 100f;
+                }
             }
             catch (Exception e)
             {

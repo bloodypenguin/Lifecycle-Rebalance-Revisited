@@ -17,6 +17,7 @@ namespace LifecycleRebalance
         public bool CustomRetirement { get ; set; } = false;
         public int RetirementYear { get; set; } = 65;
         public bool UseTransportModes { get; set; } = true;
+        public bool RandomImmigrantEd { get; set; } = true;
         public bool LogDeaths { get; set; } = false;
         public bool LogImmigrants { get; set; } = false;
         public bool LogTransport { get; set; } = false;
@@ -28,16 +29,18 @@ namespace LifecycleRebalance
     /// <summary>
     /// Tracks and implements mod settings when mod is running.
     /// </summary>
-    public class ModSettings
+    internal static class ModSettings
     {
         // 1 divided by the number of game age increments per decade for calculation purposes.
         public static double decadeFactor;
 
+        // Whether or not to apply a randomisation factor to immigrant education levels.
+        internal static bool randomImmigrantEd;
 
         /// <summary>
         /// Tracks if we're using legacy lifecycle calculations and handles any changes.
         /// </summary>
-        public static bool VanillaCalcs
+        internal static bool VanillaCalcs
         {
             get => _vanillaCalcs;
 
@@ -58,7 +61,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Tracks if we're using legacy lifecycle calculations and handles any changes.
         /// </summary>
-        public static bool LegacyCalcs
+        internal static bool LegacyCalcs
         {
             get => _legacyCalcs;
             
@@ -85,7 +88,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Tracks if we're using custom retirement ages and handles any changes.
         /// </summary>
-        public static bool CustomRetirement
+        internal static bool CustomRetirement
         {
             get => _customRetirement;
             
@@ -104,7 +107,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Tracks custom retirement ages and handles any changes.
         /// </summary>
-        public static int RetirementYear
+        internal static int RetirementYear
         {
             get => _retirementYear;
 
@@ -123,7 +126,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Tracks if we're using custom transport mode options and handles any changes.
         /// </summary>
-        public static bool UseTransportModes
+        internal static bool UseTransportModes
         {
             get => _useTransportModes;
 
@@ -216,13 +219,13 @@ namespace LifecycleRebalance
             }
         }
 
-        public static int retirementAge;
+        internal static int retirementAge;
 
 
         /// <summary>
         /// Populates the decadal survival probability table based on previously loaded XML settings and current mod settings.
         /// </summary>
-        public static void SetSurvivalProb()
+        internal static void SetSurvivalProb()
         {
             StringBuilder logMessage = new StringBuilder("survival probability table using factor of " + decadeFactor + ":\r\n");
 

@@ -114,6 +114,7 @@ namespace LifecycleRebalance
                 ModSettings.CustomRetirement = settingsFile.CustomRetirement;
                 ModSettings.RetirementYear = settingsFile.RetirementYear;
                 ModSettings.UseTransportModes = settingsFile.UseTransportModes;
+                ModSettings.randomImmigrantEd = settingsFile.RandomImmigrantEd;
                 Debugging.UseDeathLog = settingsFile.LogDeaths;
                 Debugging.UseImmigrationLog = settingsFile.LogImmigrants;
                 Debugging.UseTransportLog = settingsFile.LogTransport;

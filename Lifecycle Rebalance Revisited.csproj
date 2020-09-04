@@ -117,6 +117,7 @@
     <Compile Include="Code\Patcher.cs" />
     <Compile Include="Code\Notifications\ErrorNotification.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\DeathOptions.cs" />
+    <Compile Include="Code\Settings\OptionsPanelTabs\ImmigrationOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\LoggingOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanel.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\CalculationOptions.cs" />

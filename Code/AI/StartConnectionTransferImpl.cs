@@ -175,40 +175,47 @@ namespace LifecycleRebalance
                 childrenAgeMin = Math.Max(minAdultAge - 178, 0); // Accounting gestation, which isn't simulated yet (2 ticks)
             }
 
+            // Set default eductation output to what the game has already determined.
             resultEducation = education;
-            if (i < 2)
+
+            // Apply education level randomisation if that option is selected.
+            if (ModSettings.randomImmigrantEd)
             {
-                // Adults.
-                // 24% different education levels
-                int eduModifier = Singleton<SimulationManager>.instance.m_randomizer.Int32(-12, 12) / 10;
-                resultEducation += eduModifier;
-                if (resultEducation < Citizen.Education.Uneducated)
+                if (i < 2)
                 {
-                    resultEducation = Citizen.Education.Uneducated;
-                }
-                else if (resultEducation > Citizen.Education.ThreeSchools)
-                {
-                    resultEducation = Citizen.Education.ThreeSchools;
-                }
-            }
-            else
-            {
-                // Children.
-                switch (Citizen.GetAgeGroup(resultAge))
-                {
-                    case Citizen.AgeGroup.Child:
+                    // Adults.
+                    // 24% different education levels
+                    int eduModifier = Singleton<SimulationManager>.instance.m_randomizer.Int32(-12, 12) / 10;
+                    resultEducation += eduModifier;
+                    if (resultEducation < Citizen.Education.Uneducated)
+                    {
                         resultEducation = Citizen.Education.Uneducated;
-                        break;
-                    case Citizen.AgeGroup.Teen:
-                        resultEducation = Citizen.Education.OneSchool;
-                        break;
-                    default:
-                        // Make it that 80% graduate from high school
-                        resultEducation = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) < 80) ? Citizen.Education.TwoSchools : Citizen.Education.OneSchool;
-                        break;
+                    }
+                    else if (resultEducation > Citizen.Education.ThreeSchools)
+                    {
+                        resultEducation = Citizen.Education.ThreeSchools;
+                    }
+                }
+                else
+                {
+                    // Children.
+                    switch (Citizen.GetAgeGroup(resultAge))
+                    {
+                        case Citizen.AgeGroup.Child:
+                            resultEducation = Citizen.Education.Uneducated;
+                            break;
+                        case Citizen.AgeGroup.Teen:
+                            resultEducation = Citizen.Education.OneSchool;
+                            break;
+                        default:
+                            // Make it that 80% graduate from high school
+                            resultEducation = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) < 80) ? Citizen.Education.TwoSchools : Citizen.Education.OneSchool;
+                            break;
+                    }
                 }
             }
 
+            // Write to immigration log if that option is selected.
             if (Debugging.UseImmigrationLog)
             {
                 Debugging.WriteToLog(Debugging.ImmigrationLogName, "Family member " + i + " immigrating with age " + resultAge + " (" + (int)(resultAge / 3.5) + " years old) and education level " + education + ".");
