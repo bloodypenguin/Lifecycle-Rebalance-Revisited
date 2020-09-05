@@ -52,15 +52,52 @@ namespace LifecycleRebalance
 
 
         /// <summary>
+        /// Creates a textfield in the specified parent.  From SamSamTS (Boogieman Sam)'s work.
+        /// </summary>
+        /// <param name="parent">Parent component.</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <param name="scale">Text scale (optional, default 1.0)</param>
+        /// <returns>New textfield</returns>
+        internal static UITextField CreateTextField(UIComponent parent, float width, float height, float scale = 1.0f)
+        {
+            UITextField textField = parent.AddUIComponent<UITextField>();
+
+            // Size and position.
+            textField.size = new Vector2(width, height);
+            textField.textScale = scale;
+            textField.padding = new RectOffset(6, 6, 3, 3);
+            textField.horizontalAlignment = UIHorizontalAlignment.Center;
+
+            // Basic setup.
+            textField.builtinKeyNavigation = true;
+            textField.isInteractive = true;
+            textField.readOnly = false;
+
+            // Appearance.
+            textField.selectionSprite = "EmptySprite";
+            textField.selectionBackgroundColor = new Color32(0, 172, 234, 255);
+            textField.normalBgSprite = "TextFieldPanelHovered";
+            textField.disabledBgSprite = "TextFieldPanel";
+            textField.textColor = new Color32(0, 0, 0, 255);
+            textField.disabledTextColor = new Color32(0, 0, 0, 128);
+            textField.color = new Color32(255, 255, 255, 255);
+
+            return textField;
+        }
+
+
+        /// <summary>
         /// Adds a plain text label to the specified UI panel.
         /// </summary>
-        /// <param name="panel">UI panel to add the label to</param>
+        /// <param name="parent">Parent component</param>
         /// <param name="text">Label text</param>
-        /// <returns></returns>
-        public static UILabel AddLabel(UIPanel panel, string text, float scale = 1.0f)
+        /// <param name="scale">Text scale (optional, default 1.0)</param>
+        /// <returns>New text label</returns>
+        internal static UILabel AddLabel(UIComponent parent, string text, float scale = 1.0f)
         {
             // Add label.
-            UILabel label = (UILabel)panel.AddUIComponent<UILabel>();
+            UILabel label = (UILabel)parent.AddUIComponent<UILabel>();
             label.autoSize = false;
             label.autoHeight = true;
             label.wordWrap = true;
@@ -69,13 +106,10 @@ namespace LifecycleRebalance
             label.text = text;
 
             // Increase panel height to compensate.
-            panel.height += label.height;
+            //parent.height += label.height;
 
             return label;
         }
-
-
-
 
 
         /// <summary>
@@ -283,6 +317,31 @@ namespace LifecycleRebalance
             {
                 Debugging.LogException(e);
             }
+        }
+
+
+        /// <summary>
+        /// Finds the named texture atlas.
+        /// </summary>
+        /// <param name="atlasName">Name to find</param>
+        /// <returns>Atlas (default atlas if no name match found)</returns>
+        internal static UITextureAtlas GetAtlas(string atlasName)
+        {
+            // Get active game atalases.
+            UITextureAtlas[] atlases = Resources.FindObjectsOfTypeAll(typeof(UITextureAtlas)) as UITextureAtlas[];
+
+            // Iterate through list, looking for a name match.
+            for (int i = 0; i < atlases.Length; ++i)
+            {
+                if (atlases[i].name.Equals(atlasName))
+                {
+                    // Match found!  Return the matching atlas.
+                    return atlases[i];
+                }
+            }
+
+            // If we made it this far, we didn't find a match; return the default atlas.
+            return UIView.GetAView().defaultAtlas;
         }
     }
 }
