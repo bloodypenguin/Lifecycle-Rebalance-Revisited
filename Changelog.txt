@@ -1,4 +1,5 @@
 ﻿- Add transport choices configuration editing to opions panel
+- Add saveable transport choices for eco residential
 - Add immigration options panel
 
 

@@ -189,6 +189,16 @@ namespace LifecycleRebalance
 
             if (int.TryParse(text, out result))
             {
+                // Bounds check.
+                if (result < 0)
+                {
+                    result = 0;
+                }
+                else if (result > 100)
+                {
+                    result = 100;
+                }
+
                 intVar = result;
             }
         }

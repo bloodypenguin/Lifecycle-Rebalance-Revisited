@@ -318,7 +318,7 @@ namespace LifecycleRebalance
         {
             string densityElementName = (density == 0) ? "low_density" : "high_density";
             XmlNode node = xmlDoc.CreateElement(densityElementName);
-            string[] type = { "low_wealth", "med_wealth", "high_wealth" };
+            string[] type = { "low_wealth", "med_wealth", "high_wealth", "low_wealth_eco", "med_wealth_eco", "high_wealth_eco" };
 
             for (int i = 0; i < type.Length; i++)
             {
@@ -331,6 +331,15 @@ namespace LifecycleRebalance
                         break;
                     case 2:
                         array = DataStore.wealth_high[density];
+                        break;
+                    case 3:
+                        array = DataStore.eco_wealth_low[density];
+                        break;
+                    case 4:
+                        array = DataStore.eco_wealth_med[density];
+                        break;
+                    case 5:
+                        array = DataStore.eco_wealth_high[density];
                         break;
                     case 0:
                     default:
@@ -549,6 +558,15 @@ namespace LifecycleRebalance
                         break;
                     case "high_wealth":
                         array = DataStore.wealth_high;
+                        break;
+                    case "low_wealth_eco":
+                        array = DataStore.eco_wealth_low;
+                        break;
+                    case "med_wealth_eco":
+                        array = DataStore.eco_wealth_med;
+                        break;
+                    case "high_wealth_eco":
+                        array = DataStore.eco_wealth_high;
                         break;
                     default:
                         Debugging.bufferWarning("readWealthNode. unknown element name: " + name);
