@@ -54,5 +54,15 @@
     <Translation ID="LBR_ZRO" String="Set all to zero" />
     <Translation ID="TRN_CHOICE" String="Set language" />
     <Translation ID="TRN_SYS" String="Use system language" />
+    <Translation ID="LBR_NOT_CLO" String="Close" />
+    <Translation ID="LBR_CON" String="Mod conflict detected" />
+    <Translation ID="LBR_CON_WGO" String="Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!" />
+    <Translation ID="LBR_CON_PTR" String="The old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement." />
+    <Translation ID="LBR_CON_GBC" String="The Garbage Bin Controller mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Garbage Bin Controller (merely disabling is NOT sufficient); the Garbage Bin Manager mod can be used as a replacement." />
+    <Translation ID="LBR_CON_BET" String="Lifecycle Rebalance Revisited: both Beta and production versions detected.  Lifecycle Rebalance Revisited is shutting down to protect your game.  Please only subscribe to one of these at a time." />
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited has been updated to version 1.5" />
+    <Translation ID="LBR_150_NT1" String="Transport mode choices can now be edited via the options panel, and eco and ordinary residential can have different mode choices" />
+    <Translation ID="LBR_150_NT2" String="Education levels of people moving into your city can be modified" />
+    <Translation ID="LBR_NOT_DSA" String="Don't show again" />
   </Translations>
 </Language>

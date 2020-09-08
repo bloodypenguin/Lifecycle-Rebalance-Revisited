@@ -146,7 +146,7 @@ namespace LifecycleRebalance
                 Debugging.Message("successfully loaded");
 
                 // Check if we need to display update notification.
-                if (settingsFile.NotificationVersion != 3)
+                if (settingsFile.NotificationVersion != 4)
                 {
                     // No update notification "Don't show again" flag found; show the notification.
                     UpdateNotification notification = new UpdateNotification();

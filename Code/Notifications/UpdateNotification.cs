@@ -43,8 +43,8 @@ namespace LifecycleRebalance
         public override void Start()
         {
             // Add text.
-            headerText = "Lifecycle Rebalance Revisited has been updated to version 1.4.1.";
-            messageText = "You can now set the speed at which citizens age via the options panel.";
+            headerText = Translations.Translate("LBR_150_TIT");
+            messageText = Translations.Translate("LBR_150_NT1") + "\r\n\r\n" + Translations.Translate("LBR_150_NT2");
 
             base.Start();
 
@@ -53,14 +53,14 @@ namespace LifecycleRebalance
                 // "Don't show again" button.
                 UIButton noShowButton = CreateButton(this);
                 noShowButton.relativePosition = new Vector3(this.width - noShowButton.width - spacing, this.height - noShowButton.height - spacing);
-                noShowButton.text = "Don't show again";
+                noShowButton.text = Translations.Translate("LBR_NOT_DSA");
                 noShowButton.Enable();
 
                 // Event handler.
                 noShowButton.eventClick += (c, p) =>
                 {
                     // Update and save settings file.
-                    Loading.settingsFile.NotificationVersion = 3;
+                    Loading.settingsFile.NotificationVersion = 4;
                     Configuration<SettingsFile>.Save();
 
                     // Just hide this panel and destroy the game object - nothing more to do.

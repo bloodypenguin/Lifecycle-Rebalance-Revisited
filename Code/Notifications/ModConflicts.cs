@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using ColossalFramework.Plugins;
 
 
@@ -28,29 +27,28 @@ namespace LifecycleRebalance
                 // Original WG Citizen Lifecycle Rebalance.
                 conflictDetected = true;
                 conflictName = "WG Citizen Lifecycle Rebalance";
-                ErrorNotification.messageText = "Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!";
+                ErrorNotification.messageText = Translations.Translate("LBR_CON_WGO");
             }
             else if (IsModInstalled(1372431101ul))
             {
                 // Painter mod detected.
                 conflictDetected = true;
                 conflictName = "Painter";
-                ErrorNotification.messageText = "The old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement.";
+                ErrorNotification.messageText = Translations.Translate("LBR_CON_PTR"); ;
             }
             else if (IsModInstalled("VanillaGarbageBinBlocker"))
             {
                 // Garbage Bin Conroller mod detected.
                 conflictDetected = true;
                 conflictName = "Garbage Bin Controller";
-                Debugging.Message("Garbage Bin Controller mod detected - Lifecycle Rebalance Revisited exiting");
-                ErrorNotification.messageText = "The Garbage Bin Controller mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Garbage Bin Controller (merely disabling is NOT sufficient).";
+                ErrorNotification.messageText = Translations.Translate("LBR_CON_GBC");
             }
             else if (IsModInstalled(2097938060) && IsModInstalled(2027161563))
             {
                 // Beta and main version simultaneously installed.
                 conflictDetected = true;
                 conflictName = "Beta";
-                ErrorNotification.messageText = "Lifecycle Rebalance Revisited: both Beta and production versions detected.  Lifecycle Rebalance Revisited is shutting down to protect your game.  Please only subscribe to one of these at a time.";
+                ErrorNotification.messageText = Translations.Translate("LBR_CON_BET");
             }
 
             // Mod conflict was detected.  Notify the user.
@@ -59,7 +57,7 @@ namespace LifecycleRebalance
                 // Show error notification.  Message text has already been set above.
                 ErrorNotification notification = new ErrorNotification();
                 notification.Create();
-                ErrorNotification.headerText = "Mod conflict detected!";
+                ErrorNotification.headerText = Translations.Translate("LBR_CON");
                 notification.Show();
 
                 Debugging.Message("incompatible " + conflictName + " mod detected.  Shutting down");

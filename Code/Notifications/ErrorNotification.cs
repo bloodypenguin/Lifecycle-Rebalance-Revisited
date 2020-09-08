@@ -66,7 +66,7 @@ namespace LifecycleRebalance
                 zOrder = 2;
 
                 // Title.
-                AddText("Lifecycle Rebalance Revisited", spacing, spacing, 1.0f);
+                AddText(Translations.Translate("LBR_NAME"), spacing, spacing, 1.0f);
 
                 // Note 1.
                 float currentY = AddText(headerText, spacing, 40);
@@ -80,7 +80,7 @@ namespace LifecycleRebalance
                 // Close button.
                 UIButton closeButton = CreateButton(this);
                 closeButton.relativePosition = new Vector3(spacing, this.height - closeButton.height - spacing);
-                closeButton.text = "Close";
+                closeButton.text = Translations.Translate("LBR_NOT_CLO");
                 closeButton.Enable();
 
                 // Event handler.
