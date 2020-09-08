@@ -240,7 +240,7 @@ namespace LifecycleRebalance
         /// <param name="highWealth">High-wealth textfield array</param>
         protected void AddDensityGroup(UIPanel panel, UITextField[][] lowWealth, UITextField[][] medWealth, UITextField[][] highWealth)
         {
-            string[] ageLabels = new string[] { "Child", "Teen", "Young adult", "Adult", "Senior" };
+            string[] ageLabels = new string[] { Translations.Translate("LBR_TRN_CHL"), Translations.Translate("LBR_TRN_TEN"), Translations.Translate("LBR_TRN_YAD"), Translations.Translate("LBR_TRN_ADL"), Translations.Translate("LBR_TRN_SEN") };
 
             // Add a row for each age group within this density group.
             for (int i = 0; i < NumAges; ++i)

@@ -47,6 +47,11 @@
     <Translation ID="LBR_TRN_RHI" String="Residential high" />
     <Translation ID="LBR_TRN_ERL" String="Eco residential low" />
     <Translation ID="LBR_TRN_ERH" String="Eco residential high" />
+    <Translation ID="LBR_TRN_CHL" String="Child" />
+    <Translation ID="LBR_TRN_TEN" String="Teen" />
+    <Translation ID="LBR_TRN_YAD" String="Young adult" />
+    <Translation ID="LBR_TRN_ADL" String="Adult" />
+    <Translation ID="LBR_TRN_SEN" String="Senior" />
     <Translation ID="LBR_DEF" String="default" />
     <Translation ID="LBR_RTD" String="Reset to defaults" />
     <Translation ID="LBR_RTS" String="Revert to saved" />
