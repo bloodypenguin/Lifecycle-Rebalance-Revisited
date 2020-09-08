@@ -23,6 +23,19 @@ namespace LifecycleRebalance
         public bool LogSickness { get; set; } = false;
         public bool ImmiEduBoost { get => ModSettings.immiEduBoost; set => ModSettings.immiEduBoost = value; }
         public bool ImmiEduDrag { get => ModSettings.immiEduDrag; set => ModSettings.immiEduDrag = value; }
+
+        // Language.
+        public string language
+        {
+            get
+            {
+                return Translations.Language;
+            }
+            set
+            {
+                Translations.Language = value;
+            }
+        }
     }
 
 

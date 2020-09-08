@@ -26,30 +26,30 @@ namespace LifecycleRebalance
         public CalculationOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel calculationsTab = PanelUtils.AddTab(tabStrip, "Lifespan", tabIndex, true);
+            UIPanel calculationsTab = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_SPN"), tabIndex, true);
 
             // Add warning text message.
-            PanelUtils.AddLabel(calculationsTab, "WARNING:\r\nChanging settings during a game can temporarily disrupt city balance.\r\nSaving a backup before changing is HIGHLY recommended.");
+            PanelUtils.AddLabel(calculationsTab, Translations.Translate("LBR_SPN_WRN") + "\r\n" + Translations.Translate("LBR_SPN_BAL") + "\r\n" + Translations.Translate("LBR_SPN_BAK"));
 
             // Calculation models.
             PanelUtils.AddPanelSpacer(calculationsTab);
-            PanelUtils.AddLabel(calculationsTab, "Lifecycle calculation model", 1.3f);
+            PanelUtils.AddLabel(calculationsTab, Translations.Translate("LBR_CAL"), 1.3f);
 
-            sunsetCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, "Mod Sunset Harbor lifespans (default)");
+            sunsetCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, Translations.Translate("LBR_CAL_SUN"));
             sunsetCheckBox.isChecked = !OptionsPanel.settings.UseLegacy;
-            legacyCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, "Mod legacy lifespans (original WG mod) - shorter lifespans, fewer seniors");
+            legacyCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, Translations.Translate("LBR_CAL_LEG"));
             legacyCheckBox.isChecked = OptionsPanel.settings.UseLegacy;
-            vanillaCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, "Vanilla Sunset Harbor lifespans - less variable lifespans, slightly more seniors");
+            vanillaCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, Translations.Translate("LBR_CAL_VAN"));
             vanillaCheckBox.isChecked = OptionsPanel.settings.UseVanilla;
 
             // Custom retirement ages.
             PanelUtils.AddPanelSpacer(calculationsTab);
-            PanelUtils.AddLabel(calculationsTab, "Retirement age options (only when using mod's Sunset Harbor lifespans)", 1.3f);
+            PanelUtils.AddLabel(calculationsTab, Translations.Translate("LBR_RET"), 1.3f);
 
-            retireCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, "Use custom retirement age");
+            retireCheckBox = PanelUtils.AddPlainCheckBox(calculationsTab, Translations.Translate("LBR_RET_USE"));
             retireCheckBox.isChecked = OptionsPanel.settings.CustomRetirement;
 
-            ageDropDown = PanelUtils.AddPlainDropDown(calculationsTab, "Custom retirement age", retirementAges, (OptionsPanel.settings.RetirementYear - 50) / 5);
+            ageDropDown = PanelUtils.AddPlainDropDown(calculationsTab, Translations.Translate("LBR_RET_CUS"), retirementAges, (OptionsPanel.settings.RetirementYear - 50) / 5);
             ageDropDown.eventSelectedIndexChanged += (control, index) =>
             {
                 int ageYears = 50 + (index * 5);
@@ -72,8 +72,8 @@ namespace LifecycleRebalance
                 }
             };
 
-            UILabel retireNote1 = PanelUtils.AddLabel(calculationsTab, "Decreasing retirement age won't change the status of citizens who have already retired under previous settings.");
-            UILabel retireNote2 = PanelUtils.AddLabel(calculationsTab, "Increasing retirement age won't change the appearance of citzens who have already retired under previous settings.");
+            UILabel retireNote1 = PanelUtils.AddLabel(calculationsTab, Translations.Translate("LBR_RET_NT1"));
+            UILabel retireNote2 = PanelUtils.AddLabel(calculationsTab, Translations.Translate("LBR_RET_NT2"));
 
             // Event handlers (here so other controls referenced are all set up prior to referencing in handlers).
             sunsetCheckBox.eventCheckChanged += (control, isChecked) =>

@@ -17,13 +17,13 @@ namespace LifecycleRebalance
         public SpeedOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel speedTab = PanelUtils.AddTab(tabStrip, "Speed", tabIndex, true);
+            UIPanel speedTab = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_SPD"), tabIndex, true);
 
             // Lifespan multiplier.  Simple integer.
-            UISlider lifeMult = PanelUtils.AddSliderWithValue(speedTab, "Factor to slow down how fast citizens age, compared to base game.\r\n\r\n1 is base game speed (35 in-game weeks is equal to 10 years of age), 2 is twice as slow (70 in-game weeks for 10 years of age), 3 is three times as slow, etc.  A multiplier of 15 means that citizens will age approximately one year for each in-game year.\r\n\r\nDoes not affect lifecycles or ages - only the speed at which citizens age relative to game speed.\r\n\r\n(Game default 1, mod default 3)", 1f, 15f, 1f, DataStore.lifeSpanMultiplier, (value) => { });
+            UISlider lifeMult = PanelUtils.AddSliderWithValue(speedTab, Translations.Translate("LBR_SPD_FAC") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN1") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN2") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN3"), 1f, 15f, 1f, DataStore.lifeSpanMultiplier, (value) => { });
 
             // Reset to saved button.
-            UIButton lifeMultReset = PanelUtils.CreateButton(speedTab, "Reset to saved");
+            UIButton lifeMultReset = PanelUtils.CreateButton(speedTab, Translations.Translate("LBR_RTS"));
             lifeMultReset.eventClicked += (control, clickEvent) =>
             {
                 // Retrieve saved value from datastore - inverted value (see above).
@@ -35,7 +35,7 @@ namespace LifecycleRebalance
             lifeMultReset.relativePosition = new Vector3(lifeMultReset.relativePosition.x, lifeMult.relativePosition.y + 40);
 
             // Save settings button.
-            UIButton lifeMultSave = PanelUtils.CreateButton(speedTab, "Save and apply");
+            UIButton lifeMultSave = PanelUtils.CreateButton(speedTab, Translations.Translate("LBR_SAA"));
             lifeMultSave.relativePosition = PanelUtils.PositionRightOf(lifeMultReset);
             lifeMultSave.eventClicked += (control, value) =>
             {

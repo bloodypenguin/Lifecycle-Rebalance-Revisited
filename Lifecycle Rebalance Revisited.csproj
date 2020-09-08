@@ -102,6 +102,7 @@
     <Content Include="Images\Screen_SampleRates.jpg" />
     <Content Include="Images\Screen_SeniorMovedIn.jpg" />
     <Content Include="Changelog.txt" />
+    <Content Include="Translations\en.xml" />
     <Content Include="XMLFileAndEditDiscussion.txt" />
     <Content Include="XML_Files\WG_CarAsWealth.xml" />
     <Content Include="XML_Files\WG_CarHeavy.xml" />
@@ -118,7 +119,7 @@
     <Compile Include="Code\Notifications\ErrorNotification.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\DeathOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\ImmigrationOptions.cs" />
-    <Compile Include="Code\Settings\OptionsPanelTabs\LoggingOptions.cs" />
+    <Compile Include="Code\Settings\OptionsPanelTabs\ModOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanel.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\CalculationOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\HealthOptions.cs" />
@@ -138,6 +139,8 @@
     <Compile Include="Code\XML\WG_XMLBaseVersion.cs" />
     <Compile Include="Code\XML\XML_VerisonOne.cs" />
     <Compile Include="Code\XML\XML_VersionTwo.cs" />
+    <Compile Include="TranslationFramework\TranslationFramework.cs" />
+    <Compile Include="TranslationFramework\TranslationXML.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />
@@ -158,6 +161,10 @@ del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName
 xcopy /y "$(SolutionDir)\XMLFileAndEditDiscussion.txt" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\0Harmony.dll"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\CitiesHarmony.API.dll"
-xcopy /y "$(SolutionDir)packages\CitiesHarmony.API.1.0.5\lib\net35\CitiesHarmony.API.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"</PostBuildEvent>
+xcopy /y "$(SolutionDir)packages\CitiesHarmony.API.1.0.5\lib\net35\CitiesHarmony.API.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
+mkdir "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\Translations"
+del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\Translations\*.xml"
+xcopy /y "$(SolutionDir)\Translations\" "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\Translations" /s /e
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

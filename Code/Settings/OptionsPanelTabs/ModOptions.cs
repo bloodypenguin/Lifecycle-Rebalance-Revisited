@@ -5,22 +5,30 @@ using ColossalFramework.UI;
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Options panel for setting logging options.
+    /// Options panel for setting general mod options.
     /// </summary>
-    public class LoggingOptions
+    public class ModOptions
     {
         /// <summary>
-        /// Adds logging options tab to tabstrip.
+        /// Adds mod options tab to tabstrip.
         /// </summary
         /// <param name="tabStrip">Tab strip to add to</param>
         /// <param name="tabIndex">Index number of tab</param>
-        public LoggingOptions(UITabstrip tabStrip, int tabIndex)
+        public ModOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel loggingTab = PanelUtils.AddTab(tabStrip, "Logging", tabIndex, true);
+            UIPanel modTab = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_SET"), tabIndex, true);
+
+            // Language dropdown.
+            UIDropDown languageDrop = PanelUtils.AddPlainDropDown(modTab, Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index);
+            languageDrop.eventSelectedIndexChanged += (control, index) =>
+            {
+                Translations.Index = index;
+                Configuration<SettingsFile>.Save();
+            };
 
             // Logging options.
-            UICheckBox deathCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log deaths to 'Lifecycle death log.txt'");
+            UICheckBox deathCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGD"));
             deathCheckBox.isChecked = OptionsPanel.settings.LogDeaths;
             deathCheckBox.eventCheckChanged += (control, isChecked) =>
             {
@@ -34,7 +42,7 @@ namespace LifecycleRebalance
                 Debugging.Message("death logging " + (OptionsPanel.settings.LogDeaths ? "enabled" : "disabled"));
             };
 
-            UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log immigrants to 'Lifecycle immigration log.txt'");
+            UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGI"));
             immigrantCheckBox.isChecked = OptionsPanel.settings.LogImmigrants;
             immigrantCheckBox.eventCheckChanged += (control, isChecked) =>
             {
@@ -48,7 +56,7 @@ namespace LifecycleRebalance
                 Debugging.Message("immigrant logging " + (OptionsPanel.settings.LogImmigrants ? "enabled" : "disabled"));
             };
 
-            UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log custom transport choices to 'Lifecycle transport log.txt' WARNING - SLOW!");
+            UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGT"));
             transportCheckBox.isChecked = OptionsPanel.settings.LogTransport;
             transportCheckBox.eventCheckChanged += (control, isChecked) =>
             {
@@ -62,7 +70,7 @@ namespace LifecycleRebalance
                 Debugging.Message("transport choices logging " + (OptionsPanel.settings.LogTransport ? "enabled" : "disabled"));
             };
 
-            UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(loggingTab, "Log sickness events to 'Lifecycle sickness log.txt'");
+            UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGS"));
             sicknessCheckBox.isChecked = OptionsPanel.settings.LogSickness;
             sicknessCheckBox.eventCheckChanged += (control, isChecked) =>
             {

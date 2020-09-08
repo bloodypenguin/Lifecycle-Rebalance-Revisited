@@ -15,7 +15,7 @@ namespace LifecycleRebalance
 
         public string Name => ModName + " " + Version;
 
-        public string Description => "Increases and randomises citizen life span, randomises the ages and education levels of immigrants, and changes how citizens travel to and from work.";
+        public string Description => Translations.Translate("LBR_DESC");
 
 
         /// <summary>

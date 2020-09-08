@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="en" ReadableName="English">
+  <Translations>
+    <Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
+    <Translation ID="LBR_DESC" String="Increases and randomises citizen life span, randomises the ages and education levels of immigrants, and changes how citizens travel to and from work" />"
+    <Translation ID="LBR_SPN" String="Lifespan" />
+    <Translation ID="LBR_SPN_WRN" String="Warning" />
+    <Translation ID="LBR_SPN_BAL" String="Changing settings during a game can temporarily disrupt city balance." />
+    <Translation ID="LBR_SPN_BAK" String="Saving a backup before changing is HIGHLY recommended." />
+    <Translation ID="LBR_CAL" String="Lifecycle calculation model" />
+    <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor lifespans (default)" />
+    <Translation ID="LBR_CAL_LEG" String="Mod legacy lifespans (original WG mod) - shorter lifespans, fewer seniors" />
+    <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor lifespans - less variable lifespans, slightly more seniors" />
+    <Translation ID="LBR_RET" String="Retirement age options (only when using mod's Sunset Harbor lifespans)" />
+    <Translation ID="LBR_RET_USE" String="Use custom retirement age" />
+    <Translation ID="LBR_RET_CUS" String="Custom retirement age" />
+    <Translation ID="LBR_RET_NT1" String="Decreasing retirement age won't change the status of citizens who have already retired under previous settings." />
+    <Translation ID="LBR_RET_NT2" String="Increasing retirement age won't change the appearance of citzens who have already retired under previous settings." />
+    <Translation ID="LBR_HEA" String="Health" />
+    <Translation ID="LBR_HEA_ILL" String="Random illness % chance per decade of life" />
+    <Translation ID="LBR_HEA_ILD" String="Does not affect sickness from specific causes, e.g. pollution or noise" />
+    <Translation ID="LBR_HEA_AGE" String="Ages" />
+    <Translation ID="LBR_DTH" String="Death" />
+    <Translation ID="LBR_DTH_TRN" String="% of dead bodies requiring deathcare transportation" />
+    <Translation ID="LBR_DTH_TRD" String="(Game default 67%, mod default 50%)" />
+    <Translation ID="LBR_IMM" String="Immigration" />
+    <Translation ID="LBR_IMM_VAR" String="Apply 25% variation to immigrant education levels" />
+    <Translation ID="LBR_IMM_INC" String="Increase average immigrant education levels" />
+    <Translation ID="LBR_IMM_DEC" String="Decrease average immigrant education levels" />
+    <Translation ID="LBR_SET" String="Settings" />
+    <Translation ID="LBR_SET_LGD" String="Log deaths to 'Lifecycle death log.txt'" />
+    <Translation ID="LBR_SET_LGI" String="Log immigrants to 'Lifecycle immigration log.txt'" />
+    <Translation ID="LBR_SET_LGT" String="Log custom transport choices to 'Lifecycle transport log.txt' WARNING - SLOW!" />
+    <Translation ID="LBR_SET_LGS" String="Log sickness events to 'Lifecycle sickness log.txt'" />
+    <Translation ID="LBR_SPD" String="Speed" />
+    <Translation ID="LBR_SPD_FAC" String="Factor to slow down how fast citizens age, compared to base game." />
+    <Translation ID="LBR_SPD_FN1" String="1 is base game speed (35 in-game weeks is equal to 10 years of age), 2 is twice as slow (70 in-game weeks for 10 years of age), 3 is three times as slow, etc.  A multiplier of 15 means that citizens will age approximately one year for each in-game year." />
+    <Translation ID="LBR_SPD_FN2" String="Does not affect lifecycles or ages - only the speed at which citizens age relative to game speed." />
+    <Translation ID="LBR_SPD_FN3" String="(Game default 1, mod default 3)" />
+    <Translation ID="LBR_TRN" String="Transport" />
+    <Translation ID="LBR_TRN_CUS" String="Use custom transport mode probabilities" />
+    <Translation ID="LBR_TRN_WEA" String="Weath level" />
+    <Translation ID="LBR_TRN_CAR" String="Car use probability (%)" />
+    <Translation ID="LBR_TRN_BIK" String="Bike use probability (%)" />
+    <Translation ID="LBR_TRN_TAX" String="Taxi use probability (%)" />
+    <Translation ID="LBR_TRN_RLO" String="Residential low" />
+    <Translation ID="LBR_TRN_RHI" String="Residential high" />
+    <Translation ID="LBR_TRN_ERL" String="Eco residential low" />
+    <Translation ID="LBR_TRN_ERH" String="Eco residential high" />
+    <Translation ID="LBR_DEF" String="default" />
+    <Translation ID="LBR_RTD" String="Reset to defaults" />
+    <Translation ID="LBR_RTS" String="Revert to saved" />
+    <Translation ID="LBR_SAA" String="Save and apply" />
+    <Translation ID="LBR_ZRO" String="Set all to zero" />
+    <Translation ID="TRN_CHOICE" String="Set language" />
+    <Translation ID="TRN_SYS" String="Use system language" />
+  </Translations>
+</Language>

@@ -17,10 +17,10 @@ namespace LifecycleRebalance
         public ImmigrationOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel immigrationTab = PanelUtils.AddTab(tabStrip, "Immigration", tabIndex);
+            UIPanel immigrationTab = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_IMM"), tabIndex);
 
             // Use vanilla.
-            UICheckBox immigrationCheckBox = PanelUtils.AddPlainCheckBox(immigrationTab, "Apply 25% variation to immigrant education levels");
+            UICheckBox immigrationCheckBox = PanelUtils.AddPlainCheckBox(immigrationTab, Translations.Translate("LBR_IMM_VAR"));
             immigrationCheckBox.relativePosition = new Vector3(5f, 5f);
             immigrationCheckBox.isChecked = OptionsPanel.settings.RandomImmigrantEd;
             immigrationCheckBox.eventCheckChanged += (control, isChecked) =>
@@ -34,12 +34,12 @@ namespace LifecycleRebalance
             };
 
             // Boost immigrant education.
-            UICheckBox immiEduBoostCheck = PanelUtils.AddPlainCheckBox(immigrationTab, "Increase average immigrant education levels");
+            UICheckBox immiEduBoostCheck = PanelUtils.AddPlainCheckBox(immigrationTab, Translations.Translate("LBR_IMM_INC"));
             immiEduBoostCheck.relativePosition = new Vector3(5f, 50f);
             immiEduBoostCheck.isChecked = ModSettings.immiEduBoost;
 
             // Suppress immigrant education.
-            UICheckBox immiEduDragCheck = PanelUtils.AddPlainCheckBox(immigrationTab, "Decrease average immigrant education levels");
+            UICheckBox immiEduDragCheck = PanelUtils.AddPlainCheckBox(immigrationTab, Translations.Translate("LBR_IMM_DEC"));
             immiEduDragCheck.relativePosition = new Vector3(5f, 75f);
             immiEduDragCheck.isChecked = ModSettings.immiEduDrag;
 

@@ -51,11 +51,11 @@ namespace LifecycleRebalance
         public TransportOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel transportTab = PanelUtils.AddTab(tabStrip, "Transport", tabIndex, true);
+            UIPanel transportTab = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_TRN"), tabIndex, true);
 
             transportTab.autoLayout = false;
 
-            UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(transportTab, "Use custom transport mode probabilities (from configuration file)");
+            UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(transportTab, Translations.Translate("LBR_TRN_CUS"));
             transportCheckBox.relativePosition = new Vector3(30f, 5f);
             transportCheckBox.isChecked = OptionsPanel.settings.UseTransportModes;
             transportCheckBox.eventCheckChanged += (control, isChecked) =>
@@ -103,22 +103,22 @@ namespace LifecycleRebalance
             {
                 // Wealth headings.
                 float wealthX = (i * GroupWidth) + Column1;
-                WealthIcon(transportTab, wealthX, 25f, ColumnWidth * 3, i + 1, "Wealth", "InfoIconLandValue");
+                WealthIcon(transportTab, wealthX, 25f, ColumnWidth * 3, i + 1, Translations.Translate("LBR_TRN_WEA"), "InfoIconLandValue");
 
                 // Transport mode headings.
-                ColumnIcon(transportTab, (i * GroupWidth) + Column1, ColumnIconHeight, FieldWidth, "Car", "InfoIconTrafficCongestion");
-                ColumnIcon(transportTab, (i * GroupWidth) + Column2, ColumnIconHeight, FieldWidth, "Bike", "IconPolicyEncourageBiking");
-                ColumnIcon(transportTab, (i * GroupWidth) + Column3, ColumnIconHeight, FieldWidth, "Taxi", "SubBarPublicTransportTaxi");
+                ColumnIcon(transportTab, (i * GroupWidth) + Column1, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
+                ColumnIcon(transportTab, (i * GroupWidth) + Column2, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
+                ColumnIcon(transportTab, (i * GroupWidth) + Column3, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
             }
 
             // Rows by group.
-            RowHeaderIcon(transportTab, currentY, "Residential low", "ZoningResidentialLow", "Thumbnails");
+            RowHeaderIcon(transportTab, currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails");
             AddDensityGroup(transportTab, wealthLow[0], wealthMed[0], wealthHigh[0]);
-            RowHeaderIcon(transportTab, currentY, "Residential high", "ZoningResidentialHigh", "Thumbnails");
+            RowHeaderIcon(transportTab, currentY, Translations.Translate("LBR_TRN_RHI"), "ZoningResidentialHigh", "Thumbnails");
             AddDensityGroup(transportTab, wealthLow[1], wealthMed[1], wealthHigh[1]);
-            RowHeaderIcon(transportTab, currentY, "Eco residential low", "IconPolicySelfsufficient", "Ingame");
+            RowHeaderIcon(transportTab, currentY, Translations.Translate("LBR_TRN_ERL"), "IconPolicySelfsufficient", "Ingame");
             AddDensityGroup(transportTab, ecoWealthLow[0], ecoWealthMed[0], ecoWealthHigh[0]);
-            RowHeaderIcon(transportTab, currentY, "Eco residential high", "IconPolicySelfsufficient", "Ingame");
+            RowHeaderIcon(transportTab, currentY, Translations.Translate("LBR_TRN_ERH"), "IconPolicySelfsufficient", "Ingame");
             AddDensityGroup(transportTab, ecoWealthLow[1], ecoWealthMed[1], ecoWealthHigh[1]);
 
             // Buttons.

@@ -23,10 +23,10 @@ namespace LifecycleRebalance
         public HealthOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel healthTab = PanelUtils.AddTab(tabStrip, "Health", tabIndex);
+            UIPanel healthTab = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_HEA"), tabIndex);
 
             // Illness options.
-            UILabel illnessLabel = PanelUtils.AddLabel(healthTab, "Random illness % chance per decade of life\r\nDoes not affect sickness from specific causes, e.g. pollution or noise.");
+            UILabel illnessLabel = PanelUtils.AddLabel(healthTab, Translations.Translate("LBR_HEA_ILL") + "\r\n" + Translations.Translate("LBR_HEA_ILD"));
             illnessLabel.relativePosition = Vector3.zero;
 
             // Set the intial Y position of the illness chance sliders.
@@ -37,7 +37,7 @@ namespace LifecycleRebalance
             for (int i = 0; i < numDeciles; ++ i)
             {
                 // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
-                illnessChance[i] = PanelUtils.AddSliderWithValue(healthTab, "Ages " + (i * 10) + "-" + ((i * 10) + 9) + " (default " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { }, textScale: 0.9f);
+                illnessChance[i] = PanelUtils.AddSliderWithValue(healthTab, Translations.Translate("LBR_HEA_AGE") + (i * 10) + "-" + ((i * 10) + 9) + " (" + Translations.Translate("LBR_DEF") + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { }, textScale: 0.9f);
                 illnessChance[i].parent.relativePosition = new Vector3(0, currentY);
                 currentY += illnessChance[i].parent.height;
             }
@@ -46,7 +46,7 @@ namespace LifecycleRebalance
             currentY += 5;
 
             // Reset to saved button.
-            UIButton illnessResetSaved = PanelUtils.CreateButton(healthTab, "Reset to saved");
+            UIButton illnessResetSaved = PanelUtils.CreateButton(healthTab, Translations.Translate("LBR_RTS"));
             illnessResetSaved.relativePosition = new Vector3(0f, currentY);
             illnessResetSaved.eventClicked += (control, clickEvent) =>
             {
@@ -58,7 +58,7 @@ namespace LifecycleRebalance
             };
             
             // Save settings button.
-            UIButton illnessSave = PanelUtils.CreateButton(healthTab, "Save and apply");
+            UIButton illnessSave = PanelUtils.CreateButton(healthTab, Translations.Translate("LBR_SAA"));
             illnessSave.relativePosition = PanelUtils.PositionUnder(illnessResetSaved);
             illnessSave.eventClicked += (control, clickEvent) =>
             {
@@ -81,7 +81,7 @@ namespace LifecycleRebalance
             };
 
             // Reset to default button.
-            UIButton illnessResetDefault = PanelUtils.CreateButton(healthTab, "Reset to default");
+            UIButton illnessResetDefault = PanelUtils.CreateButton(healthTab, Translations.Translate("LBR_RTD"));
             illnessResetDefault.relativePosition = PanelUtils.PositionRightOf(illnessResetSaved);
             illnessResetDefault.eventClicked += (control, clickEvent) =>
             {
@@ -93,7 +93,7 @@ namespace LifecycleRebalance
             };
 
             // Set to zero button.
-            UIButton illnessSetZero = PanelUtils.CreateButton(healthTab, "Set all to zero");
+            UIButton illnessSetZero = PanelUtils.CreateButton(healthTab, Translations.Translate("LBR_ZRO"));
             illnessSetZero.relativePosition = PanelUtils.PositionRightOf(illnessResetDefault);
             illnessSetZero.eventClicked += (control, clickEvent) =>
             {

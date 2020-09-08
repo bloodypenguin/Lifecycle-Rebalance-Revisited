@@ -17,13 +17,13 @@ namespace LifecycleRebalance
         public DeathOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel deathTab = PanelUtils.AddTab(tabStrip, "Death", tabIndex, true);
+            UIPanel deathTab = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_DTH"), tabIndex, true);
 
             // Percentage of corpses requiring transport.  % of bodies requiring transport is more intuitive to user than % of vanishing corpses, so we invert the value.
-            UISlider vanishingStiffs = PanelUtils.AddSliderWithValue(deathTab, "% of dead bodies requiring deathcare transportation\r\n(Game default 67%, mod default 50%)", 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
+            UISlider vanishingStiffs = PanelUtils.AddSliderWithValue(deathTab, Translations.Translate("LBR_DTH_TRN") + "\r\n" + Translations.Translate("LBR_DTH_TRD"), 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
 
             // Reset to saved button.
-            UIButton vanishingStiffReset = PanelUtils.CreateButton(deathTab, "Reset to saved");
+            UIButton vanishingStiffReset = PanelUtils.CreateButton(deathTab, Translations.Translate("LBR_RTS"));
             vanishingStiffReset.eventClicked += (control, clickEvent) =>
             {
                 // Retrieve saved value from datastore - inverted value (see above).
@@ -35,7 +35,7 @@ namespace LifecycleRebalance
             vanishingStiffReset.relativePosition = new Vector3(vanishingStiffReset.relativePosition.x, vanishingStiffReset.relativePosition.y + 30);
 
             // Save settings button.
-            UIButton vanishingStiffsSave = PanelUtils.CreateButton(deathTab, "Save and apply");
+            UIButton vanishingStiffsSave = PanelUtils.CreateButton(deathTab, Translations.Translate("LBR_SAA"));
             vanishingStiffsSave.relativePosition = PanelUtils.PositionRightOf(vanishingStiffReset);
             vanishingStiffsSave.eventClicked += (control, clickEvent) =>
             {
