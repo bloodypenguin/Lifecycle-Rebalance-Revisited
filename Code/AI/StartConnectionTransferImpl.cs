@@ -86,7 +86,6 @@ namespace LifecycleRebalance
                     yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StartConnectionTransferImplPatch), nameof(StartConnectionTransferImplPatch.GetAgeArray)));
                     yield return new CodeInstruction(OpCodes.Stloc_S, ageArray.LocalIndex);
                 }
-
             }
 
             // Save the labels from the current (original) instruction.
@@ -214,6 +213,19 @@ namespace LifecycleRebalance
                     }
                 }
             }
+
+            // Apply education boost, if enabled, and if we're not already at the max.
+            if (ModSettings.immiEduBoost && resultEducation < Citizen.Education.ThreeSchools)
+            {
+                ++resultEducation;
+            }
+
+            // Apply education suppression, if enabled, and if we're not already at the min.
+            if (ModSettings.immiEduDrag && resultEducation > Citizen.Education.Uneducated)
+            {
+                --resultEducation;
+            }
+
 
             // Write to immigration log if that option is selected.
             if (Debugging.UseImmigrationLog)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using UnityEngine;
 
 
 namespace LifecycleRebalance
@@ -22,7 +21,8 @@ namespace LifecycleRebalance
         public bool LogImmigrants { get; set; } = false;
         public bool LogTransport { get; set; } = false;
         public bool LogSickness { get; set; } = false;
-
+        public bool ImmiEduBoost { get => ModSettings.immiEduBoost; set => ModSettings.immiEduBoost = value; }
+        public bool ImmiEduDrag { get => ModSettings.immiEduDrag; set => ModSettings.immiEduDrag = value; }
     }
 
 
@@ -36,6 +36,12 @@ namespace LifecycleRebalance
 
         // Whether or not to apply a randomisation factor to immigrant education levels.
         internal static bool randomImmigrantEd;
+
+
+        internal static bool immiEduBoost = false;
+
+        internal static bool immiEduDrag = false;
+
 
         /// <summary>
         /// Tracks if we're using legacy lifecycle calculations and handles any changes.
