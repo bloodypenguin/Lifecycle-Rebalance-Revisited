@@ -1,6 +1,6 @@
 ﻿Version 1.5
 
-- Add transport choices configuration editing to opions panel
+- Add transport choices configuration editing to options panel
 - Add saveable transport choices for eco residential
 - Add configurable translation framework
 - Add immigration options panel
