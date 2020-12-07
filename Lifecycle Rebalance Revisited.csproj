@@ -103,6 +103,7 @@
     <Content Include="Images\Screen_SeniorMovedIn.jpg" />
     <Content Include="Changelog.txt" />
     <Content Include="Translations\en.xml" />
+    <Content Include="Translations\es.xml" />
     <Content Include="XMLFileAndEditDiscussion.txt" />
     <Content Include="XML_Files\WG_CarAsWealth.xml" />
     <Content Include="XML_Files\WG_CarHeavy.xml" />

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="es" ReadableName="Español">
+  <Translations>
+    "<Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
+    "<Translation ID="LBR_DESC" String="Aumenta y aleatoriza la esperanza de vida de los ciudadanos, aleatoriza las edades y los niveles de educación de los inmigrantes y cambia la forma en que los ciudadanos viajan hacia y desde el trabajo" />
+    "<Translation ID="LBR_SPN" String="Esperanza de vida" />
+    "<Translation ID="LBR_SPN_WRN" String="Advertencia" />
+    "<Translation ID="LBR_SPN_BAL" String="Cambiar la configuración mientras se juega puede desbaratar el equilibrio de la ciudad." />
+    "<Translation ID="LBR_SPN_BAK" String="Guardar una copia de seguridad antes de cambiar es MUY recomendado." />
+    "<Translation ID="LBR_CAL" String="Modelo de cálculo del ciclo de la vida" />
+    "<Translation ID="LBR_CAL_SUN" String="Esperanza de vidas mod Sunset Harbor (por defecto)" />
+    "<Translation ID="LBR_CAL_LEG" String="Esperanza de vidas mod tradicional (mod WG original) - esperanza de vidas cortas, menos ancianos" />
+    "<Translation ID="LBR_CAL_VAN" String="Esperanza de vidas Sunset Harbor estándar - menos variedad de esperanza de vidas, cantidad de ancianos ligeramente mayor" />
+    "<Translation ID="LBR_RET" String="Opciones de edad de jubilación (sólo cuando se use la esperanza de vida de mod Sunset Harbor)" />
+    "<Translation ID="LBR_RET_USE" String="Usar edad de jubilación personalizada" />
+    "<Translation ID="LBR_RET_CUS" String="Edad de jubilación personalizada" />
+    "<Translation ID="LBR_RET_NT1" String="Reducir la edad de jubilación no cambiará el estado de los ciudadanos que ya se hubieran retirado con la configuración anterior." />
+    "<Translation ID="LBR_RET_NT2" String="Incrementar la edad de jubilación no cambiará la apariencia de los ciudadanos que ya se hubieran retirado con la configuración anterior." />
+    "<Translation ID="LBR_HEA" String="Salud" />
+    "<Translation ID="LBR_HEA_ILL" String="% de riesgo de enfermedad aleatoria por década de vida." />
+    "<Translation ID="LBR_HEA_ILD" String="No afecta a las enfermedades de causas específicas, por ejemplo polución o ruido" />
+    "<Translation ID="LBR_HEA_AGE" String="Edades" />
+    "<Translation ID="LBR_DTH" String="Muerte" />
+    "<Translation ID="LBR_DTH_TRN" String="% de cuerpos muertos que requieren servicios funerarios de transporte" />
+    "<Translation ID="LBR_DTH_TRD" String="(Por defecto del juego 67%, por defecto del mod 50%)" />
+    "<Translation ID="LBR_IMM" String="Inmigración" />
+    "<Translation ID="LBR_IMM_VAR" String="Aplicar el 25% de variación a los niveles de educación de los inmigrantes" />
+    "<Translation ID="LBR_IMM_INC" String="Incrementa la media de los niveles de educación de los inmigrantes" />
+    "<Translation ID="LBR_IMM_DEC" String="Reduce la media de los niveles de educación de los inmigrantes" />
+    "<Translation ID="LBR_SET" String="Configuraciones" />
+    "<Translation ID="LBR_SET_LGD" String="Registra las muertes en 'Lifecycle death log.txt'" />
+    "<Translation ID="LBR_SET_LGI" String="Registra los inmigrantes en 'Lifecycle immigration log.txt'" />
+    "<Translation ID="LBR_SET_LGT" String="Registra las opciones personalizadas de transporte en 'Lifecycle transport log.txt' ADVERTENCIA - ¡LENTO!" />
+    "<Translation ID="LBR_SET_LGS" String="Registrar eventos de enfermedades en 'Lifecycle sickness log.txt'" />
+    "<Translation ID="LBR_SPD" String="Velocidad" />
+    "<Translation ID="LBR_SPD_FAC" String="Factor para ralentizar la velocidad de envejecimiento de los ciudadanos, comparado con el juego base." />
+    "<Translation ID="LBR_SPD_FN1" String="1 es la velocidad del juego base (35 semanas del juego es igual a 10 años de envejecimiento), 2 es el doble de lento (70 semanas del juego para 10 años de envejecimiento), 3 es el triple de lento, etc. Un multiplicador de 15 significa que aproximadamente envejecerán un año por cada año del juego." />
+    "<Translation ID="LBR_SPD_FN2" String="No afecta a al ciclo de la vida o las edades - solo a la velocidad a la que los ciudadanos envejecen relativo a la velocidad del juego" />
+    "<Translation ID="LBR_SPD_FN3" String="(Por defecto del juego 1, por defecto del mod 3)" />
+    "<Translation ID="LBR_TRN" String="Transporte" />
+    "<Translation ID="LBR_TRN_CUS" String="Usar probabilidades personalizadas del modo de transporte" />
+    "<Translation ID="LBR_TRN_WEA" String="Nivel de riqueza" />
+    "<Translation ID="LBR_TRN_CAR" String="Probabilidad de usar coche (%)" />
+    "<Translation ID="LBR_TRN_BIK" String="Probabilidad de usar bicicleta (%)" />
+    "<Translation ID="LBR_TRN_TAX" String="Probabilidad de usar taxi (%)" />
+    "<Translation ID="LBR_TRN_RLO" String="Residencial bajo" />
+    "<Translation ID="LBR_TRN_RHI" String="Residencial alto" />
+    "<Translation ID="LBR_TRN_ERL" String="Residencial eco. bajo" />
+    "<Translation ID="LBR_TRN_ERH" String="Residencial eco. alto" />
+    "<Translation ID="LBR_TRN_CHL" String="Niño" />
+    "<Translation ID="LBR_TRN_TEN" String="Adolescente" />
+    "<Translation ID="LBR_TRN_YAD" String="Adulto joven" />
+    "<Translation ID="LBR_TRN_ADL" String="Adulto" />
+    "<Translation ID="LBR_TRN_SEN" String="Anciano" />
+    "<Translation ID="LBR_DEF" String="por defecto" />
+    "<Translation ID="LBR_RTD" String="Restablecer por defecto" />
+    "<Translation ID="LBR_RTS" String="Restablecer a guardados" />
+    "<Translation ID="LBR_SAA" String="Guardar y aplicar" />
+    "<Translation ID="LBR_ZRO" String="Establecer todos a cero" />
+    "<Translation ID="TRN_CHOICE" String="Establecer idioma" />
+    "<Translation ID="TRN_SYS" String="Usar idioma del sistema" />
+    "<Translation ID="LBR_NOT_CLO" String="Cerrar" />
+    "<Translation ID="LBR_CON" String="Detectado conflicto de mod" />
+    "<Translation ID="LBR_CON_WGO" String="Detectado mod original WG Citizen Lifecycle Rebalance - Lifecycle Rebalance Revisited se desactivará para proteger tu juego. Solo UNO de estos mods puede ser habilitado al mismo tiempo; por favor cancele la suscripción a WG Citizen Lifecycle Rebalance, ¡que actualmente está obsoleto!" />
+    "<Translation ID="LBR_CON_PTR" String="El mod viejo Painter causa problemas con la librería Harmony usada por este  mod, resultando en errores aleatorios. Por favor CANCELE LA SUSCRIPCIÓN a Painter (simplemente desactivarlo NO es suficiente); el mod Repaint se puede usar como reemplazo." />
+    "<Translation ID="LBR_CON_GBC" String="El mod viejo Garbage Bin Controller causa problemas con la librería Harmony usada por este mod, resultando en errores aleatorios. Por favor CANCELE LA SUSCRIPCIÓN a Garbage Bin Controller  (simplemente desactivarlo NO es suficiente); el mod Garbage Bin Manager se puede usar como reemplazo." />
+    "<Translation ID="LBR_CON_BET" String="Lifecycle Rebalance Revisited: detectada versiones Beta y de producción.  Lifecycle Rebalance Revisited se desactivará para proteger su juego. Por favor, suscribase solo a uno al mismo tiempo." />
+    "<Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited se ha actualizado a la versión 1.5" />
+    "<Translation ID="LBR_150_NT1" String="Las opciones de modos de transportes ahora pueden ser editadas mediante el panel de opciones, y residencias eco. y normales pueden tener diferentes opciones" />
+    "<Translation ID="LBR_150_NT2" String="Los niveles de educación de la gente trasladándose a tu ciudad pueden ser modificados" />
+    "<Translation ID="LBR_NOT_DSA" String="No mostrar de nuevo" />
+  </Translations>
+</Language>

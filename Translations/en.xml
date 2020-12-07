@@ -39,7 +39,7 @@
     <Translation ID="LBR_SPD_FN3" String="(Game default 1, mod default 3)" />
     <Translation ID="LBR_TRN" String="Transport" />
     <Translation ID="LBR_TRN_CUS" String="Use custom transport mode probabilities" />
-    <Translation ID="LBR_TRN_WEA" String="Weath level" />
+    <Translation ID="LBR_TRN_WEA" String="Wealth level" />
     <Translation ID="LBR_TRN_CAR" String="Car use probability (%)" />
     <Translation ID="LBR_TRN_BIK" String="Bike use probability (%)" />
     <Translation ID="LBR_TRN_TAX" String="Taxi use probability (%)" />
