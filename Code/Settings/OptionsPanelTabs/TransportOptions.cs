@@ -26,7 +26,7 @@ namespace LifecycleRebalance
         protected const float FieldWidth = 40f;
         protected const float RowHeight = 23f;
         protected const float ColumnWidth = FieldWidth + Margin;
-        protected const float Column1 = 200f;
+        protected const float Column1 = 220f;
         protected const float Column2 = Column1 + ColumnWidth;
         protected const float Column3 = Column2 + ColumnWidth;
         protected const float GroupWidth = (ColumnWidth * 3) + Margin;
@@ -312,13 +312,15 @@ namespace LifecycleRebalance
             currentY += Margin;
 
             // Reset button.
-            UIButton resetButton = PanelUtils.CreateButton(panel, "Reset to defaults", 150f, Margin, currentY);
+            UIButton resetButton = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTD"), xPos: Margin, yPos: currentY);
             resetButton.eventClicked += (component, clickEvent) => ResetToDefaults();
 
-            UIButton revertToSaveButton = PanelUtils.CreateButton(panel, "Revert to saved", 150f, (Margin * 2) + 150f, currentY);
+            UIButton revertToSaveButton = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTS"));
+            revertToSaveButton.relativePosition = PanelUtils.PositionRightOf(resetButton);
             revertToSaveButton.eventClicked += (component, clickEvent) => { PopulateFields(); };
 
-            UIButton saveButton = PanelUtils.CreateButton(panel, "Save", 150f, (Margin * 3) + 300f, currentY);
+            UIButton saveButton = PanelUtils.CreateButton(panel, Translations.Translate("LBR_SAA"));
+            saveButton.relativePosition = PanelUtils.PositionRightOf(revertToSaveButton);
             saveButton.eventClicked += (component, clickEvent) => ApplyFields();
         }
 

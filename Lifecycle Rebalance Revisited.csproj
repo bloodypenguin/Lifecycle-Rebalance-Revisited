@@ -104,6 +104,10 @@
     <Content Include="Changelog.txt" />
     <Content Include="Translations\en.xml" />
     <Content Include="Translations\es.xml" />
+    <Content Include="Translations\nl.xml" />
+    <Content Include="Translations\pt-br.xml" />
+    <Content Include="Translations\zh-tw.xml" />
+    <Content Include="Translations\zh.xml" />
     <Content Include="XMLFileAndEditDiscussion.txt" />
     <Content Include="XML_Files\WG_CarAsWealth.xml" />
     <Content Include="XML_Files\WG_CarHeavy.xml" />

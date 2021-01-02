@@ -184,7 +184,7 @@ namespace LifecycleRebalance
         /// <param name="xPos">Relative x position (default 0)</param>
         /// <param name="yPos">Relative y position (default 0)</param>
         /// <returns></returns>
-        internal static UIButton CreateButton(UIComponent parent, string text, float width = 200f, float xPos = 0f, float yPos = 0f)
+        internal static UIButton CreateButton(UIComponent parent, string text, float width = 220f, float xPos = 0f, float yPos = 0f)
         {
             // Constants.
             const float Height = 30f;
@@ -202,7 +202,7 @@ namespace LifecycleRebalance
             // Button size parameters.
             button.relativePosition = new Vector3(xPos, yPos);
             button.size = new Vector2(width, Height);
-            button.textScale = 1f;
+            button.textScale = 0.8f;
 
             // Label.
             button.text = text;
@@ -213,6 +213,7 @@ namespace LifecycleRebalance
 
         /// <summary>
         /// Creates a plain checkbox using the game's option panel checkbox template.
+        /// Allows for long (multi-line) text labels.
         /// </summary>
         /// <param name="parent">Parent component</param>
         /// <param name="text">Descriptive label text</param>
@@ -221,8 +222,18 @@ namespace LifecycleRebalance
         {
             UICheckBox checkBox = parent.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsCheckBoxTemplate")) as UICheckBox;
 
+            // Override defaults.
+            checkBox.autoSize = false;
+            checkBox.label.wordWrap = true;
+            checkBox.label.autoSize = false;
+            checkBox.label.autoHeight = true;
+            checkBox.label.width = 700f;
+
             // Set text.
             checkBox.text = text;
+
+            // Resize height to match text (if text has flowed over multiple lines).
+            checkBox.height = checkBox.label.height;
 
             return checkBox;
         }
