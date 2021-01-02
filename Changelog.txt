@@ -1,4 +1,9 @@
-﻿Version 1.5
+﻿Version 1.5.1
+
+- Adjust options panel layout to accomodate longer translation strings
+
+
+Version 1.5
 
 - Add transport choices configuration editing to options panel
 - Add saveable transport choices for eco residential
