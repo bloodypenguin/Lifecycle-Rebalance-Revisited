@@ -1,4 +1,7 @@
-﻿Version 1.5.1
+﻿- Spare single parents from early death (at least until the kids move out), to help prevent orphan households
+
+
+Version 1.5.1
 
 - Adjust options panel layout to accomodate longer translation strings
 

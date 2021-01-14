@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using ColossalFramework;
@@ -140,21 +141,41 @@ namespace LifecycleRebalance
                         }
                     }
 
+                    // Handle citizen death.
                     if (died)
                     {
-                        if (Debugging.UseDeathLog)
+                        // Check if citizen is only remaining parent and there are children.
+                        uint unitID = data.GetContainingUnit(citizenID, Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_homeBuilding].m_citizenUnits, CitizenUnit.Flags.Home);
+                        CitizenUnit containingUnit = Singleton<CitizenManager>.instance.m_units.m_buffer[unitID];
+                        bool isParent = containingUnit.m_citizen0 == citizenID || containingUnit.m_citizen1 == citizenID;
+                        bool singleParent = isParent && (containingUnit.m_citizen0 == 0 || containingUnit.m_citizen1 == 0);
+                        bool hasChild = containingUnit.m_citizen2 != 0 || containingUnit.m_citizen3 != 0 || containingUnit.m_citizen4 != 0;
+
+                        // Spare single parents with children, as orphan households end up in simulation purgatory.
+                        if (singleParent && hasChild)
                         {
-                            Debugging.WriteToLog(Debugging.DeathLogName, "Citizen died at age: " + data.Age + " (" + (int)(data.Age / 3.5) + " years old).");
+                            if (Debugging.UseDeathLog)
+                            {
+                                Debugging.WriteToLog(Debugging.DeathLogName, "Spared citzen " + citizenID + " at age " + data.Age + " (" + (int)(data.Age / 3.5) + " years old) with family " + containingUnit.m_citizen0 + "," + containingUnit.m_citizen1 + "," + containingUnit.m_citizen2 + "," + containingUnit.m_citizen3 + "," + containingUnit.m_citizen4);
+                            }
                         }
-
-                        // Reverse redirect to access private method Die().
-                        DieRev(__instance, citizenID, ref data);
-
-                        // Chance for 'vanishing corpse' (no need for deathcare).
-                        if (!AIUtils.KeepCorpse())
+                        else
                         {
-                            Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
-                            return true;
+                            // Not a single parent - no escape from the grim reaper!
+                            if (Debugging.UseDeathLog)
+                            {
+                                Debugging.WriteToLog(Debugging.DeathLogName, "Killed citzen " + citizenID + " at age " + data.Age + " (" + (int)(data.Age / 3.5) + " years old) with family " + containingUnit.m_citizen0 + "," + containingUnit.m_citizen1 + "," + containingUnit.m_citizen2 + "," + containingUnit.m_citizen3 + "," + containingUnit.m_citizen4);
+                            }
+
+                            // Reverse redirect to access private method Die().
+                            DieRev(__instance, citizenID, ref data);
+
+                            // Chance for 'vanishing corpse' (no need for deathcare).
+                            if (!AIUtils.KeepCorpse())
+                            {
+                                Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
+                                return true;
+                            }
                         }
                     }
                 }
