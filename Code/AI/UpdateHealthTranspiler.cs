@@ -2,7 +2,6 @@
 using System.Reflection.Emit;
 using System.Linq;
 using HarmonyLib;
-using System.Text;
 
 
 namespace LifecycleRebalance
@@ -50,20 +49,7 @@ namespace LifecycleRebalance
                     // The following instruction is a call to ColossalFramework.Math.Randomizer; we keep the call and replace the operand with our own KeepCorpse method.
                     codes[i + cutCount + 1].operand = AccessTools.Method(typeof(AIUtils), "KeepCorpse");
 
-                    StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: ResidentAI.Die transpiler removing CIL (offset ");
-                    logMessage.Append(cutCount);
-                    logMessage.Append(") from ");
-                    logMessage.Append(i);
-                    logMessage.Append(" (");
-                    logMessage.Append(codes[i].opcode);
-                    logMessage.Append(" ");
-                    logMessage.Append(codes[i].operand);
-                    logMessage.Append(" to ");
-                    logMessage.Append(codes[i + cutCount].opcode);
-                    logMessage.Append(" ");
-                    logMessage.Append(codes[i + cutCount].operand);
-                    logMessage.AppendLine(")");
-                    Debugging.Message(logMessage.ToString());
+                    Debugging.Message("ResidentAI.Die transpiler removing CIL (offset", cutCount.ToString(), ") from ", i.ToString(), " (", codes[i].opcode.ToString(), " ", codes[i].operand.ToString(), " to ", codes[i + cutCount].opcode.ToString(), ")"); ;
 
                     // Remove the CIL from the ldarg.0 to the throw (inclusive).
                     // +1 to avoid fencepost error (need to include original instruction as well).

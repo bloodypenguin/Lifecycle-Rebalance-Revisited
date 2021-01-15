@@ -234,7 +234,7 @@ namespace LifecycleRebalance
             // Only log messages when the retirement age changes.
             if (retirementAge != oldRetirementAge)
             {
-                Debugging.Message("retirement age set to " + retirementAge);
+                Debugging.Message("retirement age set to ", retirementAge.ToString());
             }
         }
 

@@ -61,9 +61,23 @@ namespace LifecycleRebalance
         /// Prints a single-line debugging message to the Unity output log.
         /// </summary>
         /// <param name="message">Message to log</param>
-        internal static void Message(string message)
+        internal static void Message(params string[] messages)
         {
-            Debug.Log(LifecycleRebalance.ModName + ": " + message + ".");
+            // Use StringBuilder for efficiency since we're doing a lot of manipulation here.
+            // Start with mod name (to easily identify relevant messages), followed by colon to indicate start of actual message.
+            StringBuilder message = new StringBuilder(LifecycleRebalance.ModName);
+            message.Append(": ");
+
+            // Add each message parameter.
+            for (int i = 0; i < messages.Length; ++i)
+            {
+                message.Append(messages[i]);
+            }
+
+            // Terminating period to confirm end of messaage..
+            message.Append(".");
+
+            Debug.Log(message);
         }
 
 

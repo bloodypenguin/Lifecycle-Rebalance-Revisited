@@ -117,7 +117,7 @@ namespace LifecycleRebalance
         /// </summary>
         public void UpdateUILanguage()
         {
-            Debugging.Message("setting language to " + (currentIndex < 0 ? "system" : languages.Values[currentIndex].uniqueName));
+            Debugging.Message("setting language to ", currentIndex < 0 ? "system" : languages.Values[currentIndex].uniqueName);
 
             // UI update code goes here.
 
@@ -198,7 +198,7 @@ namespace LifecycleRebalance
                 }
                 else
                 {
-                    Debugging.Message("no translation for language " + currentLanguage.uniqueName + " found for key " + key);
+                    Debugging.Message("no translation for language ", currentLanguage.uniqueName, " found for key " + key);
 
                     // Attempt fallack translation.
                     return FallbackTranslation(currentLanguage.uniqueName, key);
@@ -206,7 +206,7 @@ namespace LifecycleRebalance
             }
             else
             {
-                Debugging.Message("no current language when translating key " + key);
+                Debugging.Message("no current language when translating key ", key);
             }
 
             // If we've made it this far, something went wrong; just return the key.
@@ -380,7 +380,7 @@ namespace LifecycleRebalance
                             }
                             else
                             {
-                                Debugging.Message("couldn't deserialize translation file '" + translationFile);
+                                Debugging.Message("couldn't deserialize translation file '", translationFile);
                             }
                         }
                     }

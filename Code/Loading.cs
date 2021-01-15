@@ -61,7 +61,7 @@ namespace LifecycleRebalance
                     return;
                 }
 
-                Debugging.Message("v" + LifecycleRebalance.Version + " loading");
+                Debugging.Message("v", LifecycleRebalance.Version, " loading");
 
                 // Wait for Harmony if it hasn't already happened.
                 if (!Patcher.patched)
@@ -124,7 +124,7 @@ namespace LifecycleRebalance
                 CalculateSicknessProbabilities();
 
                 // Report status and any debugging messages.
-                Debugging.Message("death logging " + (Debugging.UseDeathLog ? "enabled" : "disabled") + ", immigration logging " + (Debugging.UseImmigrationLog ? "enabled" : "disabled") + ", transportation logging " + (Debugging.UseTransportLog ? "enabled" : "disabled"));
+                Debugging.Message("death logging ", Debugging.UseDeathLog ? "enabled" : "disabled", ", immigration logging ", Debugging.UseImmigrationLog ? "enabled" : "disabled", ", transportation logging ", Debugging.UseTransportLog ? "enabled" : "disabled");
                 Debugging.ReleaseBuffer();
 
                 // Prime Threading.counter to continue from frame index.
@@ -203,7 +203,7 @@ namespace LifecycleRebalance
             }
             else
             {
-                Debugging.Message("configuration file not found. Will output new file to : " + currentFileLocation);
+                Debugging.Message("configuration file not found. Will output new file to : ", currentFileLocation);
             }
         }
 

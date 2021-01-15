@@ -98,7 +98,7 @@ namespace LifecycleRebalance
                     throw new UnassignedReferenceException(message);
                 }
 
-                Debugging.Message("patching " + originalMethod.Name);
+                Debugging.Message("patching ", originalMethod.Name);
                 harmonyInstance.Patch(originalMethod, prefix: new HarmonyMethod(patchMethod));
             }
         }
@@ -114,7 +114,7 @@ namespace LifecycleRebalance
             // Check if the patch is installed before proceeding.
             if (IsPrefixInstalled(originalMethod))
             {
-                Debugging.Message("removing patch from " + originalMethod.Name);
+                Debugging.Message("removing patch from ", originalMethod.Name);
                 harmonyInstance.Unpatch(originalMethod, patchMethod);
             }
         }

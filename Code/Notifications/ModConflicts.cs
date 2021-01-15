@@ -60,7 +60,7 @@ namespace LifecycleRebalance
                 ErrorNotification.headerText = Translations.Translate("LBR_CON");
                 notification.Show();
 
-                Debugging.Message("incompatible " + conflictName + " mod detected.  Shutting down");
+                Debugging.Message("incompatible ", conflictName, " mod detected.  Shutting down");
             }
 
             return conflictDetected;
@@ -107,7 +107,7 @@ namespace LifecycleRebalance
                 {
                     if (assembly.GetName().Name.ToLower().Equals(assemblyNameLower))
                     {
-                        Debugging.Message("found mod assembly " + assemblyName);
+                        Debugging.Message("found mod assembly ", assemblyName);
                         if (enabledOnly)
                         {
                             return plugin.isEnabled;

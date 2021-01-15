@@ -39,7 +39,7 @@ namespace LifecycleRebalance
                 OptionsPanel.settings.LogDeaths = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debugging.Message("death logging " + (OptionsPanel.settings.LogDeaths ? "enabled" : "disabled"));
+                Debugging.Message("death logging ", OptionsPanel.settings.LogDeaths ? "enabled" : "disabled");
             };
 
             UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGI"));
@@ -53,7 +53,7 @@ namespace LifecycleRebalance
                 OptionsPanel.settings.LogImmigrants = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debugging.Message("immigrant logging " + (OptionsPanel.settings.LogImmigrants ? "enabled" : "disabled"));
+                Debugging.Message("immigrant logging ", OptionsPanel.settings.LogImmigrants ? "enabled" : "disabled");
             };
 
             UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGT"));
@@ -67,7 +67,7 @@ namespace LifecycleRebalance
                 OptionsPanel.settings.LogTransport = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debugging.Message("transport choices logging " + (OptionsPanel.settings.LogTransport ? "enabled" : "disabled"));
+                Debugging.Message("transport choices logging ", OptionsPanel.settings.LogTransport ? "enabled" : "disabled");
             };
 
             UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGS"));
@@ -81,7 +81,7 @@ namespace LifecycleRebalance
                 OptionsPanel.settings.LogSickness = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debugging.Message("sickness logging " + (OptionsPanel.settings.LogSickness ? "enabled" : "disabled"));
+                Debugging.Message("sickness logging ", OptionsPanel.settings.LogSickness ? "enabled" : "disabled");
             };
         }
     }

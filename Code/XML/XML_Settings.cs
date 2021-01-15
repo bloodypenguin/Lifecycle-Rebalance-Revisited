@@ -67,7 +67,7 @@ namespace LifecycleRebalance
             }
             else
             {
-                Debugging.Message("ConfigurationPath attribute missing in " + typeof(C).Name);
+                Debugging.Message("ConfigurationPath attribute missing in ", typeof(C).Name);
                 return typeof(C).Name + ".xml";
             }
         }

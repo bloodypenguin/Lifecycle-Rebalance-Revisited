@@ -1,4 +1,5 @@
 ﻿- Spare single parents from early death (at least until the kids move out), to help prevent orphan households
+- Adjust debugging method call
 
 
 Version 1.5.1
