@@ -36,9 +36,9 @@ namespace LifecycleRebalance
             // Original method return value.
             __result = AIUtils.cacheArray[DataStore.CAR];
 
-            if (Debugging.UseTransportLog)
+            if (Logging.UseTransportLog)
             {
-                Debugging.WriteToLog(Debugging.TransportLogName, citizen.WealthLevel + "-wealth " + ageGroup + " has " + __result + "% chance of driving.");
+                Logging.WriteToLog(Logging.TransportLogName, citizen.WealthLevel.ToString(), "-wealth ", ageGroup.ToString(), " has ", __result + "% chance of driving");
             }
 
             // Don't execute base method after this.
@@ -61,9 +61,9 @@ namespace LifecycleRebalance
             // Array cache has already been set when GetCarProbability was called.
             __result = (AIUtils.cacheArray[DataStore.BIKE] + bike);
 
-            if (Debugging.UseTransportLog)
+            if (Logging.UseTransportLog)
             {
-                Debugging.WriteToLog(Debugging.TransportLogName, "The same " + ageGroup + " has " + __result + "% chance of cycling.");
+                Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup.ToString(), " has ", __result.ToString(), "% chance of cycling");
             }
 
             // Don't execute base method after this.
@@ -84,9 +84,9 @@ namespace LifecycleRebalance
             // Array cache has already been set when GetCarProbability was called.
             __result = AIUtils.cacheArray[DataStore.TAXI];
 
-            if (Debugging.UseTransportLog)
+            if (Logging.UseTransportLog)
             {
-                Debugging.WriteToLog(Debugging.TransportLogName, "The same " + ageGroup + " has " + __result + "% chance of using a taxi.");
+                Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup.ToString(), " has ", __result.ToString(), "% chance of using a taxi");
             }
 
             // Don't execute base method after this.

@@ -32,7 +32,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception creating update notification");
             }
         }
 
@@ -70,7 +70,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception setting up update notification");
             }
         }
     }

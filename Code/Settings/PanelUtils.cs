@@ -326,7 +326,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception saving XML configuation file");
             }
         }
 

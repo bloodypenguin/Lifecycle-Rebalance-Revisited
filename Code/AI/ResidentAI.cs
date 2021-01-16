@@ -134,9 +134,9 @@ namespace LifecycleRebalance
                             // Make people sick, if they're unlucky.
                             data.Sick = true;
 
-                            if (Debugging.UseSicknessLog)
+                            if (Logging.UseSicknessLog)
                             {
-                                Debugging.WriteToLog(Debugging.SicknessLogName, "Citizen became sick with chance factor " + DataStore.sicknessProbCalc[index] + ".");
+                                Logging.WriteToLog(Logging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.sicknessProbCalc[index].ToString());
                             }
                         }
                     }
@@ -154,17 +154,17 @@ namespace LifecycleRebalance
                         // Spare single parents with children, as orphan households end up in simulation purgatory.
                         if (singleParent && hasChild)
                         {
-                            if (Debugging.UseDeathLog)
+                            if (Logging.UseDeathLog)
                             {
-                                Debugging.WriteToLog(Debugging.DeathLogName, "Spared citzen " + citizenID + " at age " + data.Age + " (" + (int)(data.Age / 3.5) + " years old) with family " + containingUnit.m_citizen0 + "," + containingUnit.m_citizen1 + "," + containingUnit.m_citizen2 + "," + containingUnit.m_citizen3 + "," + containingUnit.m_citizen4);
+                                Logging.WriteToLog(Logging.DeathLogName, "Spared citzen ", citizenID.ToString(), " at age ", data.Age.ToString()," (", ((int)(data.Age / 3.5)).ToString(), " years old) with family ", containingUnit.m_citizen0.ToString(), ", " + containingUnit.m_citizen1.ToString(), ", " + containingUnit.m_citizen2.ToString(), ", ", containingUnit.m_citizen3.ToString(), ", ", containingUnit.m_citizen4.ToString());
                             }
                         }
                         else
                         {
                             // Not a single parent - no escape from the grim reaper!
-                            if (Debugging.UseDeathLog)
+                            if (Logging.UseDeathLog)
                             {
-                                Debugging.WriteToLog(Debugging.DeathLogName, "Killed citzen " + citizenID + " at age " + data.Age + " (" + (int)(data.Age / 3.5) + " years old) with family " + containingUnit.m_citizen0 + "," + containingUnit.m_citizen1 + "," + containingUnit.m_citizen2 + "," + containingUnit.m_citizen3 + "," + containingUnit.m_citizen4);
+                                Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID.ToString(), " at age ", data.Age.ToString(), " (", ((int)(data.Age / 3.5)).ToString(), " years old) with family ", containingUnit.m_citizen0.ToString(), ", " + containingUnit.m_citizen1.ToString(), ", " + containingUnit.m_citizen2.ToString(), ", ", containingUnit.m_citizen3.ToString(), ", ", containingUnit.m_citizen4.ToString());
                             }
 
                             // Reverse redirect to access private method Die().
@@ -201,7 +201,7 @@ namespace LifecycleRebalance
         public static void FinishSchoolOrWorkRev(object instance, uint citizenID, ref Citizen data)
         {
             string message = "FinishSchoolOrWork reverse Harmony patch wasn't applied";
-            Debugging.Message(message);
+            Logging.Message(message);
             throw new NotImplementedException(message);
         }
 
@@ -218,7 +218,7 @@ namespace LifecycleRebalance
         public static void DieRev(object instance, uint citizenID, ref Citizen data)
         {
             string message = "Die reverse Harmony patch wasn't applied";
-            Debugging.Message(message);
+            Logging.Message(message);
             throw new NotImplementedException(message);
         }
     }

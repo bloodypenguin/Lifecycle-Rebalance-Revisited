@@ -38,7 +38,7 @@ namespace LifecycleRebalance
         /// <returns>Replacement ILCode</returns>
         public static IEnumerable<CodeInstruction> Transpiler(MethodBase original, IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-           Debugging.Message("starting StartConnectionTransferImpl transpiler");
+           Logging.Message("starting StartConnectionTransferImpl transpiler");
 
             // Local variables used by the patch.
             // These need to be set up prior to the i loop that the patch goes into.
@@ -118,7 +118,7 @@ namespace LifecycleRebalance
                 yield return instructionsEnumerator.Current;
             }
 
-           Debugging.Message("StartConnectionTransferImpl transpiler completed");
+           Logging.Message("StartConnectionTransferImpl transpiler completed");
         }
 
 
@@ -228,9 +228,9 @@ namespace LifecycleRebalance
 
 
             // Write to immigration log if that option is selected.
-            if (Debugging.UseImmigrationLog)
+            if (Logging.UseImmigrationLog)
             {
-                Debugging.WriteToLog(Debugging.ImmigrationLogName, "Family member " + i + " immigrating with age " + resultAge + " (" + (int)(resultAge / 3.5) + " years old) and education level " + education + ".");
+                Logging.WriteToLog(Logging.ImmigrationLogName, "Family member ", i.ToString(), " immigrating with age ", resultAge.ToString(), " (" + (int)(resultAge / 3.5), " years old) and education level ", education.ToString());
             }
         }
 

@@ -33,13 +33,13 @@ namespace LifecycleRebalance
             deathCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
-                Debugging.UseDeathLog = isChecked;
+                Logging.UseDeathLog = isChecked;
 
                 // Update configuration file.
                 OptionsPanel.settings.LogDeaths = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debugging.Message("death logging ", OptionsPanel.settings.LogDeaths ? "enabled" : "disabled");
+                Logging.Message("death logging ", OptionsPanel.settings.LogDeaths ? "enabled" : "disabled");
             };
 
             UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGI"));
@@ -47,13 +47,13 @@ namespace LifecycleRebalance
             immigrantCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
-                Debugging.UseImmigrationLog = isChecked;
+                Logging.UseImmigrationLog = isChecked;
 
                 // Update configuration file.
                 OptionsPanel.settings.LogImmigrants = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debugging.Message("immigrant logging ", OptionsPanel.settings.LogImmigrants ? "enabled" : "disabled");
+                Logging.Message("immigrant logging ", OptionsPanel.settings.LogImmigrants ? "enabled" : "disabled");
             };
 
             UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGT"));
@@ -61,13 +61,13 @@ namespace LifecycleRebalance
             transportCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
-                Debugging.UseTransportLog = isChecked;
+                Logging.UseTransportLog = isChecked;
 
                 // Update configuration file.
                 OptionsPanel.settings.LogTransport = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debugging.Message("transport choices logging ", OptionsPanel.settings.LogTransport ? "enabled" : "disabled");
+                Logging.Message("transport choices logging ", OptionsPanel.settings.LogTransport ? "enabled" : "disabled");
             };
 
             UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGS"));
@@ -75,13 +75,13 @@ namespace LifecycleRebalance
             sicknessCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
-                Debugging.UseSicknessLog = isChecked;
+                Logging.UseSicknessLog = isChecked;
 
                 // Update configuration file.
                 OptionsPanel.settings.LogSickness = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Debugging.Message("sickness logging ", OptionsPanel.settings.LogSickness ? "enabled" : "disabled");
+                Logging.Message("sickness logging ", OptionsPanel.settings.LogSickness ? "enabled" : "disabled");
             };
         }
     }

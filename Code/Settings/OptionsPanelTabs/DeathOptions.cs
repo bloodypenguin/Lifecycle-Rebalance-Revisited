@@ -41,7 +41,7 @@ namespace LifecycleRebalance
             {
                 // Update mod settings - inverted value (see above).
                 DataStore.autoDeadRemovalChance = 100 - (int)vanishingStiffs.value;
-                Debugging.Message("autoDeadRemovalChance set to: ", DataStore.autoDeadRemovalChance.ToString());
+                Logging.Message("autoDeadRemovalChance set to: ", DataStore.autoDeadRemovalChance.ToString());
 
                 // Update WG configuration file.
                 PanelUtils.SaveXML();

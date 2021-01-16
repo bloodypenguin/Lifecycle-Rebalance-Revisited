@@ -234,7 +234,7 @@ namespace LifecycleRebalance
             // Only log messages when the retirement age changes.
             if (retirementAge != oldRetirementAge)
             {
-                Debugging.Message("retirement age set to ", retirementAge.ToString());
+                Logging.Message("retirement age set to ", retirementAge.ToString());
             }
         }
 
@@ -267,7 +267,7 @@ namespace LifecycleRebalance
                 }
                 logMessage.AppendLine(i + ": " + DataStore.survivalProbInXML[i] + " = " + DataStore.survivalProbCalc[i]);
             }
-            Debugging.Message(logMessage.ToString());
+            Logging.Message(logMessage.ToString());
         }
     }
 }

@@ -39,13 +39,13 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception creating error notification");
             }
         }
 
 
         /// <summary>
-        /// Create the update notification panel; called by Unity just before any of the Update methods is called for the first time.
+        /// Create the error notification panel; called by Unity just before any of the Update methods is called for the first time.
         /// </summary>
         public override void Start()
         {
@@ -93,7 +93,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception setting up error notification");
             }
         }
 

@@ -45,7 +45,7 @@ namespace LifecycleRebalance
             // Don't do anything if not in game.
             if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
             {
-                Debugging.Message("not loading into game; exiting");
+                Logging.KeyMessage("not loading into game; exiting");
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace LifecycleRebalance
                     return;
                 }
 
-                Debugging.Message("v", LifecycleRebalance.Version, " loading");
+                Logging.KeyMessage("v", LifecycleRebalance.Version, " loading");
 
                 // Wait for Harmony if it hasn't already happened.
                 if (!Patcher.patched)
@@ -71,7 +71,7 @@ namespace LifecycleRebalance
 
                     try
                     {
-                        Debugging.Message("waiting for Harmony");
+                        Logging.Message("waiting for Harmony");
                         while (!Patcher.patched)
                         {
                             if (CitiesHarmony.API.HarmonyHelper.IsHarmonyInstalled)
@@ -89,8 +89,7 @@ namespace LifecycleRebalance
                     }
                     catch (Exception e)
                     {
-                        Debugging.Message("Harmony loading exception");
-                        Debugging.LogException(e);
+                        Logging.LogException(e, "Harmony loading exception");
 
                         // Show error notification to user.
                         ErrorNotification notification = new ErrorNotification();
@@ -102,7 +101,7 @@ namespace LifecycleRebalance
                     }
                 }
 
-                Debugging.Message("Harmony ready, proceeding");
+                Logging.Message("Harmony ready, proceeding");
 
                 // Set flag.
                 isModCreated = true;
@@ -115,17 +114,16 @@ namespace LifecycleRebalance
                 ModSettings.RetirementYear = settingsFile.RetirementYear;
                 ModSettings.UseTransportModes = settingsFile.UseTransportModes;
                 ModSettings.randomImmigrantEd = settingsFile.RandomImmigrantEd;
-                Debugging.UseDeathLog = settingsFile.LogDeaths;
-                Debugging.UseImmigrationLog = settingsFile.LogImmigrants;
-                Debugging.UseTransportLog = settingsFile.LogTransport;
-                Debugging.UseSicknessLog = settingsFile.LogSickness;
+                Logging.UseDeathLog = settingsFile.LogDeaths;
+                Logging.UseImmigrationLog = settingsFile.LogImmigrants;
+                Logging.UseTransportLog = settingsFile.LogTransport;
+                Logging.UseSicknessLog = settingsFile.LogSickness;
 
                 // Apply sickness probabilities.
                 CalculateSicknessProbabilities();
 
-                // Report status and any debugging messages.
-                Debugging.Message("death logging ", Debugging.UseDeathLog ? "enabled" : "disabled", ", immigration logging ", Debugging.UseImmigrationLog ? "enabled" : "disabled", ", transportation logging ", Debugging.UseTransportLog ? "enabled" : "disabled");
-                Debugging.ReleaseBuffer();
+                // Report status.
+                Logging.Message("death logging ", Logging.UseDeathLog ? "enabled" : "disabled", ", immigration logging ", Logging.UseImmigrationLog ? "enabled" : "disabled", ", transportation logging ", Logging.UseTransportLog ? "enabled" : "disabled");
 
                 // Prime Threading.counter to continue from frame index.
                 int temp = (int)(Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
@@ -137,13 +135,13 @@ namespace LifecycleRebalance
                 }
                 catch (Exception e)
                 {
-                    Debugging.LogException(e);
+                    Logging.LogException(e, "XML configuration file error");
                 }
 
                 // Set up options panel event handler.
                 OptionsPanel.OptionsEventHook();
 
-                Debugging.Message("successfully loaded");
+                Logging.KeyMessage("successfully loaded");
 
                 // Check if we need to display update notification.
                 if (settingsFile.NotificationVersion != 4)
@@ -180,15 +178,11 @@ namespace LifecycleRebalance
 
                         // Make a back up copy of the old system to be safe
                         File.Copy(currentFileLocation, currentFileLocation + ".ver1", true);
-                        string error = "Detected an old version of the XML (v1). " + currentFileLocation + ".ver1 has been created for future reference and will be upgraded to the new version.";
-                        Debugging.bufferWarning(error);
-                        Debugging.Message(error);
+                        Logging.Message("Detected an old version of the XML (v1). ", currentFileLocation, ".ver1 has been created for future reference and will be upgraded to the new version");
                     }
                     else if (version <= 0) // Uh oh... version 0 was a while back..
                     {
-                        string error = "Detected an unsupported version of the XML (v0 or less). Backing up for a new configuration as :" + currentFileLocation + ".ver0";
-                        Debugging.bufferWarning(error);
-                        Debugging.Message(error);
+                        Logging.Message("Detected an unsupported version of the XML (v0 or less). Backing up for a new configuration as :", currentFileLocation,".ver0");
                         File.Copy(currentFileLocation, currentFileLocation + ".ver0", true);
                         return;
                     }
@@ -197,13 +191,12 @@ namespace LifecycleRebalance
                 catch (Exception e)
                 {
                     // Game will now use defaults
-                    Debugging.bufferWarning("The following exception(s) were detected while loading the XML file. Some (or all) values may not be loaded.");
-                    Debugging.bufferWarning(e.Message);
+                    Logging.LogException(e, "exception while loading the XML file. Some (or all) values may not be loaded");
                 }
             }
             else
             {
-                Debugging.Message("configuration file not found. Will output new file to : ", currentFileLocation);
+                Logging.Message("configuration file not found. Will output new file to : ", currentFileLocation);
             }
         }
 
@@ -222,7 +215,7 @@ namespace LifecycleRebalance
                 DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) * ModSettings.decadeFactor));
                 logMessage.AppendLine(i + ": " + DataStore.sicknessProbInXML[i] + " : " + DataStore.sicknessProbCalc[i] + " : " + (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25)));
             }
-            Debugging.Message(logMessage.ToString());
+            Logging.Message(logMessage.ToString());
         }
     }
 }

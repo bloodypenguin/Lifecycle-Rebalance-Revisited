@@ -46,7 +46,7 @@ namespace LifecycleRebalance
             // Don't do anything if already patched.
             if (!patched)
             {
-                Debugging.Message("deploying Harmony patches");
+                Logging.Message("deploying Harmony patches");
 
                 // Apply all annotated patches and update flag.
                 Harmony harmonyInstance = new Harmony(harmonyID);
@@ -64,7 +64,7 @@ namespace LifecycleRebalance
             // Only unapply if patches appplied.
             if (patched)
             {
-                Debugging.Message("reverting Harmony patches");
+                Logging.Message("reverting Harmony patches");
 
                 // Unapply patches, but only with our HarmonyID.
                 Harmony harmonyInstance = new Harmony(harmonyID);
@@ -87,18 +87,18 @@ namespace LifecycleRebalance
                 if (originalMethod == null)
                 {
                     string message = "null original method passed for patching";
-                    Debugging.Message(message);
+                    Logging.Error(message);
                     throw new UnassignedReferenceException(message);
                 }
 
                 if (patchMethod == null)
                 {
                     string message = "null patch method passed for patching";
-                    Debugging.Message(message);
+                    Logging.Error(message);
                     throw new UnassignedReferenceException(message);
                 }
 
-                Debugging.Message("patching ", originalMethod.Name);
+                Logging.Message("patching ", originalMethod.Name);
                 harmonyInstance.Patch(originalMethod, prefix: new HarmonyMethod(patchMethod));
             }
         }
@@ -114,7 +114,7 @@ namespace LifecycleRebalance
             // Check if the patch is installed before proceeding.
             if (IsPrefixInstalled(originalMethod))
             {
-                Debugging.Message("removing patch from ", originalMethod.Name);
+                Logging.Message("removing patch from ", originalMethod.Name);
                 harmonyInstance.Unpatch(originalMethod, patchMethod);
             }
         }

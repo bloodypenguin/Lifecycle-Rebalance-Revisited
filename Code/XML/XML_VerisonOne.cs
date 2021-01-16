@@ -84,7 +84,7 @@ namespace LifecycleRebalance
                 }
                 else
                 {
-                    Debugging.bufferWarning("Unknown immigration node");
+                    Logging.Message("Unknown immigration node");
                 }
 
                 try
@@ -94,7 +94,7 @@ namespace LifecycleRebalance
                 }
                 catch (Exception e)
                 {
-                    Debugging.bufferWarning("readImmigrateNode: " + e.Message);
+                    Logging.LogException(e, "readImmigrateNode exception");
                 }
             }
         }
@@ -108,13 +108,13 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debugging.bufferWarning("lifespan multiplier was not an integer: " + e.Message + ". Setting to 3");
+                Logging.Error("lifespan multiplier was not an integer: ", e.Message, ". Setting to 3");
                 DataStore.lifeSpanMultiplier = 3;
             }
 
             if (DataStore.lifeSpanMultiplier <= 0)
             {
-                Debugging.bufferWarning("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 3");
+                Logging.Error("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 3");
                 DataStore.lifeSpanMultiplier = 3;
             }
 
@@ -145,7 +145,7 @@ namespace LifecycleRebalance
                     }
                     catch (Exception e)
                     {
-                        Debugging.bufferWarning(e.Message);
+                        Logging.LogException(e, "exception deserializing SurvivalNode");
                     }
                 }
             }
@@ -165,7 +165,7 @@ namespace LifecycleRebalance
                     }
                     catch (Exception e)
                     {
-                        Debugging.bufferWarning(e.Message);
+                        Logging.LogException(e, "exception deserializing SicknessNode");
                     }
                 }
             }
@@ -208,7 +208,7 @@ namespace LifecycleRebalance
                 }
                 catch (Exception e)
                 {
-                    Debugging.LogException(e);
+                    Logging.LogException(e, "exception backing up configuration file");
                 }
             }
 
@@ -218,7 +218,7 @@ namespace LifecycleRebalance
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception writing configuration file");
                 return false;  // Only time when we say there's an error
             }
 
@@ -430,7 +430,7 @@ namespace LifecycleRebalance
                         array = DataStore.wealth_high;
                         break;
                     default:
-                        Debugging.bufferWarning("readWealthNode. unknown element name: " + name);
+                        Logging.Error("readWealthNode. unknown element name: " + name);
                         return;
                 }
 
@@ -482,7 +482,7 @@ namespace LifecycleRebalance
                 }
                 catch (Exception e)
                 {
-                    Debugging.bufferWarning("readAgeNode: " + e.Message);
+                    Logging.LogException(e, "readAgeNode exception");
                 }  
             } // end foreach
         }
