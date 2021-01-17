@@ -46,7 +46,7 @@ namespace LifecycleRebalance
             // Don't do anything if already patched.
             if (!patched)
             {
-                Logging.Message("deploying Harmony patches");
+                Logging.KeyMessage("deploying Harmony patches");
 
                 // Apply all annotated patches and update flag.
                 Harmony harmonyInstance = new Harmony(harmonyID);
@@ -64,7 +64,7 @@ namespace LifecycleRebalance
             // Only unapply if patches appplied.
             if (patched)
             {
-                Logging.Message("reverting Harmony patches");
+                Logging.KeyMessage("reverting Harmony patches");
 
                 // Unapply patches, but only with our HarmonyID.
                 Harmony harmonyInstance = new Harmony(harmonyID);

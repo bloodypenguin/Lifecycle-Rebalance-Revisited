@@ -59,7 +59,8 @@
     <Translation ID="LBR_ZRO" String="Set all to zero" />
     <Translation ID="TRN_CHOICE" String="Set language" />
     <Translation ID="TRN_SYS" String="Use system language" />
-    <Translation ID="LBR_NOT_CLO" String="Close" />
+    <Translation ID="MES_CLS" String="Close" />
+    <Translation ID="ES_DSA" String="Don't show again" />
     <Translation ID="LBR_CON" String="Mod conflict detected" />
     <Translation ID="LBR_CON_WGO" String="Original WG Citizen Lifecycle Rebalance mod detected - Lifecycle Rebalance Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time; please unsubscribe from WG Citizen Lifecycle Rebalance, which is now deprecated!" />
     <Translation ID="LBR_CON_PTR" String="The old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement." />
@@ -69,5 +70,12 @@
     <Translation ID="LBR_150_NT1" String="Transport mode choices can now be edited via the options panel, and eco and ordinary residential can have different mode choices" />
     <Translation ID="LBR_150_NT2" String="Education levels of people moving into your city can be modified" />
     <Translation ID="LBR_NOT_DSA" String="Don't show again" />
+    <Translation ID="LBR_ERR_FAT" String="This means that Lifecycle Rebalance Revisited is not able to operate properly and has shut down." />
+    <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited was unable to complete its required Harmony patches." />
+    <Translation ID="ERR_HAR0" String="Harmony patching error!" />
+    <Translation ID="ERR_HAR1" String="Possible causes of this problem include:" />
+    <Translation ID="ERR_HAR2" String="The required Harmony 2 mod dependency was not installed" />
+    <Translation ID="ERR_HAR3" String="An old and/or broken mod is preventing Harmony 2 from operating properly" />
+    <Translation ID="ERR_HAR4" String="Please refer to the mod's Steam Workshop page for further information." />
   </Translations>
 </Language>

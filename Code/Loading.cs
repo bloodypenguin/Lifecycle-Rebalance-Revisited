@@ -2,9 +2,9 @@
 using System.IO;
 using System.Xml;
 using System.Text;
-using UnityEngine;
 using ICities;
 using ColossalFramework;
+using LifecycleRebalance.MessageBox;
 
 
 namespace LifecycleRebalance
@@ -64,11 +64,11 @@ namespace LifecycleRebalance
                 Logging.KeyMessage("v", LifecycleRebalance.Version, " loading");
 
                 // Wait for Harmony if it hasn't already happened.
-                if (!Patcher.patched)
+                //if (!Patcher.patched)
                 {
                     // Set timeout counter, just in case.
                     DateTime startTime = DateTime.Now;
-
+                    
                     try
                     {
                         Logging.Message("waiting for Harmony");
@@ -91,13 +91,17 @@ namespace LifecycleRebalance
                     {
                         Logging.LogException(e, "Harmony loading exception");
 
-                        // Show error notification to user.
-                        ErrorNotification notification = new ErrorNotification();
-                        notification.Create();
-                        ErrorNotification.headerText = "Harmony loading error!";
-                        ErrorNotification.messageText = "Lifecycle Rebalance Revisited can't load properly because the required Harmony mod dependency didn't load.  In most cases, a simple game restart should be enough to fix this.\r\n\r\nIf this notification persists, please manually subscribe to the Harmony mod on the Steam workshop (if you're already subscribed, try unsubscribing and re-subscribing) and restart your game again.";
-                        notification.Show();
-                        return;
+                        // Harmony 2 wasn't loaded; display warning notification and exit.
+                        ListMessageBox harmonyBox = MessageBoxBase.ShowModal<ListMessageBox>();
+
+                        // Key text items.
+                        harmonyBox.AddParas(Translations.Translate("ERR_HAR0"), Translations.Translate("LBR_ERR_HAR"), Translations.Translate("LBR_ERR_FAT"), Translations.Translate("ERR_HAR1"));
+
+                        // List of dot points.
+                        harmonyBox.AddList(Translations.Translate("ERR_HAR2"), Translations.Translate("ERR_HAR3"));
+
+                        // Closing para.
+                        harmonyBox.AddParas(Translations.Translate("ERR_HAR4"));
                     }
                 }
 
