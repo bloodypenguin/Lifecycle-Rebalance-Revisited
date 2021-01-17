@@ -77,5 +77,9 @@
     <Translation ID="ERR_HAR2" String="The required Harmony 2 mod dependency was not installed" />
     <Translation ID="ERR_HAR3" String="An old and/or broken mod is preventing Harmony 2 from operating properly" />
     <Translation ID="ERR_HAR4" String="Please refer to the mod's Steam Workshop page for further information." />
+    <Translation ID="ERR_CON0" String="Mod conflict detected!" />
+    <Translation ID="ERR_CON1" String="The conflicting mods are:" />
+    <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited detected a conflict with at least one other mod." />
+    <Translation ID="LBR_ERR_CON1" String="These mods must be removed before Lifecycle Rebalance Revisited can operate." />
   </Translations>
 </Language>

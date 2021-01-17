@@ -14,14 +14,56 @@ namespace LifecycleRebalance
     /// </summary>
     public class Loading : LoadingExtensionBase
     {
-        public const String XML_FILE = "WG_CitizenEdit.xml";
-        public static SettingsFile settingsFile;
+        // Used to flag if a conflicting mod is running.
+        private static bool conflictingMod = false;
 
+        // Setttings file.
         // This can be with the local application directory, or the directory where the exe file exists.
         // Default location is the local application directory, however the exe directory is checked first.
+        public const String XML_FILE = "WG_CitizenEdit.xml";
+        public static SettingsFile settingsFile;
         public static string currentFileLocation = "";
+
+        // Status flags.
         public static volatile bool isModCreated = false;
-        
+        private static bool isModEnabled = false;
+
+
+        /// <summary>
+        /// Called by the game when the mod is initialised at the start of the loading process.
+        /// </summary>
+        /// <param name="loading">Loading mode (e.g. game, editor, scenario, etc.)</param>
+        public override void OnCreated(ILoading loading)
+        {
+            base.OnCreated(loading);
+
+            // Don't do anything if not in game (e.g. if we're going into an editor).
+            if (loading.currentMode != AppMode.Game)
+            {
+                isModEnabled = false;
+                Logging.KeyMessage("not loading into game, skipping activation");
+                return;
+            }
+
+            // Check for mod conflicts.
+            if (ModUtils.IsModConflict())
+            {
+                // Conflict detected.
+                conflictingMod = true;
+                isModEnabled = false;
+
+                // Unload Harmony patches and exit before doing anything further.
+                Patcher.UnpatchAll();
+                return;
+            }
+
+            // Passed all checks - okay to load (if we haven't already fo some reason).
+            if (!isModEnabled)
+            {
+                isModEnabled = true;
+                Logging.KeyMessage("v", LifecycleRebalance.Version, " loading");
+            }
+        }
 
         /// <summary>
         /// Called by the game when the mode is released.
@@ -42,27 +84,27 @@ namespace LifecycleRebalance
         /// <param name="mode">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnLevelLoaded(LoadMode mode)
         {
-            // Don't do anything if not in game.
-            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
+            base.OnLevelLoaded(mode);
+
+            // Check to see if a conflicting mod has been detected.
+            if (conflictingMod)
             {
-                Logging.KeyMessage("not loading into game; exiting");
-                return;
+                // Mod conflict detected - display warning notification and exit.
+                ListMessageBox modConflictBox = MessageBoxBase.ShowModal<ListMessageBox>();
+
+                // Key text items.
+                modConflictBox.AddParas(Translations.Translate("ERR_CON0"), Translations.Translate("LBR_ERR_FAT"), Translations.Translate("LBR_ERR_CON0"), Translations.Translate("ERR_CON1"));
+
+                // Add conflicting mod name(s).
+                modConflictBox.AddList(ModUtils.conflictingModNames.ToArray());
+
+                // Closing para.
+                modConflictBox.AddParas(Translations.Translate("LBR_ERR_CON1"));
             }
 
-            // Don't do anything if we've already been here.
-            if (!isModCreated)
+            // Don't do anything if we're not enabled or we've already been here.
+            if (isModEnabled && !isModCreated)
             {
-                // Check for mod conflicts.
-                ModConflicts modConflicts = new ModConflicts();
-                if (modConflicts.CheckConflicts())
-                {
-                    // Conflict detected.  Unpatch everything before exiting without doing anything further.
-                    Patcher.UnpatchAll();
-                    return;
-                }
-
-                Logging.KeyMessage("v", LifecycleRebalance.Version, " loading");
-
                 // Wait for Harmony if it hasn't already happened.
                 //if (!Patcher.patched)
                 {

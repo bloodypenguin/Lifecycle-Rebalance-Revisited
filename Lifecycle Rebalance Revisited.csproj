@@ -121,7 +121,6 @@
     <Compile Include="Code\AI\UpdateHealthTranspiler.cs" />
     <Compile Include="Code\Notifications\ListMessageBox.cs" />
     <Compile Include="Code\Notifications\MessageBoxBase.cs" />
-    <Compile Include="Code\Notifications\ModConflicts.cs" />
     <Compile Include="Code\Patcher.cs" />
     <Compile Include="Code\Notifications\ErrorNotification.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\DeathOptions.cs" />
@@ -135,6 +134,7 @@
     <Compile Include="Code\Settings\PanelUtils.cs" />
     <Compile Include="Code\Settings\Settings.cs" />
     <Compile Include="Code\Notifications\UpdateNotification.cs" />
+    <Compile Include="Code\Utils\ModUtils.cs" />
     <Compile Include="Code\Utils\UIControls.cs" />
     <Compile Include="Code\XML\XML_Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
