@@ -1,20 +1,9 @@
 ﻿using UnityEngine;
-using ICities;
 using ColossalFramework.UI;
 
 
 namespace LifecycleRebalance
 {
-    /// <summary>
-    /// UI textfield with an attached label.
-    /// </summary>
-    public class UILabelledTextfield
-    {
-        public UITextField textField;
-        public UILabel label;
-    }
-
-
     /// <summary>
     /// Static utilities class for creating UI controls.
     /// </summary>

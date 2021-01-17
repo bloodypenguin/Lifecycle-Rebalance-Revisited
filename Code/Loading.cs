@@ -143,7 +143,7 @@ namespace LifecycleRebalance
                         harmonyBox.AddList(Translations.Translate("ERR_HAR2"), Translations.Translate("ERR_HAR3"));
 
                         // Closing para.
-                        harmonyBox.AddParas(Translations.Translate("ERR_HAR4"));
+                        harmonyBox.AddParas(Translations.Translate("MES_PAGE"));
                     }
                 }
 

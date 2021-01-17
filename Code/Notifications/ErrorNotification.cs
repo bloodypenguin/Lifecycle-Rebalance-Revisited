@@ -80,7 +80,7 @@ namespace LifecycleRebalance
                 // Close button.
                 UIButton closeButton = CreateButton(this);
                 closeButton.relativePosition = new Vector3(spacing, this.height - closeButton.height - spacing);
-                closeButton.text = Translations.Translate("LBR_NOT_CLO");
+                closeButton.text = Translations.Translate("MES_CLS");
                 closeButton.Enable();
 
                 // Event handler.

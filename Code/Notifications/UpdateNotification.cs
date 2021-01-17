@@ -53,7 +53,7 @@ namespace LifecycleRebalance
                 // "Don't show again" button.
                 UIButton noShowButton = CreateButton(this);
                 noShowButton.relativePosition = new Vector3(this.width - noShowButton.width - spacing, this.height - noShowButton.height - spacing);
-                noShowButton.text = Translations.Translate("LBR_NOT_DSA");
+                noShowButton.text = Translations.Translate("MES_DSA");
                 noShowButton.Enable();
 
                 // Event handler.
