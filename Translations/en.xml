@@ -70,6 +70,10 @@
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited has been updated to version 1.5" />
     <Translation ID="LBR_150_NT1" String="Transport mode choices can now be edited via the options panel, and eco and ordinary residential can have different mode choices" />
     <Translation ID="LBR_150_NT2" String="Education levels of people moving into your city can be modified" />
+    <Translation ID="LBR_151_NT1" String="Adjust options panel layout for translations" />
+    <Translation ID="LBR_152_NT1" String="Single parents with underage children living at home will be spared from early death, to help prevent orphan households" />
+    <Translation ID="LBR_152_NT2" String="Improved mod conflict checking and notification" />
+    <Translation ID="LBR_152_NT3" String="Improved update notifications" />
     <Translation ID="LBR_NOT_DSA" String="Don't show again" />
     <Translation ID="LBR_ERR_FAT" String="This means that Lifecycle Rebalance Revisited is not able to operate properly and has shut down." />
     <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited was unable to complete its required Harmony patches." />

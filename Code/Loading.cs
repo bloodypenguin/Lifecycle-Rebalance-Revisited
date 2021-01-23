@@ -189,14 +189,8 @@ namespace LifecycleRebalance
 
                 Logging.KeyMessage("successfully loaded");
 
-                // Check if we need to display update notification.
-                if (settingsFile.NotificationVersion != 4)
-                {
-                    // No update notification "Don't show again" flag found; show the notification.
-                    UpdateNotification notification = new UpdateNotification();
-                    notification.Create();
-                    notification.Show();
-                }
+                // Display update notifications.
+                WhatsNew.ShowWhatsNew();
             }
         }
 

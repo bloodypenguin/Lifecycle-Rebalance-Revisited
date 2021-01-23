@@ -1,5 +1,6 @@
 ﻿- Spare single parents from early death (at least until the kids move out), to help prevent orphan households
 - Overhaul mod conflict checking and notification
+- Improve update notifications (thanks, macsergey!)
 - Overhaul Harmony error notification
 - Overhaul logging
 

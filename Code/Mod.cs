@@ -10,12 +10,17 @@ namespace LifecycleRebalance
     /// </summary>
     public class LifecycleRebalance : IUserMod
     {
-        public static string ModName => "Lifecycle Rebalance Revisited";
-        public static string Version => "1.5.1";
-
+        // Public mod name and description.
         public string Name => ModName + " " + Version;
-
         public string Description => Translations.Translate("LBR_DESC");
+
+
+        // Internal and private name and version components.
+        internal static string ModName => "Lifecycle Rebalance Revisited";
+        internal static string Version => BaseVersion + " " + Beta;
+        internal static string Beta => "BETA 1";
+        private static string BaseVersion => "1.5.2";
+
 
 
         /// <summary>
