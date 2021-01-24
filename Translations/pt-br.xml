@@ -61,10 +61,6 @@
     "<Translation ID="MES_CLS" String="Fechar" />
     "<Translation ID="MES_DSA" String="Não mostrar novamente." />
     "<Translation ID="LBR_CON" String="Conflito de mod detectado" />
-    "<Translation ID="LBR_CON_WGO" String="Mod original WG Citizen Lifecycle Rebalance detectado - Lifecycle Rebalance Revisited está desligando para proteger seu jogo. Apenas UM destes mods pode estar ativo, por favor anule a subscrição ao WG Citizen Lifecycle Rebalance, que foi descontinuado! " />
-    "<Translation ID="LBR_CON_PTR" String="O mod Painter causa conflitos com as bibliotecas do Harmony, que é utilizado neste mod, resultando em erros aleatórios. Por favor ANULE A SUBSCRIÇÃO de Painter (apenas desabilitá-lo NÃO é suficiente); o mod Repaint pode ser usado como substituto." />
-    "<Translation ID="LBR_CON_GBC" String="O mod Garbage Bin Controller causa conflitos com as bibliotecas do Harmony, que é utilizado neste mod, resultando em erros aleatórios. Por favor ANULE A SUBSCRIÇÃO de Garbage Bin Controller (apenas desabilitá-lo NÃO é suficiente); o mod Garbage Bin Manager pode ser usado como substituto." />
-    "<Translation ID="LBR_CON_BET" String="Lifecycle Rebalance Revisited: ambas as versões Beta e final detectadas. Lifecycle Rebalance Revisited está desligando para proteger o seu jogo. Por favor apenas subscreva a uma versão por vez." />
     "<Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited foi atualizado para a versão 1.5" />
     "<Translation ID="LBR_150_NT1" String="Escolhas de modo de transporte podem agora ser editadas no painel de opções, e residencial comum e eco podem assumir modos diferentes" />
     "<Translation ID="LBR_150_NT2" String="Níveis de educação de pessoas se mudando para a sua cidade podem ser modificados." />

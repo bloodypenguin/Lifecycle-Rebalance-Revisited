@@ -62,10 +62,6 @@
     "<Translation ID="MES_CLO" String="關閉" />
     "<Translation ID="MES_DSA" String="不再顯示" />
     "<Translation ID="LBR_CON" String="檢測到有模組衝突" />
-    "<Translation ID="LBR_CON_WGO" String="檢測到WG的生命週期平衡模組—為保障您的遊戲穩定，本生命週期再平衡模組將強制關閉。這兩個模組同時只能運行*一*個；請考慮取消訂閱現在已不受支援的WG生命週期平衡模組！" />
-    "<Translation ID="LBR_CON_PTR" String="舊板Painter模組與本模組使用的Harmony資料庫有衝突，或會造成隨機錯誤，請考慮取消訂閱（而不只是關閉）它；Repaint模組可取代其功能。" />
-    "<Translation ID="LBR_CON_GBC" String="Garbage Bin Controller模組與本模組使用的Harmony資料庫有衝突，或會造成隨機錯誤，請考慮取消訂閱（而不只是關閉）它；Garbage Bin Manager模組可取代其功能。" />
-    "<Translation ID="LBR_CON_BET" String="同時檢測到測試及正式版本的生命週期再平衡模組。為保障您的遊戲穩定，本生命週期再平衡模組將強制關閉。請只選擇其中一個版本進行訂閱。" />
     "<Translation ID="LBR_150_TIT" String="生命週期再平衡模組已被更新至版本1.5" />
     "<Translation ID="LBR_150_NT1" String="現可在選項板面修改運輸設定；環保及普通住宅現可有不同選項" />
     "<Translation ID="LBR_150_NT2" String="新移民受教育程度現可被修改" />

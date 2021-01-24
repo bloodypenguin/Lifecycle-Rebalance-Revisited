@@ -62,10 +62,6 @@
     <Translation ID="MES_CLS" String="閉じる" />
     <Translation ID="MES_DSA" String="今後は表示しない" />
     <Translation ID="LBR_CON" String="MODの競合を検出" />
-    <Translation ID="LBR_CON_WGO" String="WGオリジナルの Citizen Lifecycle Rebalance が検出されました。ゲーム保護のために Lifecycle Rebalance Revisited を終了します。両方のMODを同時使用はできません。もはや更新されていない WG Citizen Lifecycle Rebalance のサブスクライブを解除してください。" />
-    <Translation ID="LBR_CON_PTR" String="古い Painter mod は、Harmony ライブラリに影響し、ランダムエラーを招きます。 Painter のサブスクライブを解除してください (無効化するだけでは不十分です)。代わりに、 Repaint mod が使用できます。" />
-    <Translation ID="LBR_CON_GBC" String="古い Garbage Bin Controller mod は、Harmony ライブラリに影響し、ランダムエラーを招きます。 Painter のサブスクライブを解除してください (無効化するだけでは不十分です)。代わりに、 Garbage Bin Manager mod が使用できます。" />
-    <Translation ID="LBR_CON_BET" String="Lifecycle Rebalance Revisited：安定版とベータ版の双方が検出されました。ゲーム保護のために Lifecycle Rebalance Revisited を終了します。一方のみをサブスクライブしてください。" />
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited がバージョン1.5にアップデートされました。" />
     <Translation ID="LBR_150_NT1" String="交通手段の選択がオプションパネルから編集できるようになりました。自給自足型住宅区画と標準住宅区画に異なる交通手段を設定できます。" />
     <Translation ID="LBR_150_NT2" String="移民の教育レベルを編集できます。" />

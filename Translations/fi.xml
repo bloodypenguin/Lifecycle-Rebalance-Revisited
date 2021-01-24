@@ -62,10 +62,6 @@
     <Translation ID="MES_CLS" String="Sulje" />
     <Translation ID="MES_DSA" String="Älä näytä uudestaan" />
     <Translation ID="LBR_CON" String="Modikonflikti huomattu" />
-    <Translation ID="LBR_CON_WGO" String="Alkuperäinen WG Citizen Lifecycle Rebalance -modi huomattu. Uudistettu Elämänkaarien Tasapainotus sulkeutuu suojellakseen peliäsi. Vain YKSI näistä modeista voi olla käytössä samaan aikaan. Peruuta WG Citizen Lifecycle Rebalancen tilaus, modia ei enää tueta!" />
-    <Translation ID="LBR_CON_PTR" String="Vanha Painter-modi aiheuttaa ongelmia Harmony-kirjastojen kanssa joita tämä modi käyttää. Se aiheuttaa satunnaisia virheitä. Ole hyvä PERUUTA Painter-modin tilaus (vain käytöstä poistaminen ei auta!); voit käyttää Repaint-modia korvikkeena" />
-    <Translation ID="LBR_CON_GBC" String="Garbage Bin Controller -modi aiheuttaa ongelmia Harmony-kirjastojen kanssa joita tämä modi käyttää. Ole hyvä ja peruuta Garbage Bin Controller -modin tilaus (vain käytöstä poistaminen ei auta!); voit käytttää Garbage Bin Manager -modia korvikkeena." />
-    <Translation ID="LBR_CON_BET" String="Uudistettu Elämänkaarien Tasapainotus: sekä beta-, että tuotantoversiot käytössä. Uudistettu Elämänkaarien Tasapainotus sulkeutuu suojellakseen peliäsi. Tilaa vain yksi näistä modeista kerrallaan." />
     <Translation ID="LBR_150_TIT" String="Uudistettu Elämänkaarien Tasapainotus on päivitetty versioon 1.5" />
     <Translation ID="LBR_150_NT1" String="Voit nyt editoida liikkumismuotovaihtoehtoja options-paneelissa, ja asettaa erilaiset liikkumismuotovalinnat tavalliselle ja eko-asuinalueelle." />
     <Translation ID="LBR_150_NT2" String="Voit nyt muokata kaupunkiisi muuttavien ihmisten koulutustasoa" />
