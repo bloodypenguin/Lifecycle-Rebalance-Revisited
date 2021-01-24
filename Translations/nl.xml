@@ -59,7 +59,8 @@
     "<Translation ID="LBR_ZRO" String="Stel alle waarde in op nul" />
     "<Translation ID="TRN_CHOICE" String="Stel taal in" />
     "<Translation ID="TRN_SYS" String="Gebruik taalinstelling van je systeem" />
-    "<Translation ID="LBR_NOT_CLO" String="Sluiten" />
+    "<Translation ID="MES_CLS" String="Sluiten" />
+    "<Translation ID="MES_DSA" String="Niet meer tonen." />
     "<Translation ID="LBR_CON" String="Confliterende Mod gedetecteerd" />
     "<Translation ID="LBR_CON_WGO" String="Omdat het origineel WG Citizen Lifecyce Rebalance mod is gedecteerd sluiten we Levenscyclus in evenwicht Vernieuwd. Dit doen we om je spel te beschermen. Je kan maar 1 van deze mods tegelijk geactiveerd hebben. Meld je af voor WG Citizen Lifecycle Rebalance, deze wordt niet meer ondersteund." />
     "<Translation ID="LBR_CON_PTR" String="Je hebt de Painter Mod geinstalleerd. Deze veroorzaakt problemen met de Harmony Libraries, welke door Lifecycle Rebalance Reviseted wordt gebruikt. Je moet je afmelden van Painter, deactiveren van de mod alleen is niet voldoende. Ter vervangen van Painter kan je kiezen voor de Repaint mod via de Workshop. " />
@@ -68,6 +69,5 @@
     "<Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited is geactualiseerd naar versie 1.5" />
     "<Translation ID="LBR_150_NT1" String="Je kunt nu via opties, instellingen maken voor Tansport modus. Ook kun je nu voor eco en standaard woonwijken afzonderlijk verschillende modus instellen." />
     "<Translation ID="LBR_150_NT2" String="Je kan nu het opleidingsniveau van immigranten die naar je stad verhuizen instellen " />
-    "<Translation ID="LBR_NOT_DSA" String="Niet meer tonen." />
   </Translations>
 </Language>

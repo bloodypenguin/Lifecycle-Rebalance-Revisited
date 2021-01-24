@@ -58,7 +58,8 @@
     "<Translation ID="LBR_ZRO" String="全部设置为零" />
     "<Translation ID="TRN_CHOICE" String="设置语言" />
     "<Translation ID="TRN_SYS" String="使用系统语言" />
-    "<Translation ID="LBR_NOT_CLO" String="关闭" />
+    "<Translation ID="MES_CLO" String="关闭" />
+    "<Translation ID="MES_DSA" String="不再显示" />
     "<Translation ID="LBR_CON" String="检测到Mod冲突" />
     """<Translation ID="LBR_CON_WGO" String="检测到源MOD WG Citizen Lifecycle Rebalance mod - Lifecycle Rebalance 
 Revisited 将关闭来保护你的游戏。以上mod 只能同时运行一个，请从 WG Citizen Lifecycle Rebalance取消订阅" />"
@@ -69,6 +70,5 @@ Bin Manager mod可以作为替代品。" />"
     "<Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited 已更新到1.5版本" />
     "<Translation ID="LBR_150_NT1" String="交通模式的选择现在可以通过选项面板进行编辑，生态住宅和普通住宅可以有不同的模式选择" />
     "<Translation ID="LBR_150_NT2" String="移居到你的城市的人的教育水平可以修改" />
-    "<Translation ID="LBR_NOT_DSA" String="不再显示" />
   </Translations>
 </Language>

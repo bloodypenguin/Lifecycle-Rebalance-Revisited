@@ -58,7 +58,8 @@
     "<Translation ID="LBR_ZRO" String="Definir todos como 0" />
     "<Translation ID="TRN_CHOICE" String="Definir idioma" />
     "<Translation ID="TRN_SYS" String="Usar idioma do sistema" />
-    "<Translation ID="LBR_NOT_CLO" String="Fechar" />
+    "<Translation ID="MES_CLS" String="Fechar" />
+    "<Translation ID="MES_DSA" String="Não mostrar novamente." />
     "<Translation ID="LBR_CON" String="Conflito de mod detectado" />
     "<Translation ID="LBR_CON_WGO" String="Mod original WG Citizen Lifecycle Rebalance detectado - Lifecycle Rebalance Revisited está desligando para proteger seu jogo. Apenas UM destes mods pode estar ativo, por favor anule a subscrição ao WG Citizen Lifecycle Rebalance, que foi descontinuado! " />
     "<Translation ID="LBR_CON_PTR" String="O mod Painter causa conflitos com as bibliotecas do Harmony, que é utilizado neste mod, resultando em erros aleatórios. Por favor ANULE A SUBSCRIÇÃO de Painter (apenas desabilitá-lo NÃO é suficiente); o mod Repaint pode ser usado como substituto." />
@@ -67,6 +68,5 @@
     "<Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited foi atualizado para a versão 1.5" />
     "<Translation ID="LBR_150_NT1" String="Escolhas de modo de transporte podem agora ser editadas no painel de opções, e residencial comum e eco podem assumir modos diferentes" />
     "<Translation ID="LBR_150_NT2" String="Níveis de educação de pessoas se mudando para a sua cidade podem ser modificados." />
-    "<Translation ID="LBR_NOT_DSA" String="Não mostrar novamente." />
   </Translations>
 </Language>
