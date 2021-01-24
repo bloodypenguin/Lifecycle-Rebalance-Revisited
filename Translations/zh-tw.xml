@@ -1,69 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="zh-tw" ReadableName="繁體中文">
   <Translations>
-    "<Translation ID="LBR_NAME" String="生命週期再平衡" />
-    "<Translation ID="LBR_DESC" String="新增隨機市民生命週期，並隨機化新移民的年齡及受教育程度，以及改變市民往返工作的方式。" />
-    "<Translation ID="LBR_SPN" String="生命週期" />
-    "<Translation ID="LBR_SPN_WRN" String="警告" />
-    "<Translation ID="LBR_SPN_BAL" String="在遊戲進行時更改設定或暫時導致城市平衡崩潰。" />
-    "<Translation ID="LBR_SPN_BAK" String="*強烈*建議在更改設定前備份存檔。" />
-    "<Translation ID="LBR_CAL" String="生命週期運算模式" />
-    "<Translation ID="LBR_CAL_SUN" String="日落港灣模組生命週期設定（預設）" />
-    "<Translation ID="LBR_CAL_LEG" String="經典模組生命週期設定（原WG模組）—週期較短，老人較少" />
-    "<Translation ID="LBR_CAL_VAN" String="日落港灣無修改生命週期設定—週期變化較少，老人較多" />
-    "<Translation ID="LBR_RET" String="退休年齡選項（僅限使用日落港灣模組生命週期設定時）" />
-    "<Translation ID="LBR_RET_USE" String="使用自訂退休年齡" />
-    "<Translation ID="LBR_RET_CUS" String="自訂退休年齡" />
-    "<Translation ID="LBR_RET_NT1" String="降低退休年齡不會改變已於原設定下退休的市民的狀態。" />
-    "<Translation ID="LBR_RET_NT2" String="增加退休年齡不會改變已於原設定下退休的市民的狀態。" />
-    "<Translation ID="LBR_HEA" String="健康" />
-    "<Translation ID="LBR_HEA_ILL" String="每十年患病機率百分比" />
-    "<Translation ID="LBR_HEA_ILD" String="不影響特殊情況導致的疾病，如環境或噪音污染等" />
-    "<Translation ID="LBR_HEA_AGE" String="年齡" />
-    "<Translation ID="LBR_DTH" String="死亡" />
-    "<Translation ID="LBR_DTH_TRN" String="需要靈車運送的屍體百分比" />
-    "<Translation ID="LBR_DTH_TRD" String="（遊戲預設67%，模組預設50%）" />
-    "<Translation ID="LBR_IMM" String="移民" />
-    "<Translation ID="LBR_IMM_VAR" String="使新移民受教育程度增加25%變化" />
-    "<Translation ID="LBR_IMM_INC" String="增加平均新移民受教育程度" />
-    "<Translation ID="LBR_IMM_DEC" String="降低平均新移民受教育程度" />
-    "<Translation ID="LBR_SET" String="設定" />
-    "<Translation ID="LBR_SET_LGD" String="記錄死亡名單至「Lifecycle death log.txt」" />
-    "<Translation ID="LBR_SET_LGI" String="記錄移民名單至「Lifecycle immigration log.txt」" />
-    "<Translation ID="LBR_SET_LGT" String="記錄自訂運輸選擇至「Lifecycle transport log.txt」*警告*—會大幅降低遊戲速度！" />
-    "<Translation ID="LBR_SET_LGS" String="記錄患病事件至「Lifecycle sickness log.txt」" />
-    "<Translation ID="LBR_SPD" String="速度" />
-    "<Translation ID="LBR_SPD_FAC" String="以原遊戲設定為基準下降低市民老去的速度的因素。" />
-    "<Translation ID="LBR_SPD_FN1" String="1為遊戲預設速度（遊戲內每35週等於10年），2為一半速度（遊戲內每70週等於10年），3為三分之一速度，如此類推。15則約為遊戲1年市民才長大1歲。" />
-    "<Translation ID="LBR_SPD_FN2" String="不影響生命週期或年齡數值—只影響特定遊戲速度下市民長大的相對速度。" />
-    "<Translation ID="LBR_SPD_FN3" String="（遊戲預設為1，模組預設為3）" />
-    "<Translation ID="LBR_TRN" String="運輸" />
-    "<Translation ID="LBR_TRN_CUS" String="使用自訂運輸機率" />
-    "<Translation ID="LBR_TRN_WEA" String="家庭狀況" />
-    "<Translation ID="LBR_TRN_CAR" String="汽車使用百份比" />
-    "<Translation ID="LBR_TRN_BIK" String="自行車使用百份比" />
-    "<Translation ID="LBR_TRN_TAX" String="出租車使用百份比" />
-    "<Translation ID="LBR_TRN_RLO" String="低密度住宅區" />
-    "<Translation ID="LBR_TRN_RHI" String="高密度住宅區" />
-    "<Translation ID="LBR_TRN_ERL" String="低密度環保住宅區" />
-    "<Translation ID="LBR_TRN_ERH" String="高密度環保住宅區" />
-    "<Translation ID="LBR_TRN_CHL" String="兒童" />
-    "<Translation ID="LBR_TRN_TEN" String="少年" />
-    "<Translation ID="LBR_TRN_YAD" String="青年" />
-    "<Translation ID="LBR_TRN_ADL" String="成人" />
-    "<Translation ID="LBR_TRN_SEN" String="老人" />
-    "<Translation ID="LBR_DEF" String="預設" />
-    "<Translation ID="LBR_RTD" String="恢復預設設定" />
-    "<Translation ID="LBR_RTS" String="恢復已存設定" />
-    "<Translation ID="LBR_SAA" String="儲存並應用" />
-    "<Translation ID="LBR_ZRO" String="全部設定歸零" />
-    "<Translation ID="TRN_CHOICE" String="設定語言" />
-    "<Translation ID="TRN_SYS" String="使用系統語言" />
-    "<Translation ID="MES_CLO" String="關閉" />
-    "<Translation ID="MES_DSA" String="不再顯示" />
-    "<Translation ID="LBR_CON" String="檢測到有模組衝突" />
-    "<Translation ID="LBR_150_TIT" String="生命週期再平衡模組已被更新至版本1.5" />
-    "<Translation ID="LBR_150_NT1" String="現可在選項板面修改運輸設定；環保及普通住宅現可有不同選項" />
-    "<Translation ID="LBR_150_NT2" String="新移民受教育程度現可被修改" />
+    <Translation ID="LBR_NAME" String="生命週期再平衡" />
+    <Translation ID="LBR_DESC" String="新增隨機市民生命週期，並隨機化新移民的年齡及受教育程度，以及改變市民往返工作的方式。" />
+    <Translation ID="LBR_SPN" String="生命週期" />
+    <Translation ID="LBR_SPN_WRN" String="警告" />
+    <Translation ID="LBR_SPN_BAL" String="在遊戲進行時更改設定或暫時導致城市平衡崩潰。" />
+    <Translation ID="LBR_SPN_BAK" String="*強烈*建議在更改設定前備份存檔。" />
+    <Translation ID="LBR_CAL" String="生命週期運算模式" />
+    <Translation ID="LBR_CAL_SUN" String="日落港灣模組生命週期設定（預設）" />
+    <Translation ID="LBR_CAL_LEG" String="經典模組生命週期設定（原WG模組）—週期較短，老人較少" />
+    <Translation ID="LBR_CAL_VAN" String="日落港灣無修改生命週期設定—週期變化較少，老人較多" />
+    <Translation ID="LBR_RET" String="退休年齡選項（僅限使用日落港灣模組生命週期設定時）" />
+    <Translation ID="LBR_RET_USE" String="使用自訂退休年齡" />
+    <Translation ID="LBR_RET_CUS" String="自訂退休年齡" />
+    <Translation ID="LBR_RET_NT1" String="降低退休年齡不會改變已於原設定下退休的市民的狀態。" />
+    <Translation ID="LBR_RET_NT2" String="增加退休年齡不會改變已於原設定下退休的市民的狀態。" />
+    <Translation ID="LBR_HEA" String="健康" />
+    <Translation ID="LBR_HEA_ILL" String="每十年患病機率百分比" />
+    <Translation ID="LBR_HEA_ILD" String="不影響特殊情況導致的疾病，如環境或噪音污染等" />
+    <Translation ID="LBR_HEA_AGE" String="年齡" />
+    <Translation ID="LBR_DTH" String="死亡" />
+    <Translation ID="LBR_DTH_TRN" String="需要靈車運送的屍體百分比" />
+    <Translation ID="LBR_DTH_TRD" String="（遊戲預設67%，模組預設50%）" />
+    <Translation ID="LBR_IMM" String="移民" />
+    <Translation ID="LBR_IMM_VAR" String="使新移民受教育程度增加25%變化" />
+    <Translation ID="LBR_IMM_INC" String="增加平均新移民受教育程度" />
+    <Translation ID="LBR_IMM_DEC" String="降低平均新移民受教育程度" />
+    <Translation ID="LBR_SET" String="設定" />
+    <Translation ID="LBR_SET_LGD" String="記錄死亡名單至「Lifecycle death log.txt」" />
+    <Translation ID="LBR_SET_LGI" String="記錄移民名單至「Lifecycle immigration log.txt」" />
+    <Translation ID="LBR_SET_LGT" String="記錄自訂運輸選擇至「Lifecycle transport log.txt」*警告*—會大幅降低遊戲速度！" />
+    <Translation ID="LBR_SET_LGS" String="記錄患病事件至「Lifecycle sickness log.txt」" />
+    <Translation ID="LBR_SPD" String="速度" />
+    <Translation ID="LBR_SPD_FAC" String="以原遊戲設定為基準下降低市民老去的速度的因素。" />
+    <Translation ID="LBR_SPD_FN1" String="1為遊戲預設速度（遊戲內每35週等於10年），2為一半速度（遊戲內每70週等於10年），3為三分之一速度，如此類推。15則約為遊戲1年市民才長大1歲。" />
+    <Translation ID="LBR_SPD_FN2" String="不影響生命週期或年齡數值—只影響特定遊戲速度下市民長大的相對速度。" />
+    <Translation ID="LBR_SPD_FN3" String="（遊戲預設為1，模組預設為3）" />
+    <Translation ID="LBR_TRN" String="運輸" />
+    <Translation ID="LBR_TRN_CUS" String="使用自訂運輸機率" />
+    <Translation ID="LBR_TRN_WEA" String="家庭狀況" />
+    <Translation ID="LBR_TRN_CAR" String="汽車使用百份比" />
+    <Translation ID="LBR_TRN_BIK" String="自行車使用百份比" />
+    <Translation ID="LBR_TRN_TAX" String="出租車使用百份比" />
+    <Translation ID="LBR_TRN_RLO" String="低密度住宅區" />
+    <Translation ID="LBR_TRN_RHI" String="高密度住宅區" />
+    <Translation ID="LBR_TRN_ERL" String="低密度環保住宅區" />
+    <Translation ID="LBR_TRN_ERH" String="高密度環保住宅區" />
+    <Translation ID="LBR_TRN_CHL" String="兒童" />
+    <Translation ID="LBR_TRN_TEN" String="少年" />
+    <Translation ID="LBR_TRN_YAD" String="青年" />
+    <Translation ID="LBR_TRN_ADL" String="成人" />
+    <Translation ID="LBR_TRN_SEN" String="老人" />
+    <Translation ID="LBR_DEF" String="預設" />
+    <Translation ID="LBR_RTD" String="恢復預設設定" />
+    <Translation ID="LBR_RTS" String="恢復已存設定" />
+    <Translation ID="LBR_SAA" String="儲存並應用" />
+    <Translation ID="LBR_ZRO" String="全部設定歸零" />
+    <Translation ID="TRN_CHOICE" String="設定語言" />
+    <Translation ID="TRN_SYS" String="使用系統語言" />
+    <Translation ID="MES_CLO" String="關閉" />
+    <Translation ID="MES_DSA" String="不再顯示" />
+    <Translation ID="LBR_CON" String="檢測到有模組衝突" />
+    <Translation ID="LBR_150_TIT" String="生命週期再平衡模組已被更新至版本1.5" />
+    <Translation ID="LBR_150_NT1" String="現可在選項板面修改運輸設定；環保及普通住宅現可有不同選項" />
+    <Translation ID="LBR_150_NT2" String="新移民受教育程度現可被修改" />
   </Translations>
 </Language>
