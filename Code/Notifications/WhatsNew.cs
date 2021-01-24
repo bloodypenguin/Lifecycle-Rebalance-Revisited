@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Text;
 using System.Reflection;
 using System.Collections.Generic;
-using System.Linq;
 using LifecycleRebalance.MessageBox;
 
 
@@ -80,53 +78,11 @@ namespace LifecycleRebalance
                 return;
             }
 
-            // Get version update messages.
-            Dictionary<Version, string> messages = GetWhatsNewMessages(whatsNewVersion, modVersion);
-
-            // Don't do anything if no version messages to display. 
-            if (!messages.Any())
-            {
-                return;
-            }
-
-            // Show messagebox (complete with "CaprionText"...)
+            // Show messagebox.
             WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
             messageBox.Title = LifecycleRebalance.ModName + " " + LifecycleRebalance.Version;
             messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
-            messageBox.SetMessages(whatsNewVersion, messages);
-        }
-
-
-        /// <summary>
-        /// Builds a dictionary of versions and associated what's new messages.
-        /// </summary>
-        /// <param name="lastNotifiedVersion">Most recently notified version</param>
-        /// <param name="modVersion">Current mod version</param>
-        /// <returns>New dictionary of version and associated what's new strings</returns>
-        private static Dictionary<Version, string> GetWhatsNewMessages(Version lastNotifiedVersion, Version modVersion)
-        {
-            Dictionary<Version, string> messages = new Dictionary<Version, string>();
-
-            // Iterate through each version.
-            foreach (var version in Versions.Keys)
-            {
-                // Skip this version message if it's newer than the current mod version, or older than the last notified version AND there hasn't been a beta update.
-                if (version > modVersion || (version <= lastNotifiedVersion && ModSettings.whatsNewBeta.Equals(LifecycleRebalance.Beta)))
-                {
-                    continue;
-                }
-
-                // Convert the message list for this version into a single string, and append it to the dictionary of messages to display.
-                StringBuilder message = new StringBuilder();
-                foreach (string line in Versions[version])
-                {
-                    message.Append(" - ");
-                    message.AppendLine(Translations.Translate(line));
-                }
-                messages.Add(version, message.ToString());
-            }
-
-            return messages;
+            messageBox.SetMessages(whatsNewVersion, Versions);
         }
     }
 }

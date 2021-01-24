@@ -14,43 +14,48 @@ namespace LifecycleRebalance.MessageBox
         /// <summary>
         /// Sets the 'what's new' messages to display.
         /// </summary>
-        /// <param name="messages">Version update messages to display, in order (newest versions first)</param>
+        /// <param name="messages">Version update messages to display, in order (newest versions first), with a list of items (as translation keys) for each version</param>
         /// <param name="lastNotifiedVersion">Last notified version (version messages equal to or earlier than this will be minimized</param>
-        public void SetMessages(Version lastNotifiedVersion, Dictionary<Version, string> messages)
+        public void SetMessages(Version lastNotifiedVersion, Dictionary<Version, List<string>> messages)
         {
-            // Iterate through each provided message and add it to the messagebox.
-            foreach (KeyValuePair<Version, string> message in messages)
+            // Iterate through each provided version and add it to the messagebox.
+            foreach (KeyValuePair<Version, List<string>> message in messages)
             {
                 VersionMessage versionMessage = ScrollableContent.AddUIComponent<VersionMessage>();
                 versionMessage.width = ScrollableContent.width;
                 versionMessage.SetText(message.Key, message.Value);
+                // Add spacer below.
+                AddSpacer();
 
                 // Hide version messages that have already been notified.
                 if (message.Key <= lastNotifiedVersion)
                 {
-                    versionMessage.IsMaximized = false;
+                    versionMessage.IsCollapsed = true;
                 }
             }
         }
 
 
         /// <summary>
-        /// Update message for given version.
+        /// Update message for a given version.
         /// </summary>
         public class VersionMessage : UIPanel
         {
             // Components.
             private UIButton minimizeButton;
-            private UILabel messageLabel;
+            public List<ListItem> listItems;
 
             // Version title.
             private string versionTitle;
 
+            // Visibility state.
+            private bool isExpanded;
+
 
             /// <summary>
-            /// Message maximimized/minimized state.
+            /// Sets message expanded/collapsed state.
             /// </summary>
-            public bool IsMaximized { get => messageLabel.isVisible; set => messageLabel.isVisible = value; }
+            public bool IsCollapsed { set { isExpanded = value; ToggleExpanded(); } }
 
 
             /// <summary>
@@ -58,13 +63,16 @@ namespace LifecycleRebalance.MessageBox
             /// </summary>
             public VersionMessage()
             {
+                // Init list before we do anything else.
+                listItems = new List<ListItem>();
+
                 // Basic setup.
                 autoLayout = true;
                 autoLayoutDirection = LayoutDirection.Vertical;
                 autoFitChildrenVertically = true;
-                autoLayoutPadding = new RectOffset(0, 0, (int)Padding / 2, (int)Padding / 2);
+                autoLayoutPadding = new RectOffset(0, 0, 2, 2);
 
-                // Add minimize button.
+                // Add minimize button (which will also be the version label).
                 minimizeButton = AddUIComponent<UIButton>();
                 minimizeButton.height = 20f;
                 minimizeButton.horizontalAlignment = UIHorizontalAlignment.Left;
@@ -72,22 +80,7 @@ namespace LifecycleRebalance.MessageBox
                 minimizeButton.textHorizontalAlignment = UIHorizontalAlignment.Left;
 
                 // Toggle visible (minimized) state when clicked.
-                minimizeButton.eventClick += (UIComponent component, UIMouseEventParameter eventParam) => IsMaximized = !IsMaximized;
-
-                // Add message text label
-                messageLabel = AddUIComponent<UILabel>();
-                messageLabel.textAlignment = UIHorizontalAlignment.Left;
-                messageLabel.verticalAlignment = UIVerticalAlignment.Middle;
-                messageLabel.textScale = 0.8f;
-                messageLabel.wordWrap = true;
-                messageLabel.autoHeight = true;
-                messageLabel.size = new Vector2(width - 2 * Padding, 0);
-                messageLabel.relativePosition = new Vector3(17, 7);
-                messageLabel.anchor = UIAnchorStyle.CenterHorizontal | UIAnchorStyle.CenterVertical;
-
-                // Event handlers for minimizing/maximizing.
-                messageLabel.eventTextChanged += (UIComponent component, string value) => messageLabel.PerformLayout();
-                messageLabel.eventVisibilityChanged += (UIComponent component, bool value) => UpdateState();
+                minimizeButton.eventClick += (component, eventParam) => ToggleExpanded();
             }
 
 
@@ -95,15 +88,22 @@ namespace LifecycleRebalance.MessageBox
             /// Sets version message text.
             /// </summary>
             /// <param name="version">Version</param>
-            /// <param name="message">Message text</param>
-            public void SetText(Version version, string message)
+            /// <param name="messageKeys">Message text as list of translation keys for individual points</param>
+            public void SetText(Version version, List<string> messageKeys)
             {
                 // Set version header and message text.
                 versionTitle = LifecycleRebalance.ModName + " " + version.ToString();
-                messageLabel.text = message;
+
+                // Add messages as separate list items.
+                foreach (string messageKey in messageKeys)
+                {
+                    ListItem newMessageLabel = AddUIComponent<ListItem>();
+                    listItems.Add(newMessageLabel);
+                    newMessageLabel.Text = Translations.Translate(messageKey);
+                }
 
                 // Always start maximized.
-                IsMaximized = true;
+                isExpanded = true;
 
                 // Set state indictor.
                 UpdateState();
@@ -111,7 +111,7 @@ namespace LifecycleRebalance.MessageBox
 
 
             /// <summary>
-            /// Handles size changed events. for e.g. when text changes.  Called by game.
+            /// Handles size changed events, for e.g. when visibility changes.  Called by game as needed.
             /// </summary>
             protected override void OnSizeChanged()
             {
@@ -122,17 +122,39 @@ namespace LifecycleRebalance.MessageBox
                 {
                     minimizeButton.width = width;
                 };
-                if (messageLabel != null)
+
+                // Set width of each item label.
+                if (listItems != null)
                 {
-                    messageLabel.width = width;
+                    foreach (ListItem listItem in listItems)
+                    {
+                        listItem.width = width;
+                    }
                 };
             }
 
 
             /// <summary>
-            /// Sets minimized/maximized state indicator.
+            /// Toggles expanded/collapsed state of the update messages.
             /// </summary>
-            private void UpdateState() => minimizeButton.text = (IsMaximized ? "▼ " : "► ") + versionTitle;
+            private void ToggleExpanded()
+            {
+                // Toggle state and update state indicator.
+                isExpanded = !isExpanded;
+                UpdateState();
+
+                // Show/hide each list item according to state.
+                foreach (ListItem listItem in listItems)
+                {
+                    listItem.isVisible = isExpanded;
+                }
+            }
+
+
+            /// <summary>
+            /// Sets expaned/collapsed state indicator.
+            /// </summary>
+            private void UpdateState() => minimizeButton.text = (isExpanded ? "▼ " : "► ") + versionTitle;
         }
     }
 }
