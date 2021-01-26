@@ -100,6 +100,9 @@ namespace LifecycleRebalance.MessageBox
                     ListItem newMessageLabel = AddUIComponent<ListItem>();
                     listItems.Add(newMessageLabel);
                     newMessageLabel.Text = Translations.Translate(messageKey);
+
+                    // Make sure initial width is set properly.
+                    newMessageLabel.width = width;
                 }
 
                 // Always start maximized.
