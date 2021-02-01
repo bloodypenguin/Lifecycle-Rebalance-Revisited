@@ -18,7 +18,7 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="instructions">CIL code to alter.</param>
         /// <returns>Patched CIL code</returns>
-        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             // The checks we're targeting for removal are fortunately clearly flagged by the call to Die().
             // We're going to remove the immediately following:

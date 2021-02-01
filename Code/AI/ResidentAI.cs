@@ -5,6 +5,9 @@ using ColossalFramework;
 using HarmonyLib;
 
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
+
 namespace LifecycleRebalance
 {
     /// <summary>
@@ -14,9 +17,9 @@ namespace LifecycleRebalance
     [HarmonyPatch("CanMakeBabies")]
     [HarmonyPatch(new Type[] { typeof(uint), typeof(Citizen) },
         new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref })]
-    class CanMakeBabiesPatch
+    public static class CanMakeBabiesPatch
     {
-        private static bool Prefix(ref bool __result, uint citizenID, ref Citizen data)
+        public static bool Prefix(ref bool __result, uint citizenID, ref Citizen data)
         {
             // data.m_family  access group data?
             // Only check child 1 and 2. Don't care about 3, won't fit if there's someone there :)
@@ -48,9 +51,9 @@ namespace LifecycleRebalance
     [HarmonyPatch("UpdateAge")]
     [HarmonyPatch(new Type[] { typeof(uint), typeof(Citizen) },
         new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref })]
-    class UpdateAgePatch
+    public static class UpdateAgePatch
     {
-        private static bool Prefix(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
+        public static bool Prefix(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
         {
             if ((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter)
             {
@@ -227,9 +230,9 @@ namespace LifecycleRebalance
     /// Harmony pre-emptive Prefix patch for ResidentAI.GetAgeGroup - part of custom retirement age implementation.
     /// Patch is manually applied (and unapplied) depending if custom retirement age setting is active or not.
     /// </summary>
-    class GetAgeGroupPatch
+    public static class GetAgeGroupPatch
     {
-        private static bool Prefix(ref Citizen.AgeGroup __result, int age)
+        public static bool Prefix(ref Citizen.AgeGroup __result, int age)
         {
             if (age < 15)
             {
@@ -257,3 +260,5 @@ namespace LifecycleRebalance
         }
     }
 }
+
+#pragma warning restore IDE0060 // Remove unused parameter

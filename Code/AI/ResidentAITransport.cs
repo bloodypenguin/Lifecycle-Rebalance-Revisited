@@ -2,15 +2,18 @@
 using ColossalFramework;
 
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
+
 namespace LifecycleRebalance
 {
     /// <summary>
     /// Harmony pre-emptive Prefix patch for ResidentAI.GetCarProbability - implements mod's transport probability settings for cars.
     /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
     /// </summary>
-    class GetCarProbabilityPatch
+    public static class GetCarProbabilityPatch
     {
-        static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
+        public static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
             // Cache as best we can. The order of calls is car, bike, taxi
             AIUtils.citizenCache = citizenData.m_citizen;  // Not needed, but just in case
@@ -51,9 +54,9 @@ namespace LifecycleRebalance
     /// Harmony pre-emptive Prefix patch for ResidentAI.GetBikeProbability - implements mod's transport probability settings for bicycles.
     /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
     /// </summary>
-    class GetBikeProbabilityPatch
+    public static class GetBikeProbabilityPatch
     {
-        static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
+        public static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
             int bike = AIUtils.livesInBike ? DataStore.bikeIncrease : 0;
 
@@ -76,9 +79,9 @@ namespace LifecycleRebalance
     /// Harmony pre-emptive Prefix patch for ResidentAI.GetTaxiProbability - implements mod's transport probability settings for taxis.
     /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
     /// </summary>
-    class GetTaxiProbabilityPatch
+    public static class GetTaxiProbabilityPatch
     {
-        static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
+        public static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
             // Original method return value.
             // Array cache has already been set when GetCarProbability was called.
@@ -94,3 +97,5 @@ namespace LifecycleRebalance
         }
     }
 }
+
+#pragma warning restore IDE0060 // Remove unused parameter
