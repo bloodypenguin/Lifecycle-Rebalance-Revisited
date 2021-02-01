@@ -11,7 +11,6 @@ namespace LifecycleRebalance
         private const string migrateNodeName = "migrate";
 
         private const string lifeSpanNodeName = "lifespan";
-        private const string familyName = "family";
         private const string survivalNodeName = "survival";
         private const string sicknessNodeName = "sickness";
         private const string sickDieNodeName = "sickDeathRate";
@@ -23,7 +22,7 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="doc"></param>
         /// 
-        public override void readXML(XmlDocument doc)
+        public override void ReadXML(XmlDocument doc)
         {
             XmlElement root = doc.DocumentElement;
 
@@ -31,21 +30,21 @@ namespace LifecycleRebalance
             {
                 if (node.Name.Equals(travelNodeName))
                 {
-                    readTravelNode(node);
+                    ReadTravelNode(node);
                 }
                 else if (node.Name.Equals(migrateNodeName))
                 {
-                    readImmigrateNode(node);
+                    ReadImmigrateNode(node);
                 }
                 else if (node.Name.Equals(lifeSpanNodeName))
                 {
-                    readLifeNode(node);
+                    ReadLifeNode(node);
                 }
             }
         }
 
 
-        public void readTravelNode(XmlNode root)
+        public void ReadTravelNode(XmlNode root)
         {
             foreach (XmlNode node in root.ChildNodes)
             {
@@ -66,12 +65,12 @@ namespace LifecycleRebalance
                 }
 
                 // Read inner attributes
-                readTravelWealthNode(node, index);
+                ReadTravelWealthNode(node, index);
             }
         }
 
 
-        public void readImmigrateNode(XmlNode root)
+        public void ReadImmigrateNode(XmlNode root)
         {
             foreach (XmlNode node in root.ChildNodes)
             {
@@ -103,7 +102,7 @@ namespace LifecycleRebalance
         }
 
 
-        public void readLifeNode(XmlNode root)
+        public void ReadLifeNode(XmlNode root)
         {
             try
             {
@@ -144,25 +143,25 @@ namespace LifecycleRebalance
             {
                 if (node.Name.Equals(survivalNodeName))
                 {
-                    readSurvivalNode(node);
+                    ReadSurvivalNode(node);
                 }
                 else if (node.Name.Equals(sicknessNodeName))
                 {
-                    readSicknessNode(node);
+                    ReadSicknessNode(node);
                 }
                 else if (node.Name.Equals(sickDieNodeName))
                 {
-                    readHospitalNode(node);
+                    ReadHospitalNode(node);
                 }
                 else if (node.Name.Equals(cheatHearseNodeName))
                 {
-                    readCheatHearseNode(node);
+                    ReadCheatHearseNode(node);
                 }
             }
         }
 
 
-        public void readSurvivalNode(XmlNode root)
+        public void ReadSurvivalNode(XmlNode root)
         {
             foreach (XmlNode node in root.ChildNodes)
             {
@@ -185,7 +184,7 @@ namespace LifecycleRebalance
         }
 
 
-        public void readSicknessNode(XmlNode root)
+        public void ReadSicknessNode(XmlNode root)
         {
             foreach (XmlNode node in root.ChildNodes)
             {
@@ -208,7 +207,7 @@ namespace LifecycleRebalance
         }
 
 
-        public void readHospitalNode(XmlNode root)
+        public void ReadHospitalNode(XmlNode root)
         {
             foreach (XmlNode node in root.ChildNodes)
             {
@@ -231,7 +230,7 @@ namespace LifecycleRebalance
         }
 
 
-        public void readCheatHearseNode(XmlNode root)
+        public void ReadCheatHearseNode(XmlNode root)
         {
             try
             {
@@ -255,7 +254,7 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="fullPathFileName"></param>
         /// <returns></returns>
-        public override bool writeXML(string fullPathFileName)
+        public override bool WriteXML(string fullPathFileName)
         {
             XmlDocument xmlDoc = new XmlDocument();
 
@@ -265,14 +264,14 @@ namespace LifecycleRebalance
             rootNode.Attributes.Append(attribute);
             xmlDoc.AppendChild(rootNode);
 
-            rootNode.AppendChild(makeTravelNode(xmlDoc));
+            rootNode.AppendChild(MakeTravelNode(xmlDoc));
             XmlComment comment = xmlDoc.CreateComment("Lower age value: Young adult (45), Adult (90), Senior (180)");
             rootNode.AppendChild(comment);
             comment = xmlDoc.CreateComment("Numbers lower than young adult may cause economic havoc.");
             rootNode.AppendChild(comment);
-            rootNode.AppendChild(makeImmigrateNode(xmlDoc));
+            rootNode.AppendChild(MakeImmigrateNode(xmlDoc));
             //rootNode.AppendChild(makeEmigrationNode(xmlDoc));
-            rootNode.AppendChild(makeLifeNode(xmlDoc));
+            rootNode.AppendChild(MakeLifeNode(xmlDoc));
 
             if (File.Exists(fullPathFileName))
             {
@@ -314,7 +313,7 @@ namespace LifecycleRebalance
         /// <param name="rootPopNode"></param>
         /// <param name="consumNode"></param>
         /// <param name="pollutionNode"></param>
-        private void makeDensityNodes(XmlDocument xmlDoc, XmlNode root, int density)
+        private void MakeDensityNodes(XmlDocument xmlDoc, XmlNode root, int density)
         {
             string densityElementName = (density == 0) ? "low_density" : "high_density";
             XmlNode node = xmlDoc.CreateElement(densityElementName);
@@ -349,7 +348,7 @@ namespace LifecycleRebalance
 
                 foreach (Citizen.AgeGroup j in Enum.GetValues(typeof(Citizen.AgeGroup)))
                 {
-                    wealthNode.AppendChild(makeWealthArray(xmlDoc, j.ToString(), array[(int)j]));
+                    wealthNode.AppendChild(MakeWealthArray(xmlDoc, j.ToString(), array[(int)j]));
                 }
                 node.AppendChild(wealthNode);
             }
@@ -366,7 +365,7 @@ namespace LifecycleRebalance
         /// <param name="level"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private XmlNode makeWealthArray(XmlDocument xmlDoc, String age, int[] array)
+        private XmlNode MakeWealthArray(XmlDocument xmlDoc, String age, int[] array)
         {
             XmlNode node = xmlDoc.CreateElement(age);
 
@@ -388,7 +387,7 @@ namespace LifecycleRebalance
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeImmigrateNode(XmlDocument xmlDoc)
+        private XmlNode MakeImmigrateNode(XmlDocument xmlDoc)
         {
             XmlNode rootNode = xmlDoc.CreateElement(migrateNodeName);
 
@@ -416,11 +415,11 @@ namespace LifecycleRebalance
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeTravelNode(XmlDocument xmlDoc)
+        private XmlNode MakeTravelNode(XmlDocument xmlDoc)
         {
             XmlNode node = xmlDoc.CreateElement(travelNodeName);
-            makeDensityNodes(xmlDoc, node, 0);
-            makeDensityNodes(xmlDoc, node, 1);
+            MakeDensityNodes(xmlDoc, node, 0);
+            MakeDensityNodes(xmlDoc, node, 1);
 
             return node;
         }
@@ -428,7 +427,7 @@ namespace LifecycleRebalance
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeLifeNode(XmlDocument xmlDoc)
+        private XmlNode MakeLifeNode(XmlDocument xmlDoc)
         {
             XmlNode node = xmlDoc.CreateElement(lifeSpanNodeName);
             XmlAttribute attribute = xmlDoc.CreateAttribute("modifier");
@@ -440,11 +439,11 @@ namespace LifecycleRebalance
 
             XmlComment comment = xmlDoc.CreateComment("Percentage of people who survive to the next 10% of their life");
             node.AppendChild(comment);
-            node.AppendChild(makeSurvivalNode(xmlDoc));
+            node.AppendChild(MakeSurvivalNode(xmlDoc));
 
             comment = xmlDoc.CreateComment("Percentage of people who become sick over the next 10% of their life");
             node.AppendChild(comment);
-            node.AppendChild(makeSicknessNode(xmlDoc));
+            node.AppendChild(MakeSicknessNode(xmlDoc));
             /*
             comment = xmlDoc.CreateComment("Percentage of people who die while sick");
             node.AppendChild(comment);
@@ -452,7 +451,7 @@ namespace LifecycleRebalance
             */
             comment = xmlDoc.CreateComment("Percentage of dead who will instantly disappear");
             node.AppendChild(comment);
-            node.AppendChild(makeCheatHearseNode(xmlDoc));
+            node.AppendChild(MakeCheatHearseNode(xmlDoc));
 
             return node;
         }
@@ -460,7 +459,7 @@ namespace LifecycleRebalance
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeSurvivalNode(XmlDocument xmlDoc)
+        private XmlNode MakeSurvivalNode(XmlDocument xmlDoc)
         {
             XmlNode survNode = xmlDoc.CreateElement(survivalNodeName);
 
@@ -482,7 +481,7 @@ namespace LifecycleRebalance
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeSicknessNode(XmlDocument xmlDoc)
+        private XmlNode MakeSicknessNode(XmlDocument xmlDoc)
         {
             XmlNode sickNode = xmlDoc.CreateElement(sicknessNodeName);
 
@@ -501,31 +500,10 @@ namespace LifecycleRebalance
             return sickNode;
         }
 
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
-        private XmlNode makeSickDeathNode(XmlDocument xmlDoc)
-        {
-            XmlNode hospitalNode = xmlDoc.CreateElement(sickDieNodeName);
-
-            // 0 to 9, 10 deciles.
-            for (int i = 0; i < 10; ++i)
-            {
-                XmlNode node = xmlDoc.CreateElement("decile_" + (i + 1));
-
-                XmlAttribute attribute = xmlDoc.CreateAttribute("chance");
-                attribute.Value = Convert.ToString(DataStore.sickDeathChance[i] * 100.0);
-                node.Attributes.Append(attribute);
-
-                hospitalNode.AppendChild(node);
-            }
-
-            return hospitalNode;
-        }
-
 
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private XmlNode makeCheatHearseNode(XmlDocument xmlDoc)
+        private XmlNode MakeCheatHearseNode(XmlDocument xmlDoc)
         {
             XmlNode cheatHearseNode = xmlDoc.CreateElement(cheatHearseNodeName);
 
@@ -541,7 +519,7 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="wealthNode"></param>
         /// <param name="density"></param>
-        private void readTravelWealthNode(XmlNode wealthNode, int density)
+        private void ReadTravelWealthNode(XmlNode wealthNode, int density)
         {
             foreach (XmlNode node in wealthNode.ChildNodes)
             {
@@ -574,7 +552,7 @@ namespace LifecycleRebalance
                 }
 
                 // Read inner attributes
-                readTravelAgeNode(node, array[density]);
+                ReadTravelAgeNode(node, array[density]);
             } // end foreach
         }
 
@@ -584,7 +562,7 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="ageNode"></param>
         /// <param name="arrayRef"></param>
-        private void readTravelAgeNode(XmlNode ageNode, int[][] arrayRef)
+        private void ReadTravelAgeNode(XmlNode ageNode, int[][] arrayRef)
         {
             foreach (XmlNode node in ageNode.ChildNodes)
             {

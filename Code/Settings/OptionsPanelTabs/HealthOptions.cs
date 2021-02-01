@@ -12,7 +12,7 @@ namespace LifecycleRebalance
     {
         // Sickness deciles; set to 10 (even though 11 in DataStore) as current WG XML v2 only stores the first 10.
         private const int numDeciles = 10;
-        private static float[] defaultSicknessProbs = { 0.0125f, 0.0075f, 0.01f, 0.01f, 0.015f, 0.02f, 0.03f, 0.04f, 0.05f, 0.075f, 0.25f };
+        private static readonly float[] defaultSicknessProbs = { 0.0125f, 0.0075f, 0.01f, 0.01f, 0.015f, 0.02f, 0.03f, 0.04f, 0.05f, 0.075f, 0.25f };
 
 
         /// <summary>

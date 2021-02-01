@@ -137,7 +137,9 @@ namespace LifecycleRebalance
         public void TextFilter(UITextField control, string value)
         {
             // If it's not blank and isn't an integer, remove the last character and set selection to end.
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
             if (!value.IsNullOrWhiteSpace() && !int.TryParse(value, out int result))
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
             {
                 control.text = value.Substring(0, value.Length - 1);
                 control.MoveSelectionPointRight();
@@ -185,9 +187,7 @@ namespace LifecycleRebalance
         /// <param name="text">Text to parse</param>
         protected void ParseInt(ref int intVar, string text)
         {
-            int result;
-
-            if (int.TryParse(text, out result))
+            if (int.TryParse(text, out int result))
             {
                 // Bounds check.
                 if (result < 0)

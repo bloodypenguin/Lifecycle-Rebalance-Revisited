@@ -28,7 +28,7 @@ namespace LifecycleRebalance
         public bool ImmiEduDrag { get => ModSettings.immiEduDrag; set => ModSettings.immiEduDrag = value; }
 
         // Language.
-        public string language
+        public string Language
         {
             get
             {

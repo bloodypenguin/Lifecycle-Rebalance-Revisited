@@ -12,11 +12,11 @@ namespace LifecycleRebalance
         public static readonly string[] retirementAges = { "50", "55", "60", "65" };
 
         // Key components.
-        private UICheckBox sunsetCheckBox;
-        private UICheckBox legacyCheckBox;
-        private UICheckBox vanillaCheckBox;
-        private UICheckBox retireCheckBox;
-        private UIDropDown ageDropDown;
+        private readonly UICheckBox sunsetCheckBox;
+        private readonly UICheckBox legacyCheckBox;
+        private readonly UICheckBox vanillaCheckBox;
+        private readonly UICheckBox retireCheckBox;
+        private readonly UIDropDown ageDropDown;
 
         /// <summary>
         /// Adds calculation options tab to tabstrip.

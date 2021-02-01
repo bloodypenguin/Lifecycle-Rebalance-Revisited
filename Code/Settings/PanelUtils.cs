@@ -322,7 +322,7 @@ namespace LifecycleRebalance
             try
             {
                 WG_XMLBaseVersion xml = new XML_VersionTwo();
-                xml.writeXML(Loading.currentFileLocation);
+                xml.WriteXML(Loading.currentFileLocation);
             }
             catch (Exception e)
             {

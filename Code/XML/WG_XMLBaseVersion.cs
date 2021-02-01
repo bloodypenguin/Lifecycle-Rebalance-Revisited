@@ -9,7 +9,7 @@ namespace LifecycleRebalance
         {
         }
 
-        public abstract void readXML(XmlDocument doc);
-        public abstract bool writeXML(string fullPathFileName);
+        public abstract void ReadXML(XmlDocument doc);
+        public abstract bool WriteXML(string fullPathFileName);
     }
 }

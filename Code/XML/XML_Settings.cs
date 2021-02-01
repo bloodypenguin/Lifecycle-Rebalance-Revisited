@@ -58,8 +58,8 @@ namespace LifecycleRebalance
 
         private static string GetConfigPath()
         {
-            var configPathAttribute = typeof(C).GetCustomAttributes(typeof(ConfigurationPathAttribute), true)
-                .FirstOrDefault() as ConfigurationPathAttribute;
+            var configPathAttribute = (ConfigurationPathAttribute)typeof(C).GetCustomAttributes(typeof(ConfigurationPathAttribute), true)
+                .FirstOrDefault();
 
             if (configPathAttribute != null)
             {

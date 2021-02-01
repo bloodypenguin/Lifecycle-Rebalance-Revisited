@@ -177,7 +177,7 @@ namespace LifecycleRebalance
                 try
                 {
                     WG_XMLBaseVersion xml = new XML_VersionTwo();
-                    xml.writeXML(currentFileLocation);
+                    xml.WriteXML(currentFileLocation);
                 }
                 catch (Exception e)
                 {
@@ -198,7 +198,7 @@ namespace LifecycleRebalance
         /// <summary>
         ///
         /// </summary>
-        public static void readFromXML()
+        public static void ReadFromXML()
         {
             // Switch to default which is the cities skylines in the application data area.
             currentFileLocation = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + XML_FILE;
@@ -226,7 +226,7 @@ namespace LifecycleRebalance
                         File.Copy(currentFileLocation, currentFileLocation + ".ver0", true);
                         return;
                     }
-                    reader.readXML(doc);
+                    reader.ReadXML(doc);
                 }
                 catch (Exception e)
                 {
