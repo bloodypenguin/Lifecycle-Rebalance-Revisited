@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Language UniqueName="en" ReadableName="English">
+<Language UniqueName="pl" ReadableName="Polski">
   <Translations>
     <Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
     <Translation ID="LBR_DESC" String="Zwiększa i tworzy losowość długości życia mieszkańców, generuje losowy wiek, poziom wykształcenia imigrantów oraz zmienia sposób podróżowania mieszkańców z i do pracy" />
