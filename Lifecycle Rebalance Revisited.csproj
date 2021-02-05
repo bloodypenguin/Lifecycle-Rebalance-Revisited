@@ -108,6 +108,7 @@
     <Content Include="Translations\fi.xml" />
     <Content Include="Translations\jp.xml" />
     <Content Include="Translations\nl.xml" />
+    <Content Include="Translations\pl.xml" />
     <Content Include="Translations\pt-br.xml" />
     <Content Include="Translations\zh-tw.xml" />
     <Content Include="Translations\zh.xml" />
