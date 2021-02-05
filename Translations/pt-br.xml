@@ -27,10 +27,10 @@
     <Translation ID="LBR_IMM_INC" String="Aumentar a média do nível de educação dos imigrantes" />
     <Translation ID="LBR_IMM_DEC" String="Diminuir a média do nível de educação dos imigrantes" />
     <Translation ID="LBR_SET" String="Configurações" />
-    <Translation ID="LBR_SET_LGD" String="Registrar mortes para  'Lifecycle death log.txt'" />
-    <Translation ID="LBR_SET_LGI" String="Registrar imigrantes para  'Lifecycle immigration log.txt'" />
-    <Translation ID="LBR_SET_LGT" String="Registrar escolhas personalizadas de transporte para  'Lifecycle transport log.txt' AVISO - LENTO!" />
-    <Translation ID="LBR_SET_LGS" String="Registrar eventos de doenças para  'Lifecycle sickness log.txt'" />
+    <Translation ID="LBR_SET_LGD" String="Registrar mortes para 'Lifecycle death log.txt'" />
+    <Translation ID="LBR_SET_LGI" String="Registrar imigrantes para 'Lifecycle immigration log.txt'" />
+    <Translation ID="LBR_SET_LGT" String="Registrar escolhas personalizadas de transporte para 'Lifecycle transport log.txt' AVISO - LENTO!" />
+    <Translation ID="LBR_SET_LGS" String="Registrar eventos de doenças para 'Lifecycle sickness log.txt'" />
     <Translation ID="LBR_SPD" String="Velocidade" />
     <Translation ID="LBR_SPD_FAC" String="Fator de redução da velocidade de envelhecimento, comparado ao jogo base" />
     <Translation ID="LBR_SPD_FN1" String="1 É a velocidade do jogo base (35 semanas no jogo é equivalente a 10 anos de idade), 2 é duas vezes mais devagar (70 semanas no jogo para 10 anos de idade), 3 é três vezes mais devagar, etc. Um multiplicador de 15 significa que cidadãos vão envelhecer aproximadamente um ano para cada ano passado no jogo" />
@@ -64,5 +64,9 @@
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited foi atualizado para a versão 1.5" />
     <Translation ID="LBR_150_NT1" String="Escolhas de modo de transporte podem agora ser editadas no painel de opções, e residencial comum e eco podem assumir modos diferentes" />
     <Translation ID="LBR_150_NT2" String="Níveis de educação de pessoas se mudando para a sua cidade podem ser modificados." />
+    <Translation ID="ERR_HAR1" String="As possiveis causa de problema são:" />
+    <Translation ID="ERR_HAR2" String="Depende do mod Harmony 2 necessário e não foi instalado." />
+    <Translation ID="ERR_CON0" String="Conflito detectado no MOD!" />
+    <Translation ID="ERR_CON1" String="Conflito detectado é:" />
   </Translations>
 </Language>

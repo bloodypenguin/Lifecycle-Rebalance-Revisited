@@ -1,68 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="zh" ReadableName="简体中文">
   <Translations>
+    <Translation ID="LBR_NAME" String="生命周期重平衡重制" />
     <Translation ID="LBR_DESC" String="使公民寿命增加并随机化，使移民的年龄和教育水平随机化，并改变公民上下班的方式" />
     <Translation ID="LBR_SPN" String="人均寿命" />
     <Translation ID="LBR_SPN_WRN" String="警告" />
     <Translation ID="LBR_SPN_BAL" String="在游戏中改变设置会暂时破坏城市平衡。" />
     <Translation ID="LBR_SPN_BAK" String="强烈推荐在改变设置前进行备份！！！" />
     <Translation ID="LBR_CAL" String="生命周期计算模型" />
-    <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor 人均寿命（默认）" />
-    <Translation ID="LBR_CAL_LEG" String="Mod legacy 人均寿命 (original WG mod) - 寿命较短，老年人较少" />
-    <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor 人均寿命 - 可变寿命较少，老年人数量略多" />
-    <Translation ID="LBR_RET" String="退休年龄选项（仅当使用 Mod Sunset Harbor 人均寿命时使用）" />
+    <Translation ID="LBR_CAL_SUN" String="“日落港口”模组人均寿命（默认）" />
+    <Translation ID="LBR_CAL_LEG" String="过往版本模组人均寿命（重置前模组）‒ 寿命较短，老年人较少" />
+    <Translation ID="LBR_CAL_VAN" String="“日落港口”原版人均寿命 ‒ 寿命变化较少，老年人略多" />
+    <Translation ID="LBR_RET" String="退休年龄选项（仅“日落港口”模组人均寿命时有效）" />
     <Translation ID="LBR_RET_USE" String="使用自定义退休年龄" />
     <Translation ID="LBR_RET_CUS" String="自定义退休年龄" />
-    <Translation ID="LBR_RET_NT1" String="降低退休年龄不会改变已在以前设定下退休的公民的状态。" />
-    <Translation ID="LBR_RET_NT2" String="提高退休年龄不会改变在以前的设定下已经退休的公民的状态。" />
+    <Translation ID="LBR_RET_NT1" String="降低退休年龄不会改变已在先前设定下退休的公民的状态。" />
+    <Translation ID="LBR_RET_NT2" String="提高退休年龄不会改变已在先前设定下退休的公民的外观。" />
     <Translation ID="LBR_HEA" String="健康" />
-    <Translation ID="LBR_HEA_ILL" String="使每十年的疾病百分率%随机" />
+    <Translation ID="LBR_HEA_ILL" String="使每十年的疾病概率随机" />
     <Translation ID="LBR_HEA_ILD" String="不会影响由特定原因引起的疾病，例如污染或噪音" />
     <Translation ID="LBR_HEA_AGE" String="年龄" />
     <Translation ID="LBR_DTH" String="死亡" />
-    <Translation ID="LBR_DTH_TRN" String="需要运送的尸体的百分比%" />
-    <Translation ID="LBR_DTH_TRD" String="（游戏默认67%，mod默认50%）" />
+    <Translation ID="LBR_DTH_TRN" String="需要运送的尸体的百分比" />
+    <Translation ID="LBR_DTH_TRD" String="（游戏默认 67%，模组默认 50%）" />
     <Translation ID="LBR_IMM" String="移民" />
-    <Translation ID="LBR_IMM_VAR" String="将25％的变化应用于移民受教育水平" />
+    <Translation ID="LBR_IMM_VAR" String="向移民受教育水平应用 25% 的变化" />
     <Translation ID="LBR_IMM_INC" String="提高移民平均受教育水平" />
     <Translation ID="LBR_IMM_DEC" String="降低移民平均受教育水平" />
     <Translation ID="LBR_SET" String="设置" />
     <Translation ID="LBR_SET_LGD" String="记录死亡数到 'Lifecycle death log.txt'" />
     <Translation ID="LBR_SET_LGI" String="记录移民数到 'Lifecycle immigration log.txt'" />
     <Translation ID="LBR_SET_LGT" String="记录自定义交通选择到 'Lifecycle transport log.txt' 警告- 运行缓慢" />
-    <Translation ID="LBR_SET_LGS" String="记录疾病事件到  'Lifecycle sickness log.txt'" />
+    <Translation ID="LBR_SET_LGS" String="记录疾病事件到 'Lifecycle sickness log.txt'" />
     <Translation ID="LBR_SPD" String="速度" />
     <Translation ID="LBR_SPD_FAC" String="与原游戏相比，降低公民年龄的因素。" />
-    <Translation ID="LBR_SPD_FN1" String="1是原游戏速度（游戏内35周相当于10岁），2是慢2倍（游戏内70周相当于10岁），3是慢3倍，以此类推。慢15倍意味着居民在游戏中的每一年都会变老1岁。" />
+    <Translation ID="LBR_SPD_FN1" String="1 是原游戏速度（游戏内 35 周相当于 10 岁），2 是 2 倍慢速（游戏内 70 周相当于 10 岁），3 是 3 倍慢速，以此类推。15 倍速慢意味着居民在游戏中的每一年都会变老 1 岁。" />
     <Translation ID="LBR_SPD_FN2" String="不影响生命周期或年龄-只影响公民年龄的速度相对于游戏内时间。" />
-    <Translation ID="LBR_SPD_FN3" String="（游戏默认为1，Mod默认为3）" />
+    <Translation ID="LBR_SPD_FN3" String="（游戏默认为 1，模组默认为 3）" />
     <Translation ID="LBR_TRN" String="交通" />
     <Translation ID="LBR_TRN_CUS" String="使用自定义交通模式概率" />
     <Translation ID="LBR_TRN_WEA" String="财富水平" />
-    <Translation ID="LBR_TRN_CAR" String="车辆使用概率(%)" />
-    <Translation ID="LBR_TRN_BIK" String="自行车使用概率（％）" />
-    <Translation ID="LBR_TRN_TAX" String="出租车使用概率（％）" />
+    <Translation ID="LBR_TRN_CAR" String="汽车使用概率 (%)" />
+    <Translation ID="LBR_TRN_BIK" String="自行车使用概率 (%)" />
+    <Translation ID="LBR_TRN_TAX" String="出租车使用概率 (%)" />
     <Translation ID="LBR_TRN_RLO" String="低密度住宅" />
     <Translation ID="LBR_TRN_RHI" String="高密度住宅" />
     <Translation ID="LBR_TRN_ERL" String="生态低密度住宅" />
     <Translation ID="LBR_TRN_ERH" String="生态高密度住宅" />
     <Translation ID="LBR_TRN_CHL" String="儿童" />
-    <Translation ID="LBR_TRN_TEN" String="青少年" />
-    <Translation ID="LBR_TRN_YAD" String="年轻成年人" />
+    <Translation ID="LBR_TRN_TEN" String="少年" />
+    <Translation ID="LBR_TRN_YAD" String="青年人" />
     <Translation ID="LBR_TRN_ADL" String="成年人" />
     <Translation ID="LBR_TRN_SEN" String="老年人" />
     <Translation ID="LBR_DEF" String="默认" />
     <Translation ID="LBR_RTD" String="重置为默认值" />
-    <Translation ID="LBR_RTS" String="恢复为已保存" />
+    <Translation ID="LBR_RTS" String="回退至已保存" />
     <Translation ID="LBR_SAA" String="保存并应用" />
     <Translation ID="LBR_ZRO" String="全部设置为零" />
     <Translation ID="TRN_CHOICE" String="设置语言" />
     <Translation ID="TRN_SYS" String="使用系统语言" />
-    <Translation ID="MES_CLO" String="关闭" />
+    <Translation ID="MES_CLS" String="关闭" />
     <Translation ID="MES_DSA" String="不再显示" />
-    <Translation ID="LBR_CON" String="检测到Mod冲突" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited 已更新到1.5版本" />
+    <Translation ID="MES_PAGE" String="请参考本模组的 Steam 创意工坊页面获取更多信息" />
+    <Translation ID="LBR_CON" String="检测到模组冲突" />
+    <Translation ID="LBR_150_TIT" String="生命周期重平衡重制已更新到 1.5 版本" />
     <Translation ID="LBR_150_NT1" String="交通模式的选择现在可以通过选项面板进行编辑，生态住宅和普通住宅可以有不同的模式选择" />
     <Translation ID="LBR_150_NT2" String="移居到你的城市的人的教育水平可以修改" />
+    <Translation ID="LBR_151_NT1" String="调整翻译选项面板布局" />
+    <Translation ID="LBR_152_NT1" String="有未成年子女的居家单亲父母会免于早逝，以帮助避免孤儿家庭" />
+    <Translation ID="LBR_152_NT2" String="改进模组冲突检测和提示" />
+    <Translation ID="LBR_152_NT3" String="改进升级提示" />
+    <Translation ID="LBR_ERR_FAT" String="这意味着“生命周期重平衡重制”无法正常运行并已关闭" />
+    <Translation ID="LBR_ERR_HAR" String="“生命周期重平衡重制”无法完成所需的 Harmony 修补" />
+    <Translation ID="ERR_HAR0" String="Harmony 补丁错误！" />
+    <Translation ID="ERR_HAR1" String="可能的问题根源包括：" />
+    <Translation ID="ERR_HAR2" String="所需的 Harmony 2 依赖未安装" />
+    <Translation ID="ERR_HAR3" String="有旧版/损坏的模组组织 Harmony 2 正常运行" />
+    <Translation ID="ERR_CON0" String="检测到模组冲突！" />
+    <Translation ID="ERR_CON1" String="冲突的模组包括：" />
+    <Translation ID="LBR_ERR_CON0" String="“生命周期重平衡重制”检测到与至少一个其他模组的冲突" />
+    <Translation ID="LBR_ERR_CON1" String="要使“生命周期重平衡重制”正常运行，必须先移除这些模组" />
   </Translations>
 </Language>
