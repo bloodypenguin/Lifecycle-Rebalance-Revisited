@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Language UniqueName="zh" ReadableName="中文">
+<Language UniqueName="zh-tw" ReadableName="繁體中文">
   <Translations>
     <Translation ID="LBR_NAME" String="生命週期再平衡重製版(Lifecycle Rebalance Revisited) 模組(Mod)" />
     <Translation ID="LBR_DESC" String="增加和隨機化市民的壽命，隨機化移民的年齡和教育水準，並改變市民工作和旅行的方式" />"
