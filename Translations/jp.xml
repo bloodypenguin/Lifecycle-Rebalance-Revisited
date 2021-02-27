@@ -2,27 +2,27 @@
 <Language UniqueName="jp" ReadableName="日本語">
   <Translations>
     <Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
-    <Translation ID="LBR_DESC" String="市民の寿命を伸ばしてランダム性を上げる。更に、移民の年齢と教育度のランダム性を上げ、通勤手段も変更する。" />
+    <Translation ID="LBR_DESC" String="市民の寿命を伸ばしてランダム性を上げる。 更に、 移民の年齢と教育度のランダム性を上げ、 通勤手段も変更する。" />
     <Translation ID="LBR_SPN" String="寿命" />
     <Translation ID="LBR_SPN_WRN" String="警告" />
-    <Translation ID="LBR_SPN_BAL" String="ゲーム途中での設定変更は、市政や市民の活動を一時的に混乱させる可能性がある。" />
+    <Translation ID="LBR_SPN_BAL" String="ゲーム途中での設定変更は、 市政や市民の活動を一時的に混乱させる可能性がある。" />
     <Translation ID="LBR_SPN_BAK" String="変更前にバックアップ用のセーブを行うことを「強く」推奨する。" />
     <Translation ID="LBR_CAL" String="ライフサイクルの計算モデル" />
     <Translation ID="LBR_CAL_SUN" String="Sunset Harbor 向けの寿命 (デフォルト)" />
     <Translation ID="LBR_CAL_LEG" String="かつての寿命にする (WGオリジナルと同じ) - 短命で老人が少ない" />
-    <Translation ID="LBR_CAL_VAN" String="Sunset Harbor におけるバニラの寿命 - 寿命の変動が小さく、老人が少し多い" />
+    <Translation ID="LBR_CAL_VAN" String="Sunset Harbor におけるバニラの寿命 - 寿命の変動が小さく、 老人が少し多い" />
     <Translation ID="LBR_RET" String="退職年齢の設定 (「Sunset Harbor 向けの寿命」専用)" />
     <Translation ID="LBR_RET_USE" String="退職年齢を変更する" />
     <Translation ID="LBR_RET_CUS" String="退職年齢を変更する" />
-    <Translation ID="LBR_RET_NT1" String="退職年齢の引き下げは、旧設定で退職済みの市民のステータスに影響を与えない。" />
-    <Translation ID="LBR_RET_NT2" String="退職年齢の引き上げに、旧設定で退職済みの市民を復職させる効果は無い。" />
+    <Translation ID="LBR_RET_NT1" String="退職年齢の引き下げは、 旧設定で退職済みの市民のステータスに影響を与えない。" />
+    <Translation ID="LBR_RET_NT2" String="退職年齢の引き上げに、 旧設定で退職済みの市民を復職させる効果は無い。" />
     <Translation ID="LBR_HEA" String="健康" />
     <Translation ID="LBR_HEA_ILL" String="市民が10歳年を取る間にランダムで病気になるの確率" />
     <Translation ID="LBR_HEA_ILD" String="汚染や騒音に由来する病気には影響しない" />
     <Translation ID="LBR_HEA_AGE" String="年齢" />
     <Translation ID="LBR_DTH" String="死亡" />
     <Translation ID="LBR_DTH_TRN" String="霊柩車による搬送を必要とする遺体の割合" />
-    <Translation ID="LBR_DTH_TRD" String="(ゲーム標準：67%, mod標準：50%)" />
+    <Translation ID="LBR_DTH_TRD" String="(ゲーム標準: 67%, mod標準: 50%)" />
     <Translation ID="LBR_IMM" String="移民" />
     <Translation ID="LBR_IMM_VAR" String="移民の教育度に25%の変動幅を持たせる" />
     <Translation ID="LBR_IMM_INC" String="移民の平均教育度を上げる" />
@@ -30,13 +30,13 @@
     <Translation ID="LBR_SET" String="設定" />
     <Translation ID="LBR_SET_LGD" String="死者のログを 'Lifecycle death log.txt' に取る" />
     <Translation ID="LBR_SET_LGI" String="移民のログを 'Lifecycle immigration log.txt' に取る" />
-    <Translation ID="LBR_SET_LGT" String="移動手段選択のログを 'Lifecycle transport log.txt' に取る、警告：処理不可が大きい" />
+    <Translation ID="LBR_SET_LGT" String="移動手段選択のログを 'Lifecycle transport log.txt' に取る、 警告: 処理負荷が大きい" />
     <Translation ID="LBR_SET_LGS" String="病気のログを 'Lifecycle sickness log.txt' に取る" />
     <Translation ID="LBR_SPD" String="速度" />
     <Translation ID="LBR_SPD_FAC" String="市民の加齢速度の係数 (バニラ比)" />
-    <Translation ID="LBR_SPD_FN1" String="1が標準で35週間で10歳進む。2では2倍遅く(70週間で10際)、3では3倍遅くなる。15にすると、およそ1年で1歳になる。" />
-    <Translation ID="LBR_SPD_FN2" String="ライフサイクルや年齢そのものではなく、ゲーム速度と年齢の進行の相対値を変更する。" />
-    <Translation ID="LBR_SPD_FN3" String="(ゲーム標準：1, mod標準：3)" />
+    <Translation ID="LBR_SPD_FN1" String="1が標準で35週間で10歳進む。 2では2倍遅く(70週間で10歳)、 3では3倍遅くなる。 15にすると、 およそ1年で1歳になる。" />
+    <Translation ID="LBR_SPD_FN2" String="ライフサイクルや年齢そのものではなく、 ゲーム速度と年齢の進行の相対値を変更する。" />
+    <Translation ID="LBR_SPD_FN3" String="(ゲーム標準: 1, mod標準: 3)" />
     <Translation ID="LBR_TRN" String="交通" />
     <Translation ID="LBR_TRN_CUS" String="交通手段の選択確率を変更する" />
     <Translation ID="LBR_TRN_WEA" String="資産レベル" />
@@ -61,9 +61,24 @@
     <Translation ID="TRN_SYS" String="システム言語を使う" />
     <Translation ID="MES_CLS" String="閉じる" />
     <Translation ID="MES_DSA" String="今後は表示しない" />
+    <Translation ID="MES_PAGE" String="MODの詳細は、 Steam のワークショップページを参照してください。" />
     <Translation ID="LBR_CON" String="MODの競合を検出" />
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited がバージョン1.5にアップデートされました。" />
-    <Translation ID="LBR_150_NT1" String="交通手段の選択がオプションパネルから編集できるようになりました。自給自足型住宅区画と標準住宅区画に異なる交通手段を設定できます。" />
+    <Translation ID="LBR_150_NT1" String="交通手段の選択がオプションパネルから編集できるようになりました。 自給自足型住宅区画と標準住宅区画に異なる交通手段を設定できます。" />
     <Translation ID="LBR_150_NT2" String="移民の教育レベルを編集できます。" />
+    <Translation ID="LBR_151_NT1" String="翻訳用にオプションパネルを調整する。" />
+    <Translation ID="LBR_152_NT1" String="故事世帯の発生を避けるため、 未成年の子を持つ一人親は早死にしなくなりました。" />
+    <Translation ID="LBR_152_NT2" String="MODの競合検出確認を改善しました。" />
+    <Translation ID="LBR_152_NT3" String="更新通知を改善しました。" />
+    <Translation ID="LBR_ERR_FAT" String="Lifecycle Rebalance Revisited が正常動作できなかったため、 シャットダウンしたことを意味します。" />
+    <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited に必要な Harmony パッチの読み込みに失敗しました。" />
+    <Translation ID="ERR_HAR0" String="Harmony パッチの適用エラー" />
+    <Translation ID="ERR_HAR1" String="この問題の原因として考えられるものは次の通りです:" />
+    <Translation ID="ERR_HAR2" String="Harmony 2 MODが必要ですが、 インストールされていません。" />
+    <Translation ID="ERR_HAR3" String="古いMODや破損したMODが Harmony 2 の動作を妨げています。" />
+    <Translation ID="ERR_CON0" String="MODの競合が検出されました！" />
+    <Translation ID="ERR_CON1" String="競合しているMODは次の通りです:" />
+    <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited は、 1つ以上のMODとの競合を検出しました。" />
+    <Translation ID="LBR_ERR_CON1" String="Lifecycle Rebalance Revisited を使用する前に、 これらのMODを削除する必要があります。" />
   </Translations>
 </Language>

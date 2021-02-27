@@ -59,7 +59,7 @@
     <Translation ID="LBR_ZRO" String="Mettre tout à zéro" />
     <Translation ID="TRN_CHOICE" String="Définir la langue" />
     <Translation ID="TRN_SYS" String="Utiliser la langue du système" />
-    <Translation ID="MES_CLS" String="proche" />
+    <Translation ID="MES_CLS" String="Fermer" />
     <Translation ID="MES_DSA" String="Ne plus montrer" />
     <Translation ID="MES_PAGE" String="Veuillez vous référer à la page Steam Workshop du mod pour plus d'informations." />
     <Translation ID="LBR_CON" String="Conflit de mod détecté" />

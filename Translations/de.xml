@@ -35,7 +35,6 @@
     <Translation ID="LBR_SPD" String="Geschwindigkeit" />
     <Translation ID="LBR_SPD_FAC" String="Faktor, um zu verlangsamen, wie schnell die Bürger im Vergleich zum Basisspiel altern." />
     <Translation ID="LBR_SPD_FN1" String="1 ist die Grundgeschwindigkeit des Spiels (35 Wochen im Spiel entsprechen 10 Jahren), 2 ist doppelt so langsam (70 Wochen im Spiel für 10 Jahre), 3 ist dreimal so langsam usw. Ein Multiplikator von 15 bedeutet, dass die Bürger für jedes Spieljahr ungefähr ein Jahr älter werden." />
-    <Translation ID="LBR_SPD_FN2=" String="Beeinflusst weder Lebenszyklen oder Alter - nur die Geschwindigkeit, mit der die Bürger altern relativ zur Spielgeschwindigkeit." />
     <Translation ID="LBR_SPD_FN3" String="(Spiel Standard 1, Mod Standard 3)" />
     <Translation ID="LBR_TRN" String="Transport" />
     <Translation ID="LBR_TRN_CUS" String="Benutze benutzerdefinierte Transportmoduswahrscheinlichkeiten" />
@@ -63,14 +62,9 @@
     <Translation ID="MES_DSA" String="Nicht mehr anzeigen" />
     <Translation ID="MES_PAGE" String="Für mehr Informationen wende dich an die Steam Workshop Seite der Mod " />
     <Translation ID="LBR_CON" String="Mod Konflikt erkannt" />
-    <Translation ID="LBR_CON_WGO" String="Original WG Citizen Lifecycle Rebalance-Mod erkannt - Lifecycle Rebalance Revisited wird heruntergefahren, um Ihr Spiel zu schützen. Es kann nur EINER dieser Mods gleichzeitig aktiviert werden. Bitte melden Sie sich von WG Citizen Lifecycle Rebalance ab, das jetzt veraltet ist!" />
-    <Translation ID="LBR_CON_PTR" String="Der alte Painter-Mod verursacht Probleme mit den von diesem Mod verwendeten Harmony-Bibliotheken, was zu zufälligen Fehlern führt. Bitte DEABONNIERE den Painter Mod (eine bloße Deaktivierung ist NICHT ausreichend); Der Repaint Mod kann als Ersatz verwendet werden." />
-    <Translation ID="LBR_CON_GBC" String="Der Garbage Bin Controller-Mod verursacht Probleme mit den von diesem Mod verwendeten Harmony-Bibliotheken, was zu zufälligen Fehlern führt. Bitte DEABONNIERE den Garbage Bin Controller (bloßes Deaktivieren ist NICHT ausreichend); Der Garbage Bin Manager Mod kann als Ersatz verwendet werden." />
-    <Translation ID="LBR_CON_BET" String="Lifecycle Rebalance Revisited: Sowohl Beta- als auch Produktionsversionen wurden erkannt. Lifecycle Rebalance Revisited wird heruntergefahren, um Ihr Spiel zu schützen. Bitte abonnieren Sie jeweils nur einen davon zum gleichen Zeitpunkt." />
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited wurde auf Version 1.5 aktualisiert" />
     <Translation ID="LBR_150_NT1" String="Die Auswahlmöglichkeiten für den Transportmodus können jetzt über das Optionsfeld bearbeitet werden, und für Öko- und gewöhnliche Wohnhäuser können unterschiedliche Modusoptionen ausgewählt werden" />
     <Translation ID="LBR_150_NT2" String="Das Bildungsniveau von Menschen, die in Ihre Stadt ziehen, kann geändert werden" />
-    <Translation ID="LBR_NOT_DSA" String="Nicht mehr anzeigen" />
     <Translation ID="LBR_ERR_FAT" String="Lifecycle Rebalance Revisited konnte nicht richtig ausgeführt werden und wurde beendet" />
     <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited konnte die erfoderlichen Harmony Patches nicht korrekt installieren" />
     <Translation ID="ERR_HAR0" String="Harmony Patch Fehler!" />

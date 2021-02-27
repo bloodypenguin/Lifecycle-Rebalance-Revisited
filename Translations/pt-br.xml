@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="pt-br" ReadableName="Português brasileiro">
   <Translations>
+    <Translation ID="LBR_NAME" String="Lifecycle Rebalance revisitado" />
     <Translation ID="LBR_DESC" String="Aumenta e randomiza o tempo de vida dos cidadãos, randomiza as idades e níveis de educação de imigrantes, e muda a forma como os cidadãos vem e vão trabalhar" />
     <Translation ID="LBR_SPN" String="Tempo de vida" />
     <Translation ID="LBR_SPN_WRN" String="Aviso" />
@@ -64,9 +65,19 @@
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited foi atualizado para a versão 1.5" />
     <Translation ID="LBR_150_NT1" String="Escolhas de modo de transporte podem agora ser editadas no painel de opções, e residencial comum e eco podem assumir modos diferentes" />
     <Translation ID="LBR_150_NT2" String="Níveis de educação de pessoas se mudando para a sua cidade podem ser modificados." />
+    <Translation ID="LBR_151_NT1" String="Ajuste o layout do painel de opções para traduções" />
+    <Translation ID="LBR_152_NT1" String="Pais solteiros com filhos menores que vivem em casa serão poupados da morte prematura, para ajudar a prevenir lares órfãos" />
+    <Translation ID="LBR_152_NT2" String="Verificação e notificação aprimoradas de conflitos de mod" />
+    <Translation ID="LBR_152_NT3" String="Notificações de atualização aprimoradas" />
+    <Translation ID="LBR_ERR_FAT" String="Isso significa que o Lifecycle Rebalance Revisited não é capaz de operar corretamente e foi encerrado. " />
+    <Translation ID="LBR_ERR_HAR" String="O Lifecycle Rebalance Revisited não conseguiu completar os patches Harmony necessários." />
+    <Translation ID="ERR_HAR0" String="Erro de patch no Harmony!" />
     <Translation ID="ERR_HAR1" String="As possiveis causa de problema são:" />
     <Translation ID="ERR_HAR2" String="Depende do mod Harmony 2 necessário e não foi instalado." />
+    <Translation ID="ERR_HAR3" String="Um mod antigo e/ou quebrado está impedindo o Harmony 2 de funcionar corretamente" />
     <Translation ID="ERR_CON0" String="Conflito detectado no MOD!" />
     <Translation ID="ERR_CON1" String="Conflito detectado é:" />
+    <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited detected a conflict with at least one other mod." />
+    <Translation ID="LBR_ERR_CON1" String="Esses mods devem ser removidos antes que o Lifecycle Rebalance Revisited possa operar." />
   </Translations>
 </Language>
