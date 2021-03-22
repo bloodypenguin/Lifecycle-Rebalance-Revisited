@@ -37,7 +37,7 @@ namespace LifecycleRebalance
             for (int i = 0; i < numDeciles; ++ i)
             {
                 // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
-                illnessChance[i] = PanelUtils.AddSliderWithValue(healthTab, Translations.Translate("LBR_HEA_AGE") + (i * 10) + "-" + ((i * 10) + 9) + " (" + Translations.Translate("LBR_DEF") + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { }, textScale: 0.9f);
+                illnessChance[i] = PanelUtils.AddSliderWithValue(healthTab, Translations.Translate("LBR_HEA_AGE") + " " + (i * 10) + "-" + ((i * 10) + 9) + " (" + Translations.Translate("LBR_DEF") + " " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { }, textScale: 0.9f);
                 illnessChance[i].parent.relativePosition = new Vector3(0, currentY);
                 currentY += illnessChance[i].parent.height - 3f;
             }
