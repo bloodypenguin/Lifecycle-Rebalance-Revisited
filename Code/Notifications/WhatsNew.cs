@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using System.Collections.Generic;
 using LifecycleRebalance.MessageBox;
-
 
 
 namespace LifecycleRebalance
@@ -13,27 +11,33 @@ namespace LifecycleRebalance
     internal static class WhatsNew
     {
         // List of versions and associated update message lines (as translation keys).
-        private static Dictionary<Version, List<string>> Versions => new Dictionary<Version, List<String>>
+        private readonly static WhatsNewMessage[] WhatsNewMessages = new WhatsNewMessage[]
         {
+            new WhatsNewMessage
             {
-                new Version("1.5.2"),
-                new List<string>
+                version = new Version("1.5.2.0"),
+                messageKeys = true,
+                messages = new string[]
                 {
                     "LBR_152_NT1",
                     "LBR_152_NT2",
                     "LBR_152_NT3"
                 }
             },
+            new WhatsNewMessage
             {
-                new Version("1.5.1"),
-                new List<string>
+                version = new Version("1.5.1.0"),
+                messageKeys = true,
+                messages = new string[]
                 {
                     "LBR_151_NT1"
                 }
             },
+            new WhatsNewMessage
             {
-                new Version("1.5.0"),
-                new List<string>
+                version = new Version("1.5.0.0"),
+                messageKeys = true,
+                messages = new string[]
                 {
                     "LBR_150_NT1",
                     "LBR_150_NT2"
@@ -56,7 +60,7 @@ namespace LifecycleRebalance
         {
             // Save current version to settings file.
             ModSettings.whatsNewVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            ModSettings.whatsNewBeta = LifecycleRebalance.Beta;
+            ModSettings.whatsNewBetaVersion = WhatsNewMessages[0].betaVersion;
             Configuration<SettingsFile>.Save();
 
             return true;
@@ -68,21 +72,39 @@ namespace LifecycleRebalance
         /// </summary>
         internal static void ShowWhatsNew()
         {
+            Logging.KeyMessage("checking for update notifications");
+
+
             // Get last notified version and current mod version.
             Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
-            Version modVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            WhatsNewMessage latestMessage = WhatsNewMessages[0];
 
-            // Don't show notification if we're already up to (or ahead of) this version AND there hasn't been a beta update.
-            if (whatsNewVersion >= modVersion && ModSettings.whatsNewBeta.Equals(LifecycleRebalance.Beta))
+            // Don't show notification if we're already up to (or ahead of) the first what's new message (including Beta updates).
+            if (whatsNewVersion < latestMessage.version || (whatsNewVersion == latestMessage.version && latestMessage.betaVersion <= ModSettings.whatsNewBetaVersion))
             {
                 return;
             }
 
             // Show messagebox.
+            Logging.KeyMessage("showing What's New messagebox");
             WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
-            messageBox.Title = LifecycleRebalance.ModName + " " + LifecycleRebalance.Version;
+            messageBox.Title = LifecycleRebalanceMod.ModName + " " + LifecycleRebalanceMod.Version;
             messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
-            messageBox.SetMessages(whatsNewVersion, Versions);
+            messageBox.SetMessages(whatsNewVersion, WhatsNewMessages);
+            Logging.KeyMessage("What's New messagebox complete");
         }
+    }
+
+
+    /// <summary>
+    /// Version message struct.
+    /// </summary>
+    public struct WhatsNewMessage
+    {
+        public Version version;
+        public string versionHeader;
+        public int betaVersion;
+        public bool messageKeys;
+        public string[] messages;
     }
 }

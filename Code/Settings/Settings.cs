@@ -11,9 +11,7 @@ namespace LifecycleRebalance
     public class SettingsFile
     {
         public string WhatsNewVersion { get => ModSettings.whatsNewVersion; set => ModSettings.whatsNewVersion = value; }
-        public string WhatsNewBeta { get => ModSettings.whatsNewBeta; set => ModSettings.whatsNewBeta = value; }
-
-        public int NotificationVersion { get; set; } = 0;
+        public int WhatsNewBeta { get => ModSettings.whatsNewBetaVersion; set => ModSettings.whatsNewBetaVersion = value; }
         public bool UseVanilla { get; set; } = false;
         public bool UseLegacy { get; set; } = false;
         public bool CustomRetirement { get ; set; } = false;
@@ -49,7 +47,7 @@ namespace LifecycleRebalance
     {
         // What's new notification version.
         internal static string whatsNewVersion = "0.0";
-        internal static string whatsNewBeta = "";
+        internal static int whatsNewBetaVersion = 0;
 
         // 1 divided by the number of game age increments per decade for calculation purposes.
         public static double decadeFactor;

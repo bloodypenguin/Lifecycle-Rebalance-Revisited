@@ -61,7 +61,7 @@ namespace LifecycleRebalance
             if (!isModEnabled)
             {
                 isModEnabled = true;
-                Logging.KeyMessage("v", LifecycleRebalance.Version, " loading");
+                Logging.KeyMessage("loading");
             }
         }
 

@@ -10,8 +10,11 @@ namespace LifecycleRebalance.MessageBox
     public class ListMessageBox : MessageBoxBase
     {
         // Components.
-        protected UIButton closeButton;
+        private UIButton closeButton;
 
+
+        // Number of buttons for this panel (for layout).
+        protected virtual int NumButtons => 1;
 
         /// <summary>
         /// Constructor - performs required basic setup.
@@ -19,7 +22,7 @@ namespace LifecycleRebalance.MessageBox
         public ListMessageBox()
         {
             // Set title.
-            Title = LifecycleRebalance.ModName;
+            Title = LifecycleRebalanceMod.ModName;
 
             // Add buttons.
             AddButtons();
@@ -32,7 +35,7 @@ namespace LifecycleRebalance.MessageBox
         public virtual void AddButtons()
         {
             // Add close button.
-            closeButton = AddButton(1, 1, Close);
+            closeButton = AddButton(1, NumButtons, Close);
             closeButton.text = Translations.Translate("MES_CLS");
         }
 
@@ -51,7 +54,7 @@ namespace LifecycleRebalance.MessageBox
                 paraMessage.wordWrap = true;
                 paraMessage.autoSize = false;
                 paraMessage.autoHeight = true;
-                paraMessage.width = width - ScrollableContent.autoLayoutPadding.left - ScrollableContent.autoLayoutPadding.right;
+                paraMessage.width = ContentWidth;
 
                 // Set text while we're autosizing.
                 paraMessage.text = messages[i];
@@ -67,14 +70,13 @@ namespace LifecycleRebalance.MessageBox
         /// Creates a blank panel spacer.
         /// </summary>
         /// <param name="height">Spacer height (default 10)</param>
-        /// <returns></returns>
         public void AddSpacer(float height = 10f)
         {
-            UIPanel spacer = ScrollableContent.AddUIComponent<UIPanel>();
+            UILabel spacer = ScrollableContent.AddUIComponent<UILabel>();
 
             spacer.autoSize = false;
             spacer.height = height;
-            spacer.width = width - ScrollableContent.autoLayoutPadding.left - ScrollableContent.autoLayoutPadding.right;
+            spacer.width = 10f;
         }
 
 
@@ -88,6 +90,7 @@ namespace LifecycleRebalance.MessageBox
             for (int i = 0; i < listItems.Length; ++i)
             {
                 ListItem listItem = ScrollableContent.AddUIComponent<ListItem>();
+                listItem.width = ContentWidth;
                 listItem.Text = listItems[i];
             }
 

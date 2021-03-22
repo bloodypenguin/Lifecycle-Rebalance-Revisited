@@ -415,7 +415,7 @@ namespace LifecycleRebalance
                     IUserMod[] mods = plugin.GetInstances<IUserMod>();
 
                     // Check to see if the primary instance is this mod.
-                    if (mods.FirstOrDefault() is LifecycleRebalance)
+                    if (mods.FirstOrDefault() is LifecycleRebalanceMod)
                     {
                         // Found it! Return path.
                         return plugin.modPath;
@@ -429,7 +429,7 @@ namespace LifecycleRebalance
 
             // If we got here, then we didn't find the assembly.
             Logging.Error("assembly path not found");
-            throw new FileNotFoundException(LifecycleRebalance.ModName + ": assembly path not found!");
+            throw new FileNotFoundException(LifecycleRebalanceMod.ModName + ": assembly path not found!");
         }
     }
 }

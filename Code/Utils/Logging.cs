@@ -97,7 +97,7 @@ namespace LifecycleRebalance
         {
             // Use StringBuilder for efficiency since we're doing a lot of manipulation here.
             // Start with mod name (to easily identify relevant messages), followed by colon to indicate start of actual message.
-            StringBuilder message = new StringBuilder(LifecycleRebalance.ModName);
+            StringBuilder message = new StringBuilder(LifecycleRebalanceMod.ModName);
             message.Append(": ");
 
             // Add each message parameter.
@@ -136,7 +136,7 @@ namespace LifecycleRebalance
         {
             // Use StringBuilder for efficiency since we're doing a lot of manipulation here.
             // Start with mod name (to easily identify relevant messages), followed by colon to indicate start of actual message.
-            StringBuilder message = new StringBuilder(LifecycleRebalance.ModName);
+            StringBuilder message = new StringBuilder(LifecycleRebalanceMod.ModName);
             message.Append(": ");
 
             // Append prefix.

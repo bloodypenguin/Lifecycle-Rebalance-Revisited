@@ -8,7 +8,7 @@ namespace LifecycleRebalance
     /// <summary>
     /// The base mod class for instantiation by the game.
     /// </summary>
-    public class LifecycleRebalance : IUserMod
+    public class LifecycleRebalanceMod : IUserMod
     {
         // Public mod name and description.
         public string Name => ModName + " " + Version;
@@ -19,6 +19,7 @@ namespace LifecycleRebalance
         internal static string ModName => "Lifecycle Rebalance Revisited";
         internal static string Version => BaseVersion + " " + Beta;
         internal static string Beta => "";
+        internal static int BetaVersion => 0;
         private static string BaseVersion => "1.5.2";
 
 
