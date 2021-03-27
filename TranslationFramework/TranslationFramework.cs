@@ -3,9 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using ICities;
 using ColossalFramework;
-using ColossalFramework.Plugins;
 using ColossalFramework.Globalization;
 
 
@@ -358,7 +356,7 @@ namespace LifecycleRebalance
             languages.Clear();
 
             // Get the current assembly path and append our locale directory name.
-            string assemblyPath = GetAssemblyPath();
+            string assemblyPath = ModUtils.GetAssemblyPath();
             if (!assemblyPath.IsNullOrWhiteSpace())
             {
                 string localePath = Path.Combine(assemblyPath, "Translations");
@@ -375,8 +373,15 @@ namespace LifecycleRebalance
                             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Language));
                             if (xmlSerializer.Deserialize(reader) is Language translation)
                             {
-                                // Got one!  add it to the list.
-                                languages.Add(translation.uniqueName, translation);
+                                // Got one!  add it to the list, if we don't already have a copy.
+                                if (!languages.ContainsKey(translation.uniqueName))
+                                {
+                                    languages.Add(translation.uniqueName, translation);
+                                }
+                                else
+                                {
+                                    Logging.Error("duplicate translation for ", translation.uniqueName);
+                                }
                             }
                             else
                             {
@@ -394,42 +399,6 @@ namespace LifecycleRebalance
             {
                 Logging.Error("assembly path was empty");
             }
-        }
-
-
-        /// <summary>
-        /// Returns the filepath of the mod assembly.
-        /// </summary>
-        /// <returns>Mod assembly filepath</returns>
-        private string GetAssemblyPath()
-        {
-            // Get list of currently active plugins.
-            IEnumerable<PluginManager.PluginInfo> plugins = PluginManager.instance.GetPluginsInfo();
-
-            // Iterate through list.
-            foreach (PluginManager.PluginInfo plugin in plugins)
-            {
-                try
-                {
-                    // Get all (if any) mod instances from this plugin.
-                    IUserMod[] mods = plugin.GetInstances<IUserMod>();
-
-                    // Check to see if the primary instance is this mod.
-                    if (mods.FirstOrDefault() is LifecycleRebalanceMod)
-                    {
-                        // Found it! Return path.
-                        return plugin.modPath;
-                    }
-                }
-                catch
-                {
-                    // Don't care.
-                }
-            }
-
-            // If we got here, then we didn't find the assembly.
-            Logging.Error("assembly path not found");
-            throw new FileNotFoundException(LifecycleRebalanceMod.ModName + ": assembly path not found!");
         }
     }
 }

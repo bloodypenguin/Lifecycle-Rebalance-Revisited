@@ -74,24 +74,21 @@ namespace LifecycleRebalance
         {
             Logging.KeyMessage("checking for update notifications");
 
-
             // Get last notified version and current mod version.
             Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
             WhatsNewMessage latestMessage = WhatsNewMessages[0];
 
             // Don't show notification if we're already up to (or ahead of) the first what's new message (including Beta updates).
-            if (whatsNewVersion < latestMessage.version || (whatsNewVersion == latestMessage.version && latestMessage.betaVersion <= ModSettings.whatsNewBetaVersion))
+            if (whatsNewVersion < latestMessage.version || (whatsNewVersion == latestMessage.version && latestMessage.betaVersion < ModSettings.whatsNewBetaVersion))
             {
-                return;
+                // Show messagebox.
+                Logging.KeyMessage("showing What's New messagebox");
+                WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
+                messageBox.Title = LifecycleRebalanceMod.ModName + " " + LifecycleRebalanceMod.Version;
+                messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
+                messageBox.SetMessages(whatsNewVersion, WhatsNewMessages);
+                Logging.KeyMessage("What's New messagebox complete");
             }
-
-            // Show messagebox.
-            Logging.KeyMessage("showing What's New messagebox");
-            WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
-            messageBox.Title = LifecycleRebalanceMod.ModName + " " + LifecycleRebalanceMod.Version;
-            messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
-            messageBox.SetMessages(whatsNewVersion, WhatsNewMessages);
-            Logging.KeyMessage("What's New messagebox complete");
         }
     }
 
