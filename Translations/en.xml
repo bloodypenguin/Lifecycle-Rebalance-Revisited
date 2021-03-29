@@ -28,6 +28,7 @@
     <Translation ID="LBR_IMM_INC" String="Increase average immigrant education levels" />
     <Translation ID="LBR_IMM_DEC" String="Decrease average immigrant education levels" />
     <Translation ID="LBR_SET" String="Settings" />
+    <Translation ID="LBR_SET_LDT" String="Enable detailed debugging logging" />
     <Translation ID="LBR_SET_LGD" String="Log deaths to 'Lifecycle death log.txt'" />
     <Translation ID="LBR_SET_LGI" String="Log immigrants to 'Lifecycle immigration log.txt'" />
     <Translation ID="LBR_SET_LGT" String="Log custom transport choices to 'Lifecycle transport log.txt' WARNING - SLOW!" />

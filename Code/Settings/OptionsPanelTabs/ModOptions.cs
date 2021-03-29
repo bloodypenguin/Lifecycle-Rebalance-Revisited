@@ -27,6 +27,21 @@ namespace LifecycleRebalance
                 Configuration<SettingsFile>.Save();
             };
 
+            // Detail logging options.
+            UICheckBox logCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LDT"));
+            logCheckBox.isChecked = Logging.detailLogging;
+            logCheckBox.eventCheckChanged += (control, isChecked) =>
+            {
+                // Update mod settings.
+                Logging.detailLogging = isChecked;
+
+                // Update configuration file.
+                OptionsPanel.settings.DetailLogging = isChecked;
+                Configuration<SettingsFile>.Save();
+
+                Logging.KeyMessage("detailed logging ", OptionsPanel.settings.DetailLogging ? "enabled" : "disabled");
+            };
+
             // Logging options.
             UICheckBox deathCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGD"));
             deathCheckBox.isChecked = OptionsPanel.settings.LogDeaths;

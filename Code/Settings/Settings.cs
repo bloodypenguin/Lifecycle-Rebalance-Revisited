@@ -18,6 +18,7 @@ namespace LifecycleRebalance
         public int RetirementYear { get; set; } = 65;
         public bool UseTransportModes { get; set; } = true;
         public bool RandomImmigrantEd { get; set; } = true;
+        public bool DetailLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
         public bool LogDeaths { get; set; } = false;
         public bool LogImmigrants { get; set; } = false;
         public bool LogTransport { get; set; } = false;
