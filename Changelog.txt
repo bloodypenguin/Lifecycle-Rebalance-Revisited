@@ -1,4 +1,9 @@
-﻿Version 1.5.2
+﻿- Add option to reduce debugging log output
+- Adjust text layout in options panels
+- Restructure datastore
+- Code cleanups
+
+Version 1.5.2
 
 - Spare single parents from early death (at least until the kids move out), to help prevent orphan households
 - Overhaul mod conflict checking and notification

@@ -7,7 +7,7 @@ using HarmonyLib;
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Harmony transpiler to remove 'vanishing corpse' check from ResidentAI.UpdateHealth, so that it can be replaced with this mod's custom probabilities.
+    /// Harmony transpiler to remove 'vanishing corpse' check from ResidentAI.UpdateHealth and replace it with this mod's custom probabilities.
     /// </summary>
     [HarmonyPatch(typeof(ResidentAI))]
     [HarmonyPatch("UpdateHealth")]
@@ -47,7 +47,7 @@ namespace LifecycleRebalance
                     }
 
                     // The following instruction is a call to ColossalFramework.Math.Randomizer; we keep the call and replace the operand with our own KeepCorpse method.
-                    codes[i + cutCount + 1].operand = AccessTools.Method(typeof(AIUtils), "KeepCorpse");
+                    codes[i + cutCount + 1].operand = AccessTools.Method(typeof(AIUtils), nameof(AIUtils.KeepCorpse));
 
                     Logging.Message("ResidentAI.Die transpiler removing CIL (offset", cutCount.ToString(), ") from ", i.ToString(), " (", codes[i].opcode.ToString(), " ", codes[i].operand.ToString(), " to ", codes[i + cutCount].opcode.ToString(), ")"); ;
 

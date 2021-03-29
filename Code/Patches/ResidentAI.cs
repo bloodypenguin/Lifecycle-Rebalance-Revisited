@@ -5,18 +5,12 @@ using ColossalFramework;
 using HarmonyLib;
 
 
-#pragma warning disable IDE0060 // Remove unused parameter
-
-
 namespace LifecycleRebalance
 {
     /// <summary>
     /// Harmony pre-emptive Prefix patch for ResidentAI.CanMakeBabies - implements mod's minor fix so that only adult females (of less than age 180) give birth.
     /// </summary>
-    [HarmonyPatch(typeof(ResidentAI))]
-    [HarmonyPatch("CanMakeBabies")]
-    [HarmonyPatch(new Type[] { typeof(uint), typeof(Citizen) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref })]
+    [HarmonyPatch(typeof(ResidentAI), nameof(ResidentAI.CanMakeBabies))]
     public static class CanMakeBabiesPatch
     {
         public static bool Prefix(ref bool __result, uint citizenID, ref Citizen data)
@@ -47,10 +41,7 @@ namespace LifecycleRebalance
     /// Harmony pre-emptive Prefix patch for ResidentAI.UpdateAge - implements mod's ageing and deathcare rate functions.
     /// CRITICAL for mod functionality.
     /// </summary>
-    [HarmonyPatch(typeof(ResidentAI))]
-    [HarmonyPatch("UpdateAge")]
-    [HarmonyPatch(new Type[] { typeof(uint), typeof(Citizen) },
-        new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref })]
+    [HarmonyPatch(typeof(ResidentAI), "UpdateAge")]
     public static class UpdateAgePatch
     {
         public static bool Prefix(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
@@ -203,7 +194,7 @@ namespace LifecycleRebalance
         public static void FinishSchoolOrWorkRev(object instance, uint citizenID, ref Citizen data)
         {
             string message = "FinishSchoolOrWork reverse Harmony patch wasn't applied";
-            Logging.Message(message);
+            Logging.Error(message, instance.ToString(), citizenID.ToString(), data.ToString());
             throw new NotImplementedException(message);
         }
 
@@ -219,8 +210,9 @@ namespace LifecycleRebalance
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void DieRev(object instance, uint citizenID, ref Citizen data)
         {
+
             string message = "Die reverse Harmony patch wasn't applied";
-            Logging.Message(message);
+            Logging.Error(message, instance.ToString(), citizenID.ToString(), data.ToString());
             throw new NotImplementedException(message);
         }
     }
@@ -260,5 +252,3 @@ namespace LifecycleRebalance
         }
     }
 }
-
-#pragma warning restore IDE0060 // Remove unused parameter

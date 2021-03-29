@@ -2,9 +2,6 @@
 using ColossalFramework;
 
 
-#pragma warning disable IDE0060 // Remove unused parameter
-
-
 namespace LifecycleRebalance
 {
     /// <summary>
@@ -97,5 +94,3 @@ namespace LifecycleRebalance
         }
     }
 }
-
-#pragma warning restore IDE0060 // Remove unused parameter

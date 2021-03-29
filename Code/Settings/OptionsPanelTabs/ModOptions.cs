@@ -36,10 +36,9 @@ namespace LifecycleRebalance
                 Logging.detailLogging = isChecked;
 
                 // Update configuration file.
-                OptionsPanel.settings.DetailLogging = isChecked;
                 Configuration<SettingsFile>.Save();
 
-                Logging.KeyMessage("detailed logging ", OptionsPanel.settings.DetailLogging ? "enabled" : "disabled");
+                Logging.KeyMessage("detailed logging ", Logging.detailLogging ? "enabled" : "disabled");
             };
 
             // Logging options.
