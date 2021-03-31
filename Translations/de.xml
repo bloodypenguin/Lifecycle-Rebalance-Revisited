@@ -65,6 +65,10 @@
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited wurde auf Version 1.5 aktualisiert" />
     <Translation ID="LBR_150_NT1" String="Die Auswahlmöglichkeiten für den Transportmodus können jetzt über das Optionsfeld bearbeitet werden, und für Öko- und gewöhnliche Wohnhäuser können unterschiedliche Modusoptionen ausgewählt werden" />
     <Translation ID="LBR_150_NT2" String="Das Bildungsniveau von Menschen, die in Ihre Stadt ziehen, kann geändert werden" />
+    <Translation ID="LBR_151_NT1" String="Layout des Optionsfelds für Übersetzungen anpassen." />
+    <Translation ID="LBR_152_NT1" String="Alleinerziehende mit minderjährigen Kindern, die zu Hause leben, werden vor einem frühen Tod bewahrt, um Waisenhaushalte zu vermeiden." />
+    <Translation ID="LBR_152_NT2" String="Verbesserte Mod-Konfliktprüfung und Benachrichtigung" />
+    <Translation ID="LBR_152_NT3" String="Verbesserte Update-Benachrichtigungen" />
     <Translation ID="LBR_ERR_FAT" String="Lifecycle Rebalance Revisited konnte nicht richtig ausgeführt werden und wurde beendet" />
     <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited konnte die erfoderlichen Harmony Patches nicht korrekt installieren" />
     <Translation ID="ERR_HAR0" String="Harmony Patch Fehler!" />

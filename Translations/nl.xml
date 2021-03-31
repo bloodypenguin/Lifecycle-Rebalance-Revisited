@@ -65,5 +65,19 @@
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited is geactualiseerd naar versie 1.5" />
     <Translation ID="LBR_150_NT1" String="Je kunt nu via opties, instellingen maken voor Tansport modus. Ook kun je nu voor eco en standaard woonwijken afzonderlijk verschillende modus instellen." />
     <Translation ID="LBR_150_NT2" String="Je kan nu het opleidingsniveau van immigranten die naar je stad verhuizen instellen " />
+    <Translation ID="LBR_151_NT1" String="Pas de lay-out van het optievenster aan voor vertalingen" />
+    <Translation ID="LBR_152_NT1" String="Alleenstaande ouders met thuiswonende minderjarige kinderen worden gespaard van vroegtijdig overlijden om weeshuishoudens te helpen voorkomen" />
+    <Translation ID="LBR_152_NT2" String="Verbeterde controle en melding van mod-conflicten" />
+    <Translation ID="LBR_152_NT3" String="Verbeterde updatemeldingen" />
+    <Translation ID="LBR_ERR_FAT" String="Dit betekent dat Lifecycle Rebalance Revisited niet goed werkt en is afgesloten." />
+    <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited kon de vereiste Harmony-patches niet voltooien." />
+    <Translation ID="ERR_HAR0" String="Harmony-patchfout!" />
+    <Translation ID="ERR_HAR1" String="Mogelijke oorzaken van dit probleem zijn:" />
+    <Translation ID="ERR_HAR2" String="De vereiste Harmony 2-mod is niet geïnstalleerd" />
+    <Translation ID="ERR_HAR3" String="Een oude en/of kapotte mod zorgt ervoor dat Harmony 2 niet correct werkt" />
+    <Translation ID="ERR_CON0" String="Mod conflict gedetecteerd!" />
+    <Translation ID="ERR_CON1" String="De conflcterende mods zijn:" />
+    <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited heeft een conflict gedetecteerd met ten minste één andere mod." />
+    <Translation ID="LBR_ERR_CON1" String="Deze mods moeten worden verwijderd voordat Lifecycle Rebalance Revisited werkt." />
   </Translations>
 </Language>

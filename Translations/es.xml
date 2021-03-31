@@ -59,7 +59,7 @@
     <Translation ID="LBR_ZRO" String="Establecer todos a cero" />
     <Translation ID="TRN_CHOICE" String="Establecer idioma" />
     <Translation ID="TRN_SYS" String="Usar idioma del sistema" />
-    <Translation ID="MES_CLO" String="Cerrar" />
+    <Translation ID="MES_CLS" String="Cerrar" />
     <Translation ID="MES_DSA" String="No mostrar de nuevo" />
     <Translation ID="LBR_CON" String="Detectado conflicto de mod" />
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited se ha actualizado a la versión 1.5" />
