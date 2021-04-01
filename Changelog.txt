@@ -1,7 +1,10 @@
-﻿- Add option to reduce debugging log output
+﻿Version 1.5.3
+
+- Add option to reduce debugging log output
 - Adjust text layout in options panels
 - Restructure datastore
 - Code cleanups
+
 
 Version 1.5.2
 
