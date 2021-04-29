@@ -1,48 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="nl" ReadableName="Nederlands">
   <Translations>
-    <Translation ID="LBR_NAME" String="Levenscyclus in evenwicht Vernieuwd" />
-    <Translation ID="LBR_DESC" String="Zorgt voor een langere en meer willekeurige levensduur van je inwoners, immigranten hebben een willekeurig onderwijsniveau en leeftijd; Je inwoners' transportvoorkeur word meer leeftijdsgebonden." />
+    <Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
+    <Translation ID="LBR_DESC" String="Verlengt en varieert de levensduur van inwoners, wijst immigranten een willekeurige opleidingsniveau en leeftijd toe en verandert hoe inwoners van en naar werk reizen. " />
     <Translation ID="LBR_SPN" String="Levensduur" />
     <Translation ID="LBR_SPN_WRN" String="Waarschuwing" />
-    <Translation ID="LBR_SPN_BAL" String="Het aanpassen van instellingen bij een bestaand spel kan de balans van je stad tijdelijk verstoren." />
-    <Translation ID="LBR_SPN_BAK" String="Sla je spel eerst op voordat je aanpassingen maakt." />
-    <Translation ID="LBR_CAL" String="Levenscyclus berekening model" />
-    <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor levenscyclussen (basisinstelling)" />
-    <Translation ID="LBR_CAL_LEG" String="Mod legacy levenscyclussen (originele WG Mod) - Kortere levenscyclus, minder senioren" />
-    <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor levenscyclussen - Minder variabele levenscyclussen, iets meer senioren" />
-    <Translation ID="LBR_RET" String="Opties voor pensioenleeftijd (Alleen van toepassing bij `Mod Sunset Harbor levenscyclussen`)" />
-    <Translation ID="LBR_RET_USE" String="Gebruik eigen pensioenleeftijd" />
-    <Translation ID="LBR_RET_CUS" String="Eigen pensioenleeftijd" />
+    <Translation ID="LBR_SPN_BAL" String="Het aanpassen van instellingen in een bestaand spel kan de balans van je stad tijdelijk verstoren." />
+    <Translation ID="LBR_SPN_BAK" String="ZEER aangeraden: maak een backup van je stad voordat je aanpassingen maakt!" />
+    <Translation ID="LBR_CAL" String="Levenscyclus model" />
+    <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor levenscyclus (standaard)" />
+    <Translation ID="LBR_CAL_LEG" String="Mod legacy levenscyclus (originele WG Mod) - Kortere levenscyclus, minder senioren" />
+    <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor levenscyclus - Minder variabele levenscyclussen, iets meer senioren" />
+    <Translation ID="LBR_RET" String="Opties voor pensioenleeftijd (alleen van toepassing bij `Mod Sunset Harbor levenscyclus`)" />
+    <Translation ID="LBR_RET_USE" String="Gebruik aangepaste pensioenleeftijd" />
+    <Translation ID="LBR_RET_CUS" String="Aangepaste pensioenleeftijd" />
     <Translation ID="LBR_RET_NT1" String="Het instellen van een lagere pensioenleeftijd heeft geen invloed op de huidige status van inwoners die al met pensioen zijn" />
-    <Translation ID="LBR_RET_NT2" String="Het instellen van een hogere pensioenleeftijd heeft geen invloed op de huidige status van inwoners die al met pensioen zijn" />
+    <Translation ID="LBR_RET_NT2" String="Het instellen van een hogere pensioenleeftijd heeft geen invloed op het uiterlijk van inwoners die al met pensioen zijn" />
     <Translation ID="LBR_HEA" String="Gezondheid" />
-    <Translation ID="LBR_HEA_ILL" String="Willekeurige kans op ziekte in % per decennium van een leven" />
-    <Translation ID="LBR_HEA_ILD" String="Heeft geen invloed op ziektes die veroorzaakt worden door vervuiling, geluidsoverlast etc." />
+    <Translation ID="LBR_HEA_ILL" String="Willekeurige kans op ziekte in % per 10 jaar" />
+    <Translation ID="LBR_HEA_ILD" String="Heeft geen invloed op ziektes met externe oorzaak zoals vervuiling, geluidsoverlast etc." />
     <Translation ID="LBR_HEA_AGE" String="Leeftijden" />
     <Translation ID="LBR_DTH" String="Dood" />
-    <Translation ID="LBR_DTH_TRN" String="% van lichamen die met een lijkenwagen vervoerd moeten worden" />
-    <Translation ID="LBR_DTH_TRD" String="(Standaard spelwaarde 67%, Mod waarde 50%)" />
+    <Translation ID="LBR_DTH_TRN" String="% overledenen wachtend op transport" />
+    <Translation ID="LBR_DTH_TRD" String="(Standaard game: 67%, Standaard mod: 50%)" />
     <Translation ID="LBR_IMM" String="Immigratie" />
     <Translation ID="LBR_IMM_VAR" String="Pas 25% variatie toe op opleidingsniveau van immigranten" />
-    <Translation ID="LBR_IMM_INC" String="Vermeerder het gemiddelde opleidingsniveau van immigranten" />
+    <Translation ID="LBR_IMM_INC" String="Vergroot het gemiddelde opleidingsniveau van immigranten" />
     <Translation ID="LBR_IMM_DEC" String="Verminder het gemiddelde opleidingsniveau van immigranten" />
     <Translation ID="LBR_SET" String="Instellingen" />
-    <Translation ID="LBR_SET_LGD" String="Leg het aantal doden vast in 'Lifecycle death log.txt'" />
-    <Translation ID="LBR_SET_LGI" String="Leg het aantal immigranten vast in 'Lifecycle immigration log.txt'" />
-    <Translation ID="LBR_SET_LGT" String="Leg de aangepaste transportkeuzes vast in 'Lifecycle transport log.txt', LET OP heeft impact op speelbaarheid" />
-    <Translation ID="LBR_SET_LGS" String="Leg het aantal ziektegevallen vast in 'Lifecycle sickness log.txt'" />
+    <Translation ID="LBR_SET_LDT" String="Schakel gedetailleerde fout-logging in" />
+    <Translation ID="LBR_SET_LGD" String="Log sterfte naar 'Lifecycle death log.txt'" />
+    <Translation ID="LBR_SET_LGI" String="Log immigratie naar 'Lifecycle immigration log.txt'" />
+    <Translation ID="LBR_SET_LGT" String="Log aangepaste transportkeuzes vast in 'Lifecycle transport log.txt', LET OP - VERTRAAGT SPEL!" />
+    <Translation ID="LBR_SET_LGS" String="Log ziektegevallen in 'Lifecycle sickness log.txt'" />
     <Translation ID="LBR_SPD" String="Snelheid" />
-    <Translation ID="LBR_SPD_FAC" String="Factor om het ouder worden van inwoners te vertragen in vergelijk met de standaard spelwaarde" />
-    <Translation ID="LBR_SPD_FN1" String="Waarde 1 is de standaard spelwaarde voor snelheid (35 in-game weken is gelijk aan 10 levensjaren), waarde 2 is dubbel zo langzaam (70 in-game weken is gelijk aan 10 levensjaren), waarde 3 is drie keer zo langzaam etc. Met een waarde van 15 stel je het zo in dat een in-game jaar gelijk staat aan 1 jaar levensjaar van de inwoner" />
-    <Translation ID="LBR_SPD_FN2" String="Heeft geen invloed op de levenscyclus of de leeftijd zelf. Alleen op de snelheid waarmee inwoners oud worden ten op zicht van de spelsnelheid" />
-    <Translation ID="LBR_SPD_FN3" String="(Spelwaarde standaard 1, Mod waarde standaard 3)" />
+    <Translation ID="LBR_SPD_FAC" String="Factor om de veroudering van inwoners te vertragen t.o.v. standaard" />
+    <Translation ID="LBR_SPD_FN1" String="1' = standaard snelheid (35 in-game weken = 10 levensjaren), '2' = 1/2 snelheid (70 in-game weken = 10 levensjaren), '3' = 1/3 snelheid, etc. Indien '15', geeft dit ong. 1 in-game jaar = 1 levensjaar." />
+    <Translation ID="LBR_SPD_FN2" String="Heeft geen invloed op levenscyclus of leeftijd - alleen de verouderingssnelheid van inwoners t.o.v. de spelsnelheid" />
+    <Translation ID="LBR_SPD_FN3" String="(Standaard instelling spel: 1, Standaard van mod: 3)" />
     <Translation ID="LBR_TRN" String="Transport" />
-    <Translation ID="LBR_TRN_CUS" String="Gebruik aangepaste transportmodi kansen" />
-    <Translation ID="LBR_TRN_WEA" String="Welvaarts niveau" />
-    <Translation ID="LBR_TRN_CAR" String="Kans op voertuiggebruik (%)" />
-    <Translation ID="LBR_TRN_BIK" String="Kans op fietsgebruik (%)" />
-    <Translation ID="LBR_TRN_TAX" String="Kans op Taxigebruik (%)" />
+    <Translation ID="LBR_TRN_CUS" String="Gebruik aangepaste kansen transportvormen" />
+    <Translation ID="LBR_TRN_WEA" String="Niveau welvaart" />
+    <Translation ID="LBR_TRN_CAR" String="Kans op voertuig-gebruik (%)" />
+    <Translation ID="LBR_TRN_BIK" String="Kans op fiets-gebruik (%)" />
+    <Translation ID="LBR_TRN_TAX" String="Kans op taxi-gebruik (%)" />
     <Translation ID="LBR_TRN_RLO" String="Woonwijk laagbouw" />
     <Translation ID="LBR_TRN_RHI" String="Woonwijk hoogbouw" />
     <Translation ID="LBR_TRN_ERL" String="Eco woonwijk laagbouw" />
@@ -52,21 +53,22 @@
     <Translation ID="LBR_TRN_YAD" String="Adolescent" />
     <Translation ID="LBR_TRN_ADL" String="Volwassene" />
     <Translation ID="LBR_TRN_SEN" String="Senior" />
-    <Translation ID="LBR_DEF" String="Standaard" />
+    <Translation ID="LBR_DEF" String="standaard" />
     <Translation ID="LBR_RTD" String="Standaard waarden herstellen" />
     <Translation ID="LBR_RTS" String="Herstel naar laatst opgeslagen" />
     <Translation ID="LBR_SAA" String="Sla op en pas toe" />
-    <Translation ID="LBR_ZRO" String="Stel alle waarde in op nul" />
+    <Translation ID="LBR_ZRO" String="Zet alles naar 0" />
     <Translation ID="TRN_CHOICE" String="Stel taal in" />
     <Translation ID="TRN_SYS" String="Gebruik taalinstelling van je systeem" />
     <Translation ID="MES_CLS" String="Sluiten" />
-    <Translation ID="MES_DSA" String="Niet meer tonen." />
-    <Translation ID="LBR_CON" String="Confliterende Mod gedetecteerd" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited is geactualiseerd naar versie 1.5" />
+    <Translation ID="MES_DSA" String="Niet meer tonen" />
+    <Translation ID="MES_PAGE" String="Zie de mod-pagina op Steam Workshop voor meer informatie." />
+    <Translation ID="LBR_CON" String="Conflicterende mod gedetecteerd" />
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited ge-update naar versie 1.5" />
     <Translation ID="LBR_150_NT1" String="Je kunt nu via opties, instellingen maken voor Tansport modus. Ook kun je nu voor eco en standaard woonwijken afzonderlijk verschillende modus instellen." />
-    <Translation ID="LBR_150_NT2" String="Je kan nu het opleidingsniveau van immigranten die naar je stad verhuizen instellen " />
+    <Translation ID="LBR_150_NT2" String="Je kan nu het opleidingsniveau van immigranten aanpassen" />
     <Translation ID="LBR_151_NT1" String="Pas de lay-out van het optievenster aan voor vertalingen" />
-    <Translation ID="LBR_152_NT1" String="Alleenstaande ouders met thuiswonende minderjarige kinderen worden gespaard van vroegtijdig overlijden om weeshuishoudens te helpen voorkomen" />
+    <Translation ID="LBR_152_NT1" String="Alleenstaande ouders met inwonende kinderen worden gespaard van vroegtijdig overlijden om wees-huishoudens te helpen voorkomen" />
     <Translation ID="LBR_152_NT2" String="Verbeterde controle en melding van mod-conflicten" />
     <Translation ID="LBR_152_NT3" String="Verbeterde updatemeldingen" />
     <Translation ID="LBR_ERR_FAT" String="Dit betekent dat Lifecycle Rebalance Revisited niet goed werkt en is afgesloten." />
@@ -76,7 +78,7 @@
     <Translation ID="ERR_HAR2" String="De vereiste Harmony 2-mod is niet geïnstalleerd" />
     <Translation ID="ERR_HAR3" String="Een oude en/of kapotte mod zorgt ervoor dat Harmony 2 niet correct werkt" />
     <Translation ID="ERR_CON0" String="Mod conflict gedetecteerd!" />
-    <Translation ID="ERR_CON1" String="De conflcterende mods zijn:" />
+    <Translation ID="ERR_CON1" String="Gedetecteerde mod-conflicten:" />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited heeft een conflict gedetecteerd met ten minste één andere mod." />
     <Translation ID="LBR_ERR_CON1" String="Deze mods moeten worden verwijderd voordat Lifecycle Rebalance Revisited werkt." />
   </Translations>

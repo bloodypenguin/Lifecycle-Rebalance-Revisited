@@ -2,7 +2,7 @@
 <Language UniqueName="zh-tw" ReadableName="繁體中文">
   <Translations>
     <Translation ID="LBR_NAME" String="生命週期再平衡重製版(Lifecycle Rebalance Revisited) 模組(Mod)" />
-    <Translation ID="LBR_DESC" String="增加和隨機化市民的壽命，隨機化移民的年齡和教育水準，並改變市民工作和旅行的方式" />"
+    <Translation ID="LBR_DESC" String="增加和隨機化市民的壽命，隨機化移民的年齡和教育水準，並改變市民工作和旅行的方式" />
     <Translation ID="LBR_SPN" String="壽命" />
     <Translation ID="LBR_SPN_WRN" String="警告" />
     <Translation ID="LBR_SPN_BAL" String="遊戲期間更改設置可能會暫時破壞城市平衡。（不推薦在遊戲進行時更改數值和設置）" />
@@ -22,7 +22,7 @@
     <Translation ID="LBR_HEA_AGE" String="年齡" />
     <Translation ID="LBR_DTH" String="死亡" />
     <Translation ID="LBR_DTH_TRN" String="％ 需要靈車運輸的屍體" />
-    <Translation ID="LBR_DTH_TRD" String="（遊戲默認為67％，模組默認為50％）" />
+    <Translation ID="LBR_DTH_TRD" String="(遊戲默認為67％，模組默認為50％）" />
     <Translation ID="LBR_IMM" String="移民" />
     <Translation ID="LBR_IMM_VAR" String="移民的教育水準有25％的隨機變動性" />
     <Translation ID="LBR_IMM_INC" String="提高移民教育平均水準" />
@@ -34,7 +34,7 @@
     <Translation ID="LBR_SET_LGS" String="將疾病事件記錄到 'Lifecycle sickness log.txt' 文檔" />
     <Translation ID="LBR_SPD" String="壽命速率" />
     <Translation ID="LBR_SPD_FAC" String="與遊戲默認壽命速率相比，此因子係數為如何減慢市民年齡增長速度。" />
-    <Translation ID="LBR_SPD_FN1" String="1 是遊戲默認壽命速率 (在遊戲內35個遊戲週等於市民10年壽命), 2 是兩倍於遊戲默認壽命速率 (在遊戲內70個遊戲週等於市民10年壽命), 3 是三倍於遊戲默認壽命速率, 以此類推。  15 則意味著每一個遊戲年中的市民壽命大約等同於真實的一歲，模擬比率幾乎為1：1。" />
+    <Translation ID="LBR_SPD_FN1" String="1 是遊戲默認壽命速率 (在遊戲內35個遊戲週等於市民10年壽命), 2 是兩倍於遊戲默認壽命速率 (在遊戲內70個遊戲週等於市民10年壽命), 3 是三倍於遊戲默認壽命速率, 以此類推。 15 則意味著每一個遊戲年中的市民壽命大約等同於真實的一歲，模擬比率幾乎為1：1。" />
     <Translation ID="LBR_SPD_FN2" String="不影響生命週期或年齡 - 僅影響市民的衰老速度。" />
     <Translation ID="LBR_SPD_FN3" String="（遊戲默認為 1, 模組默認為 3）" />
     <Translation ID="LBR_TRN" String="出行工具選擇" />

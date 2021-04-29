@@ -71,6 +71,6 @@
     <Translation ID="ERR_HAR3" String="Conflicto de mod detectado" />
     <Translation ID="ERR_CON0" String="Los conflictos son los siguientes:" />
     <Translation ID="ERR_CON1" String="Lifecycle Rebalance Revisited detectó un conflicto con al menos un mod" />
-    <Translation ID="LBR_ERR_CON0" String="Estos mod deben de eliminarse para que  Lifecycle Rebalance Revisited pueda funcionar" />
+    <Translation ID="LBR_ERR_CON0" String="Estos mod deben de eliminarse para que Lifecycle Rebalance Revisited pueda funcionar" />
   </Translations>
 </Language>

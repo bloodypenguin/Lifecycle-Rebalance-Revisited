@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="ru" ReadableName="Русский">
   <Translations>
-    <Translation ID="KEY" String="Русский" />
     <Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
     <Translation ID="LBR_DESC" String="Увеличивает и создает случайность в ожидаемой продолжительности жизни жителей, генерирует случайный возраст, уровень образования иммигрантов и меняет способ передвижения жителей на работу и с работы" />
     <Translation ID="LBR_SPN" String="Продолжительность жизни" />
@@ -18,7 +17,7 @@
     <Translation ID="LBR_RET_NT1" String="Понижение пенсионного возраста не изменит статуса жителей, которые уже вышли на пенсию до изменения настроек." />
     <Translation ID="LBR_RET_NT2" String="Повышение пенсионного возраста не изменит статуса жителей, которые уже вышли на пенсию до изменения настроек." />
     <Translation ID="LBR_HEA" String="Здоровье" />
-    <Translation ID="LBR_HEA_ILL" String="Произвольный шанс заболеть (в %) за десятб лет жизни" />
+    <Translation ID="LBR_HEA_ILL" String="Произвольный шанс заболеть (в %) за десять лет жизни" />
     <Translation ID="LBR_HEA_ILD" String="Не влияет на болезни из-за загрязнений или шума" />
     <Translation ID="LBR_HEA_AGE" String="Возраст" />
     <Translation ID="LBR_DTH" String="Смерти" />
@@ -29,9 +28,10 @@
     <Translation ID="LBR_IMM_INC" String="Увеличить средний возраст образованных иммигрантов" />
     <Translation ID="LBR_IMM_DEC" String="Уменьшить средний возраст образованных иммигрантов" />
     <Translation ID="LBR_SET" String="Настройки" />
+    <Translation ID="LBR_SET_LDT" String="Включить детальный отладочный лог" />
     <Translation ID="LBR_SET_LGD" String="Записывать лог смерти в 'Lifecycle death log.txt'" />
-    <Translation ID="LBR_SET_LGI" String="Записывать лог иммигрантов в 'Lifecycle immigration log.txt'" />
-    <Translation ID="LBR_SET_LGT" String="Записывать лог выбора нестандартного транспорта в  'Lifecycle transport log.txt' ВНИМАНИЕ, ОЧЕНЬ МЕДЛЕННО!" />
+    <Translation ID="LBR_SET_LGI" String="Записывать лог иммиграций в 'Lifecycle immigration log.txt'" />
+    <Translation ID="LBR_SET_LGT" String="Записывать лог выбора нестандартного транспорта в 'Lifecycle transport log.txt' ВНИМАНИЕ, ОЧЕНЬ МЕДЛЕННО!" />
     <Translation ID="LBR_SET_LGS" String="Записывать случаи болезни в 'Lifecycle sickness log.txt'" />
     <Translation ID="LBR_SPD" String="Скорость" />
     <Translation ID="LBR_SPD_FAC" String="Фактор замедления старения граждан по сравнению с базовой игрой." />
