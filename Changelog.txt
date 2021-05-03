@@ -1,4 +1,6 @@
-﻿- Change treatment of single parent death: remove orphaned children when both parents die (instead of sparing parent from death)
+﻿Version 1.5.4
+
+- Change treatment of single parent death: remove orphaned children when both parents die (instead of sparing parent from death)
 - Add slow incremental check to BuildingManager Simulation step to check for and remove building residents with invalid flags preventing them from ageing
 
 
