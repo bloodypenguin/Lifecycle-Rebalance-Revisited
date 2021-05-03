@@ -122,6 +122,7 @@
     <Content Include="XML_Files\WG_GameDefaults.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Patches\BuildingManager.cs" />
     <Compile Include="Code\Utils\AIUtils.cs" />
     <Compile Include="Code\Patches\ResidentAITransport.cs" />
     <Compile Include="Code\Patches\StartConnectionTransferImpl.cs" />
