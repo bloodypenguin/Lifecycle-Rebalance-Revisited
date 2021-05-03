@@ -1,4 +1,7 @@
-﻿Version 1.5.3
+﻿- Change treatment of single parent death: remove orphaned children when both parents die (instead of sparing parent from death)
+
+
+Version 1.5.3
 
 - Add option to reduce debugging log output
 - Adjust text layout in options panels

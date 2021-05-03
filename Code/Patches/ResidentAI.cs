@@ -46,11 +46,20 @@ namespace LifecycleRebalance
     {
         public static bool Prefix(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
         {
+            // Method result.
+            bool removed = false;
+
             if ((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter)
             {
+                // Local reference.
+                CitizenManager citizenManager = Singleton<CitizenManager>.instance;
+
+                if (citizenID == 575960)
+                {
+                    Logging.Message("foundTarget");
+                }
+
                 int num = data.Age + 1;
-                // Threading.sb.Append(citizenID + ": " + num + "\n");
-                //Debugging.writeDebugToFile(citizenID + ": " + num + " " + Threading.counter);
 
                 if (num <= 45)
                 {
@@ -70,10 +79,9 @@ namespace LifecycleRebalance
 
                 if ((data.m_flags & Citizen.Flags.Original) != Citizen.Flags.None)
                 {
-                    CitizenManager instance = Singleton<CitizenManager>.instance;
-                    if (instance.m_tempOldestOriginalResident < num)
+                    if (citizenManager.m_tempOldestOriginalResident < num)
                     {
-                        instance.m_tempOldestOriginalResident = num;
+                        citizenManager.m_tempOldestOriginalResident = num;
                     }
                     if (num == 240)
                     {
@@ -87,6 +95,9 @@ namespace LifecycleRebalance
                 // Citizens who are currently moving or currently in a vehicle aren't affected.
                 if (data.CurrentLocation != Citizen.Location.Moving && data.m_vehicle == 0)
                 {
+                    // Local reference.
+                    SimulationManager simulationManager = Singleton<SimulationManager>.instance;
+
                     bool died = false;
 
                     if (ModSettings.VanillaCalcs)
@@ -102,8 +113,8 @@ namespace LifecycleRebalance
                         }
                         if (num >= num2)
                         {
-                            bool flag = Singleton<SimulationManager>.instance.m_randomizer.Int32(2000u) < 3;
-                            died = (Singleton<SimulationManager>.instance.m_randomizer.Int32(num2 * 100, num3 * 100) / 100 <= num || flag);
+                            bool flag = simulationManager.m_randomizer.Int32(2000u) < 3;
+                            died = (simulationManager.m_randomizer.Int32(num2 * 100, num3 * 100) / 100 <= num || flag);
                         }
                     }
                     else
@@ -119,10 +130,10 @@ namespace LifecycleRebalance
 
                         // Death chance is simply if a random number between 0 and the modifier calculated above is less than the survival probability calculation for that decade of life.
                         // Also set maximum age of 400 (~114 years) to be consistent with the base game.
-                        died = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || num > 400;
+                        died = (simulationManager.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || num > 400;
 
                         // Check for sickness chance if they haven't died.
-                        if (!died && Singleton<SimulationManager>.instance.m_randomizer.Int32(0, modifier) < DataStore.sicknessProbCalc[index])
+                        if (!died && simulationManager.m_randomizer.Int32(0, modifier) < DataStore.sicknessProbCalc[index])
                         {
                             // Make people sick, if they're unlucky.
                             data.Sick = true;
@@ -139,43 +150,63 @@ namespace LifecycleRebalance
                     {
                         // Check if citizen is only remaining parent and there are children.
                         uint unitID = data.GetContainingUnit(citizenID, Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_homeBuilding].m_citizenUnits, CitizenUnit.Flags.Home);
-                        CitizenUnit containingUnit = Singleton<CitizenManager>.instance.m_units.m_buffer[unitID];
+                        CitizenUnit containingUnit = citizenManager.m_units.m_buffer[unitID];
+
+                        // Log if we're doing that.
+                        if (Logging.UseDeathLog)
+                        {
+                            Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID.ToString(), " at age ", data.Age.ToString(), " (", ((int)(data.Age / 3.5)).ToString(), " years old) with family ", containingUnit.m_citizen0.ToString(), ", " + containingUnit.m_citizen1.ToString(), ", " + containingUnit.m_citizen2.ToString(), ", ", containingUnit.m_citizen3.ToString(), ", ", containingUnit.m_citizen4.ToString());
+                        }
+
+                        // Reverse redirect to access private method Die().
+                        DieRev(__instance, citizenID, ref data);
+
+                        // If there are no adults remaining in this CitizenUnit, remove the others, as orphan households end up in simulation purgatory.
                         bool isParent = containingUnit.m_citizen0 == citizenID || containingUnit.m_citizen1 == citizenID;
                         bool singleParent = isParent && (containingUnit.m_citizen0 == 0 || containingUnit.m_citizen1 == 0);
                         bool hasChild = containingUnit.m_citizen2 != 0 || containingUnit.m_citizen3 != 0 || containingUnit.m_citizen4 != 0;
 
-                        // Spare single parents with children, as orphan households end up in simulation purgatory.
                         if (singleParent && hasChild)
                         {
-                            if (Logging.UseDeathLog)
+                            for (int i = 0; i < 2; ++i)
                             {
-                                Logging.WriteToLog(Logging.DeathLogName, "Spared citzen ", citizenID.ToString(), " at age ", data.Age.ToString()," (", ((int)(data.Age / 3.5)).ToString(), " years old) with family ", containingUnit.m_citizen0.ToString(), ", " + containingUnit.m_citizen1.ToString(), ", " + containingUnit.m_citizen2.ToString(), ", ", containingUnit.m_citizen3.ToString(), ", ", containingUnit.m_citizen4.ToString());
+                                uint currentChild;
+                                switch(i)
+                                {
+                                    case 0:
+                                        currentChild = containingUnit.m_citizen2;
+                                        break;
+                                    case 1:
+                                        currentChild = containingUnit.m_citizen3;
+                                        break;
+                                    default:
+                                        currentChild = containingUnit.m_citizen4;
+                                        break;
+                                }
+
+                                if (currentChild != 0)
+                                {
+                                    if (Logging.UseDeathLog)
+                                    {
+                                        Logging.WriteToLog(Logging.DeathLogName, "Removed orphan ", currentChild.ToString());
+                                        citizenManager.ReleaseCitizen(currentChild);
+                                    }
+                                }
                             }
                         }
-                        else
+
+                        // Chance for 'vanishing corpse' (no need for deathcare).
+                        if (!AIUtils.KeepCorpse())
                         {
-                            // Not a single parent - no escape from the grim reaper!
-                            if (Logging.UseDeathLog)
-                            {
-                                Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID.ToString(), " at age ", data.Age.ToString(), " (", ((int)(data.Age / 3.5)).ToString(), " years old) with family ", containingUnit.m_citizen0.ToString(), ", " + containingUnit.m_citizen1.ToString(), ", " + containingUnit.m_citizen2.ToString(), ", ", containingUnit.m_citizen3.ToString(), ", ", containingUnit.m_citizen4.ToString());
-                            }
-
-                            // Reverse redirect to access private method Die().
-                            DieRev(__instance, citizenID, ref data);
-
-                            // Chance for 'vanishing corpse' (no need for deathcare).
-                            if (!AIUtils.KeepCorpse())
-                            {
-                                Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
-                                return true;
-                            }
+                            citizenManager.ReleaseCitizen(citizenID);
+                            removed = true;
                         }
                     }
                 }
             }
 
             // Original method return value.
-            __result = false;
+            __result = removed;
 
             // Don't execute base method after this.
             return false;
