@@ -7,55 +7,54 @@ namespace LifecycleRebalance
     /// <summary>
     /// Harmony patch to slowly cycle through buildings and remove citizens with invalid flags.
     /// </summary>
-    [HarmonyPatch(typeof(BuildingManager), "SimulationStepImpl")]
-    public static class BuildingManagerPatch
+    [HarmonyPatch(typeof(CitizenManager), "SimulationStepImpl")]
+    public static class CitizenManagerPatch
     {
         /// <summary>
         /// Sequntial step count; start with a random value to ensure spread of checking over multiple saves.
         /// </summary>
-        private static int stepCount = new System.Random().Next(192);
+        private static uint stepCount = (uint)new System.Random().Next(16);
 
         // Local reference.
 
 
         /// <summary>
-        /// Harmony Prefix patch to BuildingManager.SimulationStepImpl, to detect and remove any citizens in the building that don't have the 'created' flag set.
+        /// Harmony Prefix patch to CitizenManager.SimulationStepImpl, to detect and remove any citizens in the building that don't have the 'created' flag set.
         /// </summary>
         /// <param name="__instance">Instance reference</param>
         /// <param name="subStep">Simulation cycle substep.</param>
-        public static void Prefix(BuildingManager __instance, int subStep)
+        public static void Prefix(CitizenManager __instance, int subStep)
         {
             // Don't do anything when subStep is zero.
             if (subStep != 0)
             {
                 // Local references.
-                CitizenManager citizenManager = Singleton<CitizenManager>.instance;
-                Citizen[] citizenBuffer = citizenManager.m_citizens.m_buffer;
-                CitizenUnit[] citizenUnits = citizenManager.m_units.m_buffer;
-                Building[] buildingBuffer = __instance.m_buildings.m_buffer;
+                Citizen[] citizenBuffer = __instance.m_citizens.m_buffer;
+                CitizenUnit[] citizenUnits = __instance.m_units.m_buffer;
 
                 // Get current framecount to align with parent method's frame, so we avoid unnecessary cache misses.
-                int frameCount = (int)(Singleton<SimulationManager>.instance.m_currentFrameIndex & 0xFF);
-                ushort currentBuilding = (ushort)((frameCount * 192) + stepCount);
+                uint frameCount = Singleton<SimulationManager>.instance.m_currentFrameIndex & 0xFFF;
+                uint currentFrame = frameCount * 128;
+                uint baseUnit = currentFrame + (stepCount * 8);
+                uint endUnit = baseUnit + 7;
 
-                // Increment our step counter when frameCount wraps back to zero (evey 256 increments).
+                // Increment our step counter when frameCount wraps back to zero (evey 4096 increments).
                 if (frameCount == 0)
                 {
-                    ++stepCount;
+                    stepCount += 8;
 
-                    // If our step counter is greater than 191, wrap back to zero.
-                    if (stepCount > 191)
+                    // If our step counter is greater than 15, wrap back to zero.
+                    if (stepCount > 15)
                     {
                         stepCount = 0;
                     }
                 }
 
-                // Iterate through all CitizenUnits in current building.
-                uint currentUnit = buildingBuffer[currentBuilding].m_citizenUnits;
-                while (currentUnit != 0)
+                // Iterate through next 8 units in this frame.
+                for (uint currentUnit = baseUnit; currentUnit < endUnit; ++currentUnit)
                 {
                     // Only interested in home units.
-                    if ((citizenUnits[currentUnit].m_flags & CitizenUnit.Flags.Home) != 0)
+                    if ((citizenUnits[currentUnit].m_flags & CitizenUnit.Flags.Home) != 0 && citizenUnits[currentUnit].m_building != 0)
                     {
                         // Check for citizens with invalid flags in this household.
                         uint thisCitizen = citizenUnits[currentUnit].m_citizen0;
@@ -64,7 +63,7 @@ namespace LifecycleRebalance
                             Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
                             if ((citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(citizenManager, ref citizenUnits[currentUnit].m_citizen0, currentUnit, currentBuilding, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen0, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
                         thisCitizen = citizenUnits[currentUnit].m_citizen1;
@@ -73,7 +72,7 @@ namespace LifecycleRebalance
                             Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
                             if ((citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(citizenManager, ref citizenUnits[currentUnit].m_citizen1, currentUnit, currentBuilding, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen1, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
                         thisCitizen = citizenUnits[currentUnit].m_citizen2;
@@ -82,7 +81,7 @@ namespace LifecycleRebalance
                             Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
                             if ((citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(citizenManager, ref citizenUnits[currentUnit].m_citizen2, currentUnit, currentBuilding, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen2, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
                         thisCitizen = citizenUnits[currentUnit].m_citizen3;
@@ -91,7 +90,7 @@ namespace LifecycleRebalance
                             Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
                             if ((citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(citizenManager, ref citizenUnits[currentUnit].m_citizen3, currentUnit, currentBuilding, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen3, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
                         thisCitizen = citizenUnits[currentUnit].m_citizen4;
@@ -100,13 +99,10 @@ namespace LifecycleRebalance
                             Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
                             if ((citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(citizenManager, ref citizenUnits[currentUnit].m_citizen4, currentUnit, currentBuilding, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen4, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
                     }
-
-                    // Move on to next household in building.
-                    currentUnit = citizenUnits[currentUnit].m_nextUnit;
                 }
             }
         }
