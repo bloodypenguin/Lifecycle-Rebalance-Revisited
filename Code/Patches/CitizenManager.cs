@@ -41,7 +41,7 @@ namespace LifecycleRebalance
                 // Increment our step counter when frameCount wraps back to zero (evey 4096 increments).
                 if (frameCount == 0)
                 {
-                    stepCount += 8;
+                    ++stepCount;
 
                     // If our step counter is greater than 15, wrap back to zero.
                     if (stepCount > 15)
@@ -51,7 +51,7 @@ namespace LifecycleRebalance
                 }
 
                 // Iterate through next 8 units in this frame.
-                for (uint currentUnit = baseUnit; currentUnit < endUnit; ++currentUnit)
+                for (uint currentUnit = baseUnit; currentUnit <= endUnit; ++currentUnit)
                 {
                     // Only interested in home units.
                     if ((citizenUnits[currentUnit].m_flags & CitizenUnit.Flags.Home) != 0 && citizenUnits[currentUnit].m_building != 0)
