@@ -6,7 +6,7 @@
     <Translation ID="LBR_SPN" String="Elämänkaari" />
     <Translation ID="LBR_SPN_WRN" String="Varoitus" />
     <Translation ID="LBR_SPN_BAL" String="Asetusten muuttaminen pelin ollessa käynnissä saattaa väliaikaisesti häiritä kaupungin tasapainoa" />
-    <Translation ID="LBR_SPN_BAK" String="Varmuuskopion tallentaminen ennen asetusten muuttamista on vahvasti suositeltua" />
+    <Translation ID="LBR_SPN_BAK" String="Varmuuskopion tallentaminen ennen asetusten muuttamista on VAHVASTI suositeltua" />
     <Translation ID="LBR_CAL" String="Elämänkaarenlaskentamalli" />
     <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor elämänkaaret (oletus)" />
     <Translation ID="LBR_CAL_LEG" String="Mod Legacy elämänkaaret (alkuperäinen WG mod) - lyhyemmät elämänkaaret, vähän enemmän senioreja" />
@@ -28,6 +28,7 @@
     <Translation ID="LBR_IMM_INC" String="Korota alueelle muuttavien keskimääräistä koulutustasoa" />
     <Translation ID="LBR_IMM_DEC" String="Laske alueelle muuttavien keskimääräistä kolutustasoa" />
     <Translation ID="LBR_SET" String="Asetukset" />
+    <Translation ID="LBR_SET_LDT" String="Ota käyttöön tarkka virheenkorjausloki" />
     <Translation ID="LBR_SET_LGD" String="Kirjaa kuolemat lokiin 'Lifecycle death log.txt'" />
     <Translation ID="LBR_SET_LGI" String="Kirjaa maahanmuutot lokiin 'Lifecycle immigration log.txt'" />
     <Translation ID="LBR_SET_LGT" String="Kirjaa kustomoidut liikennevalinnat lokiin 'Lifecycle transport log.txt' VAROITUS - HIDAS!" />
@@ -62,13 +63,20 @@
     <Translation ID="MES_CLS" String="Sulje" />
     <Translation ID="MES_DSA" String="Älä näytä uudestaan" />
     <Translation ID="MES_PAGE" String="Lisää tietoa saadaksesi, ole hyvä ja katso modin Steam Workshop -sivu" />
-    <Translation ID="LBR_CON" String="Modikonflikti huomattu" />
+    <Translation ID="LBR_CON" String="Modikonflikti havaittu" />
     <Translation ID="LBR_150_TIT" String="Uudistettu Elämänkaarien Tasapainotus on päivitetty versioon 1.5" />
+    <Translation ID="LBR_150_NT1" String="Kuljetusmuotovalintoja voi nyt muokata options-paneelissa ja ekologisilla sekä tavallisilla asuinalueilla voi olla eri valinnat" />
     <Translation ID="LBR_150_NT2" String="Voit muuttaa kaupunkiin muuttavien ihmisten koulutustasoa" />
+    <Translation ID="LBR_151_NT1" String="Säädä options-paneelin järjestystä käännöksiä varten" />
+    <Translation ID="LBR_152_NT1" String="Yksinhuoltajat, joilla on alaikäisiä lapsia, säästyvät aikaiselta kuolemalta, jotta ei synny orpotalouksia" />
     <Translation ID="LBR_152_NT2" String="Voit nyt editoida liikkumismuotovaihtoehtoja options-paneelissa, ja asettaa erilaiset liikkumismuotovalinnat tavalliselle ja eko-asuinalueelle." />
     <Translation ID="LBR_152_NT3" String="Voit nyt muokata kaupunkiisi muuttavien ihmisten koulutustasoa" />
+    <Translation ID="LBR_ERR_FAT" String="Uudistettu Elämänkaarien Tasapainotus ei kykene toimimaan kunnolla ja on suljettu" />
+    <Translation ID="LBR_ERR_HAR" String="Uudistettu Elämänkaarien Tasapainotus ei kyennyt viimeistelemään vaadittuja Harmony-päivityksiä" />
+    <Translation ID="ERR_HAR0" String="Harmony-päivitysvirhe" />
     <Translation ID="ERR_HAR1" String="Mahdolliset syyt, jotka voivat aiheuttaa tämän virheen:" />
-    <Translation ID="ERR_HAR2" String="Vaadittava Harmony 2 mod dependency ei ole asennettu" />
+    <Translation ID="ERR_HAR2" String="Vaadittava Harmony 2 modiriippuvaisuus ei ole asennettu" />
+    <Translation ID="ERR_HAR3" String="Vanha ja/tai rikkinäinen modi estää Harmony 2 toimimasta" />
     <Translation ID="ERR_CON0" String="Ristiriita modissa havaittu!" />
     <Translation ID="ERR_CON1" String="Ristiriitaiset modit ovat:" />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited havaitsi ristiriidan ainakin yhden modin kanssa." />

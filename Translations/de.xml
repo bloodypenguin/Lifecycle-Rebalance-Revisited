@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="de" ReadableName="Deutsch">
   <Translations>
-    <Translation ID="LBR_NAME" String="Lebenszyklus Ausgleich Überarbeitet" />
+    <Translation ID="LBR_NAME" String="Ausgleich des Lebenszyklus - Überarbeitet" />
     <Translation ID="LBR_DESC" String="Erhöht die Lebensspanne der Bürger und diese ist zufällig, das Alter und Bildungsniveau von Einwanderern ist zufällig, und verändert wie Bürger von und zur Arbeit reisen" />
     <Translation ID="LBR_SPN" String="Lebensspanne" />
     <Translation ID="LBR_SPN_WRN" String="Warnung" />
     <Translation ID="LBR_SPN_BAL" String="Veränderung der Einstellung im laufenden Spiel, kann vorübergehend das Bevölkerungsgleichgewicht stören." />
-    <Translation ID="LBR_SPN_BAK" String="Es wird DRINGEND empfohlen, vor Änderungen eine Sicherung anzulegen." />
-    <Translation ID="LBR_CAL" String="Rechnungsmodell des Lebenszyklus" />
-    <Translation ID="LBR_CAL_SUN" String="Gemoddete Lebensspanne nach Sunset Harbor (Standardeinstellung)" />
+    <Translation ID="LBR_SPN_BAK" String="Speichert bitte euren Spielstand, bevor ihr die Einstellungen ändert." />
+    <Translation ID="LBR_CAL" String="Parameter zur Berechnung des Lebenszyklus" />
+    <Translation ID="LBR_CAL_SUN" String="Lebensspanne gemäß dem Sunset Harbor Mod (Standardeinstellung)" />
     <Translation ID="LBR_CAL_LEG" String="Gemoddete alte Lebensspanne (Original WG Mod) - Kürzere Lebenszeiten, weniger Rentner" />
     <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor Lebensspanne - Lebenszeit weniger zufällig, etwas mehr Rentner" />
     <Translation ID="LBR_RET" String="Rentenalter-Einstellung (nur mit der gemoddeten Sunset Harbor Lebensspanne verwendbar)" />
@@ -28,6 +28,7 @@
     <Translation ID="LBR_IMM_INC" String="Durchschnittliches Bildungsniveau der Einwanderer erhöhen" />
     <Translation ID="LBR_IMM_DEC" String="Durchschnittliches Bildungsniveau der Einwanderer verringern" />
     <Translation ID="LBR_SET" String="Einstellungen" />
+    <Translation ID="LBR_SET_LDT" String="Aktiviert detailierte Debugging-Protokollierung" />
     <Translation ID="LBR_SET_LGD" String="Todesfälle protokollieren in 'Lifecycle death log.txt'" />
     <Translation ID="LBR_SET_LGI" String="Einwanderer protokollieren in 'Lifecycle immigration log.txt'" />
     <Translation ID="LBR_SET_LGT" String="Wahl des Transportmittels protokollieren in 'Lifecycle transport log.txt' ACHTUNG - LAGGT!" />
@@ -35,6 +36,7 @@
     <Translation ID="LBR_SPD" String="Geschwindigkeit" />
     <Translation ID="LBR_SPD_FAC" String="Faktor, um zu verlangsamen, wie schnell die Bürger im Vergleich zum Basisspiel altern." />
     <Translation ID="LBR_SPD_FN1" String="1 ist die Grundgeschwindigkeit des Spiels (35 Wochen im Spiel entsprechen 10 Jahren), 2 ist doppelt so langsam (70 Wochen im Spiel für 10 Jahre), 3 ist dreimal so langsam usw. Ein Multiplikator von 15 bedeutet, dass die Bürger für jedes Spieljahr ungefähr ein Jahr älter werden." />
+    <Translation ID="LBR_SPD_FN2" String="Beeinflusst nicht den Lebenszyklus oder das Alter - nur die Geschwindigkeit in der Bürger im Verhältnis zur Simulationsgeschwindigkeit altern" />
     <Translation ID="LBR_SPD_FN3" String="(Spiel Standard 1, Mod Standard 3)" />
     <Translation ID="LBR_TRN" String="Transport" />
     <Translation ID="LBR_TRN_CUS" String="Benutze benutzerdefinierte Transportmoduswahrscheinlichkeiten" />
@@ -75,9 +77,8 @@
     <Translation ID="ERR_HAR1" String="Mögliche Ursachen für den Fehler beinhalten:" />
     <Translation ID="ERR_HAR2" String="Die erforderliche Harmony 2 Mod Dependency wurde nicht installiert" />
     <Translation ID="ERR_HAR3" String="Ein alter und/oder defekter Mod behindert die korrekte Ausführung von Harmony 2 " />
-    <Translation ID="ERR_CON0" String="Mod Konflikt erkannt" />
-    <Translation ID="ERR_CON1" String="Behindernde Mods:" />
+    <Translation ID="ERR_CON0" String="Konflikt mit anderen Mods erkannt" />
+    <Translation ID="ERR_CON1" String="Konflikt mit folgenden Mods: " />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalanced Revisited erkennt ein Konflikt mit mindestens einem anderen Mod " />
-    <Translation ID="LBR_ERR_CON1" String="Diese Mods müssen entfernt werden, bevor Lifecycle Rebalance Revisited funktioneren kann." />
-  </Translations>
+    <Translation ID="LBR_ERR_CON1" String="Diese Mods müssen entfernt werden, bevor Lifecycle Rebalance Revisited funktioneren kann." />  </Translations>
 </Language>
