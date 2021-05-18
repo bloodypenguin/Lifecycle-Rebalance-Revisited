@@ -62,13 +62,6 @@
     <Translation ID="MES_CLS" String="關閉" />
     <Translation ID="MES_DSA" String="不再顯示" />
     <Translation ID="MES_PAGE" String="請參閱模組(Mod)在Steam工作坊的頁面以獲得更多資訊。" />
-    <Translation ID="LBR_150_TIT" String="生命週期再平衡重製版(Lifecycle Rebalance Revisited)已經更新至1.5.2" />
-    <Translation ID="LBR_150_NT1" String="現在可以通過選項面板編輯運輸選擇模式，自給住宅和標準住宅可以有不同的選擇模式" />
-    <Translation ID="LBR_150_NT2" String="進入您的城市的市民教育水準可以被修改" />
-    <Translation ID="LBR_151_NT1" String="針對不同的語言調整選項面板佈局" />
-    <Translation ID="LBR_152_NT1" String="有未成年子女在家居住的單親父母將免於過早死亡，以防止孤兒家庭" />
-    <Translation ID="LBR_152_NT2" String="改進模組(Mod)的衝突檢查和通知" />
-    <Translation ID="LBR_152_NT3" String="改進更新通知" />
     <Translation ID="LBR_ERR_FAT" String="這意味著 “生命週期再平衡重製版(Lifecycle Rebalance Revisited)” 將無法正常使用，並且已關閉。" />
     <Translation ID="LBR_ERR_HAR" String="生命週期再平衡重製版(Lifecycle Rebalance Revisited) 無法完成因為它須要 “Harmony” 擴展文檔。" />
     <Translation ID="ERR_HAR0" String="“Harmony” 擴展文檔錯誤！" />
@@ -79,5 +72,12 @@
     <Translation ID="ERR_CON1" String="有衝突的模組(Mod)：" />
     <Translation ID="LBR_ERR_CON0" String="生命週期再平衡重製版(Lifecycle Rebalance Revisited) 檢測到與至少一個其他模組(Mod)發生衝突。" />
     <Translation ID="LBR_ERR_CON1" String="這些模組(Mod)必須退訂才能讓生命週期再平衡重製版(Lifecycle Rebalance Revisited)正常運轉。" />
+    <Translation ID="LBR_150_TIT" String="生命週期再平衡重製版(Lifecycle Rebalance Revisited)已經更新至1.5.2" />
+    <Translation ID="LBR_150_NT1" String="現在可以通過選項面板編輯運輸選擇模式，自給住宅和標準住宅可以有不同的選擇模式" />
+    <Translation ID="LBR_150_NT2" String="進入您的城市的市民教育水準可以被修改" />
+    <Translation ID="LBR_151_NT1" String="針對不同的語言調整選項面板佈局" />
+    <Translation ID="LBR_152_NT1" String="有未成年子女在家居住的單親父母將免於過早死亡，以防止孤兒家庭" />
+    <Translation ID="LBR_152_NT2" String="改進模組(Mod)的衝突檢查和通知" />
+    <Translation ID="LBR_152_NT3" String="改進更新通知" />
   </Translations>
 </Language>

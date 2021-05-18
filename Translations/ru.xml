@@ -64,13 +64,6 @@
     <Translation ID="MES_DSA" String="Не показывать снова" />
     <Translation ID="MES_PAGE" String="Для получения дополнительной информации посетите страницу мода в мастерской Steam." />
     <Translation ID="LBR_CON" String="Обнаружен конфликт модов" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited был обновлён до версии 1.5" />
-    <Translation ID="LBR_150_NT1" String="Выбор транспортного средства теперь можно редактировать с помощью панели опций, а эко и обычные дома могут иметь разные предпочтения. " />
-    <Translation ID="LBR_150_NT2" String="Уровень образования у прибывающих в ваш город людей может быть настроен" />
-    <Translation ID="LBR_151_NT1" String="Настроить панель опций для перевода" />
-    <Translation ID="LBR_152_NT1" String="Родители-одиночки с несовершеннолетними детьми, живущими дома, будут защищены от преждевременной смерти, чтобы они не оставались сиротами." />
-    <Translation ID="LBR_152_NT2" String="Улучшены проверки на конфликты с другими модами и уведомления" />
-    <Translation ID="LBR_152_NT3" String="Улучшены уведомления об обновлении" />
     <Translation ID="LBR_ERR_FAT" String="Это значит что Lifecycle Rebalance Revisited не может корректно работать и был остановлен." />
     <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited не смог завершить патчинг библиотеки Harmony." />
     <Translation ID="ERR_HAR0" String="Ошибка патчанга библиотеки Harmony!" />
@@ -81,5 +74,12 @@
     <Translation ID="ERR_CON1" String="Проблемные моды:" />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited обнаружил конфликт по крайней мере с одной из модификацией." />
     <Translation ID="LBR_ERR_CON1" String="Эти моды нужно отключить для корректной работы Lifecycle Rebalance Revisited" />
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited был обновлён до версии 1.5" />
+    <Translation ID="LBR_150_NT1" String="Выбор транспортного средства теперь можно редактировать с помощью панели опций, а эко и обычные дома могут иметь разные предпочтения. " />
+    <Translation ID="LBR_150_NT2" String="Уровень образования у прибывающих в ваш город людей может быть настроен" />
+    <Translation ID="LBR_151_NT1" String="Настроить панель опций для перевода" />
+    <Translation ID="LBR_152_NT1" String="Родители-одиночки с несовершеннолетними детьми, живущими дома, будут защищены от преждевременной смерти, чтобы они не оставались сиротами." />
+    <Translation ID="LBR_152_NT2" String="Улучшены проверки на конфликты с другими модами и уведомления" />
+    <Translation ID="LBR_152_NT3" String="Улучшены уведомления об обновлении" />
   </Translations>
 </Language>

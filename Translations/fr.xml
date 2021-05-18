@@ -63,13 +63,6 @@
     <Translation ID="MES_DSA" String="Ne plus montrer" />
     <Translation ID="MES_PAGE" String="Veuillez vous référer à la page Steam Workshop du mod pour plus d'informations." />
     <Translation ID="LBR_CON" String="Conflit de mod détecté" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited a été mis à jour vers la version 1.5" />
-    <Translation ID="LBR_150_NT1" String="Les choix du mode de transport peuvent désormais être modifiés via le panneau d'options, et les options eco et le mode résidentiel ordinaire peut avoir différents choix de mode " />
-    <Translation ID="LBR_150_NT2" String="Les niveaux d'éducation des personnes qui s'installent dans votre ville peuvent être modifiés" />
-    <Translation ID="LBR_151_NT1" String="Ajuster la disposition du panneau d'options pour les traductions" />
-    <Translation ID="LBR_152_NT1" String="Les parents isolés ayant des enfants mineurs vivant à la maison seront épargnés mort précoce, pour aider à prévenir les ménages orphelins " />
-    <Translation ID="LBR_152_NT2" String="Vérification et notification des conflits de mod améliorées" />
-    <Translation ID="LBR_152_NT3" String="Notifications de mise à jour améliorées" />
     <Translation ID="LBR_ERR_FAT" String="Cela signifie que Lifecycle Rebalance Revisited ne peut pas fonctionner correctement et s'est arrêté. " />
     <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited n'a pas pu terminer la procédure Harmony requise patches. " />
     <Translation ID="ERR_HAR0" String="Erreur de patch Harmony!" />
@@ -80,5 +73,12 @@
     <Translation ID="ERR_CON1" String="Les mods en conflit sont:" />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited a détecté un conflit avec au moins un autre mod. " />
     <Translation ID="LBR_ERR_CON1" String="Ces mods doivent être supprimés avant que Lifecycle Rebalance Revisited puisse fonctionner." />
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited a été mis à jour vers la version 1.5" />
+    <Translation ID="LBR_150_NT1" String="Les choix du mode de transport peuvent désormais être modifiés via le panneau d'options, et les options eco et le mode résidentiel ordinaire peut avoir différents choix de mode " />
+    <Translation ID="LBR_150_NT2" String="Les niveaux d'éducation des personnes qui s'installent dans votre ville peuvent être modifiés" />
+    <Translation ID="LBR_151_NT1" String="Ajuster la disposition du panneau d'options pour les traductions" />
+    <Translation ID="LBR_152_NT1" String="Les parents isolés ayant des enfants mineurs vivant à la maison seront épargnés mort précoce, pour aider à prévenir les ménages orphelins " />
+    <Translation ID="LBR_152_NT2" String="Vérification et notification des conflits de mod améliorées" />
+    <Translation ID="LBR_152_NT3" String="Notifications de mise à jour améliorées" />
   </Translations>
 </Language>

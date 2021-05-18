@@ -63,14 +63,14 @@
     <Translation ID="MES_CLS" String="No mostrar de nuevo" />
     <Translation ID="MES_PAGE" String="Detectado conflicto de mod" />
     <Translation ID="LBR_CON" String="Lifecycle Rebalance Revisited se ha actualizado a la versión 1.5" />
-    <Translation ID="LBR_150_TIT" String="Las opciones de modos de transportes ahora pueden ser editadas mediante el panel de opciones, y residencias eco. y normales pueden tener diferentes opciones" />
-    <Translation ID="LBR_150_NT1" String="Los niveles de educación de la gente trasladándose a tu ciudad pueden ser modificados" />
-    <Translation ID="LBR_150_NT2" String="Ajuste de visualización del panel de opciones de traducción" />
-    <Translation ID="LBR_152_NT3" String="Esto significa que Lifecycle Rebalance Revisited no puede funcionar correctamente y se cerrará" />
     <Translation ID="ERR_HAR0" String="Las posibles causas de este error son:" />
     <Translation ID="ERR_HAR3" String="Conflicto de mod detectado" />
     <Translation ID="ERR_CON0" String="Los conflictos son los siguientes:" />
     <Translation ID="ERR_CON1" String="Lifecycle Rebalance Revisited detectó un conflicto con al menos un mod" />
     <Translation ID="LBR_ERR_CON0" String="Estos mod deben de eliminarse para que Lifecycle Rebalance Revisited pueda funcionar" />
+    <Translation ID="LBR_150_TIT" String="Las opciones de modos de transportes ahora pueden ser editadas mediante el panel de opciones, y residencias eco. y normales pueden tener diferentes opciones" />
+    <Translation ID="LBR_150_NT1" String="Los niveles de educación de la gente trasladándose a tu ciudad pueden ser modificados" />
+    <Translation ID="LBR_150_NT2" String="Ajuste de visualización del panel de opciones de traducción" />
+    <Translation ID="LBR_152_NT3" String="Esto significa que Lifecycle Rebalance Revisited no puede funcionar correctamente y se cerrará" />
   </Translations>
 </Language>

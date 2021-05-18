@@ -62,13 +62,6 @@
     <Translation ID="MES_DSA" String="다시 보지 않기" />
     <Translation ID="MES_PAGE" String="더 많은 정보를 얻고 싶으시다면 이 모드의 스팀 창작마당 페이지를 참고하십시오." />
     <Translation ID="LBR_CON" String="모드 충돌 감지됨" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited 모드가 1.5 버전으로 업데이트되었습니다." />
-    <Translation ID="LBR_150_NT1" String="설정 패널에서 교통 수단별 이용 확률을 직접 설정할 수 있습니다. 자급자족 거주지 구역과 일반 거주지 구역을 다르게 설정할 수 있습니다." />
-    <Translation ID="LBR_150_NT2" String="이 도시로 전입하는 시민들의 교육 수준을 변경할 수 있습니다." />
-    <Translation ID="LBR_151_NT1" String="번역된 문장들을 제대로 표기하기 위해서 설정 창의 레이아웃을 조정했습니다." />
-    <Translation ID="LBR_152_NT1" String="소년소녀가장 가정이 생기는 것을 막기 위해, 어린 아이를 키우는 핵가족 부모는 일찍 죽지 않도록 변경되었습니다." />
-    <Translation ID="LBR_152_NT2" String="모드 충돌 감지 및 알림 개선" />
-    <Translation ID="LBR_152_NT3" String="업데이트 알림 개선" />
     <Translation ID="LBR_ERR_FAT" String="Lifecycle Rebalance Revisited 모드가 제대로 작동할 수 없어 종료되었습니다." />
     <Translation ID="ERR_HAR0" String="Harmony 패치 오류!" />
     <Translation ID="ERR_HAR1" String="이 문제의 이유 중 다음과 같은 것이 있을 수 있습니다 : " />
@@ -77,5 +70,12 @@
     <Translation ID="ERR_CON1" String="이 모드와 충돌하는 모드는 다음과 같습니다." />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited가 1개 이상의 모드와 충돌하는 것을 감지했습니다." />
     <Translation ID="LBR_ERR_CON1" String="Lifecycle Rebalance Revisited가 정상작동하기 위해서는 이 모드들이 제거되어야 합니다." />
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited 모드가 1.5 버전으로 업데이트되었습니다." />
+    <Translation ID="LBR_150_NT1" String="설정 패널에서 교통 수단별 이용 확률을 직접 설정할 수 있습니다. 자급자족 거주지 구역과 일반 거주지 구역을 다르게 설정할 수 있습니다." />
+    <Translation ID="LBR_150_NT2" String="이 도시로 전입하는 시민들의 교육 수준을 변경할 수 있습니다." />
+    <Translation ID="LBR_151_NT1" String="번역된 문장들을 제대로 표기하기 위해서 설정 창의 레이아웃을 조정했습니다." />
+    <Translation ID="LBR_152_NT1" String="소년소녀가장 가정이 생기는 것을 막기 위해, 어린 아이를 키우는 핵가족 부모는 일찍 죽지 않도록 변경되었습니다." />
+    <Translation ID="LBR_152_NT2" String="모드 충돌 감지 및 알림 개선" />
+    <Translation ID="LBR_152_NT3" String="업데이트 알림 개선" />
   </Translations>
 </Language>

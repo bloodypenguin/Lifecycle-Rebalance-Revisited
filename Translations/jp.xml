@@ -63,13 +63,6 @@
     <Translation ID="MES_DSA" String="今後は表示しない" />
     <Translation ID="MES_PAGE" String="MODの詳細は、 Steam のワークショップページを参照してください。" />
     <Translation ID="LBR_CON" String="MODの競合を検出" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited がバージョン1.5にアップデートされました。" />
-    <Translation ID="LBR_150_NT1" String="交通手段の選択がオプションパネルから編集できるようになりました。 自給自足型住宅区画と標準住宅区画に異なる交通手段を設定できます。" />
-    <Translation ID="LBR_150_NT2" String="移民の教育レベルを編集できます。" />
-    <Translation ID="LBR_151_NT1" String="翻訳用にオプションパネルを調整する。" />
-    <Translation ID="LBR_152_NT1" String="故事世帯の発生を避けるため、 未成年の子を持つ一人親は早死にしなくなりました。" />
-    <Translation ID="LBR_152_NT2" String="MODの競合検出確認を改善しました。" />
-    <Translation ID="LBR_152_NT3" String="更新通知を改善しました。" />
     <Translation ID="LBR_ERR_FAT" String="Lifecycle Rebalance Revisited が正常動作できなかったため、 シャットダウンしたことを意味します。" />
     <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited に必要な Harmony パッチの読み込みに失敗しました。" />
     <Translation ID="ERR_HAR0" String="Harmony パッチの適用エラー" />
@@ -80,5 +73,12 @@
     <Translation ID="ERR_CON1" String="競合しているMODは次の通りです:" />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited は、 1つ以上のMODとの競合を検出しました。" />
     <Translation ID="LBR_ERR_CON1" String="Lifecycle Rebalance Revisited を使用する前に、 これらのMODを削除する必要があります。" />
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited がバージョン1.5にアップデートされました。" />
+    <Translation ID="LBR_150_NT1" String="交通手段の選択がオプションパネルから編集できるようになりました。 自給自足型住宅区画と標準住宅区画に異なる交通手段を設定できます。" />
+    <Translation ID="LBR_150_NT2" String="移民の教育レベルを編集できます。" />
+    <Translation ID="LBR_151_NT1" String="翻訳用にオプションパネルを調整する。" />
+    <Translation ID="LBR_152_NT1" String="故事世帯の発生を避けるため、 未成年の子を持つ一人親は早死にしなくなりました。" />
+    <Translation ID="LBR_152_NT2" String="MODの競合検出確認を改善しました。" />
+    <Translation ID="LBR_152_NT3" String="更新通知を改善しました。" />
   </Translations>
 </Language>

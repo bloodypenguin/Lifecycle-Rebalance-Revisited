@@ -64,13 +64,6 @@
     <Translation ID="MES_DSA" String="Älä näytä uudestaan" />
     <Translation ID="MES_PAGE" String="Lisää tietoa saadaksesi, ole hyvä ja katso modin Steam Workshop -sivu" />
     <Translation ID="LBR_CON" String="Modikonflikti havaittu" />
-    <Translation ID="LBR_150_TIT" String="Uudistettu Elämänkaarien Tasapainotus on päivitetty versioon 1.5" />
-    <Translation ID="LBR_150_NT1" String="Kuljetusmuotovalintoja voi nyt muokata options-paneelissa ja ekologisilla sekä tavallisilla asuinalueilla voi olla eri valinnat" />
-    <Translation ID="LBR_150_NT2" String="Voit muuttaa kaupunkiin muuttavien ihmisten koulutustasoa" />
-    <Translation ID="LBR_151_NT1" String="Säädä options-paneelin järjestystä käännöksiä varten" />
-    <Translation ID="LBR_152_NT1" String="Yksinhuoltajat, joilla on alaikäisiä lapsia, säästyvät aikaiselta kuolemalta, jotta ei synny orpotalouksia" />
-    <Translation ID="LBR_152_NT2" String="Voit nyt editoida liikkumismuotovaihtoehtoja options-paneelissa, ja asettaa erilaiset liikkumismuotovalinnat tavalliselle ja eko-asuinalueelle." />
-    <Translation ID="LBR_152_NT3" String="Voit nyt muokata kaupunkiisi muuttavien ihmisten koulutustasoa" />
     <Translation ID="LBR_ERR_FAT" String="Uudistettu Elämänkaarien Tasapainotus ei kykene toimimaan kunnolla ja on suljettu" />
     <Translation ID="LBR_ERR_HAR" String="Uudistettu Elämänkaarien Tasapainotus ei kyennyt viimeistelemään vaadittuja Harmony-päivityksiä" />
     <Translation ID="ERR_HAR0" String="Harmony-päivitysvirhe" />
@@ -81,5 +74,12 @@
     <Translation ID="ERR_CON1" String="Ristiriitaiset modit ovat:" />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited havaitsi ristiriidan ainakin yhden modin kanssa." />
     <Translation ID="LBR_ERR_CON1" String="Nämä modit pitää poistaa ennen kuin voit käyttää Lifecycle Rebalance Revisited" />
+    <Translation ID="LBR_150_TIT" String="Uudistettu Elämänkaarien Tasapainotus on päivitetty versioon 1.5" />
+    <Translation ID="LBR_150_NT1" String="Kuljetusmuotovalintoja voi nyt muokata options-paneelissa ja ekologisilla sekä tavallisilla asuinalueilla voi olla eri valinnat" />
+    <Translation ID="LBR_150_NT2" String="Voit muuttaa kaupunkiin muuttavien ihmisten koulutustasoa" />
+    <Translation ID="LBR_151_NT1" String="Säädä options-paneelin järjestystä käännöksiä varten" />
+    <Translation ID="LBR_152_NT1" String="Yksinhuoltajat, joilla on alaikäisiä lapsia, säästyvät aikaiselta kuolemalta, jotta ei synny orpotalouksia" />
+    <Translation ID="LBR_152_NT2" String="Voit nyt editoida liikkumismuotovaihtoehtoja options-paneelissa, ja asettaa erilaiset liikkumismuotovalinnat tavalliselle ja eko-asuinalueelle." />
+    <Translation ID="LBR_152_NT3" String="Voit nyt muokata kaupunkiisi muuttavien ihmisten koulutustasoa" />
   </Translations>
 </Language>

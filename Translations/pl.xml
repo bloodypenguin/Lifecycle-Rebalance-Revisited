@@ -63,13 +63,6 @@
     <Translation ID="MES_DSA" String="Nie pokazuj ponownie" />
     <Translation ID="MES_PAGE" String="Więcej informacji znajdziesz na stronie modyfikacji w Warsztacie Steam." />
     <Translation ID="LBR_CON" String="Wykryto konflikt modyfikacji" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited został zaktualizowany do wersji 1.5" />
-    <Translation ID="LBR_150_NT1" String="Wybór środków transportu można teraz edytować za pomocą panelu opcji, a ekologiczne i zwykłe mieszkanie może mieć różne tryby pracy" />
-    <Translation ID="LBR_150_NT2" String="Poziom edukacji ludności wprowadzającej się do twojego miasta może być modyfikowany" />
-    <Translation ID="LBR_151_NT1" String="Dostosuj układ panelu opcji do tłumaczenia" />
-    <Translation ID="LBR_152_NT1" String="Samotni rodzice z niepełnoletnimi dziećmi mieszkającymi w domu będą chronieni przed przedwczesną śmiercią, aby zapobiec osieroconym gospodarstwom domowym" />
-    <Translation ID="LBR_152_NT2" String="Ulepszone sprawdzanie i powiadamianie o konfliktach modyfikacji" />
-    <Translation ID="LBR_152_NT3" String="Ulepszone powiadomienia o aktualizacjach" />
     <Translation ID="LBR_ERR_FAT" String="Oznacza to, że Lifecycle Rebalance Revisited nie może działać prawidłowo i został wyłączony." />
     <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited nie był w stanie dokończyć instalacji wymaganej biblioteki Harmony w aktualizacji." />
     <Translation ID="ERR_HAR0" String="Błąd aktualizacji biblioteki Harmony!" />
@@ -80,5 +73,12 @@
     <Translation ID="ERR_CON1" String="Skonfliktowane modyfikacje:" />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited wykrył konflikt z co najmniej jedną inną modyfikacją." />
     <Translation ID="LBR_ERR_CON1" String="Te modyfikacje muszą zostać usunięte do prawidłowego działania Lifecycle Rebalance Revisited." />
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited został zaktualizowany do wersji 1.5" />
+    <Translation ID="LBR_150_NT1" String="Wybór środków transportu można teraz edytować za pomocą panelu opcji, a ekologiczne i zwykłe mieszkanie może mieć różne tryby pracy" />
+    <Translation ID="LBR_150_NT2" String="Poziom edukacji ludności wprowadzającej się do twojego miasta może być modyfikowany" />
+    <Translation ID="LBR_151_NT1" String="Dostosuj układ panelu opcji do tłumaczenia" />
+    <Translation ID="LBR_152_NT1" String="Samotni rodzice z niepełnoletnimi dziećmi mieszkającymi w domu będą chronieni przed przedwczesną śmiercią, aby zapobiec osieroconym gospodarstwom domowym" />
+    <Translation ID="LBR_152_NT2" String="Ulepszone sprawdzanie i powiadamianie o konfliktach modyfikacji" />
+    <Translation ID="LBR_152_NT3" String="Ulepszone powiadomienia o aktualizacjach" />
   </Translations>
 </Language>
