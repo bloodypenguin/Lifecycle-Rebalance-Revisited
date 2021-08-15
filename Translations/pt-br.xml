@@ -1,33 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="pt-br" ReadableName="Português brasileiro">
   <Translations>
-    <Translation ID="LBR_NAME" String="Lifecycle Rebalance revisitado" />
+    <Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
     <Translation ID="LBR_DESC" String="Aumenta e randomiza o tempo de vida dos cidadãos, randomiza as idades e níveis de educação de imigrantes, e muda a forma como os cidadãos vem e vão trabalhar" />
     <Translation ID="LBR_SPN" String="Tempo de vida" />
     <Translation ID="LBR_SPN_WRN" String="Aviso" />
     <Translation ID="LBR_SPN_BAL" String="Mudar as configurações durante um jogo pode perturbar temporariamente o balanço de uma cidade" />
-    <Translation ID="LBR_SPN_BAK" String="Salvar um ponto de restauração antes de alterar é ALTAMENTE recomendado" />
+    <Translation ID="LBR_SPN_BAK" String="Fazer um backup antes de alterar é ALTAMENTE recomendado" />
     <Translation ID="LBR_CAL" String="Modelo de cálculo de ciclo de vida" />
     <Translation ID="LBR_CAL_SUN" String="Mod tempo de vida Sunset Harbor (padrão)" />
-    <Translation ID="LBR_CAL_LEG" String="Mod tempo de vida legado (mod WG original) - Tempos de vida mais curtos, menos idosos" />
+    <Translation ID="LBR_CAL_LEG" String="Mod tempo de vida preexistente (mod WG original) - Tempos de vida mais curtos, menos idosos" />
     <Translation ID="LBR_CAL_VAN" String="Tempo de vida Vanilla Sunset Harbor - tempos de vida menos variáveis, um pouco mais de idosos" />
     <Translation ID="LBR_RET" String="Opções de idade de aposentadoria (apenas quando usar Mod tempo de vida Sunset Harbor)" />
     <Translation ID="LBR_RET_USE" String="Usar idade de aposentadoria personalizada" />
     <Translation ID="LBR_RET_CUS" String="Idade de aposentadoria personalizada" />
-    <Translation ID="LBR_RET_NT1" String="Diminuir a idade de aposentadoria não mudará a condição de cidadãos que já se aposentaram sob configurações anteriores" />
-    <Translation ID="LBR_RET_NT2" String="Aumentar a idade de aposentadoria não mudará a condição de cidadãos que já se aposentaram sob configurações anteriores" />
+    <Translation ID="LBR_RET_NT1" String="Diminuir a idade de aposentadoria não mudará a condição de cidadãos que já se aposentaram sob configurações anteriores." />
+    <Translation ID="LBR_RET_NT2" String="Aumentar a idade de aposentadoria não mudará a condição de cidadãos que já se aposentaram sob configurações anteriores." />
     <Translation ID="LBR_HEA" String="Saúde" />
     <Translation ID="LBR_HEA_ILL" String="Chance % de doenças aleatórias por década de vida" />
     <Translation ID="LBR_HEA_ILD" String="Não afeta doenças com causas específicas, como poluição ou barulho" />
     <Translation ID="LBR_HEA_AGE" String="Idades" />
     <Translation ID="LBR_DTH" String="Mortes" />
-    <Translation ID="LBR_DTH_TRN" String="% de cadávers precisando de serviços de transporte funerários" />
+    <Translation ID="LBR_DTH_TRN" String="% de cadávers precisando de serviços de transporte funerário" />
     <Translation ID="LBR_DTH_TRD" String="(Padrão do jogo 67%, padrão do mod 50%)" />
     <Translation ID="LBR_IMM" String="Imigração" />
     <Translation ID="LBR_IMM_VAR" String="Aplicar variação de 25% nos níveis de educação de imigrantes" />
     <Translation ID="LBR_IMM_INC" String="Aumentar a média do nível de educação dos imigrantes" />
     <Translation ID="LBR_IMM_DEC" String="Diminuir a média do nível de educação dos imigrantes" />
     <Translation ID="LBR_SET" String="Configurações" />
+    <Translation ID="LBR_SET_LDT" String="Habilitar registro de debugging detalhado" />
     <Translation ID="LBR_SET_LGD" String="Registrar mortes para 'Lifecycle death log.txt'" />
     <Translation ID="LBR_SET_LGI" String="Registrar imigrantes para 'Lifecycle immigration log.txt'" />
     <Translation ID="LBR_SET_LGT" String="Registrar escolhas personalizadas de transporte para 'Lifecycle transport log.txt' AVISO - LENTO!" />
@@ -43,41 +44,44 @@
     <Translation ID="LBR_TRN_CAR" String="Probabilidade de uso de carros (%)" />
     <Translation ID="LBR_TRN_BIK" String="Probabilidade de uso de bicicletas (%)" />
     <Translation ID="LBR_TRN_TAX" String="Probabilidade de uso de taxis (%)" />
-    <Translation ID="LBR_TRN_RLO" String="Residencial baixo" />
-    <Translation ID="LBR_TRN_RHI" String="Residencial alto" />
-    <Translation ID="LBR_TRN_ERL" String="Eco residencial baixo" />
-    <Translation ID="LBR_TRN_ERH" String="Eco residencial alto" />
+    <Translation ID="LBR_TRN_RLO" String="Residencial de baixa densidade" />
+    <Translation ID="LBR_TRN_RHI" String="Residencial de alta densidade" />
+    <Translation ID="LBR_TRN_ERL" String="Residências ecológicas de baixa densidade" />
+    <Translation ID="LBR_TRN_ERH" String="Residências ecológicas de alta densidade" />
     <Translation ID="LBR_TRN_CHL" String="Criança" />
     <Translation ID="LBR_TRN_TEN" String="Adolescente" />
     <Translation ID="LBR_TRN_YAD" String="Jovem adulto" />
     <Translation ID="LBR_TRN_ADL" String="Adulto" />
     <Translation ID="LBR_TRN_SEN" String="Idoso" />
     <Translation ID="LBR_DEF" String="padrão" />
-    <Translation ID="LBR_RTD" String="Reverter ao padrão" />
+    <Translation ID="LBR_RTD" String="Voltar ao padrão" />
     <Translation ID="LBR_RTS" String="Reverter ao salvo" />
     <Translation ID="LBR_SAA" String="Salvar e aplicar" />
     <Translation ID="LBR_ZRO" String="Definir todos como 0" />
     <Translation ID="TRN_CHOICE" String="Definir idioma" />
     <Translation ID="TRN_SYS" String="Usar idioma do sistema" />
     <Translation ID="MES_CLS" String="Fechar" />
-    <Translation ID="MES_DSA" String="Não mostrar novamente." />
-    <Translation ID="LBR_CON" String="Conflito de mod detectado" />
+    <Translation ID="MES_DSA" String="Não mostrar novamente" />
+    <Translation ID="MES_PAGE" String="Por favor, verifique a página do mod na Oficina Steam para mais informações." />
+    <Translation ID="LBR_CON" String="Conflito entre mods detectado" />
     <Translation ID="LBR_ERR_FAT" String="Isso significa que o Lifecycle Rebalance Revisited não é capaz de operar corretamente e foi encerrado. " />
     <Translation ID="LBR_ERR_HAR" String="O Lifecycle Rebalance Revisited não conseguiu completar os patches Harmony necessários." />
     <Translation ID="ERR_HAR0" String="Erro de patch no Harmony!" />
-    <Translation ID="ERR_HAR1" String="As possiveis causa de problema são:" />
-    <Translation ID="ERR_HAR2" String="Depende do mod Harmony 2 necessário e não foi instalado." />
+    <Translation ID="ERR_HAR1" String="As possíveis causas do problema são:" />
+    <Translation ID="ERR_HAR2" String="A dependência necessária do mod Harmony 2 não foi instalada" />
     <Translation ID="ERR_HAR3" String="Um mod antigo e/ou quebrado está impedindo o Harmony 2 de funcionar corretamente" />
-    <Translation ID="ERR_CON0" String="Conflito detectado no MOD!" />
-    <Translation ID="ERR_CON1" String="Conflito detectado é:" />
-    <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited detected a conflict with at least one other mod." />
-    <Translation ID="LBR_ERR_CON1" String="Esses mods devem ser removidos antes que o Lifecycle Rebalance Revisited possa operar." />
+    <Translation ID="ERR_CON0" String="Conflito entre mods detectado!" />
+    <Translation ID="ERR_CON1" String="Os mods conflitantes são:" />
+    <Translation ID="LBR_ERR_CON0" String="O Lifecycle Rebalance Revisited detectou um conflito com pelo menos um outro mod." />
+    <Translation ID="LBR_ERR_CON1" String="Esses mods devem ser removidos para que o Lifecycle Rebalance Revisited possa operar." />
     <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited foi atualizado para a versão 1.5" />
-    <Translation ID="LBR_150_NT1" String="Escolhas de modo de transporte podem agora ser editadas no painel de opções, e residencial comum e eco podem assumir modos diferentes" />
-    <Translation ID="LBR_150_NT2" String="Níveis de educação de pessoas se mudando para a sua cidade podem ser modificados." />
+    <Translation ID="LBR_150_NT1" String="Escolhas de modo de transporte agora podem ser editadas no painel de opções, e residências comuns e ecológicas podem assumir modos diferentes" />
+    <Translation ID="LBR_150_NT2" String="Níveis de educação de pessoas se mudando para a sua cidade podem ser modificados" />
     <Translation ID="LBR_151_NT1" String="Ajuste o layout do painel de opções para traduções" />
-    <Translation ID="LBR_152_NT1" String="Pais solteiros com filhos menores que vivem em casa serão poupados da morte prematura, para ajudar a prevenir lares órfãos" />
-    <Translation ID="LBR_152_NT2" String="Verificação e notificação aprimoradas de conflitos de mod" />
+    <Translation ID="LBR_152_NT1" String="Pais solteiros com filhos menores de idade que vivem em casa serão poupados da morte prematura, para ajudar a prevenir lares órfãos" />
+    <Translation ID="LBR_152_NT2" String="Identificação e notificação de conflitos entre mods aprimorada" />
     <Translation ID="LBR_152_NT3" String="Notificações de atualização aprimoradas" />
+    <Translation ID="LBR_154_NT1" String="Mudança no tratamento da morte de pais solteiros: remove órfãos quando os dois pais morrem (ao invés de poupar os pais da morte)" />
+    <Translation ID="LBR_154_NT2" String="Adicionado código para checar e removar edifícios residenciais com dados inválidos" />
   </Translations>
 </Language>

@@ -28,6 +28,7 @@
     <Translation ID="LBR_IMM_INC" String="Augmenter le niveau de scolarité moyen des immigrants" />
     <Translation ID="LBR_IMM_DEC" String="Diminuer le niveau de scolarité moyen des immigrants" />
     <Translation ID="LBR_SET" String="Paramètres" />
+    <Translation ID="LBR_SET_LDT" String="Activer la journalisation détaillée du débogage" />
     <Translation ID="LBR_SET_LGD" String="Enregistrez les décès dans 'Lifecycle death log.txt'" />
     <Translation ID="LBR_SET_LGI" String="Enregistrez les immigrants dans 'Lifecycle immigration log.txt'" />
     <Translation ID="LBR_SET_LGT" String="Consigner les choix de transport personnalisés dans 'Lifecycle transport log.txt' AVERTISSEMENT - LENT!" />
@@ -77,8 +78,10 @@
     <Translation ID="LBR_150_NT1" String="Les choix du mode de transport peuvent désormais être modifiés via le panneau d'options, et les options eco et le mode résidentiel ordinaire peut avoir différents choix de mode " />
     <Translation ID="LBR_150_NT2" String="Les niveaux d'éducation des personnes qui s'installent dans votre ville peuvent être modifiés" />
     <Translation ID="LBR_151_NT1" String="Ajuster la disposition du panneau d'options pour les traductions" />
-    <Translation ID="LBR_152_NT1" String="Les parents isolés ayant des enfants mineurs vivant à la maison seront épargnés mort précoce, pour aider à prévenir les ménages orphelins " />
+    <Translation ID="LBR_152_NT1" String="Les parents isolés ayant des enfants mineurs vivant à la maison seront épargnés de mort précoce, pour aider à prévenir les ménages orphelins " />
     <Translation ID="LBR_152_NT2" String="Vérification et notification des conflits de mod améliorées" />
     <Translation ID="LBR_152_NT3" String="Notifications de mise à jour améliorées" />
+    <Translation ID="LBR_154_NT1" String="Modifier le traitement du décès d'un seul parent : retirer les enfants orphelins lorsque les deux parents meurent (au lieu d'épargner un des deux parents de la mort)" />
+    <Translation ID="LBR_154_NT2" String="Ajoute un code pour rechercher et retirer les résidents de batiments avec des données invalides" />
   </Translations>
 </Language>

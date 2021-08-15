@@ -21,7 +21,7 @@
     <Translation ID="LBR_HEA_ILD" String="Не влияет на болезни из-за загрязнений или шума" />
     <Translation ID="LBR_HEA_AGE" String="Возраст" />
     <Translation ID="LBR_DTH" String="Смерти" />
-    <Translation ID="LBR_DTH_TRN" String="% трупов, требующих перевозки после смерти" />
+    <Translation ID="LBR_DTH_TRN" String="% умерших, требующих перевозки после смерти" />
     <Translation ID="LBR_DTH_TRD" String="(По умолчанию в игре 67%, для мода 50%)" />
     <Translation ID="LBR_IMM" String="Иммиграция" />
     <Translation ID="LBR_IMM_VAR" String="Применить 25% разброс уровня образования для иммигнантов" />

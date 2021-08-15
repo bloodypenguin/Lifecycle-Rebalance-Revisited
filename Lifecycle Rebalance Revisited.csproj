@@ -107,6 +107,8 @@
     <Content Include="Translations\es.xml" />
     <Content Include="Translations\fi.xml" />
     <Content Include="Translations\fr.xml" />
+    <Content Include="Translations\id.xml" />
+    <Content Include="Translations\it.xml" />
     <Content Include="Translations\jp.xml" />
     <Content Include="Translations\kr.xml" />
     <Content Include="Translations\nl.xml" />

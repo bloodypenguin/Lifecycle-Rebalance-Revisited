@@ -79,6 +79,6 @@
     <Translation ID="LBR_151_NT1" String="调整翻译选项面板布局" />
     <Translation ID="LBR_152_NT1" String="有未成年子女的居家单亲父母会免于早逝，以帮助避免孤儿家庭" />
     <Translation ID="LBR_152_NT2" String="改进模组冲突检测和提示" />
-    <Translation ID="LBR_152_NT3" String="改进升级提示" />
+    <Translation ID="LBR_152_NT3" String="改变单亲父母死亡后的处理方式：在父母死亡之后移除孤儿（而不是）" />
   </Translations>
 </Language>

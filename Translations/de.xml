@@ -2,16 +2,16 @@
 <Language UniqueName="de" ReadableName="Deutsch">
   <Translations>
     <Translation ID="LBR_NAME" String="Ausgleich des Lebenszyklus - Überarbeitet" />
-    <Translation ID="LBR_DESC" String="Erhöht die Lebensspanne der Bürger und diese ist zufällig, das Alter und Bildungsniveau von Einwanderern ist zufällig, und verändert wie Bürger von und zur Arbeit reisen" />
-    <Translation ID="LBR_SPN" String="Lebensspanne" />
+    <Translation ID="LBR_DESC" String="Erhöht die Lebenserwartung der Bürger und diese ist zufällig, das Alter und Bildungsniveau von Einwanderern ist zufällig, und verändert wie Bürger von und zur Arbeit reisen" />
+    <Translation ID="LBR_SPN" String="Lebenserwartung" />
     <Translation ID="LBR_SPN_WRN" String="Warnung" />
     <Translation ID="LBR_SPN_BAL" String="Veränderung der Einstellung im laufenden Spiel, kann vorübergehend das Bevölkerungsgleichgewicht stören." />
-    <Translation ID="LBR_SPN_BAK" String="Speichert bitte euren Spielstand, bevor ihr die Einstellungen ändert." />
+    <Translation ID="LBR_SPN_BAK" String="Es wird DRINGEND empfohlen eine Sicherungskopie von eurem Spielstand zu erstellen, bevor ihr die Einstellungen ändert." />
     <Translation ID="LBR_CAL" String="Parameter zur Berechnung des Lebenszyklus" />
-    <Translation ID="LBR_CAL_SUN" String="Lebensspanne gemäß dem Sunset Harbor Mod (Standardeinstellung)" />
-    <Translation ID="LBR_CAL_LEG" String="Gemoddete alte Lebensspanne (Original WG Mod) - Kürzere Lebenszeiten, weniger Rentner" />
-    <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor Lebensspanne - Lebenszeit weniger zufällig, etwas mehr Rentner" />
-    <Translation ID="LBR_RET" String="Rentenalter-Einstellung (nur mit der gemoddeten Sunset Harbor Lebensspanne verwendbar)" />
+    <Translation ID="LBR_CAL_SUN" String="Modifizierte Lebenserwartung gemäß Sunset Harbor Mod (Standardeinstellung)" />
+    <Translation ID="LBR_CAL_LEG" String="Modifizierte alte Lebenserwartung (Original WG Mod) - Kürzere Lebenserwartung, weniger Rentner" />
+    <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor Lebenserwartung - Lebenserwartung weniger zufällig, etwas mehr Rentner" />
+    <Translation ID="LBR_RET" String="Rentenalter-Einstellung (nur mit der gemoddeten Sunset Harbor Lebenserwartung verwendbar)" />
     <Translation ID="LBR_RET_USE" String="Benutzerdefiniertes Rentenalter verwenden" />
     <Translation ID="LBR_RET_CUS" String="Benutzerdefiniertes Rentenalter" />
     <Translation ID="LBR_RET_NT1" String="Die Senkung des Rentenalters hat keinen Einfluss auf Bürger, die auf Grund der vorherigen Einstellung bereits in Rente gegangen sind." />
@@ -55,7 +55,7 @@
     <Translation ID="LBR_TRN_SEN" String="Senior" />
     <Translation ID="LBR_DEF" String="Standard" />
     <Translation ID="LBR_RTD" String="Auf Standardwerte zurücksetzen" />
-    <Translation ID="LBR_RTS" String="Sicherung widerherstellen" />
+    <Translation ID="LBR_RTS" String="Sicherung wiederherstellen" />
     <Translation ID="LBR_SAA" String="Speichern und Änderungen anwenden" />
     <Translation ID="LBR_ZRO" String="Alle Werte auf Null setzen" />
     <Translation ID="TRN_CHOICE" String="Sprache auswählen" />
@@ -81,5 +81,7 @@
     <Translation ID="LBR_152_NT1" String="Alleinerziehende mit minderjährigen Kindern, die zu Hause leben, werden vor einem frühen Tod bewahrt, um Waisenhaushalte zu vermeiden." />
     <Translation ID="LBR_152_NT2" String="Verbesserte Mod-Konfliktprüfung und Benachrichtigung" />
     <Translation ID="LBR_152_NT3" String="Verbesserte Update-Benachrichtigungen" />
+    <Translation ID="LBR_154_NT1" String="Änderung beim Tod von Alleinerziehenden: das verwaiste Kind wird entfernt, wenn beide Eltern sterben (statt Eltern vor dem Tod zu bewahren)" />
+    <Translation ID="LBR_154_NT2" String="Code hinzufügen zum Prüfen und Entfernen von Gebäudebewohnern mit ungültigen Daten" />
   </Translations>
 </Language>
