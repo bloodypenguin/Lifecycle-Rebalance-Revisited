@@ -103,13 +103,23 @@ namespace LifecycleRebalance
                 tabStrip.tabPages = tabContainer;
 
                 // Add tabs and panels.
-                new CalculationOptions(tabStrip, 0);
-                new SpeedOptions(tabStrip, 1);
-                new DeathOptions(tabStrip, 2);
-                new HealthOptions(tabStrip, 3);
-                new TransportOptions(tabStrip, 4);
-                new ImmigrationOptions(tabStrip, 5);
-                new ModOptions(tabStrip, 6);
+                new ModOptions(tabStrip, 0);
+                new CalculationOptions(tabStrip, 1);
+                new SpeedOptions(tabStrip, 2);
+                new DeathOptions(tabStrip, 3);
+                new HealthOptions(tabStrip, 4);
+                new TransportOptions(tabStrip, 5);
+                new ImmigrationOptions(tabStrip, 6);
+                tabStrip.selectedIndex = 0;
+
+                // Event handler for tab index change; setup the selected tab.
+                tabStrip.eventSelectedIndexChanged += (control, index) =>
+                {
+                    if (tabStrip.tabs[index].objectUserData is OptionsPanelTab childTab)
+                    {
+                        childTab.Setup();
+                    }
+                };
 
                 // Change tab size and text scale (to fit them all in...).
                 foreach (UIButton button in tabStrip.components)

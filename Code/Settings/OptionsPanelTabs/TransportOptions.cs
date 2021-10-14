@@ -8,7 +8,7 @@ namespace LifecycleRebalance
     /// <summary>
     /// Options panel for setting transport options.
     /// </summary>
-    public class TransportOptions
+    internal class TransportOptions : OptionsPanelTab
     {
         // Enumerative constants.
         protected const int NumDensity = 2;
@@ -48,84 +48,100 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="tabStrip">Tab strip to add to</param>
         /// <param name="tabIndex">Index number of tab</param>
-        public TransportOptions(UITabstrip tabStrip, int tabIndex)
+        internal TransportOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            UIPanel transportTab = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_TRN"), tabIndex, true);
+            panel = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_TRN"), tabIndex, false);
 
-            transportTab.autoLayout = false;
+            // Set tab object reference.
+            tabStrip.tabs[tabIndex].objectUserData = this;
+        }
 
-            UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(transportTab, Translations.Translate("LBR_TRN_CUS"));
-            transportCheckBox.relativePosition = new Vector3(30f, 5f);
-            transportCheckBox.isChecked = OptionsPanel.settings.UseTransportModes;
-            transportCheckBox.eventCheckChanged += (control, isChecked) =>
+
+        /// <summary>
+        /// Performs initial setup; called via event when tab is first selected.
+        /// </summary>
+        internal override void Setup()
+        {
+            // Don't do anything if already set up.
+            if (!isSetup)
             {
+                // Perform initial setup.
+                isSetup = true;
+                Logging.Message("setting up ", this.GetType().ToString());
+
+                UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_TRN_CUS"));
+                transportCheckBox.relativePosition = new Vector3(30f, 5f);
+                transportCheckBox.isChecked = OptionsPanel.settings.UseTransportModes;
+                transportCheckBox.eventCheckChanged += (control, isChecked) =>
+                {
                 // Update mod settings.
                 ModSettings.UseTransportModes = isChecked;
 
                 // Update configuration file.
                 OptionsPanel.settings.UseTransportModes = isChecked;
-                Configuration<SettingsFile>.Save();
-            };
+                    Configuration<SettingsFile>.Save();
+                };
 
-            // Set up textfield arrays; low/high density.
-            wealthLow = new UITextField[NumDensity][][];
-            wealthMed = new UITextField[NumDensity][][];
-            wealthHigh = new UITextField[NumDensity][][];
-            ecoWealthLow = new UITextField[NumDensity][][];
-            ecoWealthMed = new UITextField[NumDensity][][];
-            ecoWealthHigh = new UITextField[NumDensity][][];
+                // Set up textfield arrays; low/high density.
+                wealthLow = new UITextField[NumDensity][][];
+                wealthMed = new UITextField[NumDensity][][];
+                wealthHigh = new UITextField[NumDensity][][];
+                ecoWealthLow = new UITextField[NumDensity][][];
+                ecoWealthMed = new UITextField[NumDensity][][];
+                ecoWealthHigh = new UITextField[NumDensity][][];
 
-            // Second level of textfield arrays; age groups.
-            for (int i = 0; i < NumDensity; ++i)
-            {
-                wealthLow[i] = new UITextField[NumAges][];
-                wealthMed[i] = new UITextField[NumAges][];
-                wealthHigh[i] = new UITextField[NumAges][];
-                ecoWealthLow[i] = new UITextField[NumAges][];
-                ecoWealthMed[i] = new UITextField[NumAges][];
-                ecoWealthHigh[i] = new UITextField[NumAges][];
-
-                // Third level of textfield arrays; transport modes.
-                for (int j = 0; j < NumAges; ++j)
+                // Second level of textfield arrays; age groups.
+                for (int i = 0; i < NumDensity; ++i)
                 {
-                    wealthLow[i][j] = new UITextField[NumTransport];
-                    wealthMed[i][j] = new UITextField[NumTransport];
-                    wealthHigh[i][j] = new UITextField[NumTransport];
-                    ecoWealthLow[i][j] = new UITextField[NumTransport];
-                    ecoWealthMed[i][j] = new UITextField[NumTransport];
-                    ecoWealthHigh[i][j] = new UITextField[NumTransport];
+                    wealthLow[i] = new UITextField[NumAges][];
+                    wealthMed[i] = new UITextField[NumAges][];
+                    wealthHigh[i] = new UITextField[NumAges][];
+                    ecoWealthLow[i] = new UITextField[NumAges][];
+                    ecoWealthMed[i] = new UITextField[NumAges][];
+                    ecoWealthHigh[i] = new UITextField[NumAges][];
+
+                    // Third level of textfield arrays; transport modes.
+                    for (int j = 0; j < NumAges; ++j)
+                    {
+                        wealthLow[i][j] = new UITextField[NumTransport];
+                        wealthMed[i][j] = new UITextField[NumTransport];
+                        wealthHigh[i][j] = new UITextField[NumTransport];
+                        ecoWealthLow[i][j] = new UITextField[NumTransport];
+                        ecoWealthMed[i][j] = new UITextField[NumTransport];
+                        ecoWealthHigh[i][j] = new UITextField[NumTransport];
+                    }
                 }
+
+                // Headings.
+                for (int i = 0; i < NumWealth; ++i)
+                {
+                    // Wealth headings.
+                    float wealthX = (i * GroupWidth) + Column1;
+                    WealthIcon(panel, wealthX, 25f, ColumnWidth * 3, i + 1, Translations.Translate("LBR_TRN_WEA"), "InfoIconLandValue");
+
+                    // Transport mode headings.
+                    ColumnIcon(panel, (i * GroupWidth) + Column1, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
+                    ColumnIcon(panel, (i * GroupWidth) + Column2, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
+                    ColumnIcon(panel, (i * GroupWidth) + Column3, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
+                }
+
+                // Rows by group.
+                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails");
+                AddDensityGroup(panel, wealthLow[0], wealthMed[0], wealthHigh[0]);
+                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_RHI"), "ZoningResidentialHigh", "Thumbnails");
+                AddDensityGroup(panel, wealthLow[1], wealthMed[1], wealthHigh[1]);
+                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_ERL"), "IconPolicySelfsufficient", "Ingame");
+                AddDensityGroup(panel, ecoWealthLow[0], ecoWealthMed[0], ecoWealthHigh[0]);
+                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_ERH"), "IconPolicySelfsufficient", "Ingame");
+                AddDensityGroup(panel, ecoWealthLow[1], ecoWealthMed[1], ecoWealthHigh[1]);
+
+                // Buttons.
+                AddButtons(panel);
+
+                // Populate text fields.
+                PopulateFields();
             }
-
-            // Headings.
-            for (int i = 0; i < NumWealth; ++i)
-            {
-                // Wealth headings.
-                float wealthX = (i * GroupWidth) + Column1;
-                WealthIcon(transportTab, wealthX, 25f, ColumnWidth * 3, i + 1, Translations.Translate("LBR_TRN_WEA"), "InfoIconLandValue");
-
-                // Transport mode headings.
-                ColumnIcon(transportTab, (i * GroupWidth) + Column1, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
-                ColumnIcon(transportTab, (i * GroupWidth) + Column2, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
-                ColumnIcon(transportTab, (i * GroupWidth) + Column3, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
-            }
-
-            // Rows by group.
-            RowHeaderIcon(transportTab, currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails");
-            AddDensityGroup(transportTab, wealthLow[0], wealthMed[0], wealthHigh[0]);
-            RowHeaderIcon(transportTab, currentY, Translations.Translate("LBR_TRN_RHI"), "ZoningResidentialHigh", "Thumbnails");
-            AddDensityGroup(transportTab, wealthLow[1], wealthMed[1], wealthHigh[1]);
-            RowHeaderIcon(transportTab, currentY, Translations.Translate("LBR_TRN_ERL"), "IconPolicySelfsufficient", "Ingame");
-            AddDensityGroup(transportTab, ecoWealthLow[0], ecoWealthMed[0], ecoWealthHigh[0]);
-            RowHeaderIcon(transportTab, currentY, Translations.Translate("LBR_TRN_ERH"), "IconPolicySelfsufficient", "Ingame");
-            AddDensityGroup(transportTab, ecoWealthLow[1], ecoWealthMed[1], ecoWealthHigh[1]);
-
-            // Buttons.
-            AddButtons(transportTab);
-
-            // Populate text fields.
-            PopulateFields();
         }
 
 
@@ -134,12 +150,10 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="control">Relevant control</param>
         /// <param name="value">Text value</param>
-        public void TextFilter(UITextField control, string value)
+        private void TextFilter(UITextField control, string value)
         {
             // If it's not blank and isn't an integer, remove the last character and set selection to end.
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-            if (!value.IsNullOrWhiteSpace() && !int.TryParse(value, out int result))
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
+            if (!value.IsNullOrWhiteSpace() && !int.TryParse(value, out int _))
             {
                 control.text = value.Substring(0, value.Length - 1);
                 control.MoveSelectionPointRight();
@@ -150,7 +164,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Updates the DataStore with information from the text fields.
         /// </summary>
-        protected void ApplyFields()
+        private void ApplyFields()
         {
             // Iterate through each density group.
             for (int i = 0; i < NumDensity; ++i)
@@ -185,7 +199,7 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="intVar">Integer variable to store result (left unchanged if parse fails)</param>
         /// <param name="text">Text to parse</param>
-        protected void ParseInt(ref int intVar, string text)
+        private void ParseInt(ref int intVar, string text)
         {
             if (int.TryParse(text, out int result))
             {
@@ -207,7 +221,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Populates the text fields with information from the DataStore.
         /// </summary>
-        protected void PopulateFields()
+        private void PopulateFields()
         {
             // Iterate through each density group.
             for (int i = 0; i < NumDensity; ++i)
@@ -238,7 +252,7 @@ namespace LifecycleRebalance
         /// <param name="lowWealth">Low-wealth textfield array</param>
         /// <param name="medWealth">Medium-wealth textfield array</param>
         /// <param name="highWealth">High-wealth textfield array</param>
-        protected void AddDensityGroup(UIPanel panel, UITextField[][] lowWealth, UITextField[][] medWealth, UITextField[][] highWealth)
+        private void AddDensityGroup(UIPanel panel, UITextField[][] lowWealth, UITextField[][] medWealth, UITextField[][] highWealth)
         {
             string[] ageLabels = new string[] { Translations.Translate("LBR_TRN_CHL"), Translations.Translate("LBR_TRN_TEN"), Translations.Translate("LBR_TRN_YAD"), Translations.Translate("LBR_TRN_ADL"), Translations.Translate("LBR_TRN_SEN") };
 
@@ -274,7 +288,7 @@ namespace LifecycleRebalance
         /// <param name="width">Width of reference item (for centering)</param>
         /// <param name="text">Tooltip text</param>
         /// <param name="icon">Icon name</param>
-        protected void WealthIcon(UIPanel panel, float xPos, float yPos, float width, int count, string text, string icon)
+        private void WealthIcon(UIPanel panel, float xPos, float yPos, float width, int count, string text, string icon)
         {
             // Constants for positioning of icons.
             const float iconSize = 35f;
@@ -306,7 +320,7 @@ namespace LifecycleRebalance
         /// Adds control bouttons the the panel.
         /// </summary>
         /// <param name="panel">UI panel instance</param>
-        protected void AddButtons(UIPanel panel)
+        private void AddButtons(UIPanel panel)
         {
             // Add a little bit of space.
             currentY += Margin;
@@ -334,7 +348,7 @@ namespace LifecycleRebalance
         /// <param name="width">Width of reference item (for centering)</param>
         /// <param name="text">Tooltip text</param>
         /// <param name="icon">Icon name</param>
-        protected void ColumnIcon(UIPanel panel, float xPos, float yPos, float width, string text, string icon)
+        private void ColumnIcon(UIPanel panel, float xPos, float yPos, float width, string text, string icon)
         {
             // Create mini-panel for the icon background.
             UIPanel thumbPanel = panel.AddUIComponent<UIPanel>();
@@ -362,7 +376,7 @@ namespace LifecycleRebalance
         /// <param name="xPos">Reference X position</param>
         /// <param name="text">Tooltip text</param>
         /// <param name="icon">Icon name</param>
-        protected void RowHeaderIcon(UIPanel panel, float yPos, string text, string icon, string atlas)
+        private void RowHeaderIcon(UIPanel panel, float yPos, string text, string icon, string atlas)
         {
             // Actual icon.
             UISprite thumbSprite = panel.AddUIComponent<UISprite>();
@@ -438,7 +452,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Resets all textfields to mod default values.
         /// </summary>
-        protected void ResetToDefaults()
+        private void ResetToDefaults()
         {
             DataStore.wealth_low = new int[][][] { new int[][] { new int [] { 0, 40, 0},
                                                              new int [] {10, 30, 0},

@@ -33,8 +33,6 @@ namespace LifecycleRebalance
             // Tooltip.
             tabButton.tooltip = tabName;
 
-            tabStrip.selectedIndex = tabIndex;
-
             // Force width.
             tabButton.width = 120;
 
