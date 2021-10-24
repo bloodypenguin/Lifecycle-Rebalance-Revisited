@@ -127,6 +127,10 @@ namespace LifecycleRebalance
                     button.textScale = 0.8f;
                     button.width = 100f;
                 }
+
+                // Ensure initial selected tab (doing a 'quickstep' via the second tab to ensure proper events are triggered).
+                tabStrip.selectedIndex = 1;
+                tabStrip.selectedIndex = 0;
             }
             catch (Exception e)
             {
