@@ -36,9 +36,8 @@ namespace LifecycleRebalance
                 isSetup = true;
                 Logging.Message("setting up ", this.GetType().ToString());
 
-
                 // Lifespan multiplier.  Simple integer.
-                UISlider lifeMult = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_SPD_FAC") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN1") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN2") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN3"), 1f, 15f, 1f, DataStore.lifeSpanMultiplier, (value) => { });
+                UISlider lifeMult = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_SPD_FAC") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN1") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN2") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN3"), 1f, 340f, 1f, DataStore.lifeSpanMultiplier, (value) => { }, 680f);
 
                 // Reset to saved button.
                 UIButton lifeMultReset = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTS"));
