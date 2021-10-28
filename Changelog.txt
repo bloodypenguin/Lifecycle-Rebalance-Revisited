@@ -1,6 +1,7 @@
 ﻿Version 1.5.5
 
 - Convert options panel generation to on-demand
+- Increase age speed slider maximum to 340
 
 
 Version 1.5.4
