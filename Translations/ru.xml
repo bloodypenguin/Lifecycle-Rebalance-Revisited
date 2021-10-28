@@ -47,7 +47,7 @@
     <Translation ID="LBR_TRN_RLO" String="Малоэтажная застройка" />
     <Translation ID="LBR_TRN_RHI" String="Многоэтажная застройка" />
     <Translation ID="LBR_TRN_ERL" String="Эко малоэтажная застройка" />
-    <Translation ID="LBR_TRN_ERH" String="Это многоэтажная застройка" />
+    <Translation ID="LBR_TRN_ERH" String="Эко многоэтажная застройка" />
     <Translation ID="LBR_TRN_CHL" String="Дети" />
     <Translation ID="LBR_TRN_TEN" String="Подростки" />
     <Translation ID="LBR_TRN_YAD" String="Молодые взрослые" />
@@ -59,7 +59,7 @@
     <Translation ID="LBR_SAA" String="Сохранить и применить" />
     <Translation ID="LBR_ZRO" String="Установить всё на 0" />
     <Translation ID="TRN_CHOICE" String="Выбрать язык" />
-    <Translation ID="TRN_SYS" String="Использовать системный язык" />
+    <Translation ID="TRN_SYS" String="Использов. системный" />
     <Translation ID="MES_CLS" String="Закрыть" />
     <Translation ID="MES_DSA" String="Не показывать снова" />
     <Translation ID="MES_PAGE" String="Для получения дополнительной информации посетите страницу мода в мастерской Steam." />
@@ -81,5 +81,7 @@
     <Translation ID="LBR_152_NT1" String="Родители-одиночки с несовершеннолетними детьми, живущими дома, будут защищены от преждевременной смерти, чтобы они не оставались сиротами." />
     <Translation ID="LBR_152_NT2" String="Улучшены проверки на конфликты с другими модами и уведомления" />
     <Translation ID="LBR_152_NT3" String="Улучшены уведомления об обновлении" />
+    <Translation ID="LBR_154_NT1" String="Изменён подход к смерти родителей-одиночек: удаление детей-сирот, когда умирают оба родителя (вместо того, чтобы избавлять родителей от смерти)" />
+    <Translation ID="LBR_154_NT2" String="Добавлен код для проверки и удаления жильцов здания с недопустимыми данными" />
   </Translations>
 </Language>
