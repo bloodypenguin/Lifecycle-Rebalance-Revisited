@@ -50,7 +50,7 @@
     <Translation ID="LBR_TRN_ERH" String="Çevreci iskan yüksek" />
     <Translation ID="LBR_TRN_CHL" String="Çocuk" />
     <Translation ID="LBR_TRN_TEN" String="Genç" />
-    <Translation ID="LBR_TRN_YAD" String="no such thing in Turkish but &quot;Genç Yetişkin&quot; would be okay, not used commonly though" />
+    <Translation ID="LBR_TRN_YAD" String="Genç Yetişkin" />
     <Translation ID="LBR_TRN_ADL" String="Yetişkin" />
     <Translation ID="LBR_TRN_SEN" String="Yaşlı" />
     <Translation ID="LBR_DEF" String="Varsayılan" />

@@ -26,7 +26,7 @@ namespace LifecycleRebalance
         protected const float FieldWidth = 40f;
         protected const float RowHeight = 23f;
         protected const float ColumnWidth = FieldWidth + Margin;
-        protected const float Column1 = 220f;
+        protected const float Column1 = 280f;
         protected const float Column2 = Column1 + ColumnWidth;
         protected const float Column3 = Column2 + ColumnWidth;
         protected const float GroupWidth = (ColumnWidth * 3) + Margin;
