@@ -1,85 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="id" ReadableName="Bahasa Indonesia">
   <Translations>
-    <Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
-    <Translation ID="LBR_DESC" String="Menambahkan dan mengacakkan masa hidup warga, mengacakkan umur dan tingkat kependidikan para imigran, dan mengubah cara warga bepergian ke dan dari tempat kerja." />
-    <Translation ID="LBR_SPN" String="Masa hidup" />
-    <Translation ID="LBR_SPN_WRN" String="Peringatan" />
-    <Translation ID="LBR_SPN_BAL" String="Mengubah pengaturan saat di dalam permainan dapat mengganggu keseimbangan kota untuk sementara." />
-    <Translation ID="LBR_SPN_BAK" String="Menyimpan backup sebelum mengubahkannya SANGAT direkomendasikan." />
-    <Translation ID="LBR_CAL" String="Rumus kalkulasi masa hidup" />
-    <Translation ID="LBR_CAL_SUN" String="Masa hidup mod Sunset Harbor (setelan standar)" />
-    <Translation ID="LBR_CAL_LEG" String="Masa hidup mod legacy (mod WG asli) - masa hidup lebih pendek, lebih sedikit lansia" />
-    <Translation ID="LBR_CAL_VAN" String="Masa hidup Vanilla Sunset Harbor - lebih sedikit masa hidup acak, sedikit lebih banyak lansia" />
-    <Translation ID="LBR_RET" String="Opsi umur pensiun (hanya jika menggunakan masa hidup mod Sunset Harbor)" />
-    <Translation ID="LBR_RET_USE" String="Gunakan umur pensiun khusus" />
-    <Translation ID="LBR_RET_CUS" String="Umur pensiun khusus" />
-    <Translation ID="LBR_RET_NT1" String="Mengurangi umur pensiun tidak akan mengubah status warga yang telah pensiun karena pengaturan sebelumnya." />
-    <Translation ID="LBR_RET_NT2" String="Menambah umur pensiun tidak akan mengubah penampilan warga yang telah pensiun karena pengaturan sebelumnya." />
-    <Translation ID="LBR_HEA" String="Kesehatan" />
-    <Translation ID="LBR_HEA_ILL" String="Persentase peluang penyakit acak per dekade umur" />
-    <Translation ID="LBR_HEA_ILD" String="Tidak akan memengaruhi penyakit dengan sebab spesifik, seperti penyakit dari polusi atau kebisingan" />
-    <Translation ID="LBR_HEA_AGE" String="Umur" />
-    <Translation ID="LBR_DTH" String="Kematian" />
-    <Translation ID="LBR_DTH_TRN" String="Persentase mayat yang memerlukan transportasi" />
-    <Translation ID="LBR_DTH_TRD" String="(Standar game 67%, standar mod 50%)" />
-    <Translation ID="LBR_IMM" String="Imigran" />
-    <Translation ID="LBR_IMM_VAR" String="Gunakan variasi 25% untuk tingkat pendidikan imigran" />
-    <Translation ID="LBR_IMM_INC" String="Tambahkan tingkat pendidikan rata-rata imigran" />
-    <Translation ID="LBR_IMM_DEC" String="Kurangkan tingkat pendidikan rata-rata imigran" />
-    <Translation ID="LBR_SET" String="Pengaturan" />
-    <Translation ID="LBR_SET_LDT" String="Aktifkan pencatatan debug secara detail" />
-    <Translation ID="LBR_SET_LGD" String="Catatkan kematian ke &quot;Lifecycle death log.txt&quot;" />
-    <Translation ID="LBR_SET_LGI" String="Catatkan imigran ke &quot;Lifecycle immgiration log.txt&quot;" />
-    <Translation ID="LBR_SET_LGT" String="Catatkan pilihan transportasi khusus ke &quot;Lifecycle transport log.txt&quot; AWAS - AKAN MELABATKAN GAME!" />
-    <Translation ID="LBR_SET_LGS" String="Catatkan peristiwa penyakit ke &quot;Lifecycle sickness log.txt&quot;" />
-    <Translation ID="LBR_SPD" String="Kecepatan" />
-    <Translation ID="LBR_SPD_FAC" String="Faktor untuk melambatkan penambahan umur warga, dibandingkan dengan game tanpa mod ini" />
-    <Translation ID="LBR_SPD_FN1" String="1 adalah kecepatan game biasa (35 minggu game sama dengan umur 10 tahun), 2 adalah 2 kali lebih lambat (70 minggu game sama dengan umur 10 tahun), 3 adalah 3 kali lebih lambat, dan seterusnya. Nilai 15 berarti warga akan menambah umur 1 tahun untuk setiap tahun di dalam game." />
-    <Translation ID="LBR_SPD_FN2" String="Tidak mengubah siklus hidup atau umur - hanya kecepatan penambahan umur warga dibandingkan dengan kecepatan game." />
-    <Translation ID="LBR_SPD_FN3" String="(Standar game 1, standar mod 3)" />
-    <Translation ID="LBR_TRN" String="Transportasi" />
-    <Translation ID="LBR_TRN_CUS" String="Gunakan peluang mode transportasi khusus" />
-    <Translation ID="LBR_TRN_WEA" String="Tingkat kekayaan" />
-    <Translation ID="LBR_TRN_CAR" String="Peluang mobil digunakan (%)" />
-    <Translation ID="LBR_TRN_BIK" String="Peluang sepeda digunakan (%)" />
-    <Translation ID="LBR_TRN_TAX" String="Peluang taksi digunakan (%)" />
-    <Translation ID="LBR_TRN_RLO" String="Perumahan kepadatan rendah" />
-    <Translation ID="LBR_TRN_RHI" String="Perumahan kepadatan tinggi" />
-    <Translation ID="LBR_TRN_ERL" String="Perumahan eco kepadatan rendah" />
-    <Translation ID="LBR_TRN_ERH" String="Perumahan eco kepadatan tinggi" />
-    <Translation ID="LBR_TRN_CHL" String="Anak" />
-    <Translation ID="LBR_TRN_TEN" String="Remaja" />
-    <Translation ID="LBR_TRN_YAD" String="Dewasa muda" />
-    <Translation ID="LBR_TRN_ADL" String="Dewasa" />
-    <Translation ID="LBR_TRN_SEN" String="Lansia" />
-    <Translation ID="LBR_DEF" String="standar" />
-    <Translation ID="LBR_RTD" String="Reset kembali ke standar" />
-    <Translation ID="LBR_RTS" String="Kembalikan ke yang tersimpan" />
-    <Translation ID="LBR_SAA" String="Simpan dan terapkan" />
-    <Translation ID="LBR_ZRO" String="Set semua ke nol" />
-    <Translation ID="TRN_CHOICE" String="Set bahasa" />
-    <Translation ID="TRN_SYS" String="Gunakan bahasa sistem" />
-    <Translation ID="MES_CLS" String="Tutup" />
-    <Translation ID="MES_DSA" String="Jangan perlihatkan lagi" />
-    <Translation ID="MES_PAGE" String="Mohon lihat halaman Steam Workshop mod ini untuk informasi lebih lanjut." />
-    <Translation ID="LBR_CON" String="Konflik mod terdeteksi" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Visited telah diperbarui ke versi 1.5" />
-    <Translation ID="LBR_150_NT1" String="Pilihan moda transportasi sekarang dapat diedit via panel pengaturan, dan perumahan biasa dan eco dapat memiliki pilihan moda yang berbeda." />
-    <Translation ID="LBR_150_NT2" String="Tingkat kependidikan orang yang pindah ke kota anda dapat diubah." />
-    <Translation ID="LBR_151_NT1" String="Ubah layout panel pengaturan untuk terjemahan" />
-    <Translation ID="LBR_152_NT1" String="Orang tua tunggal dengan anak di bawah umur akan diselamatkan dari kematian dini, untuk mencegah adanya rumah tangga anak yatim" />
-    <Translation ID="LBR_152_NT2" String="Perbaikan pengecekan dan notifikasi konflik mod" />
-    <Translation ID="LBR_152_NT3" String="Perbaikan notifikasi pembaruan" />
-    <Translation ID="LBR_ERR_FAT" String="Artinya, Lifecycle Rebalance Revisited tidak dapat beroperasi dengan seharusnya dan telah dimatikan." />
-    <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited tidak dapat melakukan patch Harmony yang diperlukan." />
-    <Translation ID="ERR_HAR0" String="Error patch Harmony!" />
-    <Translation ID="ERR_HAR1" String="Terdapat beberapa kemungkinan sebab dari masalah ini, termasuk:" />
-    <Translation ID="ERR_HAR2" String="Mod ketergantungan Harmony 2 yang diperlukan tidak diinstal" />
-    <Translation ID="ERR_HAR3" String="Harmony 2 tidak bisa beroperasi dengan semestinya karena sebuah mod lainnya yang tua dan/atau rusak." />
-    <Translation ID="ERR_CON0" String="Konflik mod terdeteksi!" />
-    <Translation ID="ERR_CON1" String="Mod yang berkonflik adalah sebagai berikut:" />
-    <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Visited telah mendeteksi sebuah konflik dengan setidaknya satu mod lain." />
-    <Translation ID="LBR_ERR_CON1" String="Mod-mod berikut ini harus dihapus sebelum Lifecycle Rebalance Revisited dapat beroperasi." />
+<Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
+<Translation ID="LBR_DESC" String="Menambahkan dan mengacakkan masa hidup warga, mengacakkan umur dan tingkat kependidikan para imigran, dan mengubah cara warga bepergian ke dan dari tempat kerja." />
+<Translation ID="LBR_SPN" String="Masa hidup" />
+<Translation ID="LBR_SPN_WRN" String="Peringatan" />
+<Translation ID="LBR_SPN_BAL" String="Mengubah pengaturan saat di dalam permainan dapat mengganggu keseimbangan kota untuk sementara." />
+<Translation ID="LBR_SPN_BAK" String="Menyimpan backup sebelum mengubahkannya SANGAT direkomendasikan." />
+<Translation ID="LBR_CAL" String="Rumus kalkulasi masa hidup" />
+<Translation ID="LBR_CAL_SUN" String="Masa hidup mod Sunset Harbor (setelan standar)" />
+<Translation ID="LBR_CAL_LEG" String="Masa hidup mod legacy (mod WG asli) - masa hidup lebih pendek, lebih sedikit lansia" />
+<Translation ID="LBR_CAL_VAN" String="Masa hidup Vanilla Sunset Harbor - lebih sedikit masa hidup acak, sedikit lebih banyak lansia" />
+<Translation ID="LBR_RET" String="Opsi umur pensiun (hanya jika menggunakan masa hidup mod Sunset Harbor)" />
+<Translation ID="LBR_RET_USE" String="Gunakan umur pensiun khusus" />
+<Translation ID="LBR_RET_CUS" String="Umur pensiun khusus" />
+<Translation ID="LBR_RET_NT1" String="Mengurangi umur pensiun tidak akan mengubah status warga yang telah pensiun karena pengaturan sebelumnya." />
+<Translation ID="LBR_RET_NT2" String="Menambah umur pensiun tidak akan mengubah penampilan warga yang telah pensiun karena pengaturan sebelumnya." />
+<Translation ID="LBR_HEA" String="Kesehatan" />
+<Translation ID="LBR_HEA_ILL" String="Persentase peluang penyakit acak per dekade umur" />
+<Translation ID="LBR_HEA_ILD" String="Tidak akan memengaruhi penyakit dengan sebab spesifik, seperti penyakit dari polusi atau kebisingan" />
+<Translation ID="LBR_HEA_AGE" String="Umur" />
+<Translation ID="LBR_DTH" String="Kematian" />
+<Translation ID="LBR_DTH_TRN" String="Persentase mayat yang memerlukan transportasi" />
+<Translation ID="LBR_DTH_TRD" String="(Standar game 67%, standar mod 50%)" />
+<Translation ID="LBR_IMM" String="Imigran" />
+<Translation ID="LBR_IMM_VAR" String="Gunakan variasi 25% untuk tingkat pendidikan imigran" />
+<Translation ID="LBR_IMM_INC" String="Tambahkan tingkat pendidikan rata-rata imigran" />
+<Translation ID="LBR_IMM_DEC" String="Kurangkan tingkat pendidikan rata-rata imigran" />
+<Translation ID="LBR_SET" String="Pengaturan" />
+<Translation ID="LBR_SET_LDT" String="Aktifkan pencatatan debug secara detail" />
+<Translation ID="LBR_SET_LGD" String="Catatkan kematian ke &quot;Lifecycle death log.txt&quot;" />
+<Translation ID="LBR_SET_LGI" String="Catatkan imigran ke &quot;Lifecycle immgiration log.txt&quot;" />
+<Translation ID="LBR_SET_LGT" String="Catatkan pilihan transportasi khusus ke &quot;Lifecycle transport log.txt&quot; AWAS - AKAN MELABATKAN GAME!" />
+<Translation ID="LBR_SET_LGS" String="Catatkan peristiwa penyakit ke &quot;Lifecycle sickness log.txt&quot;" />
+<Translation ID="LBR_SPD" String="Kecepatan" />
+<Translation ID="LBR_SPD_FAC" String="Faktor untuk melambatkan penambahan umur warga, dibandingkan dengan game tanpa mod ini" />
+<Translation ID="LBR_SPD_FN1" String="1 adalah kecepatan game biasa (35 minggu game sama dengan umur 10 tahun), 2 adalah 2 kali lebih lambat (70 minggu game sama dengan umur 10 tahun), 3 adalah 3 kali lebih lambat, dan seterusnya. Nilai 15 berarti warga akan menambah umur 1 tahun untuk setiap tahun di dalam game." />
+<Translation ID="LBR_SPD_FN2" String="Tidak mengubah siklus hidup atau umur - hanya kecepatan penambahan umur warga dibandingkan dengan kecepatan game." />
+<Translation ID="LBR_SPD_FN3" String="(Standar game 1, standar mod 3)" />
+<Translation ID="LBR_TRN" String="Transportasi" />
+<Translation ID="LBR_TRN_CUS" String="Gunakan peluang mode transportasi khusus" />
+<Translation ID="LBR_TRN_WEA" String="Tingkat kekayaan" />
+<Translation ID="LBR_TRN_CAR" String="Peluang mobil digunakan (%)" />
+<Translation ID="LBR_TRN_BIK" String="Peluang sepeda digunakan (%)" />
+<Translation ID="LBR_TRN_TAX" String="Peluang taksi digunakan (%)" />
+<Translation ID="LBR_TRN_RLO" String="Perumahan kepadatan rendah" />
+<Translation ID="LBR_TRN_RHI" String="Perumahan kepadatan tinggi" />
+<Translation ID="LBR_TRN_ERL" String="Perumahan eco kepadatan rendah" />
+<Translation ID="LBR_TRN_ERH" String="Perumahan eco kepadatan tinggi" />
+<Translation ID="LBR_TRN_CHL" String="Anak" />
+<Translation ID="LBR_TRN_TEN" String="Remaja" />
+<Translation ID="LBR_TRN_YAD" String="Dewasa muda" />
+<Translation ID="LBR_TRN_ADL" String="Dewasa" />
+<Translation ID="LBR_TRN_SEN" String="Lansia" />
+<Translation ID="LBR_DEF" String="standar" />
+<Translation ID="LBR_RTD" String="Reset kembali ke standar" />
+<Translation ID="LBR_RTS" String="Kembalikan ke yang tersimpan" />
+<Translation ID="LBR_SAA" String="Simpan dan terapkan" />
+<Translation ID="LBR_ZRO" String="Set semua ke nol" />
+<Translation ID="TRN_CHOICE" String="Set bahasa" />
+<Translation ID="TRN_SYS" String="Gunakan bahasa sistem" />
+<Translation ID="MES_CLS" String="Tutup" />
+<Translation ID="MES_DSA" String="Jangan perlihatkan lagi" />
+<Translation ID="MES_PAGE" String="Mohon lihat halaman Steam Workshop mod ini untuk informasi lebih lanjut." />
+<Translation ID="LBR_CON" String="Konflik mod terdeteksi" />
+<Translation ID="LBR_ERR_FAT" String="Artinya, Lifecycle Rebalance Revisited tidak dapat beroperasi dengan seharusnya dan telah dimatikan." />
+<Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited tidak dapat melakukan patch Harmony yang diperlukan." />
+<Translation ID="ERR_HAR0" String="Error patch Harmony!" />
+<Translation ID="ERR_HAR1" String="Terdapat beberapa kemungkinan sebab dari masalah ini, termasuk:" />
+<Translation ID="ERR_HAR2" String="Mod ketergantungan Harmony 2 yang diperlukan tidak diinstal" />
+<Translation ID="ERR_HAR3" String="Harmony 2 tidak bisa beroperasi dengan semestinya karena sebuah mod lainnya yang tua dan/atau rusak." />
+<Translation ID="ERR_CON0" String="Konflik mod terdeteksi!" />
+<Translation ID="ERR_CON1" String="Mod yang berkonflik adalah sebagai berikut:" />
+<Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Visited telah mendeteksi sebuah konflik dengan setidaknya satu mod lain." />
+<Translation ID="LBR_ERR_CON1" String="Mod-mod berikut ini harus dihapus sebelum Lifecycle Rebalance Revisited dapat beroperasi." />
+<Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Visited telah diperbarui ke versi 1.5" />
+<Translation ID="LBR_150_NT1" String="Pilihan moda transportasi sekarang dapat diedit via panel pengaturan, dan perumahan biasa dan eco dapat memiliki pilihan moda yang berbeda." />
+<Translation ID="LBR_150_NT2" String="Tingkat kependidikan orang yang pindah ke kota anda dapat diubah." />
+<Translation ID="LBR_151_NT1" String="Ubah layout panel pengaturan untuk terjemahan" />
+<Translation ID="LBR_152_NT1" String="Orang tua tunggal dengan anak di bawah umur akan diselamatkan dari kematian dini, untuk mencegah adanya rumah tangga anak yatim" />
+<Translation ID="LBR_152_NT2" String="Perbaikan pengecekan dan notifikasi konflik mod" />
+<Translation ID="LBR_152_NT3" String="Perbaikan notifikasi pembaruan" />
   </Translations>
 </Language>

@@ -115,6 +115,7 @@
     <Content Include="Translations\pl.xml" />
     <Content Include="Translations\pt-br.xml" />
     <Content Include="Translations\ru.xml" />
+    <Content Include="Translations\tr.xml" />
     <Content Include="Translations\zh-tw.xml" />
     <Content Include="Translations\zh.xml" />
     <Content Include="XMLFileAndEditDiscussion.txt" />
