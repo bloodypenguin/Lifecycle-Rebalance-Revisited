@@ -64,13 +64,6 @@
     <Translation ID="MES_DSA" String="Non mostrare più" />
     <Translation ID="MES_PAGE" String="Per favore riferisciti alla pagina del Steam Workshop della mod per maggiori informazioni." />
     <Translation ID="LBR_CON" String="Conflitto tra mod rilevato" />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited è stato aggiornato alla versione 1.5" />
-    <Translation ID="LBR_150_NT1" String="Le scelte della modalità di trasporto possono ora essere modificate tramite il pannello delle opzioni, residenziale ordinario ed eco possono avere diverse scelte di modalità" />
-    <Translation ID="LBR_150_NT2" String="Il livello di educazione delle persone che si spostano nella tua città può essere modificato " />
-    <Translation ID="LBR_151_NT1" String="Regola il layout del pannello delle opzioni per le traduzioni" />
-    <Translation ID="LBR_152_NT1" String="I genitori single con figli minorenni che vivono a casa non moriranno di morte prematura, per aiutare a prevenire case con orfani." />
-    <Translation ID="LBR_152_NT2" String="Migliorato il controllo di conflitti tra mod" />
-    <Translation ID="LBR_152_NT3" String="Migliorate le notifiche di aggiornamento" />
     <Translation ID="LBR_ERR_FAT" String="Questo significa che Lifecycle Rebalance Revisited non è capace di funzionare correttamente ed è stata disattivata." />
     <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited non è stata capace di completare i necessari patch di Harmony." />
     <Translation ID="ERR_HAR0" String="Errore nel patchare Harmony!" />
@@ -81,5 +74,14 @@
     <Translation ID="ERR_CON1" String="Le cause di conflitto sono:" />
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited ha rilevato un conflitto con almeno un'altra mod." />
     <Translation ID="LBR_ERR_CON1" String="Queste mod dovrebbero essere rimosse prima che Lifecycle Rebalance Revisited possa funzionare." />
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited è stato aggiornato alla versione 1.5" />
+    <Translation ID="LBR_150_NT1" String="Le scelte della modalità di trasporto possono ora essere modificate tramite il pannello delle opzioni, residenziale ordinario ed eco possono avere diverse scelte di modalità" />
+    <Translation ID="LBR_150_NT2" String="Il livello di educazione delle persone che si spostano nella tua città può essere modificato " />
+    <Translation ID="LBR_151_NT1" String="Regola il layout del pannello delle opzioni per le traduzioni" />
+    <Translation ID="LBR_152_NT1" String="I genitori single con figli minorenni che vivono a casa non moriranno di morte prematura, per aiutare a prevenire case con orfani." />
+    <Translation ID="LBR_152_NT2" String="Migliorato il controllo di conflitti tra mod" />
+    <Translation ID="LBR_152_NT3" String="Migliorate le notifiche di aggiornamento" />
+    <Translation ID="LBR_154_NT1" String="Cambiare il trattamento della morte di un genitore singolo: rimuovere i bambini orfani quando muoiono entrambi i genitori (invece di evitare che il genitore singolo muoia)" />
+    <Translation ID="LBR_154_NT2" String="Aggiungere il codice per controllare e rimuovere i residenti d'edificio con dati non validi" />
   </Translations>
 </Language>

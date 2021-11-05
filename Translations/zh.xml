@@ -28,6 +28,7 @@
     <Translation ID="LBR_IMM_INC" String="提高移民平均受教育水平" />
     <Translation ID="LBR_IMM_DEC" String="降低移民平均受教育水平" />
     <Translation ID="LBR_SET" String="设置" />
+    <Translation ID="LBR_SET_LDT" String="开启详细debug记录" />
     <Translation ID="LBR_SET_LGD" String="记录死亡数到 'Lifecycle death log.txt'" />
     <Translation ID="LBR_SET_LGI" String="记录移民数到 'Lifecycle immigration log.txt'" />
     <Translation ID="LBR_SET_LGT" String="记录自定义交通选择到 'Lifecycle transport log.txt' 警告- 运行缓慢" />
@@ -68,17 +69,19 @@
     <Translation ID="ERR_HAR0" String="Harmony 补丁错误！" />
     <Translation ID="ERR_HAR1" String="可能的问题根源包括：" />
     <Translation ID="ERR_HAR2" String="所需的 Harmony 2 依赖未安装" />
-    <Translation ID="ERR_HAR3" String="有旧版/损坏的模组组织 Harmony 2 正常运行" />
+    <Translation ID="ERR_HAR3" String="有旧版/损坏的模组阻止Harmony 2 正常运行" />
     <Translation ID="ERR_CON0" String="检测到模组冲突！" />
     <Translation ID="ERR_CON1" String="冲突的模组包括：" />
     <Translation ID="LBR_ERR_CON0" String="“生命周期重平衡重制”检测到与至少一个其他模组的冲突" />
     <Translation ID="LBR_ERR_CON1" String="要使“生命周期重平衡重制”正常运行，必须先移除这些模组" />
     <Translation ID="LBR_150_TIT" String="生命周期重平衡重制已更新到 1.5 版本" />
     <Translation ID="LBR_150_NT1" String="交通模式的选择现在可以通过选项面板进行编辑，生态住宅和普通住宅可以有不同的模式选择" />
-    <Translation ID="LBR_150_NT2" String="移居到你的城市的人的教育水平可以修改" />
+    <Translation ID="LBR_150_NT2" String="可以修改移居到你的城市的人的教育水平" />
     <Translation ID="LBR_151_NT1" String="调整翻译选项面板布局" />
     <Translation ID="LBR_152_NT1" String="有未成年子女的居家单亲父母会免于早逝，以帮助避免孤儿家庭" />
     <Translation ID="LBR_152_NT2" String="改进模组冲突检测和提示" />
-    <Translation ID="LBR_152_NT3" String="改变单亲父母死亡后的处理方式：在父母死亡之后移除孤儿（而不是）" />
+    <Translation ID="LBR_152_NT3" String="改进升级通知" />
+    <Translation ID="LBR_152_NT3" String="改变单亲父母死亡后的处理方式：在父母死亡之后移除孤儿（而不是让单亲父母免于死亡）" />
+    <Translation ID="LBR_154_NT1" String="添加代码以检测并移除建筑内有无效数据的居民" />
   </Translations>
 </Language>

@@ -2,6 +2,7 @@
 
 - Convert options panel generation to on-demand
 - Increase age speed slider maximum to 340
+- Adjust transport options panel layout to accomodate longer translation strings
 
 
 Version 1.5.4
