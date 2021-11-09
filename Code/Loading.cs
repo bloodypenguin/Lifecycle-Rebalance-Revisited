@@ -125,7 +125,7 @@ namespace LifecycleRebalance
                             // Three minutes should be sufficient wait.
                             if (DateTime.Now > startTime.AddMinutes(3))
                             {
-                                throw new TimeoutException("Harmony loading timeout: " + startTime.ToString() + " : " + DateTime.Now.ToString());
+                                throw new TimeoutException("Harmony loading timeout: " + startTime + " : " + DateTime.Now);
                             }
                         }
                     }
@@ -255,7 +255,7 @@ namespace LifecycleRebalance
                 DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) * ModSettings.decadeFactor));
                 logMessage.AppendLine(i + ": " + DataStore.sicknessProbInXML[i] + " : " + DataStore.sicknessProbCalc[i] + " : " + (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25)));
             }
-            Logging.Message(logMessage.ToString());
+            Logging.Message(logMessage);
         }
     }
 }

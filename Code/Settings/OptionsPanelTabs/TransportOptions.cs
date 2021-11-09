@@ -68,7 +68,7 @@ namespace LifecycleRebalance
             {
                 // Perform initial setup.
                 isSetup = true;
-                Logging.Message("setting up ", this.GetType().ToString());
+                Logging.Message("setting up ", this.GetType());
 
                 UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_TRN_CUS"));
                 transportCheckBox.relativePosition = new Vector3(30f, 5f);

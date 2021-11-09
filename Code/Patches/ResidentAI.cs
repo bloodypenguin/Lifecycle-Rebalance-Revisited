@@ -140,7 +140,7 @@ namespace LifecycleRebalance
 
                             if (Logging.UseSicknessLog)
                             {
-                                Logging.WriteToLog(Logging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.sicknessProbCalc[index].ToString());
+                                Logging.WriteToLog(Logging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.sicknessProbCalc[index]);
                             }
                         }
                     }
@@ -155,7 +155,7 @@ namespace LifecycleRebalance
                         // Log if we're doing that.
                         if (Logging.UseDeathLog)
                         {
-                            Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID.ToString(), " at age ", data.Age.ToString(), " (", ((int)(data.Age / 3.5)).ToString(), " years old) with family ", containingUnit.m_citizen0.ToString(), ", " + containingUnit.m_citizen1.ToString(), ", " + containingUnit.m_citizen2.ToString(), ", ", containingUnit.m_citizen3.ToString(), ", ", containingUnit.m_citizen4.ToString());
+                            Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / 3.5), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
                         }
 
                         // Reverse redirect to access private method Die().
@@ -188,7 +188,7 @@ namespace LifecycleRebalance
                                 {
                                     if (Logging.UseDeathLog)
                                     {
-                                        Logging.WriteToLog(Logging.DeathLogName, "Removed orphan ", currentChild.ToString());
+                                        Logging.WriteToLog(Logging.DeathLogName, "Removed orphan ", currentChild);
                                         citizenManager.ReleaseCitizen(currentChild);
                                     }
                                 }
@@ -243,7 +243,7 @@ namespace LifecycleRebalance
         {
 
             string message = "Die reverse Harmony patch wasn't applied";
-            Logging.Error(message, instance.ToString(), citizenID.ToString(), data.ToString());
+            Logging.Error(message, instance, citizenID, data);
             throw new NotImplementedException(message);
         }
     }

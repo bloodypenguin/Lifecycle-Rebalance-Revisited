@@ -35,7 +35,7 @@ namespace LifecycleRebalance
             {
                 // Perform initial setup.
                 isSetup = true;
-                Logging.Message("setting up ", this.GetType().ToString());
+                Logging.Message("setting up ", this.GetType());
 
                 // Lifespan multiplier.  Simple integer.
                 UISlider lifeMult = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_SPD_FAC") + Environment.NewLine + Translations.Translate("LBR_SPD_FN1") + Environment.NewLine + Environment.NewLine + Translations.Translate("LBR_SPD_FN2") +  Environment.NewLine + Translations.Translate("LBR_SPD_FN3"), 1f, 340f, 1f, DataStore.lifeSpanMultiplier, (value) => { }, 680f);
@@ -59,7 +59,7 @@ namespace LifecycleRebalance
                 {
                 // Update mod settings - inverted value (see above).
                 DataStore.lifeSpanMultiplier = (int)lifeMult.value;
-                    Logging.Message("lifespan multiplier set to: ", DataStore.lifeSpanMultiplier.ToString());
+                    Logging.Message("lifespan multiplier set to: ", DataStore.lifeSpanMultiplier);
 
                 // Update WG configuration file.
                 PanelUtils.SaveXML();

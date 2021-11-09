@@ -10,7 +10,7 @@ namespace LifecycleRebalance
     /// </summary>
     public static class GetCarProbabilityPatch
     {
-        public static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
+        public static bool Prefix(ref int __result, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
             // Cache as best we can. The order of calls is car, bike, taxi
             AIUtils.citizenCache = citizenData.m_citizen;  // Not needed, but just in case
@@ -38,7 +38,7 @@ namespace LifecycleRebalance
 
             if (Logging.UseTransportLog)
             {
-                Logging.WriteToLog(Logging.TransportLogName, citizen.WealthLevel.ToString(), "-wealth ", ageGroup.ToString(), " has ", __result + "% chance of driving");
+                Logging.WriteToLog(Logging.TransportLogName, citizen.WealthLevel, "-wealth ", ageGroup, " has ", __result + "% chance of driving");
             }
 
             // Don't execute base method after this.
@@ -53,7 +53,7 @@ namespace LifecycleRebalance
     /// </summary>
     public static class GetBikeProbabilityPatch
     {
-        public static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
+        public static bool Prefix(ref int __result, Citizen.AgeGroup ageGroup)
         {
             int bike = AIUtils.livesInBike ? DataStore.bikeIncrease : 0;
 
@@ -63,7 +63,7 @@ namespace LifecycleRebalance
 
             if (Logging.UseTransportLog)
             {
-                Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup.ToString(), " has ", __result.ToString(), "% chance of cycling");
+                Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup, " has ", __result, "% chance of cycling");
             }
 
             // Don't execute base method after this.
@@ -78,7 +78,7 @@ namespace LifecycleRebalance
     /// </summary>
     public static class GetTaxiProbabilityPatch
     {
-        public static bool Prefix(ref int __result, ushort instanceID, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
+        public static bool Prefix(ref int __result, Citizen.AgeGroup ageGroup)
         {
             // Original method return value.
             // Array cache has already been set when GetCarProbability was called.
@@ -86,7 +86,7 @@ namespace LifecycleRebalance
 
             if (Logging.UseTransportLog)
             {
-                Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup.ToString(), " has ", __result.ToString(), "% chance of using a taxi");
+                Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup, " has ", __result, "% chance of using a taxi");
             }
 
             // Don't execute base method after this.

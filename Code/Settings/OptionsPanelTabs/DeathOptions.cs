@@ -35,7 +35,7 @@ namespace LifecycleRebalance
             {
                 // Perform initial setup.
                 isSetup = true;
-                Logging.Message("setting up ", this.GetType().ToString());
+                Logging.Message("setting up ", this.GetType());
 
                 // Percentage of corpses requiring transport.  % of bodies requiring transport is more intuitive to user than % of vanishing corpses, so we invert the value.
                 UISlider vanishingStiffs = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_DTH_TRN") + Environment.NewLine + Translations.Translate("LBR_DTH_TRD"), 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
@@ -59,7 +59,7 @@ namespace LifecycleRebalance
                 {
                     // Update mod settings - inverted value (see above).
                     DataStore.autoDeadRemovalChance = 100 - (int)vanishingStiffs.value;
-                    Logging.Message("autoDeadRemovalChance set to: ", DataStore.autoDeadRemovalChance.ToString());
+                    Logging.Message("autoDeadRemovalChance set to: ", DataStore.autoDeadRemovalChance);
 
                     // Update WG configuration file.
                     PanelUtils.SaveXML();

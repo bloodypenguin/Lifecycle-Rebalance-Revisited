@@ -119,7 +119,7 @@ namespace LifecycleRebalance
         private static void RemoveCitizen(CitizenManager citizenManager, ref uint citizenID, uint citizenUnit, ushort buildingID, Citizen.Flags flags)
         {
             // Log messaged.
-            Logging.Message("found citizen ", citizenID.ToString(), " in unit ", citizenUnit.ToString(), " of building ", buildingID.ToString(), " with invalid flags ", flags.ToString());
+            Logging.Message("found citizen ", citizenID, " in unit ", citizenUnit, " of building ", buildingID, " with invalid flags ", flags);
 
             // Remove citizen and reset reference in CitizenUnit.
             citizenManager.ReleaseCitizen(citizenID);
