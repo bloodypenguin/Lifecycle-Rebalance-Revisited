@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using ColossalFramework.UI;
 
 
@@ -37,7 +38,7 @@ namespace LifecycleRebalance
                 Logging.Message("setting up ", this.GetType().ToString());
 
                 // Lifespan multiplier.  Simple integer.
-                UISlider lifeMult = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_SPD_FAC") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN1") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN2") + "\r\n\r\n" + Translations.Translate("LBR_SPD_FN3"), 1f, 340f, 1f, DataStore.lifeSpanMultiplier, (value) => { }, 680f);
+                UISlider lifeMult = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_SPD_FAC") + Environment.NewLine + Translations.Translate("LBR_SPD_FN1") + Environment.NewLine + Environment.NewLine + Translations.Translate("LBR_SPD_FN2") +  Environment.NewLine + Translations.Translate("LBR_SPD_FN3"), 1f, 340f, 1f, DataStore.lifeSpanMultiplier, (value) => { }, 680f);
 
                 // Reset to saved button.
                 UIButton lifeMultReset = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTS"));

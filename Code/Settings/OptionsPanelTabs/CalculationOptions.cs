@@ -1,4 +1,5 @@
-﻿using ColossalFramework.UI;
+﻿using System;
+using ColossalFramework.UI;
 
 
 namespace LifecycleRebalance
@@ -44,7 +45,7 @@ namespace LifecycleRebalance
 
 
                 // Add warning text message.
-                PanelUtils.AddLabel(panel, Translations.Translate("LBR_SPN_WRN") + "\r\n" + Translations.Translate("LBR_SPN_BAL") + "\r\n" + Translations.Translate("LBR_SPN_BAK"));
+                PanelUtils.AddLabel(panel, Translations.Translate("LBR_SPN_WRN") + Environment.NewLine + Translations.Translate("LBR_SPN_BAL") + Environment.NewLine + Translations.Translate("LBR_SPN_BAK"));
 
                 // Calculation models.
                 PanelUtils.AddPanelSpacer(panel);

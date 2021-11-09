@@ -252,7 +252,7 @@ namespace LifecycleRebalance
         /// </summary>
         internal static void SetSurvivalProb()
         {
-            StringBuilder logMessage = new StringBuilder("survival probability table using factor of " + decadeFactor + ":\r\n");
+            StringBuilder logMessage = new StringBuilder("survival probability table using factor of " + decadeFactor + ":" + Environment.NewLine);
 
             // Do conversion from survivalProbInXML
             for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)

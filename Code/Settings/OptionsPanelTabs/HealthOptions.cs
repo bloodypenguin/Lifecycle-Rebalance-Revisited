@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using UnityEngine;
 using ColossalFramework.UI;
 
@@ -44,7 +45,7 @@ namespace LifecycleRebalance
 
 
                 // Illness options.
-                UILabel illnessLabel = PanelUtils.AddLabel(panel, Translations.Translate("LBR_HEA_ILL") + "\r\n" + Translations.Translate("LBR_HEA_ILD"));
+                UILabel illnessLabel = PanelUtils.AddLabel(panel, Translations.Translate("LBR_HEA_ILL") + Environment.NewLine + Translations.Translate("LBR_HEA_ILD"));
                 illnessLabel.relativePosition = Vector3.zero;
 
                 // Set the intial Y position of the illness chance sliders.
@@ -80,7 +81,7 @@ namespace LifecycleRebalance
                 illnessSave.relativePosition = PanelUtils.PositionUnder(illnessResetSaved);
                 illnessSave.eventClicked += (control, clickEvent) =>
                 {
-                    StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
+                    StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":" + Environment.NewLine);
 
                 // Update datastore with slider values.
                 for (int i = 0; i < numDeciles; ++i)

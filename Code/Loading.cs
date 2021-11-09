@@ -246,7 +246,7 @@ namespace LifecycleRebalance
         /// </summary>
         public static void CalculateSicknessProbabilities()
         {
-            StringBuilder logMessage = new StringBuilder("sickness probability table using factor of " + ModSettings.decadeFactor + ":\r\n");
+            StringBuilder logMessage = new StringBuilder("sickness probability table using factor of " + ModSettings.decadeFactor + ":" + Environment.NewLine);
 
             // Do conversion from sicknessProbInXML
             for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)

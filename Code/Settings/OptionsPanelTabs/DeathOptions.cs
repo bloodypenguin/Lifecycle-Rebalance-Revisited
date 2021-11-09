@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using ColossalFramework.UI;
 
 
@@ -37,7 +38,7 @@ namespace LifecycleRebalance
                 Logging.Message("setting up ", this.GetType().ToString());
 
                 // Percentage of corpses requiring transport.  % of bodies requiring transport is more intuitive to user than % of vanishing corpses, so we invert the value.
-                UISlider vanishingStiffs = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_DTH_TRN") + "\r\n" + Translations.Translate("LBR_DTH_TRD"), 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
+                UISlider vanishingStiffs = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_DTH_TRN") + Environment.NewLine + Translations.Translate("LBR_DTH_TRD"), 0, 100, 1, 100 - DataStore.autoDeadRemovalChance, (value) => { });
 
                 // Reset to saved button.
                 UIButton vanishingStiffReset = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTS"));
