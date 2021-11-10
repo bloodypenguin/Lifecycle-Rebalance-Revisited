@@ -4,30 +4,46 @@
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Harmony pre-emptive Prefix patch for Citizen.GetAgeGroup - part of custom age group implementation.
+    ///  Custom age groups for citizens.
     /// </summary>
-    [HarmonyPatch(typeof(Citizen), nameof(Citizen.GetAgeGroup))]
-    public static class GetAgeGroupPatch
+    [HarmonyPatch(typeof(Citizen))]
+    public static class CustomAgeGroups
     {
+        // Early child - < 6 years = < 21
         // Children - < 13 years = < 45 (rounded down from 45.5)
         // Teens - 13-18 years inclusive = < 66 (rounded down from 66.5)
         // Youg adults - 19-25 years inclusive = < 91
+        public const int EarlyChildAgeMax = 21;
+        public const int ChildAgeMax = 45;
+        public const int TeenAgeMax = 66;
+        public const int YoungAdultAgeMax = 91;
 
-        public static bool Prefix(ref Citizen.AgeGroup __result, int age)
+        public static int AdultAgeMax => ModSettings.retirementAge;
+
+
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for Citizen.GetAgeGroup - part of custom age group implementation.
+        /// </summary>
+        /// <param name="__result">Original method result reference - age group</param>
+        /// <param name="age">Citizen age (in age units)</param>
+        /// <returns>Always false (never execute original method)</returns>
+        [HarmonyPrefix]
+        [HarmonyPatch(nameof(Citizen.GetAgeGroup))]
+        public static bool GetAgeGroup(ref Citizen.AgeGroup __result, int age)
         {
-            if (age < 15)
+            if (age < ChildAgeMax)
             {
                 __result = Citizen.AgeGroup.Child;
             }
-            else if (age < 45)
+            else if (age < TeenAgeMax)
             {
                 __result = Citizen.AgeGroup.Teen;
             }
-            else if (age < 90)
+            else if (age < YoungAdultAgeMax)
             {
                 __result = Citizen.AgeGroup.Young;
             }
-            else if (age < ModSettings.retirementAge)
+            else if (age < AdultAgeMax)
             {
                 __result = Citizen.AgeGroup.Adult;
             }
@@ -38,6 +54,64 @@ namespace LifecycleRebalance
 
             // Don't execute original method after this.
             return false;
+        }
+
+
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for Citizen.GetAgePhase - part of custom age group implementation.
+        /// </summary>
+        /// <param name="__result">Original method result reference - age group</param>
+        /// <param name="education">Citizen education level</param>
+        /// <param name="age">Citizen age (in age units)</param>
+        /// <returns>Always false (never execute original method)</returns>
+        [HarmonyPrefix]
+        [HarmonyPatch(nameof(Citizen.GetAgePhase))]
+        public static bool GetAgePhase(ref Citizen.AgePhase __result, Citizen.Education education, int age)
+        {
+            if (age < ChildAgeMax)
+            {
+                __result = Citizen.AgePhase.Child;
+            }
+            else if (age < TeenAgeMax)
+            {
+                __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Teen0 + education);
+            }
+            else if (age < YoungAdultAgeMax)
+            {
+                __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Young0 + education);
+            }
+            else if (age < AdultAgeMax)
+            {
+                __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Adult0 + education);
+            }
+            else
+            {
+                __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Senior0 + education);
+            }
+
+            // Don't execute original method after this.
+            return false;
+        }
+
+
+        /// <summary>
+        /// Harmony Postfix patch to Citizen.GetCitizenHomeBehaviour to exclude children too young for school from elementary school eligibility counts.
+        /// </summary>
+        /// <param name="__instance">Instance reference</param>
+        /// <param name="behaviour">Citizen behaviour struct reference</param>
+        [HarmonyPostfix]
+        [HarmonyPatch(nameof(Citizen.GetCitizenHomeBehaviour))]
+        public static void GetCitizenHomeBehaviour(Citizen __instance, ref Citizen.BehaviourData behaviour)
+        {
+            // Only interested in children, who aren't dead, and aren't moving in.
+            if (__instance.m_age < EarlyChildAgeMax && !__instance.Dead && (__instance.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None)
+            {
+                // Undo any assignment to behaviour.m_elementaryEligibleCount done by base method (when Education1 flag isn't set).
+                if (!__instance.Education1)
+                {
+                    --behaviour.m_elementaryEligibleCount;
+                }
+            }
         }
     }
 }

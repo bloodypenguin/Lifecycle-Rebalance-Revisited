@@ -61,14 +61,14 @@ namespace LifecycleRebalance
 
                 int num = data.Age + 1;
 
-                if (num <= 45)
+                if (num <= CustomAgeGroups.TeenAgeMax)
                 {
-                    if (num == 15 || num == 45)
+                    if (num == CustomAgeGroups.ChildAgeMax || num == CustomAgeGroups.TeenAgeMax)
                     {
                         FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                     }
                 }
-                else if (num == 90 || num >= ModSettings.retirementAge)
+                else if (num == CustomAgeGroups.YoungAdultAgeMax || num >= CustomAgeGroups.AdultAgeMax)
                 {
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
@@ -210,6 +210,40 @@ namespace LifecycleRebalance
 
             // Don't execute base method after this.
             return false;
+        }
+
+
+        /// <summary>
+        /// Harmony patch to ensure children below school age don't go to school.
+        /// </summary>
+        [HarmonyPatch(typeof(ResidentAI), "UpdateWorkplace")]
+        public static class UpdateWorkplacePatch
+        {
+            /// <summary>
+            /// Harmony patch to ResidentAI.UpdateWorkplace to stop children below school age going to school.
+            /// </summary>
+            /// <param name="data">Citizen data</param>
+            /// <returns>False (stop execution of original method) if the citizen is too young to go to school, true (execute original method) otherwise</returns>
+            public static bool Prefix(ref Citizen data)
+            {
+                // Is this a young child?
+                if (data.m_age < CustomAgeGroups.EarlyChildAgeMax)
+                {
+                    // Young children should never be educated.
+                    // Sometimes the UpdateWellbeing method (called immediately before UpdateWorkplace in SimulationStep) will give these kids education, so we just clear it here.
+                    // Easier than messing with UpdateWellbeing.
+                    data.Education1 = false;
+
+                    // Young children should also not go shopping (this is checked in following UpdateLocation call in SimulationStep).
+                    data.m_flags ^= Citizen.Flags.NeedGoods;
+
+                    // Don't execute original method (thus avoiding assigning to a school).
+                    return false;
+                }
+
+                // If we got here, we need to continue on to the original method (this is not a young child).
+                return true;
+            }
         }
 
 
