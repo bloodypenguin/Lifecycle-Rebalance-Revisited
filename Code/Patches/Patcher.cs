@@ -32,9 +32,9 @@ namespace LifecycleRebalance
 
         // Patch methods for patches that are dynamically applied.
 
-        public static MethodInfo GetCarProbabilityPrefix => typeof(GetCarProbabilityPatch).GetMethod("Prefix", BindingFlags.Public | BindingFlags.Static);
-        public static MethodInfo GetBikeProbabilityPrefix => typeof(GetBikeProbabilityPatch).GetMethod("Prefix", BindingFlags.Public | BindingFlags.Static);
-        public static MethodInfo GetTaxiProbabilityPrefix => typeof(GetTaxiProbabilityPatch).GetMethod("Prefix", BindingFlags.Public | BindingFlags.Static);
+        public static MethodInfo GetCarProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetCarProbability), BindingFlags.Public | BindingFlags.Static);
+        public static MethodInfo GetBikeProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetBikeProbability), BindingFlags.Public | BindingFlags.Static);
+        public static MethodInfo GetTaxiProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetTaxiProbability), BindingFlags.Public | BindingFlags.Static);
 
 
         /// <summary>

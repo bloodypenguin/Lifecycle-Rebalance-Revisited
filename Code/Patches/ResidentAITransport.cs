@@ -5,12 +5,19 @@ using ColossalFramework;
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.GetCarProbability - implements mod's transport probability settings for cars.
-    /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
+    /// Harmony pre-emptive Prefix patches for ResidentAI to implements mod's transport probability settings.
     /// </summary>
-    public static class GetCarProbabilityPatch
+    public static class ResidentAITransport
     {
-        public static bool Prefix(ref int __result, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for ResidentAI.GetCarProbability - implements mod's transport probability settings for cars.
+        /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
+        /// </summary>
+        /// <param name="__result">Original method result</param>
+        /// <param name="citizenData">Citizen data</param>
+        /// <param name="ageGroup">Citizen age group</param>
+        /// <returns>Always false (never execute original method)</returns>
+        public static bool GetCarProbability(ref int __result, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
             // Cache as best we can. The order of calls is car, bike, taxi
             AIUtils.citizenCache = citizenData.m_citizen;  // Not needed, but just in case
@@ -44,16 +51,16 @@ namespace LifecycleRebalance
             // Don't execute base method after this.
             return false;
         }
-    }
 
 
-    /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.GetBikeProbability - implements mod's transport probability settings for bicycles.
-    /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
-    /// </summary>
-    public static class GetBikeProbabilityPatch
-    {
-        public static bool Prefix(ref int __result, Citizen.AgeGroup ageGroup)
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for ResidentAI.GetBikeProbability - implements mod's transport probability settings for bicycles.
+        /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
+        /// </summary>
+        /// <param name="__result">Original method result</param>
+        /// <param name="ageGroup">Citizen age group</param>
+        /// <returns>Always false (never execute original method)</returns>
+        public static bool GetBikeProbability(ref int __result, Citizen.AgeGroup ageGroup)
         {
             int bike = AIUtils.livesInBike ? DataStore.bikeIncrease : 0;
 
@@ -69,16 +76,16 @@ namespace LifecycleRebalance
             // Don't execute base method after this.
             return false;
         }
-    }
 
 
-    /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.GetTaxiProbability - implements mod's transport probability settings for taxis.
-    /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
-    /// </summary>
-    public static class GetTaxiProbabilityPatch
-    {
-        public static bool Prefix(ref int __result, Citizen.AgeGroup ageGroup)
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for ResidentAI.GetTaxiProbability - implements mod's transport probability settings for taxis.
+        /// Patch is manually applied (and unapplied) depending if custom transport mode probabilities setting is active or not.
+        /// </summary>
+        /// <param name="__result">Original method result</param>
+        /// <param name="ageGroup">Citizen age group</param>
+        /// <returns>Always false (never execute original method)</returns>
+        public static bool GetTaxiProbability(ref int __result, Citizen.AgeGroup ageGroup)
         {
             // Original method return value.
             // Array cache has already been set when GetCarProbability was called.
