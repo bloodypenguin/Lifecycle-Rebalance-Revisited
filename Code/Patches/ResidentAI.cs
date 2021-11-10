@@ -247,39 +247,4 @@ namespace LifecycleRebalance
             throw new NotImplementedException(message);
         }
     }
-
-
-    /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.GetAgeGroup - part of custom retirement age implementation.
-    /// Patch is manually applied (and unapplied) depending if custom retirement age setting is active or not.
-    /// </summary>
-    public static class GetAgeGroupPatch
-    {
-        public static bool Prefix(ref Citizen.AgeGroup __result, int age)
-        {
-            if (age < 15)
-            {
-                __result = Citizen.AgeGroup.Child;
-            }
-            else if (age < 45)
-            {
-                __result = Citizen.AgeGroup.Teen;
-            }
-            else if (age < 90)
-            {
-                __result = Citizen.AgeGroup.Young;
-            }
-            else if (age <  ModSettings.retirementAge)
-            {
-                __result = Citizen.AgeGroup.Adult;
-            }
-            else
-            {
-                __result = Citizen.AgeGroup.Senior;
-            }
-
-            // Don't execute original method after this.
-            return false;
-        }
-    }
 }

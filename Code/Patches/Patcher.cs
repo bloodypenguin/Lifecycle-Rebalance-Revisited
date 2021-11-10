@@ -19,7 +19,7 @@ namespace LifecycleRebalance
 
         // Target methods for patches that are dynamically applied (instead of through Harmony annotations).
         // These are methods who can be either patched or unpatched depending on option settings.
-        public static MethodInfo OriginalGetAgeGroup => typeof(Citizen).GetMethod("GetAgeGroup");
+        // We don't use AccessTools here, as doing so will cause runtime issues if Harmony isn't already installed.
         public static MethodInfo OriginalGetCarProbability => typeof(ResidentAI).GetMethod("GetCarProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
             new System.Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
             new ParameterModifier[0]);
@@ -32,7 +32,6 @@ namespace LifecycleRebalance
 
         // Patch methods for patches that are dynamically applied.
 
-        public static MethodInfo GetAgeGroupPrefix => typeof(GetAgeGroupPatch).GetMethod("Prefix", BindingFlags.Public | BindingFlags.Static);
         public static MethodInfo GetCarProbabilityPrefix => typeof(GetCarProbabilityPatch).GetMethod("Prefix", BindingFlags.Public | BindingFlags.Static);
         public static MethodInfo GetBikeProbabilityPrefix => typeof(GetBikeProbabilityPatch).GetMethod("Prefix", BindingFlags.Public | BindingFlags.Static);
         public static MethodInfo GetTaxiProbabilityPrefix => typeof(GetTaxiProbabilityPatch).GetMethod("Prefix", BindingFlags.Public | BindingFlags.Static);

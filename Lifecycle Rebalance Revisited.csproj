@@ -125,6 +125,7 @@
     <Content Include="XML_Files\WG_GameDefaults.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Patches\Citizen.cs" />
     <Compile Include="Code\Patches\CitizenManager.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\OptionsPanelTab.cs" />
     <Compile Include="Code\Utils\AIUtils.cs" />

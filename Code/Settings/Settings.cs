@@ -219,22 +219,11 @@ namespace LifecycleRebalance
                 {
                     retirementAge = 180;
                 }
-
-                // Apply Harmony patch to GetAgeGroup.
-                if (Loading.isModCreated)
-                {
-                    Patcher.ApplyPrefix(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
-                }
             }
             else
             {
                 // Game default retirement age is 180.
                 retirementAge = 180;
-                // Unapply Harmony patch from GetAgeGroup.
-                if (Loading.isModCreated)
-                {
-                    Patcher.RevertPrefix(Patcher.OriginalGetAgeGroup, Patcher.GetAgeGroupPrefix);
-                }
             }
 
             // Only log messages when the retirement age changes.
