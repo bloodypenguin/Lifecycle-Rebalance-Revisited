@@ -435,8 +435,7 @@ namespace LifecycleRebalance
         /// <param name="tooltip">Tooltip, if any</param>
         private UITextField AddTextField(UIPanel panel, float width, float posX, float posY, string tooltip = null)
         {
-            UITextField textField = PanelUtils.CreateTextField(panel, width, 18f, 0.9f);
-            textField.relativePosition = new Vector3(posX, posY);
+            UITextField textField = UIControls.SmallTextField(panel, posX, posY, width);
             textField.eventTextChanged += (control, value) => TextFilter((UITextField)control, value);
 
             // Add tooltip.

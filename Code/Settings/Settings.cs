@@ -15,7 +15,7 @@ namespace LifecycleRebalance
         public bool UseVanilla { get; set; } = false;
         public bool UseLegacy { get; set; } = false;
         public bool CustomRetirement { get ; set; } = false;
-        public int RetirementYear { get; set; } = 65;
+        public uint RetirementYear { get; set; } = 65;
         public bool UseTransportModes { get; set; } = true;
         public bool RandomImmigrantEd { get; set; } = true;
         public bool DetailLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
@@ -132,20 +132,20 @@ namespace LifecycleRebalance
         /// <summary>
         /// Tracks custom retirement ages and handles any changes.
         /// </summary>
-        internal static int RetirementYear
+        internal static uint RetirementYear
         {
             get => _retirementYear;
 
             set
             {
-                // Clamp retirement year between 50 and 65.
-                _retirementYear = Math.Max(50, Math.Min(65, value));
+                // Clamp retirement year between 50 and 70.
+                _retirementYear = Math.Max(50, Math.Min(70, value));
 
                 // A change here can affect retirement age in combination with other settings.
                 SetRetirementAge();
             }
         }
-        private static int _retirementYear;
+        private static uint _retirementYear;
 
 
         /// <summary>

@@ -17,6 +17,7 @@ namespace LifecycleRebalance
         public const int ChildAgeMax = 45;
         public const int TeenAgeMax = 66;
         public const int YoungAdultAgeMax = 91;
+        public const float AgePerYear = 3.5f;
 
         public static int AdultAgeMax => ModSettings.retirementAge;
 
