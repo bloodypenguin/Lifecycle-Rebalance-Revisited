@@ -15,6 +15,17 @@ namespace LifecycleRebalance
         {
             new WhatsNewMessage
             {
+                version = new Version("1.6.0.0"),
+                messageKeys = true,
+                messages = new string[]
+                {
+                    "LBR_160_NT1",
+                    "LBR_160_NT2",
+                    "LBR_160_NT3"
+                }
+            },
+            new WhatsNewMessage
+            {
                 version = new Version("1.5.4.0"),
                 messageKeys = true,
                 messages = new string[]

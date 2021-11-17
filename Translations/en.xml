@@ -88,5 +88,8 @@
     <Translation ID="LBR_152_NT3" String="Improved update notifications" />
     <Translation ID="LBR_154_NT1" String="Change treatment of single parent death: remove orphaned children when both parents die (instead of sparing parent from death)" />
     <Translation ID="LBR_154_NT2" String="Add code to check for and remove building residents with invalid data" />
+    <Translation ID="LBR_160_NT1" String="MAJOR NEW FEATURE: realistic early life ageing and progress, from early childhood to young adult (optional, customizable)" />
+    <Translation ID="LBR_160_NT2" String="New early life ageing is matched to real-world values and stages and includes a pre-school stage of life (young children)" />
+    <Translation ID="LBR_160_NT3" String="This option can be enabled/disabled and customized in the mod's options panel" />
   </Translations>
 </Language>
