@@ -100,7 +100,7 @@ namespace LifecycleRebalance
 
                     bool died = false;
 
-                    if (ModSettings.VanillaCalcs)
+                    if (ModSettings.Settings.VanillaCalcs)
                     {
                         // Using vanilla lifecycle calculations.
                         int num2 = 240;
@@ -123,7 +123,7 @@ namespace LifecycleRebalance
                         // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
                         // Legacy mod behaviour worked on 25 increments per decade.
                         // If older than the maximum index - lucky them, but keep going using that final index.
-                        int index = Math.Min((int)(num * ModSettings.decadeFactor), 10);
+                        int index = Math.Min((int)(num * ModSettings.Settings.decadeFactor), 10);
 
                         // Calculate 90% - 110%; using 100,000 as 100% (for precision).
                         int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);
@@ -138,7 +138,7 @@ namespace LifecycleRebalance
                             // Make people sick, if they're unlucky.
                             data.Sick = true;
 
-                            if (Logging.UseSicknessLog)
+                            if (Logging.useSicknessLog)
                             {
                                 Logging.WriteToLog(Logging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.sicknessProbCalc[index]);
                             }
@@ -153,7 +153,7 @@ namespace LifecycleRebalance
                         CitizenUnit containingUnit = citizenManager.m_units.m_buffer[unitID];
 
                         // Log if we're doing that.
-                        if (Logging.UseDeathLog)
+                        if (Logging.useDeathLog)
                         {
                             Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / 3.5), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
                         }
@@ -186,7 +186,7 @@ namespace LifecycleRebalance
 
                                 if (currentChild != 0)
                                 {
-                                    if (Logging.UseDeathLog)
+                                    if (Logging.useDeathLog)
                                     {
                                         Logging.WriteToLog(Logging.DeathLogName, "Removed orphan ", currentChild);
                                         citizenManager.ReleaseCitizen(currentChild);

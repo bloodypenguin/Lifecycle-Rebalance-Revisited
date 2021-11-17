@@ -40,55 +40,54 @@ namespace LifecycleRebalance
                 // Use vanilla.
                 UICheckBox immigrationCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_VAR"));
                 immigrationCheckBox.relativePosition = new Vector3(5f, 5f);
-                immigrationCheckBox.isChecked = OptionsPanel.settings.RandomImmigrantEd;
+                immigrationCheckBox.isChecked = ModSettings.Settings.RandomImmigrantEd;
                 immigrationCheckBox.eventCheckChanged += (control, isChecked) =>
                 {
-                // Update mod settings.
-                ModSettings.UseTransportModes = isChecked;
+                    // Update configuration file.
+                    ModSettings.Settings.RandomImmigrantEd = isChecked;
 
-                // Update configuration file.
-                OptionsPanel.settings.RandomImmigrantEd = isChecked;
-                    Configuration<SettingsFile>.Save();
+                    // Update configuration file.
+                    ModSettings.Save();
                 };
 
                 // Boost immigrant education.
                 UICheckBox immiEduBoostCheck = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_INC"));
                 immiEduBoostCheck.relativePosition = new Vector3(5f, 50f);
-                immiEduBoostCheck.isChecked = ModSettings.immiEduBoost;
+                immiEduBoostCheck.isChecked = ModSettings.Settings.ImmiEduBoost;
 
                 // Suppress immigrant education.
                 UICheckBox immiEduDragCheck = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_DEC"));
                 immiEduDragCheck.relativePosition = new Vector3(5f, 75f);
-                immiEduDragCheck.isChecked = ModSettings.immiEduDrag;
+                immiEduDragCheck.isChecked = ModSettings.Settings.ImmiEduDrag;
 
 
                 immiEduBoostCheck.eventCheckChanged += (control, isChecked) =>
                 {
-                // Update mod settings.
-                ModSettings.immiEduBoost = isChecked;
+                    // Update mod settings.
+                    ModSettings.Settings.ImmiEduBoost = isChecked;
 
-                // Toggle immigrant boost check if needed.
-                if (isChecked && immiEduDragCheck.isChecked)
+                    // Toggle immigrant boost check if needed.
+                    if (isChecked && immiEduDragCheck.isChecked)
                     {
                         immiEduDragCheck.isChecked = false;
                     }
 
-                // Update configuration file.
-                Configuration<SettingsFile>.Save();
+                    // Update configuration file.
+                    ModSettings.Save();
                 };
                 immiEduDragCheck.eventCheckChanged += (control, isChecked) =>
                 {
-                // Update mod settings.
-                ModSettings.immiEduDrag = isChecked;
+                    // Update mod settings.
+                    ModSettings.Settings.ImmiEduDrag = isChecked;
 
-                // Toggle immigrant boost check if needed.
-                if (isChecked && immiEduBoostCheck.isChecked)
+                    // Toggle immigrant boost check if needed.
+                    if (isChecked && immiEduBoostCheck.isChecked)
                     {
                         immiEduBoostCheck.isChecked = false;
                     }
 
-                // Update configuration file.
-                Configuration<SettingsFile>.Save();
+                    // Update configuration file.
+                    ModSettings.Save();
                 };
             }
         }

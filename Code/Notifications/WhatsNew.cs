@@ -69,9 +69,9 @@ namespace LifecycleRebalance
         public static bool DontShowAgain()
         {
             // Save current version to settings file.
-            ModSettings.whatsNewVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            ModSettings.whatsNewBetaVersion = WhatsNewMessages[0].betaVersion;
-            Configuration<SettingsFile>.Save();
+            ModSettings.Settings.whatsNewVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ModSettings.Settings.whatsNewBetaVersion = WhatsNewMessages[0].betaVersion;
+            ModSettings.Save();
 
             return true;
         }
@@ -85,11 +85,11 @@ namespace LifecycleRebalance
             Logging.KeyMessage("checking for update notifications");
 
             // Get last notified version and current mod version.
-            Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
+            Version whatsNewVersion = new Version(ModSettings.Settings.whatsNewVersion);
             WhatsNewMessage latestMessage = WhatsNewMessages[0];
 
             // Don't show notification if we're already up to (or ahead of) the first what's new message (including Beta updates).
-            if (whatsNewVersion < latestMessage.version || (whatsNewVersion == latestMessage.version && ModSettings.whatsNewBetaVersion < latestMessage.betaVersion))
+            if (whatsNewVersion < latestMessage.version || (whatsNewVersion == latestMessage.version && ModSettings.Settings.whatsNewBetaVersion < latestMessage.betaVersion))
             {
                 // Show messagebox.
                 Logging.KeyMessage("showing What's New messagebox");

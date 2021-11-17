@@ -1,51 +1,20 @@
 ﻿using System;
+using System.IO;
 using System.Text;
+using System.Xml.Serialization;
 
 
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Values stored in the mod's settings file.
-    /// </summary>
-    [ConfigurationPath("LifecycleRebalance.xml")]
-    public class SettingsFile
-    {
-        public string WhatsNewVersion { get => ModSettings.whatsNewVersion; set => ModSettings.whatsNewVersion = value; }
-        public int WhatsNewBeta { get => ModSettings.whatsNewBetaVersion; set => ModSettings.whatsNewBetaVersion = value; }
-        public bool UseVanilla { get; set; } = false;
-        public bool UseLegacy { get; set; } = false;
-        public bool CustomRetirement { get ; set; } = false;
-        public uint RetirementYear { get; set; } = 65;
-        public bool UseTransportModes { get; set; } = true;
-        public bool RandomImmigrantEd { get; set; } = true;
-        public bool DetailLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
-        public bool LogDeaths { get; set; } = false;
-        public bool LogImmigrants { get; set; } = false;
-        public bool LogTransport { get; set; } = false;
-        public bool LogSickness { get; set; } = false;
-        public bool ImmiEduBoost { get => ModSettings.immiEduBoost; set => ModSettings.immiEduBoost = value; }
-        public bool ImmiEduDrag { get => ModSettings.immiEduDrag; set => ModSettings.immiEduDrag = value; }
-
-        // Language.
-        public string Language
-        {
-            get
-            {
-                return Translations.Language;
-            }
-            set
-            {
-                Translations.Language = value;
-            }
-        }
-    }
-
-
-    /// <summary>
     /// Tracks and implements mod settings when mod is running.
     /// </summary>
-    internal static class ModSettings
+    [XmlRoot("SettingsFile")]
+    public class ModSettings
     {
+        [XmlIgnore]
+        private static readonly string SettingsFileName = "LifecycleRebalance.xml";
+
         // Age constants - vanilla values.
         public const uint VanillaSchoolAge = 0;
         public const uint VanillaTeenAge = 15;
@@ -62,28 +31,48 @@ namespace LifecycleRebalance
         private const uint DefaultTeenAge = 45;
         private const uint DefaultYoungAge = 66;
 
-        // What's new notification version.
-        internal static string whatsNewVersion = "0.0";
-        internal static int whatsNewBetaVersion = 0;
+
+        // Retirement age.
+        [XmlIgnore]
+        internal static int retirementAge;
 
         // 1 divided by the number of game age increments per decade for calculation purposes.
-        public static double decadeFactor;
+        [XmlIgnore]
+        internal double decadeFactor;
 
-        // Whether or not to apply a randomisation factor to immigrant education levels.
-        internal static bool randomImmigrantEd;
 
-        // Immigratnt education level boost/drag.
-        internal static bool immiEduBoost = false;
-        internal static bool immiEduDrag = false;
+        /// <summary>
+        /// Settings file instance reference.
+        /// </summary>
+        [XmlIgnore]
+        internal static ModSettings Settings { get; private set; }
 
-        // Whether or not we're using custom childhood settings.
-        internal static bool customChildhood = false;
+
+        /// <summary>
+        /// Language code.
+        /// </summary>
+        [XmlElement("Language")]
+        public string Language { get => Translations.Language; set => Translations.Language = value; }
+
+        /// <summary>
+        /// What's new notification version.
+        /// </summary>
+        [XmlElement("WhatsNewVersion")]
+        public string whatsNewVersion = "0.0";
+
+
+        /// <summary>
+        /// What's new Beta notification version.
+        /// </summary>
+        [XmlElement("WhatsNewBeta")]
+        public int whatsNewBetaVersion = 0;
 
 
         /// <summary>
         /// Tracks if we're using legacy lifecycle calculations and handles any changes.
         /// </summary>
-        internal static bool VanillaCalcs
+        [XmlElement("UseVanilla")]
+        public bool VanillaCalcs
         {
             get => _vanillaCalcs;
 
@@ -98,13 +87,15 @@ namespace LifecycleRebalance
                 SetRetirementAge();
             }
         }
-        private static bool _vanillaCalcs;
+        [XmlIgnore]
+        private bool _vanillaCalcs = false;
 
 
         /// <summary>
         /// Tracks if we're using legacy lifecycle calculations and handles any changes.
         /// </summary>
-        internal static bool LegacyCalcs
+        [XmlElement("UseLegacy")]
+        public bool LegacyCalcs
         {
             get => _legacyCalcs;
             
@@ -125,13 +116,15 @@ namespace LifecycleRebalance
                 SetRetirementAge();
             }
         }
-        private static bool _legacyCalcs;
+        [XmlIgnore]
+        private bool _legacyCalcs = false;
 
 
         /// <summary>
         /// Tracks if we're using custom retirement ages and handles any changes.
         /// </summary>
-        internal static bool CustomRetirement
+        [XmlElement("CustomRetirement")]
+        public bool CustomRetirement
         {
             get => _customRetirement;
             
@@ -143,14 +136,15 @@ namespace LifecycleRebalance
                 SetRetirementAge();
             }
         }
-        private static bool _customRetirement;
-
+        [XmlIgnore]
+        private bool _customRetirement = false;
 
 
         /// <summary>
         /// Tracks custom retirement ages and handles any changes.
         /// </summary>
-        internal static uint RetirementYear
+        [XmlElement("RetirementAge")]
+        public uint RetirementYear
         {
             get => _retirementYear;
 
@@ -163,13 +157,15 @@ namespace LifecycleRebalance
                 SetRetirementAge();
             }
         }
-        private static uint _retirementYear;
+        [XmlIgnore]
+        private uint _retirementYear = 65;
 
 
         /// <summary>
         /// Tracks if we're using custom transport mode options and handles any changes.
         /// </summary>
-        internal static bool UseTransportModes
+        [XmlElement("UseTransportModes")]
+        public bool UseTransportModes
         {
             get => _useTransportModes;
 
@@ -178,67 +174,120 @@ namespace LifecycleRebalance
                 _useTransportModes = value;
 
                 // Apply choices by applying or unapplying Harmony transport choice patches as required.
-
-                if (Loading.isModCreated)
-                {
-                    if (value)
-                    {
-                        Patcher.ApplyPrefix(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
-                        Patcher.ApplyPrefix(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
-                        Patcher.ApplyPrefix(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
-                    }
-                    else
-                    {
-                        Patcher.RevertPrefix(Patcher.OriginalGetCarProbability, Patcher.GetCarProbabilityPrefix);
-                        Patcher.RevertPrefix(Patcher.OriginalGetBikeProbability, Patcher.GetBikeProbabilityPrefix);
-                        Patcher.RevertPrefix(Patcher.OriginalGetTaxiProbability, Patcher.GetTaxiProbabilityPrefix);
-                    }
-                }
+                Patcher.ApplyTransportPatches(value);
             }
         }
-        private static bool _useTransportModes;
+        [XmlIgnore]
+        private bool _useTransportModes = true;
+
+
+        /// <summary>
+        // Whether or not to apply a randomisation factor to immigrant education levels.
+        /// </summary>
+        [XmlElement("RandomImmigrantEd")]
+        public bool RandomImmigrantEd { get; set; } = false;
+
+
+        /// <summary
+        /// Immigrant education level boost enabled.
+        /// </summary>
+        [XmlElement("ImmiEduBoost")]
+        public bool ImmiEduBoost { get; set; } = false;
+
+
+        /// <summary>
+        /// Immigrant education level drag enabled.
+        /// </summary>
+        [XmlElement("ImmiEduDrag")]
+        public bool ImmiEduDrag { get; set; } = false;
+
+
+        // Whether or not we're using custom childhood settings.
+        [XmlElement("CustomChildhood")]
+        public bool customChildhood = false;
 
 
         /// <summary>
         /// The age (in age units) at which children will start school.
         /// </summary>
-        internal static uint SchoolStartAge
+        [XmlElement("SchoolStartAge")]
+        public uint SchoolStartAge
         {
             get => customChildhood ? _schoolStartAge : VanillaSchoolAge;
 
             set => _schoolStartAge = value;
         }
-        private static uint _schoolStartAge = DefaultSchoolAge;
+        [XmlIgnore]
+        private uint _schoolStartAge = DefaultSchoolAge;
 
 
         /// <summary>
         /// The age (in age units) at which children become teenagers (and start high school).
         /// </summary>
-        internal static uint TeenStartAge
+        [XmlElement("TeenStartAge")]
+        public uint TeenStartAge
         {
             get => customChildhood ? _teenStartAge : VanillaTeenAge;
 
             set => _teenStartAge = value;
         }
-        private static uint _teenStartAge = DefaultTeenAge;
+        [XmlIgnore]
+        private uint _teenStartAge = DefaultTeenAge;
 
 
         /// <summary>
         /// The age (in age units) at which teenagers become young adults (and start university/college).
         /// </summary>
-        internal static uint YoungStartAge
+        [XmlElement("YoungStartAge")]
+        public uint YoungStartAge
         {
             get => customChildhood ? _youngStartAge : VanillaYoungAge;
 
             set => _youngStartAge = value;
         }
-        private static uint _youngStartAge = DefaultYoungAge;
+        [XmlIgnore]
+        private uint _youngStartAge = DefaultYoungAge;
+
+
+        /// <summary>
+        /// Enables/disables detailed debug logging to game output log.
+        /// </summary>
+        [XmlElement("DetailLogging")]
+        public bool DetailLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
+
+
+        /// <summary>
+        /// Enables/disables detailed death logging.
+        /// </summary>
+        [XmlElement("LogDeaths")]
+        public bool LogDeaths { get => Logging.useDeathLog; set => Logging.useDeathLog = value; }
+
+
+        /// <summary>
+        /// Enables/disables detailed transport logging.
+        /// </summary>
+        [XmlElement("LogTransport")]
+        public bool LogTransport { get => Logging.useTransportLog; set => Logging.useTransportLog = value; }
+
+
+        /// <summary>
+        /// Enables/disables detailed sickness logging.
+        /// </summary>
+        [XmlElement("LogSickness")]
+        public bool LogSickness { get => Logging.useSicknessLog; set => Logging.useSicknessLog = value; }
+
+
+        /// <summary>
+        /// Enables/disables detailed immigration logging.
+        /// </summary>
+        [XmlElement("LogImmigration")]
+        public bool LogImmigration { get => Logging.useImmigrationLog; set => Logging.useImmigrationLog = value; }
 
 
         /// <summary>
         /// Sets ageing decade factor based on current settings.
         /// </summary>
-        private static void SetDecadeFactor()
+        private void SetDecadeFactor()
         {
             // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
             // Legacy mod behaviour worked on 25 increments per decade.
@@ -258,7 +307,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Sets retirement age based on current settings.
         /// </summary>
-        private static void SetRetirementAge()
+        private void SetRetirementAge()
         {
             // Store current retirement age - used to avoid unnecessary logging.
             int oldRetirementAge = retirementAge;
@@ -287,13 +336,11 @@ namespace LifecycleRebalance
             }
         }
 
-        internal static int retirementAge;
-
 
         /// <summary>
         /// Populates the decadal survival probability table based on previously loaded XML settings and current mod settings.
         /// </summary>
-        internal static void SetSurvivalProb()
+        internal void SetSurvivalProb()
         {
             StringBuilder logMessage = new StringBuilder("survival probability table using factor of " + decadeFactor + ":" + Environment.NewLine);
 
@@ -317,6 +364,70 @@ namespace LifecycleRebalance
                 logMessage.AppendLine(i + ": " + DataStore.survivalProbInXML[i] + " = " + DataStore.survivalProbCalc[i]);
             }
             Logging.Message(logMessage);
+        }
+
+
+        /// <summary>
+        /// Load settings from XML file.
+        /// </summary>
+        internal static void Load()
+        {
+            try
+            {
+                Logging.Message("reading settings");
+
+                // Check to see if configuration file exists.
+                if (File.Exists(SettingsFileName))
+                {
+                    // Read it.
+                    using (StreamReader reader = new StreamReader(SettingsFileName))
+                    {
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(ModSettings));
+                        if (xmlSerializer.Deserialize(reader) is ModSettings modSettingsFile)
+                        {
+                            // Successful read - set settings file instance and return.
+                            Settings = modSettingsFile;
+                            return;
+                        }
+                        else
+                        {
+                            Logging.Error("couldn't deserialize settings file");
+                        }
+                    }
+                }
+                else
+                {
+                    Logging.Message("no settings file found");
+                }
+            }
+            catch (Exception e)
+            {
+                Logging.LogException(e, "exception reading XML settings file");
+            }
+
+            // If we got here, something went wrong; create new settings file instance.
+            Settings = new ModSettings();
+        }
+
+
+        /// <summary>
+        /// Save settings to XML file.
+        /// </summary>
+        internal static void Save()
+        {
+            try
+            {
+                // Pretty straightforward.  Serialisation is within GBRSettingsFile class.
+                using (StreamWriter writer = new StreamWriter(SettingsFileName))
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(ModSettings));
+                    xmlSerializer.Serialize(writer, ModSettings.Settings);
+                }
+            }
+            catch (Exception e)
+            {
+                Logging.LogException(e, "exception saving XML settings file");
+            }
         }
     }
 }

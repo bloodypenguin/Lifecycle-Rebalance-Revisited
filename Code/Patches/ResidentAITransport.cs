@@ -43,7 +43,7 @@ namespace LifecycleRebalance
             // Original method return value.
             __result = AIUtils.cacheArray[DataStore.CAR];
 
-            if (Logging.UseTransportLog)
+            if (Logging.useTransportLog)
             {
                 Logging.WriteToLog(Logging.TransportLogName, citizen.WealthLevel, "-wealth ", ageGroup, " has ", __result + "% chance of driving");
             }
@@ -68,7 +68,7 @@ namespace LifecycleRebalance
             // Array cache has already been set when GetCarProbability was called.
             __result = (AIUtils.cacheArray[DataStore.BIKE] + bike);
 
-            if (Logging.UseTransportLog)
+            if (Logging.useTransportLog)
             {
                 Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup, " has ", __result, "% chance of cycling");
             }
@@ -91,7 +91,7 @@ namespace LifecycleRebalance
             // Array cache has already been set when GetCarProbability was called.
             __result = AIUtils.cacheArray[DataStore.TAXI];
 
-            if (Logging.UseTransportLog)
+            if (Logging.useTransportLog)
             {
                 Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup, " has ", __result, "% chance of using a taxi");
             }

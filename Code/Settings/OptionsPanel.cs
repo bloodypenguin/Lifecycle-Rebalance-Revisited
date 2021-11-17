@@ -17,9 +17,6 @@ namespace LifecycleRebalance
         // Instance reference.
         private static GameObject optionsGameObject;
 
-        // Settings file.
-        public static SettingsFile settings;
-
 
         /// <summary>
         /// Attaches an event hook to options panel visibility, to create/destroy our options panel as appropriate.
@@ -76,9 +73,6 @@ namespace LifecycleRebalance
         {
             try
             {
-                // Load settings.
-                OptionsPanel.settings = Configuration<SettingsFile>.Load();
-
                 // We're now visible - create our gameobject, and give it a unique name for easy finding with ModTools.
                 optionsGameObject = new GameObject("RealPopOptionsPanel");
 

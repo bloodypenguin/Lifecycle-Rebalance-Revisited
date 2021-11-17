@@ -24,7 +24,7 @@ namespace LifecycleRebalance
             languageDrop.eventSelectedIndexChanged += (control, index) =>
             {
                 Translations.Index = index;
-                Configuration<SettingsFile>.Save();
+                ModSettings.Save();
             };
 
             // Detail logging options.
@@ -36,66 +36,55 @@ namespace LifecycleRebalance
                 Logging.detailLogging = isChecked;
 
                 // Update configuration file.
-                Configuration<SettingsFile>.Save();
+                ModSettings.Save();
 
                 Logging.KeyMessage("detailed logging ", Logging.detailLogging ? "enabled" : "disabled");
             };
 
             // Logging options.
             UICheckBox deathCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGD"));
-            deathCheckBox.isChecked = OptionsPanel.settings.LogDeaths;
+            deathCheckBox.isChecked = Logging.useDeathLog;
             deathCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
-                Logging.UseDeathLog = isChecked;
+                Logging.useDeathLog = isChecked;
 
                 // Update configuration file.
-                OptionsPanel.settings.LogDeaths = isChecked;
-                Configuration<SettingsFile>.Save();
-
-                Logging.Message("death logging ", OptionsPanel.settings.LogDeaths ? "enabled" : "disabled");
+                Logging.useDeathLog = isChecked;
+                ModSettings.Save();
             };
 
             UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGI"));
-            immigrantCheckBox.isChecked = OptionsPanel.settings.LogImmigrants;
+            immigrantCheckBox.isChecked = Logging.useImmigrationLog;
             immigrantCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
-                Logging.UseImmigrationLog = isChecked;
+                Logging.useImmigrationLog = isChecked;
 
                 // Update configuration file.
-                OptionsPanel.settings.LogImmigrants = isChecked;
-                Configuration<SettingsFile>.Save();
-
-                Logging.Message("immigrant logging ", OptionsPanel.settings.LogImmigrants ? "enabled" : "disabled");
+                ModSettings.Save();
             };
 
             UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGT"));
-            transportCheckBox.isChecked = OptionsPanel.settings.LogTransport;
+            transportCheckBox.isChecked = Logging.useTransportLog;
             transportCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
-                Logging.UseTransportLog = isChecked;
+                Logging.useTransportLog = isChecked;
 
                 // Update configuration file.
-                OptionsPanel.settings.LogTransport = isChecked;
-                Configuration<SettingsFile>.Save();
-
-                Logging.Message("transport choices logging ", OptionsPanel.settings.LogTransport ? "enabled" : "disabled");
+                ModSettings.Save();
             };
 
             UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGS"));
-            sicknessCheckBox.isChecked = OptionsPanel.settings.LogSickness;
+            sicknessCheckBox.isChecked = Logging.useSicknessLog;
             sicknessCheckBox.eventCheckChanged += (control, isChecked) =>
             {
                 // Update mod settings.
-                Logging.UseSicknessLog = isChecked;
+                Logging.useSicknessLog = isChecked;
 
                 // Update configuration file.
-                OptionsPanel.settings.LogSickness = isChecked;
-                Configuration<SettingsFile>.Save();
-
-                Logging.Message("sickness logging ", OptionsPanel.settings.LogSickness ? "enabled" : "disabled");
+                ModSettings.Save();
             };
         }
     }

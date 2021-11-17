@@ -72,15 +72,15 @@ namespace LifecycleRebalance
 
                 UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_TRN_CUS"));
                 transportCheckBox.relativePosition = new Vector3(30f, 5f);
-                transportCheckBox.isChecked = OptionsPanel.settings.UseTransportModes;
+                transportCheckBox.isChecked = ModSettings.Settings.UseTransportModes;
                 transportCheckBox.eventCheckChanged += (control, isChecked) =>
                 {
-                // Update mod settings.
-                ModSettings.UseTransportModes = isChecked;
+                    // Update mod settings.
+                    ModSettings.Settings.UseTransportModes = isChecked;
 
-                // Update configuration file.
-                OptionsPanel.settings.UseTransportModes = isChecked;
-                    Configuration<SettingsFile>.Save();
+                    // Update configuration file.
+                    ModSettings.Settings.UseTransportModes = isChecked;
+                    ModSettings.Save();
                 };
 
                 // Set up textfield arrays; low/high density.

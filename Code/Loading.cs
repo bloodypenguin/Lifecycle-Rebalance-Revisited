@@ -20,8 +20,7 @@ namespace LifecycleRebalance
         // Setttings file.
         // This can be with the local application directory, or the directory where the exe file exists.
         // Default location is the local application directory, however the exe directory is checked first.
-        public const String XML_FILE = "WG_CitizenEdit.xml";
-        public static SettingsFile settingsFile;
+        public const string XML_FILE = "WG_CitizenEdit.xml";
         public static string currentFileLocation = "";
 
         // Status flags.
@@ -63,6 +62,9 @@ namespace LifecycleRebalance
                 isModEnabled = true;
                 Logging.KeyMessage("loading");
             }
+
+            // Ensure custom transport probability patches are applied, if applicable.
+            Patcher.ApplyTransportPatches(ModSettings.Settings.UseTransportModes);
         }
 
         /// <summary>
@@ -153,23 +155,10 @@ namespace LifecycleRebalance
                 isModCreated = true;
 
                 // Load and apply mod settings (configuration file loaded above).
-                settingsFile = Configuration<SettingsFile>.Load();
-                ModSettings.VanillaCalcs = settingsFile.UseVanilla;
-                ModSettings.LegacyCalcs = settingsFile.UseLegacy;
-                ModSettings.CustomRetirement = settingsFile.CustomRetirement;
-                ModSettings.RetirementYear = settingsFile.RetirementYear;
-                ModSettings.UseTransportModes = settingsFile.UseTransportModes;
-                ModSettings.randomImmigrantEd = settingsFile.RandomImmigrantEd;
-                Logging.UseDeathLog = settingsFile.LogDeaths;
-                Logging.UseImmigrationLog = settingsFile.LogImmigrants;
-                Logging.UseTransportLog = settingsFile.LogTransport;
-                Logging.UseSicknessLog = settingsFile.LogSickness;
+                ModSettings.Load();
 
                 // Apply sickness probabilities.
                 CalculateSicknessProbabilities();
-
-                // Report status.
-                Logging.Message("death logging ", Logging.UseDeathLog ? "enabled" : "disabled", ", immigration logging ", Logging.UseImmigrationLog ? "enabled" : "disabled", ", transportation logging ", Logging.UseTransportLog ? "enabled" : "disabled");
 
                 // Prime Threading.counter to continue from frame index.
                 int temp = (int)(Singleton<SimulationManager>.instance.m_currentFrameIndex / 4096u);
@@ -246,13 +235,13 @@ namespace LifecycleRebalance
         /// </summary>
         public static void CalculateSicknessProbabilities()
         {
-            StringBuilder logMessage = new StringBuilder("sickness probability table using factor of " + ModSettings.decadeFactor + ":" + Environment.NewLine);
+            StringBuilder logMessage = new StringBuilder("sickness probability table using factor of " + ModSettings.Settings.decadeFactor + ":" + Environment.NewLine);
 
             // Do conversion from sicknessProbInXML
             for (int i = 0; i < DataStore.sicknessProbInXML.Length; ++i)
             {
                 // Simple division
-                DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) * ModSettings.decadeFactor));
+                DataStore.sicknessProbCalc[i] = (int)(100000 * ((DataStore.sicknessProbInXML[i]) * ModSettings.Settings.decadeFactor));
                 logMessage.AppendLine(i + ": " + DataStore.sicknessProbInXML[i] + " : " + DataStore.sicknessProbCalc[i] + " : " + (int)(100000 * ((DataStore.sicknessProbInXML[i]) / 25)));
             }
             Logging.Message(logMessage);

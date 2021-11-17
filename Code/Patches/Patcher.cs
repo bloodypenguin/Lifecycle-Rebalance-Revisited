@@ -20,21 +20,21 @@ namespace LifecycleRebalance
         // Target methods for patches that are dynamically applied (instead of through Harmony annotations).
         // These are methods who can be either patched or unpatched depending on option settings.
         // We don't use AccessTools here, as doing so will cause runtime issues if Harmony isn't already installed.
-        public static MethodInfo OriginalGetCarProbability => typeof(ResidentAI).GetMethod("GetCarProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
+        private static MethodInfo OriginalGetCarProbability => typeof(ResidentAI).GetMethod("GetCarProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
             new System.Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
             new ParameterModifier[0]);
-        public static MethodInfo OriginalGetBikeProbability => typeof(ResidentAI).GetMethod("GetBikeProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
+        private static MethodInfo OriginalGetBikeProbability => typeof(ResidentAI).GetMethod("GetBikeProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
             new System.Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
             new ParameterModifier[0]);
-        public static MethodInfo OriginalGetTaxiProbability => typeof(ResidentAI).GetMethod("GetTaxiProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
+        private static MethodInfo OriginalGetTaxiProbability => typeof(ResidentAI).GetMethod("GetTaxiProbability", BindingFlags.NonPublic | BindingFlags.Instance, null,
             new System.Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) },
             new ParameterModifier[0]);
 
         // Patch methods for patches that are dynamically applied.
 
-        public static MethodInfo GetCarProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetCarProbability), BindingFlags.Public | BindingFlags.Static);
-        public static MethodInfo GetBikeProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetBikeProbability), BindingFlags.Public | BindingFlags.Static);
-        public static MethodInfo GetTaxiProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetTaxiProbability), BindingFlags.Public | BindingFlags.Static);
+        private static MethodInfo GetCarProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetCarProbability), BindingFlags.Public | BindingFlags.Static);
+        private static MethodInfo GetBikeProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetBikeProbability), BindingFlags.Public | BindingFlags.Static);
+        private static MethodInfo GetTaxiProbabilityPrefix => typeof(ResidentAITransport).GetMethod(nameof(ResidentAITransport.GetTaxiProbability), BindingFlags.Public | BindingFlags.Static);
 
 
         /// <summary>
@@ -74,9 +74,34 @@ namespace LifecycleRebalance
 
 
         /// <summary>
+        /// Apply custom transport probability patches.
+        /// </summary>
+        /// <param name="transportActive">True to enable patches, false to disable.</param>
+        internal static void ApplyTransportPatches(bool transportActive)
+        {
+            // Don't do anything if mod hasn't been created yet.
+            if (Loading.isModCreated)
+            {
+                if (transportActive)
+                {
+                    ApplyPrefix(OriginalGetCarProbability, GetCarProbabilityPrefix);
+                    ApplyPrefix(OriginalGetBikeProbability, GetBikeProbabilityPrefix);
+                    ApplyPrefix(OriginalGetTaxiProbability, GetTaxiProbabilityPrefix);
+                }
+                else
+                {
+                    RevertPrefix(OriginalGetCarProbability, GetCarProbabilityPrefix);
+                    RevertPrefix(OriginalGetBikeProbability, GetBikeProbabilityPrefix);
+                    RevertPrefix(OriginalGetTaxiProbability, GetTaxiProbabilityPrefix);
+                }
+            }
+        }
+
+
+        /// <summary>
         /// Manually applies Harmony patches.
         /// </summary>
-        public static void ApplyPrefix(MethodInfo originalMethod, MethodInfo patchMethod)
+        private static void ApplyPrefix(MethodInfo originalMethod, MethodInfo patchMethod)
         {
             Harmony harmonyInstance = new Harmony(harmonyID);
 
@@ -106,7 +131,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Manually removes specified Harmony patches.
         /// </summary>
-        public static void RevertPrefix(MethodInfo originalMethod, MethodInfo patchMethod)
+        private static void RevertPrefix(MethodInfo originalMethod, MethodInfo patchMethod)
         {
             Harmony harmonyInstance = new Harmony(harmonyID);
 
@@ -122,7 +147,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Checks to see if a Harmony Prefix patch is currently applied.
         /// </summary>
-        public static bool IsPrefixInstalled(MethodInfo originalMethod)
+        private static bool IsPrefixInstalled(MethodInfo originalMethod)
         {
             var patches = Harmony.GetPatchInfo(originalMethod);
             if (patches != null)

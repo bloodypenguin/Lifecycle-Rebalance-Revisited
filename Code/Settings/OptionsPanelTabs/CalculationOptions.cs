@@ -70,15 +70,15 @@ namespace LifecycleRebalance
                 calculationLabel.font = titleFont;
                 currentY += calculationLabel.height + TitleMargin;
 
-                sunsetCheckBox = UIControls.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_SUN"), Margin, currentY, !OptionsPanel.settings.UseLegacy);
+                sunsetCheckBox = UIControls.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_SUN"), Margin, currentY, !ModSettings.Settings.LegacyCalcs);
                 sunsetCheckBox.label.textScale = 1.0f;
                 currentY += sunsetCheckBox.height;
 
-                legacyCheckBox = UIControls.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_LEG"), Margin, currentY, OptionsPanel.settings.UseLegacy);
+                legacyCheckBox = UIControls.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_LEG"), Margin, currentY, ModSettings.Settings.LegacyCalcs);
                 legacyCheckBox.label.textScale = 1.0f;
                 currentY += legacyCheckBox.height;
 
-                vanillaCheckBox = UIControls.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_VAN"), Margin, currentY, !OptionsPanel.settings.UseVanilla);
+                vanillaCheckBox = UIControls.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_VAN"), Margin, currentY, !ModSettings.Settings.VanillaCalcs);
                 vanillaCheckBox.label.textScale = 1.0f;
                 currentY += vanillaCheckBox.height + TitleMargin;
 
@@ -89,18 +89,17 @@ namespace LifecycleRebalance
                 retirementLabel.font = titleFont;
                 currentY += retirementLabel.height + TitleMargin;
 
-                retireCheckBox = UIControls.AddPlainCheckBox(panel, Translations.Translate("LBR_RET_USE"), Margin, currentY, OptionsPanel.settings.CustomRetirement);
+                retireCheckBox = UIControls.AddPlainCheckBox(panel, Translations.Translate("LBR_RET_USE"), Margin, currentY, ModSettings.Settings.CustomRetirement);
                 currentY += retireCheckBox.height + Margin;
                 
-                retirementSlider = AgeSlider("LBR_RET_CUS", 50, 70, OptionsPanel.settings.RetirementYear);
+                retirementSlider = AgeSlider("LBR_RET_CUS", 50, 70, ModSettings.Settings.RetirementYear);
                 retirementSlider.eventValueChanged += (control, value) =>
                 {
                     // Update mod settings.
-                    ModSettings.RetirementYear = (uint)value;
+                    ModSettings.Settings.RetirementYear = (uint)value;
 
                     // Update configuration file.
-                    OptionsPanel.settings.RetirementYear = (uint)value;
-                    Configuration<SettingsFile>.Save();
+                    ModSettings.Save();
                 };
 
                 UILabel retireNote1 = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_RET_NT1"), maxWidth);
@@ -154,7 +153,7 @@ namespace LifecycleRebalance
                 retireCheckBox.eventCheckChanged += (control, isChecked) =>
                 {
                     // Update mod settings.
-                    ModSettings.CustomRetirement = isChecked;
+                    ModSettings.Settings.CustomRetirement = isChecked;
 
                     // Show/hide retirement age slider.
                     if (isChecked)
@@ -167,8 +166,8 @@ namespace LifecycleRebalance
                     }
 
                     // Update configuration file.
-                    OptionsPanel.settings.CustomRetirement = isChecked;
-                    Configuration<SettingsFile>.Save();
+                    ModSettings.Settings.CustomRetirement = isChecked;
+                    ModSettings.Save();
                 };
 
                 // Show or hide notes attached to retirement slider to match visibility of slider itself.
@@ -189,7 +188,7 @@ namespace LifecycleRebalance
                 };
 
                 // Update our visibility status based on current settings.
-                UpdateCheckboxes(OptionsPanel.settings.UseVanilla ? 2 : OptionsPanel.settings.UseLegacy ? 1 : 0);
+                UpdateCheckboxes(ModSettings.Settings.VanillaCalcs ? 2 : ModSettings.Settings.LegacyCalcs ? 1 : 0);
             }
         }
 
@@ -229,14 +228,12 @@ namespace LifecycleRebalance
             {
                 // Legacy calcs not selected.
                 legacyCheckBox.isChecked = false;
-                ModSettings.LegacyCalcs = false;
-                OptionsPanel.settings.UseLegacy = false;
+                ModSettings.Settings.LegacyCalcs = false;
             }
             else
             {
                 // Legacy calcs selected.
-                ModSettings.LegacyCalcs = true;
-                OptionsPanel.settings.UseLegacy = true;
+                ModSettings.Settings.LegacyCalcs = true;
             }
 
             // Vanilla calcs.
@@ -244,18 +241,16 @@ namespace LifecycleRebalance
             {
                 // Vanilla calcs not selected.
                 vanillaCheckBox.isChecked = false;
-                ModSettings.VanillaCalcs = false;
-                OptionsPanel.settings.UseVanilla = false;
+                ModSettings.Settings.VanillaCalcs = false;
             }
             else
             {
                 // Vanilla calcs selected.
-                ModSettings.VanillaCalcs = true;
-                OptionsPanel.settings.UseVanilla = true;
+                ModSettings.Settings.VanillaCalcs = true;
             }
 
             // Save configuration file.
-            Configuration<SettingsFile>.Save();
+            ModSettings.Save();
         }
 
 

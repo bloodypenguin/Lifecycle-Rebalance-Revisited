@@ -11,18 +11,17 @@ namespace LifecycleRebalance
     /// </summary>
     internal static class Logging
     {
-        // Logging detail flag.
+        // Logging detail flags.
         internal static bool detailLogging = true;
+        internal static bool useDeathLog = false;
+        internal static bool useImmigrationLog = false;
+        internal static bool useTransportLog = false;
+        internal static bool useSicknessLog = false;
 
-        public static bool UseDeathLog;
-        public static bool UseImmigrationLog;
-        public static bool UseTransportLog;
-        public static bool UseSicknessLog;
-
-        public static string DeathLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle death log.txt";
-        public static string ImmigrationLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle immigration log.txt";
-        public static string TransportLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle transport log.txt";
-        public static string SicknessLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle sickness log.txt";
+        internal static readonly string DeathLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle death log.txt";
+        internal static readonly string ImmigrationLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle immigration log.txt";
+        internal static readonly string TransportLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle transport log.txt";
+        internal static readonly string SicknessLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle sickness log.txt";
 
 
         /// <summary>

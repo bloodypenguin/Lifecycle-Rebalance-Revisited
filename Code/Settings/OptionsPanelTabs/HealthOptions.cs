@@ -80,7 +80,7 @@ namespace LifecycleRebalance
                 illnessSave.relativePosition = PanelUtils.PositionUnder(illnessResetSaved);
                 illnessSave.eventClicked += (control, clickEvent) =>
                 {
-                    StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":" + Environment.NewLine);
+                    StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.Settings.decadeFactor + ":" + Environment.NewLine);
 
                     // Update datastore with slider values.
                     for (int i = 0; i < numDeciles; ++i)

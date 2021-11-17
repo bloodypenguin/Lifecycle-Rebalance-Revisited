@@ -45,7 +45,8 @@ namespace LifecycleRebalance
                 LoadingManager.instance.m_introLoaded += OptionsPanel.OptionsEventHook;
             }
 
-            // Load configuation file.
+            // Load settings and configuation files.
+            ModSettings.Load();
             Loading.ReadFromXML();
         }
 
