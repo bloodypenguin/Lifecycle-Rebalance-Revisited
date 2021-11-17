@@ -46,6 +46,22 @@ namespace LifecycleRebalance
     /// </summary>
     internal static class ModSettings
     {
+        // Age constants - vanilla values.
+        public const uint VanillaSchoolAge = 0;
+        public const uint VanillaTeenAge = 15;
+        public const uint VanillaYoungAge = 45;
+        public const uint VanillaRetirementAge = 180;
+        public const float AgePerYear = 3.5f;
+
+        // Age constants - mod default custom values.
+        // Early child - < 6 years = < 21
+        // Children - < 13 years = < 45 (rounded down from 45.5)
+        // Teens - 13-18 years inclusive = < 66 (rounded down from 66.5)
+        // Youg adults - 19-25 years inclusive = < 91
+        private const uint DefaultSchoolAge = 21;
+        private const uint DefaultTeenAge = 45;
+        private const uint DefaultYoungAge = 66;
+
         // What's new notification version.
         internal static string whatsNewVersion = "0.0";
         internal static int whatsNewBetaVersion = 0;
@@ -56,10 +72,12 @@ namespace LifecycleRebalance
         // Whether or not to apply a randomisation factor to immigrant education levels.
         internal static bool randomImmigrantEd;
 
-
+        // Immigratnt education level boost/drag.
         internal static bool immiEduBoost = false;
-
         internal static bool immiEduDrag = false;
+
+        // Whether or not we're using custom childhood settings.
+        internal static bool customChildhood = false;
 
 
         /// <summary>
@@ -179,6 +197,42 @@ namespace LifecycleRebalance
             }
         }
         private static bool _useTransportModes;
+
+
+        /// <summary>
+        /// The age (in age units) at which children will start school.
+        /// </summary>
+        internal static uint SchoolStartAge
+        {
+            get => customChildhood ? _schoolStartAge : VanillaSchoolAge;
+
+            set => _schoolStartAge = value;
+        }
+        private static uint _schoolStartAge = DefaultSchoolAge;
+
+
+        /// <summary>
+        /// The age (in age units) at which children become teenagers (and start high school).
+        /// </summary>
+        internal static uint TeenStartAge
+        {
+            get => customChildhood ? _teenStartAge : VanillaTeenAge;
+
+            set => _teenStartAge = value;
+        }
+        private static uint _teenStartAge = DefaultTeenAge;
+
+
+        /// <summary>
+        /// The age (in age units) at which teenagers become young adults (and start university/college).
+        /// </summary>
+        internal static uint YoungStartAge
+        {
+            get => customChildhood ? _youngStartAge : VanillaYoungAge;
+
+            set => _youngStartAge = value;
+        }
+        private static uint _youngStartAge = DefaultYoungAge;
 
 
         /// <summary>
