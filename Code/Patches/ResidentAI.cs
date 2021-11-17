@@ -8,12 +8,17 @@ using HarmonyLib;
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.CanMakeBabies - implements mod's minor fix so that only adult females (of less than age 180) give birth.
+    /// Harmony patches for ResidentAI to implement mod functionality.
     /// </summary>
-    [HarmonyPatch(typeof(ResidentAI), nameof(ResidentAI.CanMakeBabies))]
-    public static class CanMakeBabiesPatch
+    [HarmonyPatch(typeof(ResidentAI))]
+    public static class ResidentAIPatches
     {
-        public static bool Prefix(ref bool __result, uint citizenID, ref Citizen data)
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for ResidentAI.CanMakeBabies - implements mod's minor fix so that only adult females (of less than age 180) give birth.
+        /// </summary>
+        [HarmonyPatch(nameof(ResidentAI.CanMakeBabies))]
+        [HarmonyPrefix]
+        public static bool CanMakeBabies(ref bool __result, uint citizenID, ref Citizen data)
         {
             // data.m_family  access group data?
             // Only check child 1 and 2. Don't care about 3, won't fit if there's someone there :)
@@ -34,17 +39,15 @@ namespace LifecycleRebalance
             // Don't execute base method after this.
             return false;
         }
-    }
 
 
-    /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.UpdateAge - implements mod's ageing and deathcare rate functions.
-    /// CRITICAL for mod functionality.
-    /// </summary>
-    [HarmonyPatch(typeof(ResidentAI), "UpdateAge")]
-    public static class UpdateAgePatch
-    {
-        public static bool Prefix(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for ResidentAI.UpdateAge - implements mod's ageing and deathcare rate functions.
+        /// CRITICAL for mod functionality.
+        /// </summary>
+        [HarmonyPatch("UpdateAge")]
+        [HarmonyPrefix]
+        public static bool UpdateAge(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
         {
             // Method result.
             bool removed = false;
@@ -171,7 +174,7 @@ namespace LifecycleRebalance
                             for (int i = 0; i < 2; ++i)
                             {
                                 uint currentChild;
-                                switch(i)
+                                switch (i)
                                 {
                                     case 0:
                                         currentChild = containingUnit.m_citizen2;
@@ -214,36 +217,31 @@ namespace LifecycleRebalance
 
 
         /// <summary>
-        /// Harmony patch to ensure children below school age don't go to school.
+        /// Harmony patch to ResidentAI.UpdateWorkplace to stop children below school age going to school.
         /// </summary>
-        [HarmonyPatch(typeof(ResidentAI), "UpdateWorkplace")]
-        public static class UpdateWorkplacePatch
+        /// <param name="data">Citizen data</param>
+        /// <returns>False (stop execution of original method) if the citizen is too young to go to school, true (execute original method) otherwise</returns>
+        [HarmonyPatch("UpdateWorkplace")]
+        [HarmonyPrefix]
+        public static bool UpdateWorkplace(ref Citizen data)
         {
-            /// <summary>
-            /// Harmony patch to ResidentAI.UpdateWorkplace to stop children below school age going to school.
-            /// </summary>
-            /// <param name="data">Citizen data</param>
-            /// <returns>False (stop execution of original method) if the citizen is too young to go to school, true (execute original method) otherwise</returns>
-            public static bool Prefix(ref Citizen data)
+            // Is this a young child?
+            if (data.m_age < CustomAgeGroups.EarlyChildAgeMax)
             {
-                // Is this a young child?
-                if (data.m_age < CustomAgeGroups.EarlyChildAgeMax)
-                {
-                    // Young children should never be educated.
-                    // Sometimes the UpdateWellbeing method (called immediately before UpdateWorkplace in SimulationStep) will give these kids education, so we just clear it here.
-                    // Easier than messing with UpdateWellbeing.
-                    data.Education1 = false;
+                // Young children should never be educated.
+                // Sometimes the UpdateWellbeing method (called immediately before UpdateWorkplace in SimulationStep) will give these kids education, so we just clear it here.
+                // Easier than messing with UpdateWellbeing.
+                data.Education1 = false;
 
-                    // Young children should also not go shopping (this is checked in following UpdateLocation call in SimulationStep).
-                    data.m_flags ^= Citizen.Flags.NeedGoods;
+                // Young children should also not go shopping (this is checked in following UpdateLocation call in SimulationStep).
+                data.m_flags ^= Citizen.Flags.NeedGoods;
 
-                    // Don't execute original method (thus avoiding assigning to a school).
-                    return false;
-                }
-
-                // If we got here, we need to continue on to the original method (this is not a young child).
-                return true;
+                // Don't execute original method (thus avoiding assigning to a school).
+                return false;
             }
+
+            // If we got here, we need to continue on to the original method (this is not a young child).
+            return true;
         }
 
 
