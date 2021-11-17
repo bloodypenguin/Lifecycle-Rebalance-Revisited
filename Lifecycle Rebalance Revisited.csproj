@@ -147,7 +147,7 @@
     <Compile Include="Code\Settings\OptionsPanelTabs\SpeedOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\TransportOptions.cs" />
     <Compile Include="Code\Settings\PanelUtils.cs" />
-    <Compile Include="Code\Settings\Settings.cs" />
+    <Compile Include="Code\Settings\ModSettings.cs" />
     <Compile Include="Code\Utils\ModUtils.cs" />
     <Compile Include="Code\Utils\UIControls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
