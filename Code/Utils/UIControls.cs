@@ -9,8 +9,6 @@ namespace LifecycleRebalance
     /// </summary>
     public static class UIControls
     {
-
-
         /// <summary>
         /// Adds a small input text field at the specified coordinates.
         /// </summary>
@@ -83,32 +81,6 @@ namespace LifecycleRebalance
 
             // Set text.
             checkBox.text = text;
-
-            return checkBox;
-        }
-
-
-        /// <summary>
-        /// Creates a plain checkbox using the game's option panel checkbox template.
-        /// </summary>
-        /// <param name="parent">Parent component</param>
-        /// <param name="text">Descriptive label text</param>
-        /// <param name="xPos">Relative x position)</param>
-        /// <param name="yPos">Relative y position</param>
-        /// <param name="isChecked">Initial checked state (default false)</param>
-        /// <returns>New checkbox using the game's option panel template</returns>
-        public static UICheckBox AddPlainCheckBox(UIComponent parent, string text, float xPos, float yPos, bool isChecked = false)
-        {
-            UICheckBox checkBox = parent.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsCheckBoxTemplate")) as UICheckBox;
-
-            // Set text.
-            checkBox.text = text;
-
-            // Set relative position.
-            checkBox.relativePosition = new Vector2(xPos, yPos);
-
-            // Set checked state.
-            checkBox.isChecked = isChecked;
 
             return checkBox;
         }
@@ -205,6 +177,39 @@ namespace LifecycleRebalance
 
 
         /// <summary>
+        /// Adds a slider with a descriptive text label above and an automatically updating value label immediately to the right.
+        /// </summary>
+        /// <param name="parent">Panel to add the control to</param>
+        /// <param name="text">Descriptive label text</param>
+        /// <param name="min">Slider minimum value</param>
+        /// <param name="max">Slider maximum value</param>
+        /// <param name="step">Slider minimum step</param>
+        /// <param name="defaultValue">Slider initial value</param>
+        /// <param name="width">Slider width (excluding value label to right) (default 600)</param>
+        /// <returns>New UI slider with attached labels</returns>
+        public static UISlider AddSliderWithValue(UIComponent parent, string text, float min, float max, float step, float defaultValue, float width = 600f)
+        {
+            // Add slider component.
+            UISlider newSlider = AddSlider(parent, text, min, max, step, defaultValue, width);
+            UIPanel sliderPanel = (UIPanel)newSlider.parent;
+
+            // Value label.
+            UILabel valueLabel = sliderPanel.AddUIComponent<UILabel>();
+            valueLabel.name = "ValueLabel";
+            valueLabel.text = newSlider.value.ToString();
+            valueLabel.relativePosition = PositionRightOf(newSlider, 8f, 1f);
+
+            // Event handler to update value label.
+            newSlider.eventValueChanged += (component, value) =>
+            {
+                valueLabel.text = value.ToString();
+            };
+
+            return newSlider;
+        }
+
+
+        /// <summary>
         /// Creates a vertical scrollbar
         /// </summary>
         /// <param name="parent">Parent component</param>
@@ -276,6 +281,19 @@ namespace LifecycleRebalance
             spacerPanel.height = 5f;
             spacerPanel.relativePosition = new Vector2(xPos, yPos);
             spacerPanel.backgroundSprite = "ContentManagerItemBackground";
+        }
+
+
+        /// <summary>
+        /// Returns a relative position to the right of a specified UI component, suitable for placing an adjacent component.
+        /// </summary>
+        /// <param name="uIComponent">Original (anchor) UI component</param>
+        /// <param name="margin">Margin between components (default 8)</param>
+        /// <param name="verticalOffset">Vertical offset from first to second component (default 0)</param>
+        /// <returns>Offset position (to right of original)</returns>
+        public static Vector3 PositionRightOf(UIComponent uIComponent, float margin = 8f, float verticalOffset = 0f)
+        {
+            return new Vector3(uIComponent.relativePosition.x + uIComponent.width + margin, uIComponent.relativePosition.y + verticalOffset);
         }
 
 

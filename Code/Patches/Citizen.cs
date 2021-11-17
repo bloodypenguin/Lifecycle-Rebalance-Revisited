@@ -12,15 +12,7 @@ namespace LifecycleRebalance
         // Early child - < 6 years = < 21
         // Children - < 13 years = < 45 (rounded down from 45.5)
         // Teens - 13-18 years inclusive = < 66 (rounded down from 66.5)
-        // Youg adults - 19-25 years inclusive = < 91
-        public const int EarlyChildAgeMax = 21;
-        public const int ChildAgeMax = 45;
-        public const int TeenAgeMax = 66;
-        public const int YoungAdultAgeMax = 91;
-        public const float AgePerYear = 3.5f;
-
-        public static int AdultAgeMax => ModSettings.retirementAge;
-
+        // Youg adults - 19-25 years inclusive = < 91 (but game default is 90 so we just keep that)
 
         /// <summary>
         /// Harmony pre-emptive Prefix patch for Citizen.GetAgeGroup - part of custom age group implementation.
@@ -32,19 +24,19 @@ namespace LifecycleRebalance
         [HarmonyPatch(nameof(Citizen.GetAgeGroup))]
         public static bool GetAgeGroup(ref Citizen.AgeGroup __result, int age)
         {
-            if (age < ChildAgeMax)
+            if (age < ModSettings.SchoolStartAge)
             {
                 __result = Citizen.AgeGroup.Child;
             }
-            else if (age < TeenAgeMax)
+            else if (age < ModSettings.TeenStartAge)
             {
                 __result = Citizen.AgeGroup.Teen;
             }
-            else if (age < YoungAdultAgeMax)
+            else if (age < ModSettings.YoungStartAge)
             {
                 __result = Citizen.AgeGroup.Young;
             }
-            else if (age < AdultAgeMax)
+            else if (age < ModSettings.retirementAge)
             {
                 __result = Citizen.AgeGroup.Adult;
             }
@@ -69,19 +61,19 @@ namespace LifecycleRebalance
         [HarmonyPatch(nameof(Citizen.GetAgePhase))]
         public static bool GetAgePhase(ref Citizen.AgePhase __result, Citizen.Education education, int age)
         {
-            if (age < ChildAgeMax)
+            if (age < ModSettings.SchoolStartAge)
             {
                 __result = Citizen.AgePhase.Child;
             }
-            else if (age < TeenAgeMax)
+            else if (age < ModSettings.TeenStartAge)
             {
                 __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Teen0 + education);
             }
-            else if (age < YoungAdultAgeMax)
+            else if (age < ModSettings.YoungStartAge)
             {
                 __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Young0 + education);
             }
-            else if (age < AdultAgeMax)
+            else if (age < ModSettings.retirementAge)
             {
                 __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Adult0 + education);
             }
@@ -105,7 +97,7 @@ namespace LifecycleRebalance
         public static void GetCitizenHomeBehaviour(Citizen __instance, ref Citizen.BehaviourData behaviour)
         {
             // Only interested in children, who aren't dead, and aren't moving in.
-            if (__instance.m_age < EarlyChildAgeMax && !__instance.Dead && (__instance.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None)
+            if (__instance.m_age < ModSettings.SchoolStartAge && !__instance.Dead && (__instance.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None)
             {
                 // Undo any assignment to behaviour.m_elementaryEligibleCount done by base method (when Education1 flag isn't set).
                 if (!__instance.Education1)

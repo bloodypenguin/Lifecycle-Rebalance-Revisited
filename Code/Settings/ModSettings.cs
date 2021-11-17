@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
+using UnityEngine;
 
 
 namespace LifecycleRebalance
@@ -16,29 +17,69 @@ namespace LifecycleRebalance
         private static readonly string SettingsFileName = "LifecycleRebalance.xml";
 
         // Age constants - vanilla values.
-        public const uint VanillaSchoolAge = 0;
-        public const uint VanillaTeenAge = 15;
-        public const uint VanillaYoungAge = 45;
-        public const uint VanillaRetirementAge = 180;
-        public const float AgePerYear = 3.5f;
+        private const int VanillaSchoolAge = 0;
+        private const int VanillaTeenAge = 15;
+        private const int VanillaYoungAge = 45;
+        internal const int VanillaAdultAge = 90;
+        private const int VanillaRetirementAge = 180;
+        internal const float AgePerYear = 3.5f;
 
         // Age constants - mod default custom values.
         // Early child - < 6 years = < 21
         // Children - < 13 years = < 45 (rounded down from 45.5)
         // Teens - 13-18 years inclusive = < 66 (rounded down from 66.5)
-        // Youg adults - 19-25 years inclusive = < 91
-        private const uint DefaultSchoolAge = 21;
-        private const uint DefaultTeenAge = 45;
-        private const uint DefaultYoungAge = 66;
+        // Young adults - 19-25 years inclusive = < 91 (but game default is 90 so we just keep that)
+        private const int DefaultSchoolAge = 21;
+        private const int DefaultTeenAge = 45;
+        private const int DefaultYoungAge = 66;
+        private const int DefaultRetirementYear = 65;
 
+        // Age constants - minimum and maximums.
+        internal const int MinSchoolStartYear = 0;
+        internal const int MaxSchoolStartYear = 8;
+        internal const int MinTeenStartYear = 10;
+        internal const int MaxTeenStartYear = 14;
+        internal const int MinYoungStartYear = 16;
+        internal const int MaxYoungStartYear = 20;
+        internal const int MinRetirementYear = 50;
+        internal const int MaxRetirementYear = 70;
 
-        // Retirement age.
-        [XmlIgnore]
-        internal static int retirementAge;
 
         // 1 divided by the number of game age increments per decade for calculation purposes.
         [XmlIgnore]
         internal double decadeFactor;
+
+        // Ages.
+        [XmlIgnore]
+        private static int schoolStartAge = DefaultSchoolAge;
+        [XmlIgnore]
+        private static int teenStartAge = DefaultTeenAge;
+        [XmlIgnore]
+        private static int youngStartAge = DefaultYoungAge;
+        [XmlIgnore]
+        internal static int retirementAge = VanillaRetirementAge;
+
+        // Modes.
+        [XmlIgnore]
+        private static bool customChildhood = true;
+
+
+        /// <summary>
+        /// The age at which children start school according to current settings.
+        /// </summary>
+        internal static int SchoolStartAge => customChildhood ? schoolStartAge : VanillaSchoolAge;
+
+
+        /// <summary>
+        /// The age at which children become teenagers (and start high school) according to current settings.
+        /// </summary>
+        internal static int TeenStartAge => customChildhood ? teenStartAge : VanillaTeenAge;
+
+
+        /// <summary>
+        /// The age at which teenagers become young adults (and start college/university) according to current settings.
+        /// </summary>
+        internal static int YoungStartAge => customChildhood ? youngStartAge : VanillaYoungAge;
 
 
         /// <summary>
@@ -144,21 +185,21 @@ namespace LifecycleRebalance
         /// Tracks custom retirement ages and handles any changes.
         /// </summary>
         [XmlElement("RetirementAge")]
-        public uint RetirementYear
+        public int RetirementYear
         {
             get => _retirementYear;
 
             set
             {
-                // Clamp retirement year between 50 and 70.
-                _retirementYear = Math.Max(50, Math.Min(70, value));
+                // Clamp retirement year.
+                _retirementYear = (int)Mathf.Clamp(value, MinRetirementYear, MaxRetirementYear);
 
                 // A change here can affect retirement age in combination with other settings.
                 SetRetirementAge();
             }
         }
         [XmlIgnore]
-        private uint _retirementYear = 65;
+        private int _retirementYear = DefaultRetirementYear;
 
 
         /// <summary>
@@ -204,49 +245,50 @@ namespace LifecycleRebalance
 
         // Whether or not we're using custom childhood settings.
         [XmlElement("CustomChildhood")]
-        public bool customChildhood = false;
+        public bool CustomChildhood
+        {
+            get => customChildhood;
+            set => customChildhood = value;
+        }
 
 
         /// <summary>
         /// The age (in age units) at which children will start school.
         /// </summary>
-        [XmlElement("SchoolStartAge")]
-        public uint SchoolStartAge
+        [XmlElement("SchoolStartYear")]
+        public int SchoolStartYear
         {
-            get => customChildhood ? _schoolStartAge : VanillaSchoolAge;
+            get => (int)(schoolStartAge / AgePerYear);
 
-            set => _schoolStartAge = value;
+            // Clamp age before assigning.
+            set => schoolStartAge = (int)(Mathf.Clamp(value, MinSchoolStartYear, MaxSchoolStartYear) * AgePerYear);
         }
-        [XmlIgnore]
-        private uint _schoolStartAge = DefaultSchoolAge;
 
 
         /// <summary>
-        /// The age (in age units) at which children become teenagers (and start high school).
+        /// The age (in years) at which children become teenagers (and start high school).
         /// </summary>
-        [XmlElement("TeenStartAge")]
-        public uint TeenStartAge
+        [XmlElement("TeenStartYear")]
+        public int TeenStartYear
         {
-            get => customChildhood ? _teenStartAge : VanillaTeenAge;
+            get => (int)(teenStartAge / AgePerYear);
 
-            set => _teenStartAge = value;
+            // Clamp age before assigning.
+            set => teenStartAge = (int)(Mathf.Clamp(value, MinTeenStartYear, MaxTeenStartYear) * AgePerYear);
         }
-        [XmlIgnore]
-        private uint _teenStartAge = DefaultTeenAge;
 
 
         /// <summary>
-        /// The age (in age units) at which teenagers become young adults (and start university/college).
+        /// The age (in years) at which teenagers become young adults (and start university/college).
         /// </summary>
-        [XmlElement("YoungStartAge")]
-        public uint YoungStartAge
+        [XmlElement("YoungStartYear")]
+        public int YoungStartYear
         {
-            get => customChildhood ? _youngStartAge : VanillaYoungAge;
+            get => (int)(youngStartAge / AgePerYear);
 
-            set => _youngStartAge = value;
+            // Clamp age before assigning.
+            set => youngStartAge = (int)(Mathf.Clamp(value, MinYoungStartYear, MaxYoungStartYear) * AgePerYear);
         }
-        [XmlIgnore]
-        private uint _youngStartAge = DefaultYoungAge;
 
 
         /// <summary>
@@ -315,18 +357,18 @@ namespace LifecycleRebalance
             // Only set custom retirement age if not using vanilla or legacy calculations and the custom retirement option is enabled.
             if (!LegacyCalcs && !VanillaCalcs && CustomRetirement)
             {
-                retirementAge = (int)(_retirementYear * 3.5);
+                retirementAge = (int)(_retirementYear * AgePerYear);
 
                 // Catch situations where retirementYear hasn't initialised yet.
                 if (retirementAge == 0)
                 {
-                    retirementAge = 180;
+                    retirementAge = VanillaRetirementAge;
                 }
             }
             else
             {
                 // Game default retirement age is 180.
-                retirementAge = 180;
+                retirementAge = VanillaRetirementAge;
             }
 
             // Only log messages when the retirement age changes.

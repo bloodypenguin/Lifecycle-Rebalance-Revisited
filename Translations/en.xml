@@ -16,6 +16,11 @@
     <Translation ID="LBR_RET_CUS" String="Custom retirement age" />
     <Translation ID="LBR_RET_NT1" String="Decreasing retirement age won't change the status of citizens who have already retired under previous settings." />
     <Translation ID="LBR_RET_NT2" String="Increasing retirement age won't change the appearance of citzens who have already retired under previous settings." />
+    <Translation ID="LBR_CHI" String="Childhood age options (only when using mod's Sunset Harbor lifespans)" />
+    <Translation ID="LBR_CHI_CUS" String="Use custom childhood ages" />
+    <Translation ID="LBR_CHI_SCH" String="Age in years at which children start school" />
+    <Translation ID="LBR_CHI_TEE" String="Age in years at which children start high school" />
+    <Translation ID="LBR_CHI_YOU" String="Age in years at which children start college/university" />
     <Translation ID="LBR_HEA" String="Health" />
     <Translation ID="LBR_HEA_ILL" String="Random illness % chance per decade of life" />
     <Translation ID="LBR_HEA_ILD" String="Does not affect sickness from specific causes, e.g. pollution or noise" />

@@ -44,6 +44,9 @@ namespace LifecycleRebalance
                     else
                     {
                         Close();
+
+                        // Save settings on close.
+                        ModSettings.Save();
                     }
                 };
 

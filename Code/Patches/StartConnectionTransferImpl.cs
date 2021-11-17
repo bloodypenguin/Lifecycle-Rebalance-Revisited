@@ -228,7 +228,7 @@ namespace LifecycleRebalance
             // Write to immigration log if that option is selected.
             if (Logging.useImmigrationLog)
             {
-                Logging.WriteToLog(Logging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / 3.5), " years old) and education level ", education);
+                Logging.WriteToLog(Logging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / ModSettings.AgePerYear), " years old) and education level ", education);
             }
         }
 

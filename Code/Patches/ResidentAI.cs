@@ -64,18 +64,18 @@ namespace LifecycleRebalance
 
                 int num = data.Age + 1;
 
-                if (num <= CustomAgeGroups.TeenAgeMax)
+                if (num <= ModSettings.YoungStartAge)
                 {
-                    if (num == CustomAgeGroups.ChildAgeMax || num == CustomAgeGroups.TeenAgeMax)
+                    if (num == ModSettings.TeenStartAge || num == ModSettings.YoungStartAge)
                     {
                         FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                     }
                 }
-                else if (num == CustomAgeGroups.YoungAdultAgeMax || num >= CustomAgeGroups.AdultAgeMax)
+                else if (num == ModSettings.VanillaAdultAge || num >= ModSettings.retirementAge)
                 {
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
-                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % (15 * DataStore.lifeSpanMultiplier) == 0))  // Workspeed multiplier?
+                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % (15 * DataStore.lifeSpanMultiplier) == 0))  // Workspeed multiplier
                 {
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
@@ -158,7 +158,7 @@ namespace LifecycleRebalance
                         // Log if we're doing that.
                         if (Logging.useDeathLog)
                         {
-                            Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / 3.5), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
+                            Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / ModSettings.AgePerYear), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
                         }
 
                         // Reverse redirect to access private method Die().
@@ -226,7 +226,7 @@ namespace LifecycleRebalance
         public static bool UpdateWorkplace(ref Citizen data)
         {
             // Is this a young child?
-            if (data.m_age < CustomAgeGroups.EarlyChildAgeMax)
+            if (data.m_age < ModSettings.SchoolStartAge)
             {
                 // Young children should never be educated.
                 // Sometimes the UpdateWellbeing method (called immediately before UpdateWorkplace in SimulationStep) will give these kids education, so we just clear it here.
