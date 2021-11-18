@@ -93,7 +93,7 @@ namespace LifecycleRebalance
         /// Language code.
         /// </summary>
         [XmlElement("Language")]
-        public string Language { get => Translations.Language; set => Translations.Language = value; }
+        public string XMLLanguage { get => Translations.Language; set => Translations.Language = value; }
 
         /// <summary>
         /// What's new notification version.
@@ -295,35 +295,35 @@ namespace LifecycleRebalance
         /// Enables/disables detailed debug logging to game output log.
         /// </summary>
         [XmlElement("DetailLogging")]
-        public bool DetailLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
+        public bool XMLDetailLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
 
 
         /// <summary>
         /// Enables/disables detailed death logging.
         /// </summary>
         [XmlElement("LogDeaths")]
-        public bool LogDeaths { get => Logging.useDeathLog; set => Logging.useDeathLog = value; }
+        public bool XMLLogDeaths { get => Logging.useDeathLog; set => Logging.useDeathLog = value; }
 
 
         /// <summary>
         /// Enables/disables detailed transport logging.
         /// </summary>
         [XmlElement("LogTransport")]
-        public bool LogTransport { get => Logging.useTransportLog; set => Logging.useTransportLog = value; }
+        public bool XMLLogTransport { get => Logging.useTransportLog; set => Logging.useTransportLog = value; }
 
 
         /// <summary>
         /// Enables/disables detailed sickness logging.
         /// </summary>
         [XmlElement("LogSickness")]
-        public bool LogSickness { get => Logging.useSicknessLog; set => Logging.useSicknessLog = value; }
+        public bool XMLLogSickness { get => Logging.useSicknessLog; set => Logging.useSicknessLog = value; }
 
 
         /// <summary>
         /// Enables/disables detailed immigration logging.
         /// </summary>
         [XmlElement("LogImmigration")]
-        public bool LogImmigration { get => Logging.useImmigrationLog; set => Logging.useImmigrationLog = value; }
+        public bool XMLLogImmigration { get => Logging.useImmigrationLog; set => Logging.useImmigrationLog = value; }
 
 
         /// <summary>

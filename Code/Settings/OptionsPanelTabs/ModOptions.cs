@@ -21,71 +21,29 @@ namespace LifecycleRebalance
 
             // Language dropdown.
             UIDropDown languageDrop = PanelUtils.AddPlainDropDown(modTab, Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index);
-            languageDrop.eventSelectedIndexChanged += (control, index) =>
-            {
-                Translations.Index = index;
-                ModSettings.Save();
-            };
+            languageDrop.eventSelectedIndexChanged += (control, index) => { Translations.Index = index; };
 
             // Detail logging options.
             UICheckBox logCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LDT"));
             logCheckBox.isChecked = Logging.detailLogging;
-            logCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.detailLogging = isChecked;
-
-                // Update configuration file.
-                ModSettings.Save();
-
-                Logging.KeyMessage("detailed logging ", Logging.detailLogging ? "enabled" : "disabled");
-            };
+            logCheckBox.eventCheckChanged += (control, isChecked) => { Logging.detailLogging = isChecked; };
 
             // Logging options.
             UICheckBox deathCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGD"));
             deathCheckBox.isChecked = Logging.useDeathLog;
-            deathCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.useDeathLog = isChecked;
-
-                // Update configuration file.
-                Logging.useDeathLog = isChecked;
-                ModSettings.Save();
-            };
+            deathCheckBox.eventCheckChanged += (control, isChecked) => { Logging.useDeathLog = isChecked; };
 
             UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGI"));
             immigrantCheckBox.isChecked = Logging.useImmigrationLog;
-            immigrantCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.useImmigrationLog = isChecked;
-
-                // Update configuration file.
-                ModSettings.Save();
-            };
+            immigrantCheckBox.eventCheckChanged += (control, isChecked) => { Logging.useImmigrationLog = isChecked; };
 
             UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGT"));
             transportCheckBox.isChecked = Logging.useTransportLog;
-            transportCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.useTransportLog = isChecked;
-
-                // Update configuration file.
-                ModSettings.Save();
-            };
+            transportCheckBox.eventCheckChanged += (control, isChecked) => { Logging.useTransportLog = isChecked; };
 
             UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGS"));
             sicknessCheckBox.isChecked = Logging.useSicknessLog;
-            sicknessCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.useSicknessLog = isChecked;
-
-                // Update configuration file.
-                ModSettings.Save();
-            };
+            sicknessCheckBox.eventCheckChanged += (control, isChecked) => { Logging.useSicknessLog = isChecked; };
         }
     }
 }

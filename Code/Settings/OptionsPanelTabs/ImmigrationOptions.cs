@@ -41,14 +41,7 @@ namespace LifecycleRebalance
                 UICheckBox immigrationCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_VAR"));
                 immigrationCheckBox.relativePosition = new Vector3(5f, 5f);
                 immigrationCheckBox.isChecked = ModSettings.Settings.RandomImmigrantEd;
-                immigrationCheckBox.eventCheckChanged += (control, isChecked) =>
-                {
-                    // Update configuration file.
-                    ModSettings.Settings.RandomImmigrantEd = isChecked;
-
-                    // Update configuration file.
-                    ModSettings.Save();
-                };
+                immigrationCheckBox.eventCheckChanged += (control, isChecked) => { ModSettings.Settings.RandomImmigrantEd = isChecked; };
 
                 // Boost immigrant education.
                 UICheckBox immiEduBoostCheck = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_INC"));
@@ -71,9 +64,6 @@ namespace LifecycleRebalance
                     {
                         immiEduDragCheck.isChecked = false;
                     }
-
-                    // Update configuration file.
-                    ModSettings.Save();
                 };
                 immiEduDragCheck.eventCheckChanged += (control, isChecked) =>
                 {
@@ -85,9 +75,6 @@ namespace LifecycleRebalance
                     {
                         immiEduBoostCheck.isChecked = false;
                     }
-
-                    // Update configuration file.
-                    ModSettings.Save();
                 };
             }
         }
