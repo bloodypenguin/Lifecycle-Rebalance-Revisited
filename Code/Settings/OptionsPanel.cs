@@ -22,7 +22,7 @@ namespace LifecycleRebalance
         /// Attaches an event hook to options panel visibility, to create/destroy our options panel as appropriate.
         /// Destroying when not visible saves UI overhead and performance impacts, especially with so many UITextFields.
         /// </summary>
-        public static void OptionsEventHook()
+        internal static void OptionsEventHook()
         {
             // Get options panel instance.
             gameOptionsPanel = UIView.library.Get<UIPanel>("OptionsPanel");
@@ -44,9 +44,6 @@ namespace LifecycleRebalance
                     else
                     {
                         Close();
-
-                        // Save settings on close.
-                        ModSettings.Save();
                     }
                 };
 
@@ -59,7 +56,7 @@ namespace LifecycleRebalance
         /// <summary>
         /// Refreshes the options panel (destroys and rebuilds) on a locale change when the options panel is open.
         /// </summary>
-        public static void LocaleChanged()
+        internal static void LocaleChanged()
         {
             if (gameOptionsPanel != null && gameOptionsPanel.isVisible)
             {
@@ -141,8 +138,8 @@ namespace LifecycleRebalance
         /// </summary>
         private static void Close()
         {
-            // Save settings first.
-            //SettingsUtils.SaveSettings();
+            // Save settings on close.
+            ModSettings.Save();
 
             // We're no longer visible - destroy our game object.
             if (optionsGameObject != null)

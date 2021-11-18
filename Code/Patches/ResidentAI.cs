@@ -229,7 +229,8 @@ namespace LifecycleRebalance
                 data.Education1 = false;
 
                 // Young children should also not go shopping (this is checked in following UpdateLocation call in SimulationStep).
-                data.m_flags ^= Citizen.Flags.NeedGoods;
+                // This prevents children from going shopping normally (vanilla code), but an additional patch is needed for the Real Time mod - see RealTime.cs.
+                data.m_flags &= ~Citizen.Flags.NeedGoods;
 
                 // Don't execute original method (thus avoiding assigning to a school).
                 return false;
