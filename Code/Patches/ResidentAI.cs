@@ -57,11 +57,6 @@ namespace LifecycleRebalance
                 // Local reference.
                 CitizenManager citizenManager = Singleton<CitizenManager>.instance;
 
-                if (citizenID == 575960)
-                {
-                    Logging.Message("foundTarget");
-                }
-
                 int num = data.Age + 1;
 
                 if (num <= ModSettings.YoungStartAge)

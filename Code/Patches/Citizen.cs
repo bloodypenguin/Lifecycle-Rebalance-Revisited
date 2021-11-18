@@ -24,15 +24,15 @@ namespace LifecycleRebalance
         [HarmonyPatch(nameof(Citizen.GetAgeGroup))]
         public static bool GetAgeGroup(ref Citizen.AgeGroup __result, int age)
         {
-            if (age < ModSettings.SchoolStartAge)
+            if (age < ModSettings.TeenStartAge)
             {
                 __result = Citizen.AgeGroup.Child;
             }
-            else if (age < ModSettings.TeenStartAge)
+            else if (age < ModSettings.YoungStartAge)
             {
                 __result = Citizen.AgeGroup.Teen;
             }
-            else if (age < ModSettings.YoungStartAge)
+            else if (age < ModSettings.VanillaAdultAge)
             {
                 __result = Citizen.AgeGroup.Young;
             }
@@ -61,15 +61,15 @@ namespace LifecycleRebalance
         [HarmonyPatch(nameof(Citizen.GetAgePhase))]
         public static bool GetAgePhase(ref Citizen.AgePhase __result, Citizen.Education education, int age)
         {
-            if (age < ModSettings.SchoolStartAge)
+            if (age < ModSettings.TeenStartAge)
             {
                 __result = Citizen.AgePhase.Child;
             }
-            else if (age < ModSettings.TeenStartAge)
+            else if (age < ModSettings.YoungStartAge)
             {
                 __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Teen0 + education);
             }
-            else if (age < ModSettings.YoungStartAge)
+            else if (age < ModSettings.VanillaAdultAge)
             {
                 __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Young0 + education);
             }
@@ -92,8 +92,8 @@ namespace LifecycleRebalance
         /// </summary>
         /// <param name="__instance">Instance reference</param>
         /// <param name="behaviour">Citizen behaviour struct reference</param>
-        [HarmonyPostfix]
         [HarmonyPatch(nameof(Citizen.GetCitizenHomeBehaviour))]
+        [HarmonyPostfix]
         public static void GetCitizenHomeBehaviour(Citizen __instance, ref Citizen.BehaviourData behaviour)
         {
             // Only interested in children, who aren't dead, and aren't moving in.
