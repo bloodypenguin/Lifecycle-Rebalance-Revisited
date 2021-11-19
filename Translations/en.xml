@@ -91,5 +91,6 @@
     <Translation ID="LBR_160_NT1" String="MAJOR NEW FEATURE: realistic early life ageing and progress, from early childhood to young adult (optional, customizable)" />
     <Translation ID="LBR_160_NT2" String="New early life ageing is matched to real-world values and stages and includes a pre-school stage of life (young children)" />
     <Translation ID="LBR_160_NT3" String="This option can be enabled/disabled and customized in the mod's options panel" />
+    <Translation ID="LBR_160_NT4" String="NOTE: this option is initially enabled by default" />
   </Translations>
 </Language>

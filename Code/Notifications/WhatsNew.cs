@@ -21,7 +21,8 @@ namespace LifecycleRebalance
                 {
                     "LBR_160_NT1",
                     "LBR_160_NT2",
-                    "LBR_160_NT3"
+                    "LBR_160_NT3",
+                    "LBR_160_NT4"
                 }
             },
             new WhatsNewMessage
