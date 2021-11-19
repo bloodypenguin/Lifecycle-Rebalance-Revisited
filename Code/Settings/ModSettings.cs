@@ -16,25 +16,29 @@ namespace LifecycleRebalance
         [XmlIgnore]
         private static readonly string SettingsFileName = "LifecycleRebalance.xml";
 
-        // Age constants - vanilla values.
+        // Age constants - vanilla values (in age units).
         private const int VanillaSchoolAge = 0;
         private const int VanillaTeenAge = 15;
         private const int VanillaYoungAge = 45;
         internal const int VanillaAdultAge = 90;
         private const int VanillaRetirementAge = 180;
+
+        // Age units per year, defined by the game in 1.13 in District.GetAverageLifespan().
         internal const float AgePerYear = 3.5f;
 
-        // Age constants - mod default custom values.
+        // Age constants - mod default custom values (in age units).
         // Early child - < 6 years = < 21
-        // Children - < 13 years = < 45 (rounded down from 45.5)
-        // Teens - 13-18 years inclusive = < 66 (rounded down from 66.5)
-        // Young adults - 19-25 years inclusive = < 91 (but game default is 90 so we just keep that)
+        // Children - < 11 years = < 38 age units (rounded down from 38.5)
+        // Teens - 11-17 years inclusive = < 18 years = < 63 age units
+        // Young adults - 18-25 years inclusive = < 91 (but game default is 90 so we just keep that)
         private const int DefaultSchoolAge = 21;
-        private const int DefaultTeenAge = 45;
-        private const int DefaultYoungAge = 66;
+        private const int DefaultTeenAge = 38;
+        private const int DefaultYoungAge = 63;
+
+        // Default retirement age (in years, not age units!).
         private const int DefaultRetirementYear = 65;
 
-        // Age constants - minimum and maximums.
+        // Age constants - minimum and maximums (in years).
         internal const int MinSchoolStartYear = 0;
         internal const int MaxSchoolStartYear = 8;
         internal const int MinTeenStartYear = 10;
