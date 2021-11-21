@@ -72,16 +72,8 @@ namespace LifecycleRebalance
 
                 UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_TRN_CUS"));
                 transportCheckBox.relativePosition = new Vector3(30f, 5f);
-                transportCheckBox.isChecked = OptionsPanel.settings.UseTransportModes;
-                transportCheckBox.eventCheckChanged += (control, isChecked) =>
-                {
-                // Update mod settings.
-                ModSettings.UseTransportModes = isChecked;
-
-                // Update configuration file.
-                OptionsPanel.settings.UseTransportModes = isChecked;
-                    Configuration<SettingsFile>.Save();
-                };
+                transportCheckBox.isChecked = ModSettings.Settings.UseTransportModes;
+                transportCheckBox.eventCheckChanged += (control, isChecked) => { ModSettings.Settings.UseTransportModes = isChecked; };
 
                 // Set up textfield arrays; low/high density.
                 wealthLow = new UITextField[NumDensity][][];
@@ -435,8 +427,7 @@ namespace LifecycleRebalance
         /// <param name="tooltip">Tooltip, if any</param>
         private UITextField AddTextField(UIPanel panel, float width, float posX, float posY, string tooltip = null)
         {
-            UITextField textField = PanelUtils.CreateTextField(panel, width, 18f, 0.9f);
-            textField.relativePosition = new Vector3(posX, posY);
+            UITextField textField = UIControls.SmallTextField(panel, posX, posY, width);
             textField.eventTextChanged += (control, value) => TextFilter((UITextField)control, value);
 
             // Add tooltip.

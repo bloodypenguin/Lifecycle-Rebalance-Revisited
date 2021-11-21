@@ -64,13 +64,6 @@
     <Translation ID="MES_DSA" String="Bir daha gösterme" />
     <Translation ID="MES_PAGE" String="Lütfen daha detaylı bilgi için mod'un Steam Atölye sayfasını ziyaret edin" />
     <Translation ID="LBR_CON" String="Mod çakışması saptandı" />
-    <Translation ID="LBR_150_TIT" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu 1.5 versiyonuna güncellenmiştir" />
-    <Translation ID="LBR_150_NT1" String="Ulaşım modu seçenekler artık seçenekler panelinden değiştirillebilecektir. Çevreci ve normal yerleşimler artık ayrı seçeneklere sahipler." />
-    <Translation ID="LBR_150_NT2" String="Şehre göç eden insanların eğitim seviyeleri değiştirilebilir." />
-    <Translation ID="LBR_151_NT1" String="Seçenekler panelinin düzenini çeviriler için ayarla" />
-    <Translation ID="LBR_152_NT1" String="Ebeveynsiz evler olmaması için reşit olmayan çocuklu ebeveynler erken ölmeyecektir." />
-    <Translation ID="LBR_152_NT2" String="Mod çakışması kontrolü ve bildirimi iyileştirildi." />
-    <Translation ID="LBR_152_NT3" String="Güncelleme bildirimleri iyileştirildi." />
     <Translation ID="LBR_ERR_FAT" String="Bu, Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu'nun düzgün çalışamayacağı ve çalışmayı durduğu anlamına gelmektedir." />
     <Translation ID="LBR_ERR_HAR" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu gerekli Harmony yamalarını tamamlayamadı." />
     <Translation ID="ERR_HAR0" String="Harmony yamalama hatası!" />
@@ -81,5 +74,12 @@
     <Translation ID="ERR_CON1" String="Çakışan mod'lar:" />
     <Translation ID="LBR_ERR_CON0" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu en az bir başka mod'la çakışma saptadı." />
     <Translation ID="LBR_ERR_CON1" String=" Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu'nun düzgün çalışabilmesi için bu modların kaldırılması gerekmektedir." />
+    <Translation ID="LBR_150_TIT" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu 1.5 versiyonuna güncellenmiştir" />
+    <Translation ID="LBR_150_NT1" String="Ulaşım modu seçenekler artık seçenekler panelinden değiştirillebilecektir. Çevreci ve normal yerleşimler artık ayrı seçeneklere sahipler." />
+    <Translation ID="LBR_150_NT2" String="Şehre göç eden insanların eğitim seviyeleri değiştirilebilir." />
+    <Translation ID="LBR_151_NT1" String="Seçenekler panelinin düzenini çeviriler için ayarla" />
+    <Translation ID="LBR_152_NT1" String="Ebeveynsiz evler olmaması için reşit olmayan çocuklu ebeveynler erken ölmeyecektir." />
+    <Translation ID="LBR_152_NT2" String="Mod çakışması kontrolü ve bildirimi iyileştirildi." />
+    <Translation ID="LBR_152_NT3" String="Güncelleme bildirimleri iyileştirildi." />
   </Translations>
 </Language>

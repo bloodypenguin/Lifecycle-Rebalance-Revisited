@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using UnityEngine;
 using ColossalFramework.UI;
 
 
@@ -9,12 +10,16 @@ namespace LifecycleRebalance
     /// </summary>
     internal class CalculationOptions : OptionsPanelTab
     {
-        //
-        public static readonly string[] retirementAges = { "50", "55", "60", "65" };
+        // Layout constants.
+        private const float Margin = 5f;
+        private const float TitleMargin = Margin * 2f;
+
+        // Layout index.
+        private float currentY = 0f;
 
         // Key components.
-        private UICheckBox sunsetCheckBox, legacyCheckBox, vanillaCheckBox, retireCheckBox;
-        private UIDropDown ageDropDown;
+        private UICheckBox sunsetCheckBox, legacyCheckBox, vanillaCheckBox, retireCheckBox, childCheckBox;
+        private UISlider retirementSlider, schoolStartSlider, teenStartSlider, youngStartSlider;
 
         /// <summary>
         /// Adds calculation options tab to tabstrip.
@@ -24,7 +29,7 @@ namespace LifecycleRebalance
         internal CalculationOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            panel = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_SPN"), tabIndex, true);
+            panel = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_SPN"), tabIndex);
 
             // Set tab object reference.
             tabStrip.tabs[tabIndex].objectUserData = this;
@@ -43,66 +48,86 @@ namespace LifecycleRebalance
                 isSetup = true;
                 Logging.Message("setting up ", this.GetType());
 
+                // Get panel width.
+                float maxWidth = panel.width - (Margin * 2f);
+
+                // Get title font.
+                UIFont titleFont = Resources.FindObjectsOfTypeAll<UIFont>().FirstOrDefault((UIFont f) => f.name == "OpenSans-Semibold");
 
                 // Add warning text message.
-                PanelUtils.AddLabel(panel, Translations.Translate("LBR_SPN_WRN") + Environment.NewLine + Translations.Translate("LBR_SPN_BAL") + Environment.NewLine + Translations.Translate("LBR_SPN_BAK"));
+                UILabel warningLabel = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_WRN"), textScale: 1.2f);
+                warningLabel.font = titleFont;
+                currentY += warningLabel.height;
+                warningLabel = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_BAL"), maxWidth);
+                currentY += warningLabel.height;
+                warningLabel = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_BAK"), maxWidth);
+                currentY += warningLabel.height + TitleMargin;
 
                 // Calculation models.
-                PanelUtils.AddPanelSpacer(panel);
-                PanelUtils.AddLabel(panel, Translations.Translate("LBR_CAL"), 1.3f);
-
-                sunsetCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_SUN"));
-                sunsetCheckBox.isChecked = !OptionsPanel.settings.UseLegacy;
-                legacyCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_LEG"));
-                legacyCheckBox.isChecked = OptionsPanel.settings.UseLegacy;
-                vanillaCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_CAL_VAN"));
-                vanillaCheckBox.isChecked = OptionsPanel.settings.UseVanilla;
+                AddTitle(panel, "LBR_CAL", titleFont, maxWidth);
+                sunsetCheckBox = AddPlainCheckBox(panel, "LBR_CAL_SUN", !ModSettings.Settings.LegacyCalcs);
+                legacyCheckBox = AddPlainCheckBox(panel, "LBR_CAL_LEG", ModSettings.Settings.LegacyCalcs);
+                vanillaCheckBox = AddPlainCheckBox(panel, "LBR_CAL_VAN", !ModSettings.Settings.VanillaCalcs);
+                vanillaCheckBox.label.textScale = 1.0f;
+                currentY += vanillaCheckBox.height + TitleMargin;
 
                 // Custom retirement ages.
-                PanelUtils.AddPanelSpacer(panel);
-                PanelUtils.AddLabel(panel, Translations.Translate("LBR_RET"), 1.3f);
+                AddTitle(panel, "LBR_RET", titleFont, maxWidth);
+                retireCheckBox = AddPlainCheckBox(panel, "LBR_RET_USE", ModSettings.Settings.CustomRetirement);
+                currentY += retireCheckBox.height;
 
-                retireCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_RET_USE"));
-                retireCheckBox.isChecked = OptionsPanel.settings.CustomRetirement;
-
-                ageDropDown = PanelUtils.AddPlainDropDown(panel, Translations.Translate("LBR_RET_CUS"), retirementAges, (OptionsPanel.settings.RetirementYear - 50) / 5);
-                ageDropDown.eventSelectedIndexChanged += (control, index) =>
+                retirementSlider = AgeSlider("LBR_RET_CUS", ModSettings.MinRetirementYear, ModSettings.MaxRetirementYear, ModSettings.Settings.RetirementYear);
+                retirementSlider.eventValueChanged += (control, value) =>
                 {
-                    int ageYears = 50 + (index * 5);
+                    // Update mod settings.
+                    ModSettings.Settings.RetirementYear = (int)value;
+                };
+                retirementSlider.tooltip = Translations.Translate("LBR_RET_NT1") + System.Environment.NewLine + Translations.Translate("LBR_RET_NT2");
 
-                // Update mod settings.
-                ModSettings.RetirementYear = ageYears;
+                // Custom childhood.
+                AddTitle(panel, "LBR_CHI", titleFont, maxWidth);
+                childCheckBox = AddPlainCheckBox(panel, "LBR_CHI_CUS", ModSettings.Settings.CustomChildhood);
+                currentY += childCheckBox.height;
 
-                // Update configuration file.
-                OptionsPanel.settings.RetirementYear = ageYears;
-                    Configuration<SettingsFile>.Save();
+                schoolStartSlider = AgeSlider("LBR_CHI_SCH", ModSettings.MinSchoolStartYear, ModSettings.MaxSchoolStartYear, ModSettings.Settings.SchoolStartYear);
+                schoolStartSlider.eventValueChanged += (control, value) =>
+                {
+                    // Update mod settings.
+                    ModSettings.Settings.SchoolStartYear = (int)value;
                 };
 
-                // Add enabled/disabled event handler to age dropdown to repopulate items on re-enabling. 
-                ageDropDown.eventIsEnabledChanged += (control, isEnabled) =>
+                teenStartSlider = AgeSlider("LBR_CHI_TEE", ModSettings.MinTeenStartYear, ModSettings.MaxTeenStartYear, ModSettings.Settings.TeenStartYear);
+                teenStartSlider.eventValueChanged += (control, value) =>
                 {
-                    if (isEnabled)
-                    {
-                        ageDropDown.items = retirementAges;
-                        ageDropDown.selectedIndex = (OptionsPanel.settings.RetirementYear - 50) / 5;
-                    }
+                    // Update mod settings.
+                    ModSettings.Settings.TeenStartYear = (int)value;
                 };
 
-                UILabel retireNote1 = PanelUtils.AddLabel(panel, Translations.Translate("LBR_RET_NT1"));
-                UILabel retireNote2 = PanelUtils.AddLabel(panel, Translations.Translate("LBR_RET_NT2"));
+                youngStartSlider = AgeSlider("LBR_CHI_YOU", ModSettings.MinYoungStartYear, ModSettings.MaxYoungStartYear, ModSettings.Settings.YoungStartYear);
+                youngStartSlider.eventValueChanged += (control, value) =>
+                {
+                    // Update mod settings.
+                    ModSettings.Settings.YoungStartYear = (int)value;
+                };
+
+                // Set initial visibility state of child sliders.
+                schoolStartSlider.parent.isVisible = childCheckBox.isChecked;
+                teenStartSlider.parent.isVisible = childCheckBox.isChecked;
+                youngStartSlider.parent.isVisible = childCheckBox.isChecked;
+
 
                 // Event handlers (here so other controls referenced are all set up prior to referencing in handlers).
                 sunsetCheckBox.eventCheckChanged += (control, isChecked) =>
                 {
                     if (isChecked)
                     {
-                    // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 0.
-                    UpdateCheckboxes(0);
+                        // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 0.
+                        UpdateCheckboxes(0);
                     }
                     else if (!legacyCheckBox.isChecked && !vanillaCheckBox.isChecked)
                     {
-                    // This has been unchecked when no others have been selected; reset it and make no changes.
-                    sunsetCheckBox.isChecked = true;
+                        // This has been unchecked when no others have been selected; reset it and make no changes.
+                        sunsetCheckBox.isChecked = true;
                     }
                 };
 
@@ -110,13 +135,13 @@ namespace LifecycleRebalance
                 {
                     if (isChecked)
                     {
-                    // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 1.
-                    UpdateCheckboxes(1);
+                        // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 1.
+                        UpdateCheckboxes(1);
                     }
                     else if (!sunsetCheckBox.isChecked && !vanillaCheckBox.isChecked)
                     {
-                    // This has been unchecked when no others have been selected; reset it and make no changes.
-                    legacyCheckBox.isChecked = true;
+                        // This has been unchecked when no others have been selected; reset it and make no changes.
+                        legacyCheckBox.isChecked = true;
                     }
                 };
 
@@ -124,57 +149,41 @@ namespace LifecycleRebalance
                 {
                     if (isChecked)
                     {
-                    // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 2.
-                    UpdateCheckboxes(2);
+                        // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 2.
+                        UpdateCheckboxes(2);
                     }
                     else if (!sunsetCheckBox.isChecked && !legacyCheckBox.isChecked)
                     {
-                    // This has been unchecked when no others have been selected; reset it and make no changes.
-                    vanillaCheckBox.isChecked = true;
+                        // This has been unchecked when no others have been selected; reset it and make no changes.
+                        vanillaCheckBox.isChecked = true;
                     }
                 };
 
                 retireCheckBox.eventCheckChanged += (control, isChecked) =>
                 {
-                // Update mod settings.
-                ModSettings.CustomRetirement = isChecked;
+                    // Update mod settings.
+                    ModSettings.Settings.CustomRetirement = isChecked;
 
-                // Show/hide retirement age dropdown.
-                if (isChecked)
-                    {
-                        ageDropDown.Enable();
-                    }
-                    else
-                    {
-                        ageDropDown.Disable();
-                    }
-
-                // Update configuration file.
-                OptionsPanel.settings.CustomRetirement = isChecked;
-                    Configuration<SettingsFile>.Save();
+                    // Show/hide retirement age slider.
+                    retirementSlider.isVisible = isChecked;
                 };
 
-                // Show or hide notes attached to age dropdown to match visibility of dropdown itself.
-                ageDropDown.eventIsEnabledChanged += (control, isEnabled) =>
+                childCheckBox.eventCheckChanged += (control, isChecked) =>
                 {
-                    if (isEnabled)
-                    {
-                        retireNote1.Show();
-                        retireNote2.Show();
-                        ageDropDown.parent.Show();
-                    }
-                    else
-                    {
-                        retireNote1.Hide();
-                        retireNote2.Hide();
-                        ageDropDown.parent.Hide();
-                    }
+                    // Update mod settings.
+                    ModSettings.Settings.CustomChildhood = isChecked;
+
+                    // Show/hide childhood age sliders.
+                    schoolStartSlider.parent.isVisible = isChecked;
+                    teenStartSlider.parent.isVisible = isChecked;
+                    youngStartSlider.parent.isVisible = isChecked;
                 };
 
                 // Update our visibility status based on current settings.
-                UpdateCheckboxes(OptionsPanel.settings.UseVanilla ? 2 : OptionsPanel.settings.UseLegacy ? 1 : 0);
+                UpdateCheckboxes(ModSettings.Settings.VanillaCalcs ? 2 : ModSettings.Settings.LegacyCalcs ? 1 : 0);
             }
         }
+
 
         /// <summary>
         /// Updates calculation method checkboxes based on current selection.
@@ -188,21 +197,33 @@ namespace LifecycleRebalance
                 sunsetCheckBox.isChecked = false;
 
                 // Non-SH calculations selected.
-                // Hide custom retirement options.
+                // Hide custom retirement and childhood options.
                 retireCheckBox.Disable();
-                ageDropDown.Disable();
+                childCheckBox.Disable();
+                retirementSlider.parent.Hide();
+                schoolStartSlider.parent.Hide();
+                teenStartSlider.parent.Hide();
+                youngStartSlider.parent.Hide();
             }
             else
             {
                 // Sunset Harbor calculations selected.
-                // Show custom retirement options.
+                // Enable custom retirement and childhood options.
                 retireCheckBox.Enable();
-                retireCheckBox.Show();
+                childCheckBox.Enable();
 
-                // Show custom retirement options if the selection is checked.
+                // Show custom retirement slider if the selection is checked.
                 if (retireCheckBox.isChecked)
                 {
-                    ageDropDown.Enable();
+                    retirementSlider.parent.Show();
+                }
+
+                // Show custom childhood slider if the selection is checked.
+                if (childCheckBox.isChecked)
+                {
+                    schoolStartSlider.parent.Show();
+                    teenStartSlider.parent.Show();
+                    youngStartSlider.parent.Show();
                 }
             }
 
@@ -211,14 +232,12 @@ namespace LifecycleRebalance
             {
                 // Legacy calcs not selected.
                 legacyCheckBox.isChecked = false;
-                ModSettings.LegacyCalcs = false;
-                OptionsPanel.settings.UseLegacy = false;
+                ModSettings.Settings.LegacyCalcs = false;
             }
             else
             {
                 // Legacy calcs selected.
-                ModSettings.LegacyCalcs = true;
-                OptionsPanel.settings.UseLegacy = true;
+                ModSettings.Settings.LegacyCalcs = true;
             }
 
             // Vanilla calcs.
@@ -226,18 +245,86 @@ namespace LifecycleRebalance
             {
                 // Vanilla calcs not selected.
                 vanillaCheckBox.isChecked = false;
-                ModSettings.VanillaCalcs = false;
-                OptionsPanel.settings.UseVanilla = false;
+                ModSettings.Settings.VanillaCalcs = false;
             }
             else
             {
                 // Vanilla calcs selected.
-                ModSettings.VanillaCalcs = true;
-                OptionsPanel.settings.UseVanilla = true;
+                ModSettings.Settings.VanillaCalcs = true;
             }
+        }
 
-            // Save configuration file.
-            Configuration<SettingsFile>.Save();
+
+        /// <summary>
+        /// Adds an age slider with age-in-years displayed dynamically below.
+        /// </summary>
+        /// <param name="yPos">Relative y-position indicator (will be incremented with slider height</param>
+        /// <param name="labelKey">Translation key for slider label</param>
+        /// <param name="initialValue">Initial slider value</param>
+        /// <returns>New delay slider with attached game-time label</returns>
+        private UISlider AgeSlider(string labelKey, uint min, uint max, int initialValue)
+        {
+            // Create new slider.
+            UISlider newSlider = UIControls.AddSliderWithValue(panel, Translations.Translate(labelKey), min, max, 1f, initialValue);
+            newSlider.parent.relativePosition = new Vector2(Margin, currentY);
+
+            // Increment y position indicator.
+            currentY += newSlider.parent.height;
+
+            return newSlider;
+        }
+
+
+        /// <summary>
+        /// Creates a plain checkbox using the game's option panel checkbox template.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="textKey">Label translation key</param>
+        /// <param name="isChecked">Initial checked state (default false)</param>
+        /// <returns>New checkbox using the game's option panel template</returns>
+        private UICheckBox AddPlainCheckBox(UIComponent parent, string textKey, bool isChecked = false)
+        {
+            UICheckBox checkBox = parent.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsCheckBoxTemplate")) as UICheckBox;
+
+            // Override defaults.
+            checkBox.autoSize = false;
+            checkBox.label.wordWrap = true;
+            checkBox.label.autoSize = false;
+            checkBox.label.autoHeight = true;
+            checkBox.label.width = 700f;
+
+            // Set text.
+            checkBox.text = Translations.Translate(textKey);
+
+            // Set relative position.
+            checkBox.relativePosition = new Vector2(Margin, currentY);
+
+            // Set checked state.
+            checkBox.isChecked = isChecked;
+
+            // Resize height to match text (if text has flowed over multiple lines).
+            checkBox.height = checkBox.label.height;
+
+            // Increment y position indicator.
+            currentY += checkBox.height;
+
+            return checkBox;
+        }
+
+
+        /// <summary>
+        /// Adds a spacer and new title to the given panel.
+        /// </summary>
+        /// <param name="titleKey">Title translation key</param>
+        /// <param name="titleFont">Title font</param>
+        private void AddTitle(UIComponent parent, string titleKey, UIFont titleFont, float maxWidth)
+        {
+            currentY += Margin;
+            UIControls.OptionsSpacer(parent, Margin, currentY, maxWidth);
+            currentY += TitleMargin * 2f;
+            UILabel calculationLabel = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate(titleKey), textScale: 1.2f);
+            calculationLabel.font = titleFont;
+            currentY += calculationLabel.height + TitleMargin;
         }
     }
 }

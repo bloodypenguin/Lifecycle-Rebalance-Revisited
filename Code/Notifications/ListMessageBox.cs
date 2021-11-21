@@ -83,7 +83,7 @@ namespace LifecycleRebalance.MessageBox
         /// <summary>
         /// Add dot pointed list.
         /// </summary>
-        /// <param name="listItems">Array of messages for display as separte dot points</param>
+        /// <param name="listItems">Array of messages for display as separate dot points</param>
         public void AddList(params string[] listItems)
         {
             // Iterate through each provided message string and create separate dot point for each item.

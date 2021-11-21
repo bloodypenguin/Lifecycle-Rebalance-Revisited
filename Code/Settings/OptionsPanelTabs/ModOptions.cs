@@ -21,82 +21,29 @@ namespace LifecycleRebalance
 
             // Language dropdown.
             UIDropDown languageDrop = PanelUtils.AddPlainDropDown(modTab, Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index);
-            languageDrop.eventSelectedIndexChanged += (control, index) =>
-            {
-                Translations.Index = index;
-                Configuration<SettingsFile>.Save();
-            };
+            languageDrop.eventSelectedIndexChanged += (control, index) => { Translations.Index = index; };
 
             // Detail logging options.
             UICheckBox logCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LDT"));
             logCheckBox.isChecked = Logging.detailLogging;
-            logCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.detailLogging = isChecked;
-
-                // Update configuration file.
-                Configuration<SettingsFile>.Save();
-
-                Logging.KeyMessage("detailed logging ", Logging.detailLogging ? "enabled" : "disabled");
-            };
+            logCheckBox.eventCheckChanged += (control, isChecked) => { Logging.detailLogging = isChecked; };
 
             // Logging options.
             UICheckBox deathCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGD"));
-            deathCheckBox.isChecked = OptionsPanel.settings.LogDeaths;
-            deathCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.UseDeathLog = isChecked;
-
-                // Update configuration file.
-                OptionsPanel.settings.LogDeaths = isChecked;
-                Configuration<SettingsFile>.Save();
-
-                Logging.Message("death logging ", OptionsPanel.settings.LogDeaths ? "enabled" : "disabled");
-            };
+            deathCheckBox.isChecked = Logging.useDeathLog;
+            deathCheckBox.eventCheckChanged += (control, isChecked) => { Logging.useDeathLog = isChecked; };
 
             UICheckBox immigrantCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGI"));
-            immigrantCheckBox.isChecked = OptionsPanel.settings.LogImmigrants;
-            immigrantCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.UseImmigrationLog = isChecked;
-
-                // Update configuration file.
-                OptionsPanel.settings.LogImmigrants = isChecked;
-                Configuration<SettingsFile>.Save();
-
-                Logging.Message("immigrant logging ", OptionsPanel.settings.LogImmigrants ? "enabled" : "disabled");
-            };
+            immigrantCheckBox.isChecked = Logging.useImmigrationLog;
+            immigrantCheckBox.eventCheckChanged += (control, isChecked) => { Logging.useImmigrationLog = isChecked; };
 
             UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGT"));
-            transportCheckBox.isChecked = OptionsPanel.settings.LogTransport;
-            transportCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.UseTransportLog = isChecked;
-
-                // Update configuration file.
-                OptionsPanel.settings.LogTransport = isChecked;
-                Configuration<SettingsFile>.Save();
-
-                Logging.Message("transport choices logging ", OptionsPanel.settings.LogTransport ? "enabled" : "disabled");
-            };
+            transportCheckBox.isChecked = Logging.useTransportLog;
+            transportCheckBox.eventCheckChanged += (control, isChecked) => { Logging.useTransportLog = isChecked; };
 
             UICheckBox sicknessCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGS"));
-            sicknessCheckBox.isChecked = OptionsPanel.settings.LogSickness;
-            sicknessCheckBox.eventCheckChanged += (control, isChecked) =>
-            {
-                // Update mod settings.
-                Logging.UseSicknessLog = isChecked;
-
-                // Update configuration file.
-                OptionsPanel.settings.LogSickness = isChecked;
-                Configuration<SettingsFile>.Save();
-
-                Logging.Message("sickness logging ", OptionsPanel.settings.LogSickness ? "enabled" : "disabled");
-            };
+            sicknessCheckBox.isChecked = Logging.useSicknessLog;
+            sicknessCheckBox.eventCheckChanged += (control, isChecked) => { Logging.useSicknessLog = isChecked; };
         }
     }
 }

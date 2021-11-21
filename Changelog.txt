@@ -1,4 +1,11 @@
-﻿Version 1.5.5
+﻿Version 1.6
+
+- MAJOR NEW FEATURE: realistic early life ageing and progress, from early childhood to young adult (optional, customizable)
+- New early life ageing is matched to real-world values and stages and includes a pre-school stage of life (young children)
+- Code cleanups and refactoring
+
+
+Version 1.5.5
 
 - Convert options panel generation to on-demand
 - Increase age speed slider maximum to 340

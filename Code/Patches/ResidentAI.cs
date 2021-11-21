@@ -8,12 +8,17 @@ using HarmonyLib;
 namespace LifecycleRebalance
 {
     /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.CanMakeBabies - implements mod's minor fix so that only adult females (of less than age 180) give birth.
+    /// Harmony patches for ResidentAI to implement mod functionality.
     /// </summary>
-    [HarmonyPatch(typeof(ResidentAI), nameof(ResidentAI.CanMakeBabies))]
-    public static class CanMakeBabiesPatch
+    [HarmonyPatch(typeof(ResidentAI))]
+    public static class ResidentAIPatches
     {
-        public static bool Prefix(ref bool __result, uint citizenID, ref Citizen data)
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for ResidentAI.CanMakeBabies - implements mod's minor fix so that only adult females (of less than age 180) give birth.
+        /// </summary>
+        [HarmonyPatch(nameof(ResidentAI.CanMakeBabies))]
+        [HarmonyPrefix]
+        public static bool CanMakeBabies(ref bool __result, uint citizenID, ref Citizen data)
         {
             // data.m_family  access group data?
             // Only check child 1 and 2. Don't care about 3, won't fit if there's someone there :)
@@ -34,17 +39,15 @@ namespace LifecycleRebalance
             // Don't execute base method after this.
             return false;
         }
-    }
 
 
-    /// <summary>
-    /// Harmony pre-emptive Prefix patch for ResidentAI.UpdateAge - implements mod's ageing and deathcare rate functions.
-    /// CRITICAL for mod functionality.
-    /// </summary>
-    [HarmonyPatch(typeof(ResidentAI), "UpdateAge")]
-    public static class UpdateAgePatch
-    {
-        public static bool Prefix(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
+        /// <summary>
+        /// Harmony pre-emptive Prefix patch for ResidentAI.UpdateAge - implements mod's ageing and deathcare rate functions.
+        /// CRITICAL for mod functionality.
+        /// </summary>
+        [HarmonyPatch("UpdateAge")]
+        [HarmonyPrefix]
+        public static bool UpdateAge(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
         {
             // Method result.
             bool removed = false;
@@ -54,25 +57,20 @@ namespace LifecycleRebalance
                 // Local reference.
                 CitizenManager citizenManager = Singleton<CitizenManager>.instance;
 
-                if (citizenID == 575960)
-                {
-                    Logging.Message("foundTarget");
-                }
-
                 int num = data.Age + 1;
 
-                if (num <= 45)
+                if (num <= ModSettings.YoungStartAge)
                 {
-                    if (num == 15 || num == 45)
+                    if (num == ModSettings.TeenStartAge || num == ModSettings.YoungStartAge)
                     {
                         FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                     }
                 }
-                else if (num == 90 || num >= ModSettings.retirementAge)
+                else if (num == ModSettings.VanillaAdultAge || num >= ModSettings.retirementAge)
                 {
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
-                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % 15 == 0))  // Workspeed multiplier?
+                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % (15 * DataStore.lifeSpanMultiplier) == 0))  // Workspeed multiplier
                 {
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
@@ -100,7 +98,7 @@ namespace LifecycleRebalance
 
                     bool died = false;
 
-                    if (ModSettings.VanillaCalcs)
+                    if (ModSettings.Settings.VanillaCalcs)
                     {
                         // Using vanilla lifecycle calculations.
                         int num2 = 240;
@@ -123,7 +121,7 @@ namespace LifecycleRebalance
                         // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
                         // Legacy mod behaviour worked on 25 increments per decade.
                         // If older than the maximum index - lucky them, but keep going using that final index.
-                        int index = Math.Min((int)(num * ModSettings.decadeFactor), 10);
+                        int index = Math.Min((int)(num * ModSettings.Settings.decadeFactor), 10);
 
                         // Calculate 90% - 110%; using 100,000 as 100% (for precision).
                         int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);
@@ -138,7 +136,7 @@ namespace LifecycleRebalance
                             // Make people sick, if they're unlucky.
                             data.Sick = true;
 
-                            if (Logging.UseSicknessLog)
+                            if (Logging.useSicknessLog)
                             {
                                 Logging.WriteToLog(Logging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.sicknessProbCalc[index]);
                             }
@@ -153,9 +151,9 @@ namespace LifecycleRebalance
                         CitizenUnit containingUnit = citizenManager.m_units.m_buffer[unitID];
 
                         // Log if we're doing that.
-                        if (Logging.UseDeathLog)
+                        if (Logging.useDeathLog)
                         {
-                            Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / 3.5), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
+                            Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / ModSettings.AgePerYear), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
                         }
 
                         // Reverse redirect to access private method Die().
@@ -171,7 +169,7 @@ namespace LifecycleRebalance
                             for (int i = 0; i < 2; ++i)
                             {
                                 uint currentChild;
-                                switch(i)
+                                switch (i)
                                 {
                                     case 0:
                                         currentChild = containingUnit.m_citizen2;
@@ -186,7 +184,7 @@ namespace LifecycleRebalance
 
                                 if (currentChild != 0)
                                 {
-                                    if (Logging.UseDeathLog)
+                                    if (Logging.useDeathLog)
                                     {
                                         Logging.WriteToLog(Logging.DeathLogName, "Removed orphan ", currentChild);
                                         citizenManager.ReleaseCitizen(currentChild);
@@ -210,6 +208,36 @@ namespace LifecycleRebalance
 
             // Don't execute base method after this.
             return false;
+        }
+
+
+        /// <summary>
+        /// Harmony patch to ResidentAI.UpdateWorkplace to stop children below school age going to school.
+        /// </summary>
+        /// <param name="data">Citizen data</param>
+        /// <returns>False (stop execution of original method) if the citizen is too young to go to school, true (execute original method) otherwise</returns>
+        [HarmonyPatch("UpdateWorkplace")]
+        [HarmonyPrefix]
+        public static bool UpdateWorkplace(ref Citizen data)
+        {
+            // Is this a young child?
+            if (data.m_age < ModSettings.SchoolStartAge)
+            {
+                // Young children should never be educated.
+                // Sometimes the UpdateWellbeing method (called immediately before UpdateWorkplace in SimulationStep) will give these kids education, so we just clear it here.
+                // Easier than messing with UpdateWellbeing.
+                data.Education1 = false;
+
+                // Young children should also not go shopping (this is checked in following UpdateLocation call in SimulationStep).
+                // This prevents children from going shopping normally (vanilla code), but an additional patch is needed for the Real Time mod - see RealTime.cs.
+                data.m_flags &= ~Citizen.Flags.NeedGoods;
+
+                // Don't execute original method (thus avoiding assigning to a school).
+                return false;
+            }
+
+            // If we got here, we need to continue on to the original method (this is not a young child).
+            return true;
         }
 
 

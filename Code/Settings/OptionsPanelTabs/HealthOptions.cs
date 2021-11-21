@@ -45,8 +45,7 @@ namespace LifecycleRebalance
 
 
                 // Illness options.
-                UILabel illnessLabel = PanelUtils.AddLabel(panel, Translations.Translate("LBR_HEA_ILL") + Environment.NewLine + Translations.Translate("LBR_HEA_ILD"));
-                illnessLabel.relativePosition = Vector3.zero;
+                UILabel illnessLabel = UIControls.AddLabel(panel, 0f, 0f, Translations.Translate("LBR_HEA_ILL") + Environment.NewLine + Translations.Translate("LBR_HEA_ILD"));
 
                 // Set the intial Y position of the illness chance sliders.
                 float currentY = illnessLabel.height + 10f;
@@ -71,8 +70,8 @@ namespace LifecycleRebalance
                 {
                     for (int i = 0; i < numDeciles; ++i)
                     {
-                    // Retrieve saved values from datastore.
-                    illnessChance[i].value = (float)DataStore.sicknessProbInXML[i] * 100;
+                        // Retrieve saved values from datastore.
+                        illnessChance[i].value = (float)DataStore.sicknessProbInXML[i] * 100;
                     }
                 };
 
@@ -81,22 +80,22 @@ namespace LifecycleRebalance
                 illnessSave.relativePosition = PanelUtils.PositionUnder(illnessResetSaved);
                 illnessSave.eventClicked += (control, clickEvent) =>
                 {
-                    StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.decadeFactor + ":" + Environment.NewLine);
+                    StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.Settings.decadeFactor + ":" + Environment.NewLine);
 
-                // Update datastore with slider values.
-                for (int i = 0; i < numDeciles; ++i)
+                    // Update datastore with slider values.
+                    for (int i = 0; i < numDeciles; ++i)
                     {
                         DataStore.sicknessProbInXML[i] = illnessChance[i].value / 100;
 
-                    // Recalculate probabilities if the mod is loaded.
-                    if (Loading.isModCreated)
+                        // Recalculate probabilities if the mod is loaded.
+                        if (Loading.isModCreated)
                         {
                             Loading.CalculateSicknessProbabilities();
                         }
                     }
 
-                // Write to file.
-                PanelUtils.SaveXML();
+                    // Write to file.
+                    PanelUtils.SaveXML();
                 };
 
                 // Reset to default button.
@@ -106,8 +105,8 @@ namespace LifecycleRebalance
                 {
                     for (int i = 0; i < numDeciles; ++i)
                     {
-                    // Retrieve default values.
-                    illnessChance[i].value = defaultSicknessProbs[i] * 100;
+                        // Retrieve default values.
+                        illnessChance[i].value = defaultSicknessProbs[i] * 100;
                     }
                 };
 
@@ -118,8 +117,8 @@ namespace LifecycleRebalance
                 {
                     for (int i = 0; i < numDeciles; ++i)
                     {
-                    // Reset everything to zero.
-                    illnessChance[i].value = 0;
+                        // Reset everything to zero.
+                        illnessChance[i].value = 0;
                     }
                 };
             }

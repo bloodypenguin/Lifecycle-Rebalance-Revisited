@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="Code\Patches\Citizen.cs" />
     <Compile Include="Code\Patches\CitizenManager.cs" />
+    <Compile Include="Code\Patches\RealTime.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\OptionsPanelTab.cs" />
     <Compile Include="Code\Utils\AIUtils.cs" />
     <Compile Include="Code\Patches\ResidentAITransport.cs" />
@@ -147,10 +148,9 @@
     <Compile Include="Code\Settings\OptionsPanelTabs\SpeedOptions.cs" />
     <Compile Include="Code\Settings\OptionsPanelTabs\TransportOptions.cs" />
     <Compile Include="Code\Settings\PanelUtils.cs" />
-    <Compile Include="Code\Settings\Settings.cs" />
+    <Compile Include="Code\Settings\ModSettings.cs" />
     <Compile Include="Code\Utils\ModUtils.cs" />
     <Compile Include="Code\Utils\UIControls.cs" />
-    <Compile Include="Code\XML\XML_Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\Patches\ResidentAI.cs" />
     <Compile Include="Code\Threading.cs" />

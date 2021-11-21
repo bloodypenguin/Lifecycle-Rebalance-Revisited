@@ -50,67 +50,6 @@ namespace LifecycleRebalance
 
 
         /// <summary>
-        /// Creates a textfield in the specified parent.  From SamSamTS (Boogieman Sam)'s work.
-        /// </summary>
-        /// <param name="parent">Parent component.</param>
-        /// <param name="width">Width</param>
-        /// <param name="height">Height</param>
-        /// <param name="scale">Text scale (optional, default 1.0)</param>
-        /// <returns>New textfield</returns>
-        internal static UITextField CreateTextField(UIComponent parent, float width, float height, float scale = 1.0f)
-        {
-            UITextField textField = parent.AddUIComponent<UITextField>();
-
-            // Size and position.
-            textField.size = new Vector2(width, height);
-            textField.textScale = scale;
-            textField.padding = new RectOffset(6, 6, 3, 3);
-            textField.horizontalAlignment = UIHorizontalAlignment.Center;
-
-            // Basic setup.
-            textField.builtinKeyNavigation = true;
-            textField.isInteractive = true;
-            textField.readOnly = false;
-
-            // Appearance.
-            textField.selectionSprite = "EmptySprite";
-            textField.selectionBackgroundColor = new Color32(0, 172, 234, 255);
-            textField.normalBgSprite = "TextFieldPanelHovered";
-            textField.disabledBgSprite = "TextFieldPanel";
-            textField.textColor = new Color32(0, 0, 0, 255);
-            textField.disabledTextColor = new Color32(0, 0, 0, 128);
-            textField.color = new Color32(255, 255, 255, 255);
-
-            return textField;
-        }
-
-
-        /// <summary>
-        /// Adds a plain text label to the specified UI panel.
-        /// </summary>
-        /// <param name="parent">Parent component</param>
-        /// <param name="text">Label text</param>
-        /// <param name="scale">Text scale (optional, default 1.0)</param>
-        /// <returns>New text label</returns>
-        internal static UILabel AddLabel(UIComponent parent, string text, float scale = 1.0f)
-        {
-            // Add label.
-            UILabel label = (UILabel)parent.AddUIComponent<UILabel>();
-            label.autoSize = false;
-            label.autoHeight = true;
-            label.wordWrap = true;
-            label.width = 700;
-            label.textScale = scale;
-            label.text = text;
-
-            // Increase panel height to compensate.
-            //parent.height += label.height;
-
-            return label;
-        }
-
-
-        /// <summary>
         /// Adds a slider with a descriptive text label above and an automatically updating value label immediately to the right.
         /// </summary>
         /// <param name="parent">Panel to add the control to</param>
@@ -263,25 +202,6 @@ namespace LifecycleRebalance
             dropDown.selectedIndex = selectedIndex;
 
             return dropDown;
-        }
-
-
-        /// <summary>
-        /// Creates a blank options-panel spacer.
-        /// </summary>
-        /// <param name="parent">Parent component</param>
-        /// <param name="parent">Spacer height (default 35)</param>
-        /// <returns></returns>
-        public static UIPanel AddPanelSpacer(UIComponent parent, float height = 35f)
-        {
-            UIPanel panel = parent.AddUIComponent<UIPanel>();
-
-            panel.autoSize = false;
-            panel.height = height;
-            panel.width = parent.width - (panel.relativePosition.x * 2);
-            panel.backgroundSprite = "ContentManagerItemBackground";
-
-            return panel;
         }
 
 

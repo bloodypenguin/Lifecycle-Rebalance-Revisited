@@ -176,7 +176,7 @@ namespace LifecycleRebalance
             resultEducation = education;
 
             // Apply education level randomisation if that option is selected.
-            if (ModSettings.randomImmigrantEd)
+            if (ModSettings.Settings.RandomImmigrantEd)
             {
                 if (i < 2)
                 {
@@ -213,22 +213,22 @@ namespace LifecycleRebalance
             }
 
             // Apply education boost, if enabled, and if we're not already at the max.
-            if (ModSettings.immiEduBoost && resultEducation < Citizen.Education.ThreeSchools)
+            if (ModSettings.Settings.ImmiEduBoost && resultEducation < Citizen.Education.ThreeSchools)
             {
                 ++resultEducation;
             }
 
             // Apply education suppression, if enabled, and if we're not already at the min.
-            if (ModSettings.immiEduDrag && resultEducation > Citizen.Education.Uneducated)
+            if (ModSettings.Settings.ImmiEduDrag && resultEducation > Citizen.Education.Uneducated)
             {
                 --resultEducation;
             }
 
 
             // Write to immigration log if that option is selected.
-            if (Logging.UseImmigrationLog)
+            if (Logging.useImmigrationLog)
             {
-                Logging.WriteToLog(Logging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / 3.5), " years old) and education level ", education);
+                Logging.WriteToLog(Logging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / ModSettings.AgePerYear), " years old) and education level ", education);
             }
         }
 

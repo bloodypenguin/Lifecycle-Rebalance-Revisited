@@ -15,8 +15,6 @@ namespace LifecycleRebalance
         /// </summary>
         private static uint stepCount = (uint)new System.Random().Next(16);
 
-        // Local reference.
-
 
         /// <summary>
         /// Harmony Prefix patch to CitizenManager.SimulationStepImpl, to detect and remove any citizens in the building that don't have the 'created' flag set.

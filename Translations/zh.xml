@@ -16,6 +16,11 @@
     <Translation ID="LBR_RET_CUS" String="自定义退休年龄" />
     <Translation ID="LBR_RET_NT1" String="降低退休年龄不会改变已在先前设定下退休的公民的状态。" />
     <Translation ID="LBR_RET_NT2" String="提高退休年龄不会改变已在先前设定下退休的公民的外观。" />
+    <Translation ID="LBR_CHI" String="孩童年龄选项(仅当使用mod的Sunset Harbor寿命)" />
+    <Translation ID="LBR_CHI_CUS" String="使用自定义孩童年龄" />
+    <Translation ID="LBR_CHI_SCH" String="孩子开始上学的年龄" />
+    <Translation ID="LBR_CHI_TEE" String="孩子开始上高中的年龄" />
+    <Translation ID="LBR_CHI_YOU" String="孩子开始上大学的年龄" />
     <Translation ID="LBR_HEA" String="健康" />
     <Translation ID="LBR_HEA_ILL" String="使每十年的疾病概率随机" />
     <Translation ID="LBR_HEA_ILD" String="不会影响由特定原因引起的疾病，例如污染或噪音" />
@@ -81,7 +86,11 @@
     <Translation ID="LBR_152_NT1" String="有未成年子女的居家单亲父母会免于早逝，以帮助避免孤儿家庭" />
     <Translation ID="LBR_152_NT2" String="改进模组冲突检测和提示" />
     <Translation ID="LBR_152_NT3" String="改进升级通知" />
-    <Translation ID="LBR_152_NT3" String="改变单亲父母死亡后的处理方式：在父母死亡之后移除孤儿（而不是让单亲父母免于死亡）" />
     <Translation ID="LBR_154_NT1" String="添加代码以检测并移除建筑内有无效数据的居民" />
+    <Translation ID="LBR_154_NT2" String="添加代码以检查和删除具有无效数据的建筑物居民" />
+    <Translation ID="LBR_160_NT1" String="主要新特点:现实生活的早期老化和进步，从早期" />
+    <Translation ID="LBR_160_NT2" String="新的早期生命衰老与现实世界的价值观和阶段相匹配" />
+    <Translation ID="LBR_160_NT3" String="这个选项可以在mod的选项中启用/禁用和自定义" />
+    <Translation ID="LBR_160_NT4" String="注意:这个选项最初是默认启用的" />
   </Translations>
 </Language>
