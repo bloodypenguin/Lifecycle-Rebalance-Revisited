@@ -9,11 +9,6 @@ namespace LifecycleRebalance
     [HarmonyPatch(typeof(Citizen))]
     public static class CustomAgeGroups
     {
-        // Early child - < 6 years = < 21
-        // Children - < 13 years = < 45 (rounded down from 45.5)
-        // Teens - 13-18 years inclusive = < 66 (rounded down from 66.5)
-        // Youg adults - 19-25 years inclusive = < 91 (but game default is 90 so we just keep that)
-
         /// <summary>
         /// Harmony pre-emptive Prefix patch for Citizen.GetAgeGroup - part of custom age group implementation.
         /// </summary>

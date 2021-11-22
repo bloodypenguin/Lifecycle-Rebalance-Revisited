@@ -11,11 +11,16 @@
     <Translation ID="LBR_CAL_SUN" String="Модификатор продолжительности жизни Sunset Harbour (по умолчанию)" />
     <Translation ID="LBR_CAL_LEG" String="Старый модификатор жизни (оригинальный мод WG) - короче жизнь, меньше пенсионеров" />
     <Translation ID="LBR_CAL_VAN" String="Ванильная для Sunset Harbor продолжительность жизни - менее изменчивая продолжительность, немного больше пожилых людей" />
-    <Translation ID="LBR_RET" String="Выбор пенсионного возраста (работает только с модифицированными настройками Sunset Harbor) " />
+    <Translation ID="LBR_RET" String="Выбор пенсионного возраста (только для Sunset Harbor)" />
     <Translation ID="LBR_RET_USE" String="Использовать настраиваемый возраст выхода на пенсию" />
     <Translation ID="LBR_RET_CUS" String="Нестандартный пенсионный возраст " />
     <Translation ID="LBR_RET_NT1" String="Понижение пенсионного возраста не изменит статуса жителей, которые уже вышли на пенсию до изменения настроек." />
     <Translation ID="LBR_RET_NT2" String="Повышение пенсионного возраста не изменит статуса жителей, которые уже вышли на пенсию до изменения настроек." />
+    <Translation ID="LBR_CHI" String="Этапы детского возраста (только для Sunset Harbor)" />
+    <Translation ID="LBR_CHI_CUS" String="Использовать настраиваемый детский возраст" />
+    <Translation ID="LBR_CHI_SCH" String="Возраст в котором дети идут в начальную школу" />
+    <Translation ID="LBR_CHI_TEE" String="Возраст в котором подростки идут в высшую школу" />
+    <Translation ID="LBR_CHI_YOU" String="Возраст в котором молодёжь поступает в колледж/университет" />
     <Translation ID="LBR_HEA" String="Здоровье" />
     <Translation ID="LBR_HEA_ILL" String="Произвольный шанс заболеть (в %) за десять лет жизни" />
     <Translation ID="LBR_HEA_ILD" String="Не влияет на болезни из-за загрязнений или шума" />
