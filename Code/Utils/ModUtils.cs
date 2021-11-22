@@ -26,6 +26,9 @@ namespace LifecycleRebalance
             bool conflictDetected = false;
             conflictingModNames = new List<string>();
 
+            // Duplicate real pop mod detection.
+            bool lifecycleRevisitedFound = false;
+
             // Iterate through the full list of plugins.
             foreach (PluginManager.PluginInfo plugin in PluginManager.instance.GetPluginsInfo())
             {
@@ -33,6 +36,17 @@ namespace LifecycleRebalance
                 {
                     switch (assembly.GetName().Name)
                     {
+                        case "LifecycleRebalanceRevisited":
+                            // Have we already found an instance?
+                            if (lifecycleRevisitedFound)
+                            {
+                                // Yes - flag as duplicate.
+                                conflictDetected = true;
+                                conflictingModNames.Add("Lifecycle Rebalance Revisited (duplicate)");
+                            }
+                            // Flag instance as found.
+                            lifecycleRevisitedFound = true;
+                            break;
                         case "WG_CitizenEdit":
                             // Original WG mod.
                             conflictDetected = true;
