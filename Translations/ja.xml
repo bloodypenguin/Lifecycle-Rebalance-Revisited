@@ -70,27 +70,27 @@
     <Translation ID="MES_PAGE" String="詳細は、MODがあるSteamのワークショップを確認してください"/>
     <Translation ID="LBR_CON" String="MODの競合が検出されました！"/>
     <Translation ID="LBR_ERR_FAT" String="Lifecycle Rebalance Revisitedが、正常に動作せずシャットダウンしています"/>
-    <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisitedは、必要なHarmony 2.0 MODのパッチ動作を完了できません"/>
-    <Translation ID="ERR_HAR0" String="Harmony 2.0 MODでエラーが発生しました!"/>
+    <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisitedは、必要なHarmony2 MODのパッチ動作を完了できません"/>
+    <Translation ID="ERR_HAR0" String="Harmony2 MODでエラーが発生しました!"/>
     <Translation ID="ERR_HAR1" String="エラーが起きる原因として、考えられるのは以下の通りです"/>
-    <Translation ID="ERR_HAR2" String="依存関係にある、必要なHarmony 2 MODがインストールされていません"/>
-    <Translation ID="ERR_HAR3" String="古いMODや壊れたMODが、Harmony 2.0 MODの動作を妨げています"/>
+    <Translation ID="ERR_HAR2" String="依存関係にある、必要なHarmony2 MODがインストールされていません"/>
+    <Translation ID="ERR_HAR3" String="古いMODや壊れたMODが、Harmony2 MODの動作を妨げています"/>
     <Translation ID="ERR_CON0" String="MODの競合が検出されました！"/>
     <Translation ID="ERR_CON1" String="競合するMOD:"/>
     <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisitedは、少なくとも他の一つの Mod との競合を検出しました"/>
     <Translation ID="LBR_ERR_CON1" String="Lifecycle Rebalance Revisitedが動作する前に、これらのMODを削除する必要があります"/>
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited has been updated to version 1.5"/>
-    <Translation ID="LBR_150_NT1" String="Transport mode choices can now be edited via the options panel, and eco and ordinary residential can have different mode choices"/>
-    <Translation ID="LBR_150_NT2" String="Education levels of people moving into your city can be modified"/>
-    <Translation ID="LBR_151_NT1" String="Adjust options panel layout for translations"/>
-    <Translation ID="LBR_152_NT1" String="Single parents with underage children living at home will be spared from early death, to help prevent orphan households"/>
-    <Translation ID="LBR_152_NT2" String="Improved mod conflict checking and notification"/>
-    <Translation ID="LBR_152_NT3" String="Improved update notifications"/>
-    <Translation ID="LBR_154_NT1" String="Change treatment of single parent death: remove orphaned children when both parents die (instead of sparing parent from death)"/>
-    <Translation ID="LBR_154_NT2" String="Add code to check for and remove building residents with invalid data"/>
-    <Translation ID="LBR_160_NT1" String="MAJOR NEW FEATURE: realistic early life ageing and progress, from early childhood to young adult (optional, customizable)"/>
-    <Translation ID="LBR_160_NT2" String="New early life ageing is matched to real-world values and stages and includes a pre-school stage of life (young children)"/>
-    <Translation ID="LBR_160_NT3" String="This option can be enabled/disabled and customized in the mod's options panel"/>
-    <Translation ID="LBR_160_NT4" String="NOTE: this option is initially enabled by default"/>
+    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisitedをバージョン1.5に更新しました"/>
+    <Translation ID="LBR_150_NT1" String="交通の移動方法をオプションパネルで編集が可能になって、エコ住宅と一般住宅で異なるモードが選択可能です"/>
+    <Translation ID="LBR_150_NT2" String="移住者してくる住民の教育レベルが変更可能になりました"/>
+    <Translation ID="LBR_151_NT1" String="翻訳のオプションパネルのレイアウトを調整"/>
+    <Translation ID="LBR_152_NT1" String="未成年の子供を持つ片親が早死を回避して、孤児のみの世帯発生を防止します"/>
+    <Translation ID="LBR_152_NT2" String="改善されたMODの競合チェックと通知機能"/>
+    <Translation ID="LBR_152_NT3" String="更新通知の改善"/>
+    <Translation ID="LBR_154_NT1" String="片親死亡時の扱いを変更： 両親が死亡した場合は孤児を排除します(親の死を惜しみません)"/>
+    <Translation ID="LBR_154_NT2" String="無効なデータを持つ建物内の住人をチェックして、削除するコードを追加"/>
+    <Translation ID="LBR_160_NT1" String="主な新機能： 幼少期から成人までのリアルな初期年齢と成長時間（オプション・カスタマイズ可能）"/>
+    <Translation ID="LBR_160_NT2" String="新しい幼少期の成長はリアルな価値観やステージに合わせて、更に就学前の段階（幼児期）も含みます"/>
+    <Translation ID="LBR_160_NT3" String="MODのオプションパネルで、有効/無効の設定やカスタマイズが可能です"/>
+    <Translation ID="LBR_160_NT4" String="注意: このオプションは初期設定で有効になっています"/>
   </Translations>
 </Language>
