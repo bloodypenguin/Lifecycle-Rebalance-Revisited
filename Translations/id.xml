@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="Masa hidup mod Sunset Harbor (setelan standar)" />
     <Translation ID="LBR_CAL_LEG" String="Masa hidup mod legacy (mod WG asli) - masa hidup lebih pendek, lebih sedikit lansia" />
     <Translation ID="LBR_CAL_VAN" String="Masa hidup Vanilla Sunset Harbor - lebih sedikit masa hidup acak, sedikit lebih banyak lansia" />
-    <Translation ID="LBR_RET" String="Opsi umur pensiun (hanya jika menggunakan masa hidup mod Sunset Harbor)" />
+    <Translation ID="LBR_SHO" String="(hanya jika menggunakan masa hidup mod Sunset Harbor)" />
+    <Translation ID="LBR_RET" String="Opsi umur pensiun" />
     <Translation ID="LBR_RET_USE" String="Gunakan umur pensiun khusus" />
     <Translation ID="LBR_RET_CUS" String="Umur pensiun khusus" />
     <Translation ID="LBR_RET_NT1" String="Mengurangi umur pensiun tidak akan mengubah status warga yang telah pensiun karena pengaturan sebelumnya." />

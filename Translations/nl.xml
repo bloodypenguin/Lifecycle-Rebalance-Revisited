@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor levenscyclus (standaard)" />
     <Translation ID="LBR_CAL_LEG" String="Mod legacy levenscyclus (originele WG Mod) - Kortere levenscyclus, minder senioren" />
     <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor levenscyclus - Minder variabele levenscyclussen, iets meer senioren" />
-    <Translation ID="LBR_RET" String="Opties voor pensioenleeftijd (alleen van toepassing bij `Mod Sunset Harbor levenscyclus`)" />
+    <Translation ID="LBR_SHO" String="(alleen van toepassing bij `Mod Sunset Harbor levenscyclus`)" />
+    <Translation ID="LBR_RET" String="Opties voor pensioenleeftijd" />
     <Translation ID="LBR_RET_USE" String="Gebruik aangepaste pensioenleeftijd" />
     <Translation ID="LBR_RET_CUS" String="Aangepaste pensioenleeftijd" />
     <Translation ID="LBR_RET_NT1" String="Het instellen van een lagere pensioenleeftijd heeft geen invloed op de huidige status van inwoners die al met pensioen zijn" />

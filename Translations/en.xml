@@ -11,12 +11,13 @@
     <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor lifespans (default)" />
     <Translation ID="LBR_CAL_LEG" String="Mod legacy lifespans (original WG mod) - shorter lifespans, fewer seniors" />
     <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor lifespans - less variable lifespans, slightly more seniors" />
-    <Translation ID="LBR_RET" String="Retirement age options (only when using mod's Sunset Harbor lifespans)" />
+    <Translation ID="LBR_SHO" String="(only when using mod's Sunset Harbor lifespans)" />
+    <Translation ID="LBR_RET" String="Retirement age options" />
     <Translation ID="LBR_RET_USE" String="Use custom retirement age" />
     <Translation ID="LBR_RET_CUS" String="Custom retirement age" />
     <Translation ID="LBR_RET_NT1" String="Decreasing retirement age won't change the status of citizens who have already retired under previous settings." />
-    <Translation ID="LBR_RET_NT2" String="Increasing retirement age won't change the appearance of citzens who have already retired under previous settings." />
-    <Translation ID="LBR_CHI" String="Childhood age options (only when using mod's Sunset Harbor lifespans)" />
+    <Translation ID="LBR_RET_NT2" String="Increasing retirement age won't change the appearance of citzens who have already retired under previous settings." />>
+    <Translation ID="LBR_CHI" String="Childhood age options" />
     <Translation ID="LBR_CHI_CUS" String="Use custom childhood ages" />
     <Translation ID="LBR_CHI_SCH" String="Age in years at which children start school" />
     <Translation ID="LBR_CHI_TEE" String="Age in years at which children start high school" />

@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="Durate di vita di Sunset Harbor (predefinito)" />
     <Translation ID="LBR_CAL_LEG" String="Durate di vita legacy (mod WG originale) - durate di vita più corta, meno anziani" />
     <Translation ID="LBR_CAL_VAN" String="Durate di vita di Vanilla Sunset Harbor - durate di vita meno variabili, un po' più anziani" />
-    <Translation ID="LBR_RET" String="Opzioni sull'età di pensionamento (solo quando si usano le durate di vita di Sunset Harbor)" />
+    <Translation ID="LBR_SHO" String="(solo quando si usano le durate di vita di Sunset Harbor)" />
+    <Translation ID="LBR_RET" String="Opzioni sull'età di pensionamento" />
     <Translation ID="LBR_RET_USE" String="Usa un'età di pensionamento personalizzata" />
     <Translation ID="LBR_RET_CUS" String="Età di pensionamento personalizzata" />
     <Translation ID="LBR_RET_NT1" String="Diminuire l'età di pensionamento non cambierà lo stato dei cittadini che si sono già pensionati con le impostazioni precedenti." />

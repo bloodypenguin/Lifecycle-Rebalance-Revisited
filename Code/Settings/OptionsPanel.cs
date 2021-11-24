@@ -115,13 +115,6 @@ namespace LifecycleRebalance
                     }
                 };
 
-                // Change tab size and text scale (to fit them all in...).
-                foreach (UIButton button in tabStrip.components)
-                {
-                    button.textScale = 0.8f;
-                    button.width = 100f;
-                }
-
                 // Ensure initial selected tab (doing a 'quickstep' via the second tab to ensure proper events are triggered).
                 tabStrip.selectedIndex = 1;
                 tabStrip.selectedIndex = 0;

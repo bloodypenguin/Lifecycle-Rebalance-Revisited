@@ -20,6 +20,7 @@ namespace LifecycleRebalance
         // Key components.
         private UICheckBox sunsetCheckBox, legacyCheckBox, vanillaCheckBox, retireCheckBox, childCheckBox;
         private UISlider retirementSlider, schoolStartSlider, teenStartSlider, youngStartSlider;
+        private UILabel shOnlyLabel1, shOnlyLabel2;
 
         /// <summary>
         /// Adds calculation options tab to tabstrip.
@@ -69,12 +70,11 @@ namespace LifecycleRebalance
                 legacyCheckBox = AddPlainCheckBox(panel, "LBR_CAL_LEG", ModSettings.Settings.LegacyCalcs);
                 vanillaCheckBox = AddPlainCheckBox(panel, "LBR_CAL_VAN", !ModSettings.Settings.VanillaCalcs);
                 vanillaCheckBox.label.textScale = 1.0f;
-                currentY += vanillaCheckBox.height + TitleMargin;
 
                 // Custom retirement ages.
                 AddTitle(panel, "LBR_RET", titleFont, maxWidth);
                 retireCheckBox = AddPlainCheckBox(panel, "LBR_RET_USE", ModSettings.Settings.CustomRetirement);
-                currentY += retireCheckBox.height;
+                currentY += TitleMargin;
 
                 retirementSlider = AgeSlider("LBR_RET_CUS", ModSettings.MinRetirementYear, ModSettings.MaxRetirementYear, ModSettings.Settings.RetirementYear);
                 retirementSlider.eventValueChanged += (control, value) =>
@@ -87,7 +87,7 @@ namespace LifecycleRebalance
                 // Custom childhood.
                 AddTitle(panel, "LBR_CHI", titleFont, maxWidth);
                 childCheckBox = AddPlainCheckBox(panel, "LBR_CHI_CUS", ModSettings.Settings.CustomChildhood);
-                currentY += childCheckBox.height;
+                currentY += TitleMargin;
 
                 schoolStartSlider = AgeSlider("LBR_CHI_SCH", ModSettings.MinSchoolStartYear, ModSettings.MaxSchoolStartYear, ModSettings.Settings.SchoolStartYear);
                 schoolStartSlider.eventValueChanged += (control, value) =>
@@ -110,11 +110,14 @@ namespace LifecycleRebalance
                     ModSettings.Settings.YoungStartYear = (int)value;
                 };
 
+                // Sunset harbor only labels.
+                shOnlyLabel1 = UIControls.AddLabel(panel, retirementSlider.parent.relativePosition.x, retirementSlider.parent.relativePosition.y, Translations.Translate("LBR_SHO"));
+                shOnlyLabel2 = UIControls.AddLabel(panel, schoolStartSlider.parent.relativePosition.x, schoolStartSlider.parent.relativePosition.y, Translations.Translate("LBR_SHO"));
+
                 // Set initial visibility state of child sliders.
                 schoolStartSlider.parent.isVisible = childCheckBox.isChecked;
                 teenStartSlider.parent.isVisible = childCheckBox.isChecked;
                 youngStartSlider.parent.isVisible = childCheckBox.isChecked;
-
 
                 // Event handlers (here so other controls referenced are all set up prior to referencing in handlers).
                 sunsetCheckBox.eventCheckChanged += (control, isChecked) =>
@@ -122,7 +125,7 @@ namespace LifecycleRebalance
                     if (isChecked)
                     {
                         // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 0.
-                        UpdateCheckboxes(0);
+                        UpdateVisibility(0);
                     }
                     else if (!legacyCheckBox.isChecked && !vanillaCheckBox.isChecked)
                     {
@@ -136,7 +139,7 @@ namespace LifecycleRebalance
                     if (isChecked)
                     {
                         // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 1.
-                        UpdateCheckboxes(1);
+                        UpdateVisibility(1);
                     }
                     else if (!sunsetCheckBox.isChecked && !vanillaCheckBox.isChecked)
                     {
@@ -150,7 +153,7 @@ namespace LifecycleRebalance
                     if (isChecked)
                     {
                         // If this has been checked, update group checkboxes and set configuration - index for this checkbox is 2.
-                        UpdateCheckboxes(2);
+                        UpdateVisibility(2);
                     }
                     else if (!sunsetCheckBox.isChecked && !legacyCheckBox.isChecked)
                     {
@@ -165,7 +168,7 @@ namespace LifecycleRebalance
                     ModSettings.Settings.CustomRetirement = isChecked;
 
                     // Show/hide retirement age slider.
-                    retirementSlider.isVisible = isChecked;
+                    retirementSlider.parent.isVisible = isChecked;
                 };
 
                 childCheckBox.eventCheckChanged += (control, isChecked) =>
@@ -180,7 +183,7 @@ namespace LifecycleRebalance
                 };
 
                 // Update our visibility status based on current settings.
-                UpdateCheckboxes(ModSettings.Settings.VanillaCalcs ? 2 : ModSettings.Settings.LegacyCalcs ? 1 : 0);
+                UpdateVisibility(ModSettings.Settings.VanillaCalcs ? 2 : ModSettings.Settings.LegacyCalcs ? 1 : 0);
             }
         }
 
@@ -189,7 +192,7 @@ namespace LifecycleRebalance
         /// Updates calculation method checkboxes based on current selection.
         /// </summary>
         /// <param name="index">Index of currently selected option - 0 = SH calcs, 1 = legacy calcs, 2 = vanilla calcs</param>
-        private void UpdateCheckboxes(int index)
+        private void UpdateVisibility(int index)
         {
             // Disable checkboxes other than the selected one.
             if (index != 0)
@@ -204,6 +207,10 @@ namespace LifecycleRebalance
                 schoolStartSlider.parent.Hide();
                 teenStartSlider.parent.Hide();
                 youngStartSlider.parent.Hide();
+
+                // Show 'Sunset Harbor only' labels.
+                shOnlyLabel1.Show();
+                shOnlyLabel2.Show();
             }
             else
             {
@@ -225,6 +232,10 @@ namespace LifecycleRebalance
                     teenStartSlider.parent.Show();
                     youngStartSlider.parent.Show();
                 }
+
+                // Show 'Sunset Harbor only' labels.
+                shOnlyLabel1.Hide();
+                shOnlyLabel2.Hide();
             }
 
             // Legacy calcs.
@@ -265,11 +276,11 @@ namespace LifecycleRebalance
         private UISlider AgeSlider(string labelKey, uint min, uint max, int initialValue)
         {
             // Create new slider.
-            UISlider newSlider = UIControls.AddSliderWithValue(panel, Translations.Translate(labelKey), min, max, 1f, initialValue);
+            UISlider newSlider = UIControls.AddSliderWithValue(panel, Translations.Translate(labelKey), min, max, 1f, initialValue, 700f);
             newSlider.parent.relativePosition = new Vector2(Margin, currentY);
 
             // Increment y position indicator.
-            currentY += newSlider.parent.height;
+            currentY += newSlider.parent.height - Margin;
 
             return newSlider;
         }

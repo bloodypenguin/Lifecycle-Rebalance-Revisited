@@ -20,6 +20,8 @@ namespace LifecycleRebalance
         /// <returns>UIHelper instance for the new tab panel</returns>
         internal static UIPanel AddTab(UITabstrip tabStrip, string tabName, int tabIndex, bool autoLayout = false)
         {
+            const float Margin = 7.5f;
+
             // Create tab.
             UIButton tabButton = tabStrip.AddTab(tabName);
 
@@ -32,9 +34,21 @@ namespace LifecycleRebalance
 
             // Tooltip.
             tabButton.tooltip = tabName;
+            tabButton.text = String.Empty;
 
-            // Force width.
-            tabButton.width = 120;
+            // Name label.
+            UILabel tabLabel = tabButton.AddUIComponent<UILabel>();
+            tabLabel.autoSize = true;
+            tabLabel.textScale = 0.8f;
+            tabLabel.text = tabName;
+            tabLabel.PerformLayout();
+
+            // Force tab size.
+            tabButton.autoSize = false;
+            tabButton.width = Mathf.Max(80f, tabLabel.width + Margin * 2f);
+
+            // Centre name label.
+            tabLabel.relativePosition = new Vector2((tabButton.width - tabLabel.width) / 2f, (tabButton.height - tabLabel.height ) / 2f);
 
             // Get tab root panel.
             UIPanel rootPanel = tabStrip.tabContainer.components[tabIndex] as UIPanel;

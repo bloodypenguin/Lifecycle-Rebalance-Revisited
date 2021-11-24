@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="“日落港口”模组人均寿命（默认）" />
     <Translation ID="LBR_CAL_LEG" String="过往版本模组人均寿命（重置前模组）‒ 寿命较短，老年人较少" />
     <Translation ID="LBR_CAL_VAN" String="“日落港口”原版人均寿命 ‒ 寿命变化较少，老年人略多" />
-    <Translation ID="LBR_RET" String="退休年龄选项（仅“日落港口”模组人均寿命时有效）" />
+    <Translation ID="LBR_SHO" String="（仅“日落港口”模组人均寿命时有效）" />
+    <Translation ID="LBR_RET" String="退休年龄选项" />
     <Translation ID="LBR_RET_USE" String="使用自定义退休年龄" />
     <Translation ID="LBR_RET_CUS" String="自定义退休年龄" />
     <Translation ID="LBR_RET_NT1" String="降低退休年龄不会改变已在先前设定下退休的公民的状态。" />

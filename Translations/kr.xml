@@ -10,7 +10,8 @@
     <Translation ID="LBR_CAL_SUN" String="수정된 노을항 수명 (기본)" />
     <Translation ID="LBR_CAL_LEG" String="수정된 예전 수명 (모드 원작자 WG) - 수명 감소, 노인 적어짐" />
     <Translation ID="LBR_CAL_VAN" String="기본 노을항 수명 - 덜 다양한 수명, 노인층 약간 증가" />
-    <Translation ID="LBR_RET" String="은퇴 나이 옵션 (수정된 노을항 수명 사용시만)" />
+    <Translation ID="LBR_SHO" String="(수정된 노을항 수명 사용시만)" />
+    <Translation ID="LBR_RET" String="은퇴 나이 옵션" />
     <Translation ID="LBR_RET_USE" String="은퇴 나이 직접 설정하기" />
     <Translation ID="LBR_RET_CUS" String="은퇴 나이 설정" />
     <Translation ID="LBR_RET_NT1" String="은퇴 나이를 낮춰도 설정 변경 전에 이미 은퇴한 사람들의 고용 상태가 바뀌지는 않습니다." />

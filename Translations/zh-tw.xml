@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="模組 - 日落港資料片壽命模式（預設）" />
     <Translation ID="LBR_CAL_LEG" String="傳統 - 壽命模式（原始WG模組）- 壽命較短，老年人較少" />
     <Translation ID="LBR_CAL_VAN" String="遊戲預設 - 日落港資料片壽命模式 - 可變壽命少，老年人多" />
-    <Translation ID="LBR_RET" String="退休年齡選項（僅在使用“模組 - 日落港資料片壽命模式”時可用）" />
+    <Translation ID="LBR_SHO" String="（僅在使用“模組 - 日落港資料片壽命模式”時可用）" />
+    <Translation ID="LBR_RET" String="退休年齡選項" />
     <Translation ID="LBR_RET_USE" String="使用自訂退休年齡" />
     <Translation ID="LBR_RET_CUS" String="自訂退休年齡" />
     <Translation ID="LBR_RET_NT1" String="降低退休年齡不會改變已經在之前的設置下已退休的市民。" />

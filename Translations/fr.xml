@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="Durée de vie du Mod Sunset Harbor (par défaut)" />
     <Translation ID="LBR_CAL_LEG" String="Durée de vie du mod legacy (mod WG original) - durée de vie plus courte, moins de personnes âgées" />
     <Translation ID="LBR_CAL_VAN" String="Durée de vie de Vanilla Sunset Harbor - moins de durée de vie variable, un peu plus seniors " />
-    <Translation ID="LBR_RET" String="Options d'âge de la retraite (uniquement lors de l'utilisation des mods de durée de vie de Sunset Harbor)" />
+    <Translation ID="LBR_SHO" String="(uniquement lors de l'utilisation des mods de durée de vie de Sunset Harbor)" />
+    <Translation ID="LBR_RET" String="Options d'âge de la retraite" />
     <Translation ID="LBR_RET_USE" String="Utiliser l'âge de la retraite personnalisé" />
     <Translation ID="LBR_RET_CUS" String="Âge de la retraite personnalisé" />
     <Translation ID="LBR_RET_NT1" String="La réduction de l'âge de la retraite ne changera pas l'apparence des citoyens qui ont déjà pris leur retraite dans les paramètres précédents." />

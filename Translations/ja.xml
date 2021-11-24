@@ -11,12 +11,13 @@
     <Translation ID="LBR_CAL_SUN" String="MODはSunset Harborのライフスパンを使用 (デフォルト)"/>
     <Translation ID="LBR_CAL_LEG" String="レガシー(元のWG MOD) のライフスパン - 短命で高齢者が少なめ"/>
     <Translation ID="LBR_CAL_VAN" String="バニラのライフスパン - 寿命変動が少なく高齢者が多め"/>
-    <Translation ID="LBR_RET" String="定年退職のオプション（Sunset Harborのライフスパンを使用時）"/>
+    <Translation ID="LBR_SHO" String="（Sunset Harborのライフスパンを使用時）"/>
+    <Translation ID="LBR_RET" String="定年退職のオプション"/>
     <Translation ID="LBR_RET_USE" String="カスタムした定年退職を設定"/>
     <Translation ID="LBR_RET_CUS" String="定年退職の設定"/>
     <Translation ID="LBR_RET_NT1" String="定年退職の年齢を下げても、以前の設定で退職済みの住民ステータスは変わりません"/>
     <Translation ID="LBR_RET_NT2" String="定年退職の年齢を上げても、以前の設定で退職済みの住民が復職することはありません"/>
-    <Translation ID="LBR_CHI" String="子供達の年齢オプション（Sunset Harborを元にした計算モデルを使用する場合）"/>
+    <Translation ID="LBR_CHI" String="子供達の年齢オプション"/>
     <Translation ID="LBR_CHI_CUS" String="カスタムした子供の年齢を使用"/>
     <Translation ID="LBR_CHI_SCH" String="子供が小学校に通う年齢"/>
     <Translation ID="LBR_CHI_TEE" String="子供が高校に通う年齢"/>

@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor długość życia (domyślny)" />
     <Translation ID="LBR_CAL_LEG" String="Zmodyfikowana stara żywotność(oryginalny WG mod) - krótsze życie, mniej seniorów" />
     <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor długość życia - mniej zmienna długość życia, odrobinę więcej seniorów" />
-    <Translation ID="LBR_RET" String="Opcje wieku emerytalnego (tylko gdy używane są modyfikacje Sunset Harbour długości życia)" />
+    <Translation ID="LBR_SHO" String="(tylko gdy używane są modyfikacje Sunset Harbour długości życia)" />
+    <Translation ID="LBR_RET" String="Opcje wieku emerytalnego" />
     <Translation ID="LBR_RET_USE" String="Używaj niestandardowego wieku emerytalnego" />
     <Translation ID="LBR_RET_CUS" String="Niestandardowy wiek emerytalny" />
     <Translation ID="LBR_RET_NT1" String="Zmniejszenie wieku emerytalnego nie zmieni statusu mieszkańców, którzy są już na emeryturze przed zmianą ustawień." />

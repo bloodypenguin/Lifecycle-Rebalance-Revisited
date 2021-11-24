@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="Modifiye edilmiş Sunset Harbor (DLC) yaşam süreleri (varsayılan)" />
     <Translation ID="LBR_CAL_LEG" String="Modifiye edilmiş eski yaşam süreleri (orijinal WG modu) - daha kısa yaşam süresi, daha az yaşlı vatandaş" />
     <Translation ID="LBR_CAL_VAN" String="Normal Sunset Harbor (DLC) yaşam süreleri - daha az değişken yaşam süreleri, biraz daha fazla yaşlı vatandaş" />
-    <Translation ID="LBR_RET" String="Emeklilik yaşı seçenekleri (sadece bu mod'un Sunset Harbor DLC'si için sunduğu seçenekleri kullanırken)" />
+    <Translation ID="LBR_SHO" String="(sadece bu mod'un Sunset Harbor DLC'si için sunduğu seçenekleri kullanırken)" />
+    <Translation ID="LBR_RET" String="Emeklilik yaşı seçenekleri" />
     <Translation ID="LBR_RET_USE" String="Özel emeklilik yaşı kullan" />
     <Translation ID="LBR_RET_CUS" String="Özel emeklilik yaşı" />
     <Translation ID="LBR_RET_NT1" String="Emeklilik yaşını azaltmak daha önceki ayarlarda çoktan emekli olmuş vatandaşları etkilemeyecektir." />

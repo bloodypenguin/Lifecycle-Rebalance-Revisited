@@ -11,7 +11,8 @@
     <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor elämänkaaret (oletus)" />
     <Translation ID="LBR_CAL_LEG" String="Mod Legacy elämänkaaret (alkuperäinen WG mod) - lyhyemmät elämänkaaret, vähän enemmän senioreja" />
     <Translation ID="LBR_CAL_VAN" String="Vanilla sunset Harbor elämänkaaret - vähemmän vaihtelevat elämänkaaret, vähän enemmän senioreita" />
-    <Translation ID="LBR_RET" String="Eläkeikävaihtoehdot (vain kun käytössä on Mod Sunset Harbor -elämänkaaret)" />
+    <Translation ID="LBR_SHO" String="(vain kun käytössä on Mod Sunset Harbor -elämänkaaret)" />
+    <Translation ID="LBR_RET" String="Eläkeikävaihtoehdot" />
     <Translation ID="LBR_RET_USE" String="Käytä kustomoitua eläkeikää" />
     <Translation ID="LBR_RET_CUS" String="Kustomoitu eläkeikä" />
     <Translation ID="LBR_RET_NT1" String="Eläkeiän lasku ei vaikuta jo nykyisillä asetuksilla eläkkeelle jääneiden kansalaisten eläkestatukseen" />
