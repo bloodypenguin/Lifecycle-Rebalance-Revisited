@@ -16,7 +16,7 @@
     <Translation ID="LBR_RET_CUS" String="Benutzerdefiniertes Rentenalter" />
     <Translation ID="LBR_RET_NT1" String="Die Senkung des Rentenalters hat keinen Einfluss auf Bürger, die auf Grund der vorherigen Einstellung bereits in Rente gegangen sind." />
     <Translation ID="LBR_RET_NT2" String="Die Erhöhung des Rentenalters hat keinen Einfluss auf Bürger, die auf Grund der vorherigen Einstellung bereits in Rente gegangen sind." />
-    <Translation ID="LBR_CHI" String="Einstellungen für das Kindesalter festlegen (nur wenn die Lebenserwartung der Mod für Sunset Harbor genutzt werden)" />
+    <Translation ID="LBR_CHI" String="Kindesalter-Einstellungen (nur wenn die Lebenserwartung der Mod für Sunset Harbor genutzt werden)" />
     <Translation ID="LBR_CHI_CUS" String="Benutzerdefinierte Einstellungen für das Kindesalter" />
     <Translation ID="LBR_CHI_SCH" String="Alter in Jahren, zu dem ein Kind eingeschult wird" />
     <Translation ID="LBR_CHI_TEE" String="Alter in Jahren, zu dem ein Kind auf die weiterführende Schule wechselt" />
@@ -59,9 +59,9 @@
     <Translation ID="LBR_TRN_ADL" String="Erwachsene" />
     <Translation ID="LBR_TRN_SEN" String="Senior" />
     <Translation ID="LBR_DEF" String="Standard" />
-    <Translation ID="LBR_RTD" String="Auf Standardwerte zurücksetzen" />
+    <Translation ID="LBR_RTD" String="Auf Standard zurücksetzen" />
     <Translation ID="LBR_RTS" String="Sicherung wiederherstellen" />
-    <Translation ID="LBR_SAA" String="Speichern und Änderungen anwenden" />
+    <Translation ID="LBR_SAA" String="Speichern und Anwenden" />
     <Translation ID="LBR_ZRO" String="Alle Werte auf Null setzen" />
     <Translation ID="TRN_CHOICE" String="Sprache auswählen" />
     <Translation ID="TRN_SYS" String="Systemsprache verwenden" />
