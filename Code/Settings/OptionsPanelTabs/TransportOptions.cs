@@ -370,20 +370,26 @@ namespace LifecycleRebalance
         /// <param name="icon">Icon name</param>
         private void RowHeaderIcon(UIPanel panel, float yPos, string text, string icon, string atlas)
         {
+            const float SpriteSize = 35f;
+
             // Actual icon.
             UISprite thumbSprite = panel.AddUIComponent<UISprite>();
             thumbSprite.relativePosition = new Vector3(Margin, yPos - 2.5f);
-            thumbSprite.width = 35f;
-            thumbSprite.height = 35f;
+            thumbSprite.width = SpriteSize;
+            thumbSprite.height = SpriteSize;
             thumbSprite.atlas = PanelUtils.GetAtlas(atlas);
             thumbSprite.spriteName = icon;
 
             // Text label.
             UILabel lineLabel = panel.AddUIComponent<UILabel>();
             lineLabel.textScale = 1.0f;
-            lineLabel.text = text;
-            lineLabel.relativePosition = new Vector3(LeftTitle, yPos + 7);
+            lineLabel.autoSize = false;
+            lineLabel.autoHeight = true;
+            lineLabel.wordWrap = true;
+            lineLabel.width = Column1 - LeftTitle - Margin;
             lineLabel.verticalAlignment = UIVerticalAlignment.Middle;
+            lineLabel.text = text;
+            lineLabel.relativePosition = new Vector3(LeftTitle, yPos - 2.5f + ((SpriteSize - lineLabel.height) /2f));
 
             // Increment Y.
             currentY += 30f;
