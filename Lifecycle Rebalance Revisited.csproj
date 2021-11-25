@@ -103,6 +103,7 @@
     <Content Include="Images\Screen_SeniorMovedIn.jpg" />
     <Content Include="Changelog.txt" />
     <Content Include="Translations\de.xml" />
+    <Content Include="Translations\da.xml" />
     <Content Include="Translations\en.xml" />
     <Content Include="Translations\es.xml" />
     <Content Include="Translations\fi.xml" />
