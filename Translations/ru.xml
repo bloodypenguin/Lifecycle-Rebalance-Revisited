@@ -21,7 +21,7 @@
     <Translation ID="LBR_CHI_CUS" String="Использовать настраиваемый детский возраст" />
     <Translation ID="LBR_CHI_SCH" String="Возраст в котором дети идут в начальную школу" />
     <Translation ID="LBR_CHI_TEE" String="Возраст в котором подростки идут в высшую школу" />
-    <Translation ID="LBR_CHI_YOU" String="Возраст в котором молодёжь поступает в колледж/университет" />
+    <Translation ID="LBR_CHI_YOU" String="Возраст в котором молодые люди поступают в колледж/университет" />
     <Translation ID="LBR_HEA" String="Здоровье" />
     <Translation ID="LBR_HEA_ILL" String="Произвольный шанс заболеть (в %) за десять лет жизни" />
     <Translation ID="LBR_HEA_ILD" String="Не влияет на болезни из-за загрязнений или шума" />
