@@ -119,7 +119,7 @@ namespace LifecycleRebalance
                 }
 
                 // Rows by group.
-                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails");
+                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails", true);
                 AddDensityGroup(panel, wealthLow[0], wealthMed[0], wealthHigh[0]);
                 RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_RHI"), "ZoningResidentialHigh", "Thumbnails");
                 AddDensityGroup(panel, wealthLow[1], wealthMed[1], wealthHigh[1]);
@@ -368,7 +368,9 @@ namespace LifecycleRebalance
         /// <param name="xPos">Reference X position</param>
         /// <param name="text">Tooltip text</param>
         /// <param name="icon">Icon name</param>
-        private void RowHeaderIcon(UIPanel panel, float yPos, string text, string icon, string atlas)
+        /// <param name="atlas">Icon atlas name</param>
+        /// <param name="wrapText">True if label width is fixed to column width and text wrapped, false otherwise</param>
+        private void RowHeaderIcon(UIPanel panel, float yPos, string text, string icon, string atlas, bool wrapText = false)
         {
             const float SpriteSize = 35f;
 
@@ -383,10 +385,10 @@ namespace LifecycleRebalance
             // Text label.
             UILabel lineLabel = panel.AddUIComponent<UILabel>();
             lineLabel.textScale = 1.0f;
-            lineLabel.autoSize = false;
-            lineLabel.autoHeight = true;
-            lineLabel.wordWrap = true;
             lineLabel.width = Column1 - LeftTitle - Margin;
+            lineLabel.autoHeight = true;
+            lineLabel.wordWrap = wrapText;
+            lineLabel.autoSize = !wrapText;
             lineLabel.verticalAlignment = UIVerticalAlignment.Middle;
             lineLabel.text = text;
             lineLabel.relativePosition = new Vector3(LeftTitle, yPos - 2.5f + ((SpriteSize - lineLabel.height) /2f));
