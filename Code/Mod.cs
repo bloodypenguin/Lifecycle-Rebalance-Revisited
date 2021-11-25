@@ -18,8 +18,8 @@ namespace LifecycleRebalance
         // Internal and private name and version components.
         internal static string ModName => "Lifecycle Rebalance Revisited";
         internal static string Version => BaseVersion + " " + Beta;
-        internal static string Beta => "BETA 1";
-        internal static int BetaVersion => 1;
+        internal static string Beta => "BETA 2";
+        internal static int BetaVersion => 2;
         private static string BaseVersion => "1.6";
 
 
