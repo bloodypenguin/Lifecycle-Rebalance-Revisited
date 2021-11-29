@@ -13,8 +13,11 @@ namespace LifecycleRebalance
     [XmlRoot("SettingsFile")]
     public class ModSettings
     {
+        // Settings file.
         [XmlIgnore]
         private static readonly string SettingsFileName = "LifecycleRebalance.xml";
+        private static readonly string SettingsFile = Path.Combine(ColossalFramework.IO.DataLocation.localApplicationData, SettingsFileName);
+
 
         // Age constants - vanilla values (in age units).
         private const int VanillaSchoolAge = 0;
@@ -420,13 +423,26 @@ namespace LifecycleRebalance
         {
             try
             {
+                string fileName = null;
+
                 Logging.Message("reading settings");
 
-                // Check to see if configuration file exists.
-                if (File.Exists(SettingsFileName))
+                // See if a userdir settings file exists.
+                if (File.Exists(SettingsFile))
+                {
+                    fileName = SettingsFile;
+                }
+                else if (File.Exists(SettingsFileName))
+                {
+                    // Otherwise, if an application settings file exists, use that.
+                    fileName = SettingsFileName;
+                }
+
+                // Check to see if we found an existing configuration file.
+                if (fileName != null)
                 {
                     // Read it.
-                    using (StreamReader reader = new StreamReader(SettingsFileName))
+                    using (StreamReader reader = new StreamReader(fileName))
                     {
                         XmlSerializer xmlSerializer = new XmlSerializer(typeof(ModSettings));
                         if (xmlSerializer.Deserialize(reader) is ModSettings modSettingsFile)
@@ -463,11 +479,17 @@ namespace LifecycleRebalance
         {
             try
             {
-                // Pretty straightforward.  Serialisation is within GBRSettingsFile class.
-                using (StreamWriter writer = new StreamWriter(SettingsFileName))
+                // Pretty straightforward.
+                using (StreamWriter writer = new StreamWriter(SettingsFile))
                 {
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof(ModSettings));
                     xmlSerializer.Serialize(writer, ModSettings.Settings);
+                }
+
+                // Delete any old settings in app directory.
+                if (File.Exists(SettingsFileName))
+                {
+                    File.Delete(SettingsFileName);
                 }
             }
             catch (Exception e)
