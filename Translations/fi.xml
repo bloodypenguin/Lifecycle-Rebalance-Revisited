@@ -1,86 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="fi" ReadableName="Suomi">
-  <Translations>
-    <Translation ID="LBR_NAME" String="Uudistettu Elämänkaarien Tasapainotus" />
-    <Translation ID="LBR_DESC" String="Pidentää ja satunnaistaa kansalaisten elämänkaaria, satunnaistaa alueelle muuttajien iät ja koulutustasot, ja antaa mahdollisuuden säätää, miten ihmiset matkustavat töihin ja töistä kotiin" />
-    <Translation ID="LBR_SPN" String="Elämänkaari" />
-    <Translation ID="LBR_SPN_WRN" String="Varoitus" />
-    <Translation ID="LBR_SPN_BAL" String="Asetusten muuttaminen pelin ollessa käynnissä saattaa väliaikaisesti häiritä kaupungin tasapainoa" />
-    <Translation ID="LBR_SPN_BAK" String="Varmuuskopion tallentaminen ennen asetusten muuttamista on VAHVASTI suositeltua" />
-    <Translation ID="LBR_CAL" String="Elämänkaarenlaskentamalli" />
-    <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor elämänkaaret (oletus)" />
-    <Translation ID="LBR_CAL_LEG" String="Mod Legacy elämänkaaret (alkuperäinen WG mod) - lyhyemmät elämänkaaret, vähän enemmän senioreja" />
-    <Translation ID="LBR_CAL_VAN" String="Vanilla sunset Harbor elämänkaaret - vähemmän vaihtelevat elämänkaaret, vähän enemmän senioreita" />
-    <Translation ID="LBR_SHO" String="(vain kun käytössä on Mod Sunset Harbor -elämänkaaret)" />
-    <Translation ID="LBR_RET" String="Eläkeikävaihtoehdot" />
-    <Translation ID="LBR_RET_USE" String="Käytä kustomoitua eläkeikää" />
-    <Translation ID="LBR_RET_CUS" String="Kustomoitu eläkeikä" />
-    <Translation ID="LBR_RET_NT1" String="Eläkeiän lasku ei vaikuta jo nykyisillä asetuksilla eläkkeelle jääneiden kansalaisten eläkestatukseen" />
-    <Translation ID="LBR_RET_NT2" String="Eläkeiän nosto ei muuta jo nykyisillä asetuksilla eläkkeelle jääneiden kansalaisten ulkonäköä" />
-    <Translation ID="LBR_HEA" String="Terveys" />
-    <Translation ID="LBR_HEA_ILL" String="Satunnainen sairastuvuusosuus per elämän vuosikymmen" />
-    <Translation ID="LBR_HEA_ILD" String="Ei vaikuta tietyistä syistä johtuviin sairastumisiin, esim. saasteet tai melu" />
-    <Translation ID="LBR_HEA_AGE" String="Iät" />
-    <Translation ID="LBR_DTH" String="Kuolema" />
-    <Translation ID="LBR_DTH_TRN" String="Kuljetusta vaativien osuus kuolleista" />
-    <Translation ID="LBR_DTH_TRD" String="(Pelin oletusarvo 67%, modin oletusarvo 50%)" />
-    <Translation ID="LBR_IMM" String="Maahanmuutto" />
-    <Translation ID="LBR_IMM_VAR" String="Lisää 25% vaihtelua alueelle muuttavien koulutustasoon" />
-    <Translation ID="LBR_IMM_INC" String="Korota alueelle muuttavien keskimääräistä koulutustasoa" />
-    <Translation ID="LBR_IMM_DEC" String="Laske alueelle muuttavien keskimääräistä kolutustasoa" />
-    <Translation ID="LBR_SET" String="Asetukset" />
-    <Translation ID="LBR_SET_LDT" String="Ota käyttöön tarkka virheenkorjausloki" />
-    <Translation ID="LBR_SET_LGD" String="Kirjaa kuolemat lokiin 'Lifecycle death log.txt'" />
-    <Translation ID="LBR_SET_LGI" String="Kirjaa maahanmuutot lokiin 'Lifecycle immigration log.txt'" />
-    <Translation ID="LBR_SET_LGT" String="Kirjaa kustomoidut liikennevalinnat lokiin 'Lifecycle transport log.txt' VAROITUS - HIDAS!" />
-    <Translation ID="LBR_SET_LGS" String="Kirjaa sairastumistapahtumat lokiin 'Lifecycle sickness log.txt'" />
-    <Translation ID="LBR_SPD" String="Nopeus" />
-    <Translation ID="LBR_SPD_FAC" String="Kerroin jolla hidastetaan kansalaisten ikääntymistä, verrattuna peruspeliin" />
-    <Translation ID="LBR_SPD_FN1" String="1 on peruspelin nopeus (35 peliviikkoa tarkoittaa 10 vuotta ikää), 2 on tuplasti hitaampi (70 peliviikkoa per 10 vuotta ikää), 3 on kolminkertaisesti hitaampi, jne. Kerroin 15 tarkoittaa että kansalaiset ikääntyvät noin vuoden jokaista pelivuotta kohti." />
-    <Translation ID="LBR_SPD_FN2" String="Ei vaikuta elämänkaariin tai ikiin - vain vauhtiin jolla kansalaiset ikääntyvät suhteessa pelin nopeuteen" />
-    <Translation ID="LBR_SPD_FN3" String="(Pelin oletus 1, modin oletus 3)" />
-    <Translation ID="LBR_TRN" String="Liikenne" />
-    <Translation ID="LBR_TRN_CUS" String="Käytä kustomoituja liikennevälinetodennäköisyyksiä" />
-    <Translation ID="LBR_TRN_WEA" String="Varallisuuden taso" />
-    <Translation ID="LBR_TRN_CAR" String="Auton käytön todennäköisyys (%)" />
-    <Translation ID="LBR_TRN_BIK" String="Polkupyörän käytön todennäköisyys (%)" />
-    <Translation ID="LBR_TRN_TAX" String="Taksin käytön todennäköisyys (%)" />
-    <Translation ID="LBR_TRN_RLO" String="Asuinalue matalatiheyksinen" />
-    <Translation ID="LBR_TRN_RHI" String="Asuinalue korkeatiheyksinen" />
-    <Translation ID="LBR_TRN_ERL" String="Ekoasuinalue matalatiheyksinen" />
-    <Translation ID="LBR_TRN_ERH" String="Ekoasuinalue korkeatiheyksinen" />
-    <Translation ID="LBR_TRN_CHL" String="Lapsi" />
-    <Translation ID="LBR_TRN_TEN" String="Teini" />
-    <Translation ID="LBR_TRN_YAD" String="Nuori aikuinen" />
-    <Translation ID="LBR_TRN_ADL" String="Aikuinen" />
-    <Translation ID="LBR_TRN_SEN" String="Seniori" />
-    <Translation ID="LBR_DEF" String="oletus" />
-    <Translation ID="LBR_RTD" String="Palauta oletukset" />
-    <Translation ID="LBR_RTS" String="Palauta tallennetut" />
-    <Translation ID="LBR_SAA" String="Tallenna ja käytä" />
-    <Translation ID="LBR_ZRO" String="Nollaa kaikki" />
-    <Translation ID="TRN_CHOICE" String="Aseta kieli" />
-    <Translation ID="TRN_SYS" String="Käytä järjestelmän kieltä" />
-    <Translation ID="MES_CLS" String="Sulje" />
-    <Translation ID="MES_DSA" String="Älä näytä uudestaan" />
-    <Translation ID="MES_PAGE" String="Lisää tietoa saadaksesi, ole hyvä ja katso modin Steam Workshop -sivu" />
-    <Translation ID="LBR_CON" String="Modikonflikti havaittu" />
-    <Translation ID="LBR_ERR_FAT" String="Uudistettu Elämänkaarien Tasapainotus ei kykene toimimaan kunnolla ja on suljettu" />
-    <Translation ID="LBR_ERR_HAR" String="Uudistettu Elämänkaarien Tasapainotus ei kyennyt viimeistelemään vaadittuja Harmony-päivityksiä" />
-    <Translation ID="ERR_HAR0" String="Harmony-päivitysvirhe" />
-    <Translation ID="ERR_HAR1" String="Mahdolliset syyt, jotka voivat aiheuttaa tämän virheen:" />
-    <Translation ID="ERR_HAR2" String="Vaadittava Harmony 2 modiriippuvaisuus ei ole asennettu" />
-    <Translation ID="ERR_HAR3" String="Vanha ja/tai rikkinäinen modi estää Harmony 2 toimimasta" />
-    <Translation ID="ERR_CON0" String="Ristiriita modissa havaittu!" />
-    <Translation ID="ERR_CON1" String="Ristiriitaiset modit ovat:" />
-    <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited havaitsi ristiriidan ainakin yhden modin kanssa." />
-    <Translation ID="LBR_ERR_CON1" String="Nämä modit pitää poistaa ennen kuin voit käyttää Lifecycle Rebalance Revisited" />
-    <Translation ID="LBR_150_TIT" String="Uudistettu Elämänkaarien Tasapainotus on päivitetty versioon 1.5" />
-    <Translation ID="LBR_150_NT1" String="Kuljetusmuotovalintoja voi nyt muokata options-paneelissa ja ekologisilla sekä tavallisilla asuinalueilla voi olla eri valinnat" />
-    <Translation ID="LBR_150_NT2" String="Voit muuttaa kaupunkiin muuttavien ihmisten koulutustasoa" />
-    <Translation ID="LBR_151_NT1" String="Säädä options-paneelin järjestystä käännöksiä varten" />
-    <Translation ID="LBR_152_NT1" String="Yksinhuoltajat, joilla on alaikäisiä lapsia, säästyvät aikaiselta kuolemalta, jotta ei synny orpotalouksia" />
-    <Translation ID="LBR_152_NT2" String="Voit nyt editoida liikkumismuotovaihtoehtoja options-paneelissa, ja asettaa erilaiset liikkumismuotovalinnat tavalliselle ja eko-asuinalueelle." />
-    <Translation ID="LBR_152_NT3" String="Voit nyt muokata kaupunkiisi muuttavien ihmisten koulutustasoa" />
-  </Translations>
+	<Translations>
+		<Translation ID="LBR_NAME" String="Uudistettu Elämänkaarien Tasapainotus" />
+		<Translation ID="LBR_DESC" String="Pidentää ja satunnaistaa kansalaisten elämänkaaria, satunnaistaa alueelle muuttajien iät ja koulutustasot, ja antaa mahdollisuuden säätää, miten ihmiset matkustavat töihin ja töistä kotiin" />
+		<Translation ID="LBR_SPN" String="Elämänkaari" />
+		<Translation ID="LBR_SPN_WRN" String="Varoitus" />
+		<Translation ID="LBR_SPN_BAL" String="Asetusten muuttaminen pelin ollessa käynnissä saattaa väliaikaisesti häiritä kaupungin tasapainoa" />
+		<Translation ID="LBR_SPN_BAK" String="Varmuuskopion tallentaminen ennen asetusten muuttamista on VAHVASTI suositeltua" />
+		<Translation ID="LBR_CAL" String="Elämänkaarenlaskentamalli" />
+		<Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor elämänkaaret (oletus)" />
+		<Translation ID="LBR_CAL_LEG" String="Mod Legacy elämänkaaret (alkuperäinen WG mod) - lyhyemmät elämänkaaret, vähän enemmän senioreja" />
+		<Translation ID="LBR_CAL_VAN" String="Vanilla sunset Harbor elämänkaaret - vähemmän vaihtelevat elämänkaaret, vähän enemmän senioreita" />
+		<Translation ID="LBR_SHO" String="(vain kun käytössä on Mod Sunset Harbor -elämänkaaret)" />
+		<Translation ID="LBR_RET" String="Eläkeikävaihtoehdot" />
+		<Translation ID="LBR_RET_USE" String="Käytä kustomoitua eläkeikää" />
+		<Translation ID="LBR_RET_CUS" String="Kustomoitu eläkeikä" />
+		<Translation ID="LBR_RET_NT1" String="Eläkeiän lasku ei vaikuta jo nykyisillä asetuksilla eläkkeelle jääneiden kansalaisten eläkestatukseen" />
+		<Translation ID="LBR_RET_NT2" String="Eläkeiän nosto ei muuta jo nykyisillä asetuksilla eläkkeelle jääneiden kansalaisten ulkonäköä" />
+		<Translation ID="LBR_HEA" String="Terveys" />
+		<Translation ID="LBR_HEA_ILL" String="Satunnainen sairastuvuusosuus per elämän vuosikymmen" />
+		<Translation ID="LBR_HEA_ILD" String="Ei vaikuta tietyistä syistä johtuviin sairastumisiin, esim. saasteet tai melu" />
+		<Translation ID="LBR_HEA_AGE" String="Iät" />
+		<Translation ID="LBR_DTH" String="Kuolema" />
+		<Translation ID="LBR_DTH_TRN" String="Kuljetusta vaativien osuus kuolleista" />
+		<Translation ID="LBR_DTH_TRD" String="(Pelin oletusarvo 67%, modin oletusarvo 50%)" />
+		<Translation ID="LBR_IMM" String="Maahanmuutto" />
+		<Translation ID="LBR_IMM_VAR" String="Lisää 25% vaihtelua alueelle muuttavien koulutustasoon" />
+		<Translation ID="LBR_IMM_INC" String="Korota alueelle muuttavien keskimääräistä koulutustasoa" />
+		<Translation ID="LBR_IMM_DEC" String="Laske alueelle muuttavien keskimääräistä kolutustasoa" />
+		<Translation ID="LBR_SET" String="Asetukset" />
+		<Translation ID="LBR_SET_LDT" String="Ota käyttöön tarkka virheenkorjausloki" />
+		<Translation ID="LBR_SET_LGD" String="Kirjaa kuolemat lokiin 'Lifecycle death log.txt'" />
+		<Translation ID="LBR_SET_LGI" String="Kirjaa maahanmuutot lokiin 'Lifecycle immigration log.txt'" />
+		<Translation ID="LBR_SET_LGT" String="Kirjaa kustomoidut liikennevalinnat lokiin 'Lifecycle transport log.txt' VAROITUS - HIDAS!" />
+		<Translation ID="LBR_SET_LGS" String="Kirjaa sairastumistapahtumat lokiin 'Lifecycle sickness log.txt'" />
+		<Translation ID="LBR_SPD" String="Nopeus" />
+		<Translation ID="LBR_SPD_FAC" String="Kerroin jolla hidastetaan kansalaisten ikääntymistä, verrattuna peruspeliin" />
+		<Translation ID="LBR_SPD_FN1" String="1 on peruspelin nopeus (35 peliviikkoa tarkoittaa 10 vuotta ikää), 2 on tuplasti hitaampi (70 peliviikkoa per 10 vuotta ikää), 3 on kolminkertaisesti hitaampi, jne. Kerroin 15 tarkoittaa että kansalaiset ikääntyvät noin vuoden jokaista pelivuotta kohti." />
+		<Translation ID="LBR_SPD_FN2" String="Ei vaikuta elämänkaariin tai ikiin - vain vauhtiin jolla kansalaiset ikääntyvät suhteessa pelin nopeuteen" />
+		<Translation ID="LBR_SPD_FN3" String="(Pelin oletus 1, modin oletus 3)" />
+		<Translation ID="LBR_TRN" String="Liikenne" />
+		<Translation ID="LBR_TRN_CUS" String="Käytä kustomoituja liikennevälinetodennäköisyyksiä" />
+		<Translation ID="LBR_TRN_WEA" String="Varallisuuden taso" />
+		<Translation ID="LBR_TRN_CAR" String="Auton käytön todennäköisyys (%)" />
+		<Translation ID="LBR_TRN_BIK" String="Polkupyörän käytön todennäköisyys (%)" />
+		<Translation ID="LBR_TRN_TAX" String="Taksin käytön todennäköisyys (%)" />
+		<Translation ID="LBR_TRN_RLO" String="Asuinalue matalatiheyksinen" />
+		<Translation ID="LBR_TRN_RHI" String="Asuinalue korkeatiheyksinen" />
+		<Translation ID="LBR_TRN_ERL" String="Ekoasuinalue matalatiheyksinen" />
+		<Translation ID="LBR_TRN_ERH" String="Ekoasuinalue korkeatiheyksinen" />
+		<Translation ID="LBR_TRN_CHL" String="Lapsi" />
+		<Translation ID="LBR_TRN_TEN" String="Teini" />
+		<Translation ID="LBR_TRN_YAD" String="Nuori aikuinen" />
+		<Translation ID="LBR_TRN_ADL" String="Aikuinen" />
+		<Translation ID="LBR_TRN_SEN" String="Seniori" />
+		<Translation ID="LBR_DEF" String="oletus" />
+		<Translation ID="LBR_RTD" String="Palauta oletukset" />
+		<Translation ID="LBR_RTS" String="Palauta tallennetut" />
+		<Translation ID="LBR_SAA" String="Tallenna ja käytä" />
+		<Translation ID="LBR_ZRO" String="Nollaa kaikki" />
+		<Translation ID="TRN_CHOICE" String="Aseta kieli" />
+		<Translation ID="TRN_SYS" String="Käytä järjestelmän kieltä" />
+		<Translation ID="MES_CLS" String="Sulje" />
+		<Translation ID="MES_DSA" String="Älä näytä uudestaan" />
+		<Translation ID="MES_PAGE" String="Lisää tietoa saadaksesi, ole hyvä ja katso modin Steam Workshop -sivu" />
+		<Translation ID="LBR_CON" String="Modikonflikti havaittu" />
+		<Translation ID="LBR_ERR_FAT" String="Uudistettu Elämänkaarien Tasapainotus ei kykene toimimaan kunnolla ja on suljettu" />
+		<Translation ID="LBR_ERR_HAR" String="Uudistettu Elämänkaarien Tasapainotus ei kyennyt viimeistelemään vaadittuja Harmony-päivityksiä" />
+		<Translation ID="ERR_HAR0" String="Harmony-päivitysvirhe" />
+		<Translation ID="ERR_HAR1" String="Mahdolliset syyt, jotka voivat aiheuttaa tämän virheen:" />
+		<Translation ID="ERR_HAR2" String="Vaadittava Harmony 2 modiriippuvaisuus ei ole asennettu" />
+		<Translation ID="ERR_HAR3" String="Vanha ja/tai rikkinäinen modi estää Harmony 2 toimimasta" />
+		<Translation ID="ERR_CON0" String="Ristiriita modissa havaittu!" />
+		<Translation ID="ERR_CON1" String="Ristiriitaiset modit ovat:" />
+		<Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited havaitsi ristiriidan ainakin yhden modin kanssa." />
+		<Translation ID="LBR_ERR_CON1" String="Nämä modit pitää poistaa ennen kuin voit käyttää Lifecycle Rebalance Revisited" />
+		<Translation ID="LBR_150_TIT" String="Uudistettu Elämänkaarien Tasapainotus on päivitetty versioon 1.5" />
+		<Translation ID="LBR_150_NT1" String="Kuljetusmuotovalintoja voi nyt muokata options-paneelissa ja ekologisilla sekä tavallisilla asuinalueilla voi olla eri valinnat" />
+		<Translation ID="LBR_150_NT2" String="Voit muuttaa kaupunkiin muuttavien ihmisten koulutustasoa" />
+		<Translation ID="LBR_151_NT1" String="Säädä options-paneelin järjestystä käännöksiä varten" />
+		<Translation ID="LBR_152_NT1" String="Yksinhuoltajat, joilla on alaikäisiä lapsia, säästyvät aikaiselta kuolemalta, jotta ei synny orpotalouksia" />
+		<Translation ID="LBR_152_NT2" String="Voit nyt editoida liikkumismuotovaihtoehtoja options-paneelissa, ja asettaa erilaiset liikkumismuotovalinnat tavalliselle ja eko-asuinalueelle." />
+		<Translation ID="LBR_152_NT3" String="Voit nyt muokata kaupunkiisi muuttavien ihmisten koulutustasoa" />
+	</Translations>
 </Language>

@@ -1,85 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="pl" ReadableName="Polski">
-  <Translations>
-    <Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
-    <Translation ID="LBR_DESC" String="Zwiększa i tworzy losowość długości życia mieszkańców, generuje losowy wiek, poziom wykształcenia imigrantów oraz zmienia sposób podróżowania mieszkańców z i do pracy" />
-    <Translation ID="LBR_SPN" String="Długość życia" />
-    <Translation ID="LBR_SPN_WRN" String="Ostrzeżenie" />
-    <Translation ID="LBR_SPN_BAL" String="Zmiana ustawień podczas gry może na stałe zakłócić balans miasta." />
-    <Translation ID="LBR_SPN_BAK" String="ZALECANE wykonanie kopii zapisu przed dokonaniem zmian." />
-    <Translation ID="LBR_CAL" String="Model kalkulacji cyklu życia" />
-    <Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor długość życia (domyślny)" />
-    <Translation ID="LBR_CAL_LEG" String="Zmodyfikowana stara żywotność(oryginalny WG mod) - krótsze życie, mniej seniorów" />
-    <Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor długość życia - mniej zmienna długość życia, odrobinę więcej seniorów" />
-    <Translation ID="LBR_SHO" String="(tylko gdy używane są modyfikacje Sunset Harbour długości życia)" />
-    <Translation ID="LBR_RET" String="Opcje wieku emerytalnego" />
-    <Translation ID="LBR_RET_USE" String="Używaj niestandardowego wieku emerytalnego" />
-    <Translation ID="LBR_RET_CUS" String="Niestandardowy wiek emerytalny" />
-    <Translation ID="LBR_RET_NT1" String="Zmniejszenie wieku emerytalnego nie zmieni statusu mieszkańców, którzy są już na emeryturze przed zmianą ustawień." />
-    <Translation ID="LBR_RET_NT2" String="Zwiększenie wieku emerytalnego nie zmieni wyglądu mieszkańców, którzy są już na emeryturze przed zmianą ustawień." />
-    <Translation ID="LBR_HEA" String="Zdrowie" />
-    <Translation ID="LBR_HEA_ILL" String="Losowy % szans na choroby w dekadzie życia" />
-    <Translation ID="LBR_HEA_ILD" String="Nie wpływa na choroby z określonych przyczyn, np. zanieczyszczenie lub hałas" />
-    <Translation ID="LBR_HEA_AGE" String="Wiek" />
-    <Translation ID="LBR_DTH" String="Zgon" />
-    <Translation ID="LBR_DTH_TRN" String="% martwych ciał wymagających transportu po śmierci" />
-    <Translation ID="LBR_DTH_TRD" String="(Domyślnie dla gry 67%, domyślnie dla modyfikacji 50%)" />
-    <Translation ID="LBR_IMM" String="Imigracja" />
-    <Translation ID="LBR_IMM_VAR" String="Zastosuj zróżnicowanie 25% dla poziomów edukacji imigrantów" />
-    <Translation ID="LBR_IMM_INC" String="Zwiększ średni poziom wykształcenia imigrantów" />
-    <Translation ID="LBR_IMM_DEC" String="Zmniejsz średni poziom wykształcenia imigrantów" />
-    <Translation ID="LBR_SET" String="Ustawienia" />
-    <Translation ID="LBR_SET_LGD" String="Rejestruj zgony w 'Lifecycle death log.txt'" />
-    <Translation ID="LBR_SET_LGI" String="Rejestruj imigrantów w 'Lifecycle immigration log.txt'" />
-    <Translation ID="LBR_SET_LGT" String="Rejestruj niestandardowe opcje transportu w 'Lifecycle transport log.txt' OSTRZEŻENIE - SPOWOLNIONE DZIAŁANIE!" />
-    <Translation ID="LBR_SET_LGS" String="Rejestruj zdarzenia dotyczące chorób w „Lifecycle disease log.txt”" />
-    <Translation ID="LBR_SPD" String="Szybkość" />
-    <Translation ID="LBR_SPD_FAC" String="Czynnik spowolnienia starzenia się obywateli w porównaniu z grą podstawową." />
-    <Translation ID="LBR_SPD_FN1" String="1 jest podstawową szybkością gry (35 tygodni w grze to 10 lat), 2 to dwa razy wolniej (70 tygodni w grze to 10 lat), 3 to trzy razy wolniej itd. Mnożnik 15 będzie oznaczał, że mieszkańcy będą się starzeć w przybliżeniu o rok w czasie każdego roku w grze." />
-    <Translation ID="LBR_SPD_FN2" String="Nie wpływa na cykle życia ani na wiek - tylko szybkość, z jaką starzeją się obywatele względem szybkości gry." />
-    <Translation ID="LBR_SPD_FN3" String="(Domyślnie dla gry 1, Domyślnie dla modyfikacji 3)" />
-    <Translation ID="LBR_TRN" String="Transport" />
-    <Translation ID="LBR_TRN_CUS" String="Użyj prawdopodobieństwa niestandardowych rodzaji pojazdów" />
-    <Translation ID="LBR_TRN_WEA" String="Poziom zamożności" />
-    <Translation ID="LBR_TRN_CAR" String="Prawdopodobieństwo użycia samochodu (%)" />
-    <Translation ID="LBR_TRN_BIK" String="Prawdopodobieństwo użycia roweru (%)" />
-    <Translation ID="LBR_TRN_TAX" String="Prawdopodobieństwo użycia taksówki (%)" />
-    <Translation ID="LBR_TRN_RLO" String="Niskie zagęszczenie" />
-    <Translation ID="LBR_TRN_RHI" String="Wysokie zagęszczenie" />
-    <Translation ID="LBR_TRN_ERL" String="Ekologiczne niskie zagęszczenie" />
-    <Translation ID="LBR_TRN_ERH" String="Ekologiczne wysokie zagęszczenie" />
-    <Translation ID="LBR_TRN_CHL" String="Dziecko" />
-    <Translation ID="LBR_TRN_TEN" String="Nastolatek" />
-    <Translation ID="LBR_TRN_YAD" String="Młody dorosły" />
-    <Translation ID="LBR_TRN_ADL" String="Dorosły" />
-    <Translation ID="LBR_TRN_SEN" String="Senior" />
-    <Translation ID="LBR_DEF" String="domyślny" />
-    <Translation ID="LBR_RTD" String="Zresetuj do ustawień domyślnych" />
-    <Translation ID="LBR_RTS" String="Przywróć do ustawień zapisanych" />
-    <Translation ID="LBR_SAA" String="Zapisz i zastosuj" />
-    <Translation ID="LBR_ZRO" String="Ustaw wszystko na 0" />
-    <Translation ID="TRN_CHOICE" String="Ustaw język" />
-    <Translation ID="TRN_SYS" String="Użyj języka systemu" />
-    <Translation ID="MES_CLS" String="Zamknij" />
-    <Translation ID="MES_DSA" String="Nie pokazuj ponownie" />
-    <Translation ID="MES_PAGE" String="Więcej informacji znajdziesz na stronie modyfikacji w Warsztacie Steam." />
-    <Translation ID="LBR_CON" String="Wykryto konflikt modyfikacji" />
-    <Translation ID="LBR_ERR_FAT" String="Oznacza to, że Lifecycle Rebalance Revisited nie może działać prawidłowo i został wyłączony." />
-    <Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited nie był w stanie dokończyć instalacji wymaganej biblioteki Harmony w aktualizacji." />
-    <Translation ID="ERR_HAR0" String="Błąd aktualizacji biblioteki Harmony!" />
-    <Translation ID="ERR_HAR1" String="Możliwe przyczyny tego problemu to:" />
-    <Translation ID="ERR_HAR2" String="Wymagana biblioteka Harmony 2 modyfikacji nie została zainstalowana" />
-    <Translation ID="ERR_HAR3" String="Przestarzała i/lub uszkodzona modyfikacja uniemożliwia prawidłowe działanie biblioteki Harmony 2" />
-    <Translation ID="ERR_CON0" String="Wykryto konflikt modyfikacji!" />
-    <Translation ID="ERR_CON1" String="Skonfliktowane modyfikacje:" />
-    <Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited wykrył konflikt z co najmniej jedną inną modyfikacją." />
-    <Translation ID="LBR_ERR_CON1" String="Te modyfikacje muszą zostać usunięte do prawidłowego działania Lifecycle Rebalance Revisited." />
-    <Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited został zaktualizowany do wersji 1.5" />
-    <Translation ID="LBR_150_NT1" String="Wybór środków transportu można teraz edytować za pomocą panelu opcji, a ekologiczne i zwykłe mieszkanie może mieć różne tryby pracy" />
-    <Translation ID="LBR_150_NT2" String="Poziom edukacji ludności wprowadzającej się do twojego miasta może być modyfikowany" />
-    <Translation ID="LBR_151_NT1" String="Dostosuj układ panelu opcji do tłumaczenia" />
-    <Translation ID="LBR_152_NT1" String="Samotni rodzice z niepełnoletnimi dziećmi mieszkającymi w domu będą chronieni przed przedwczesną śmiercią, aby zapobiec osieroconym gospodarstwom domowym" />
-    <Translation ID="LBR_152_NT2" String="Ulepszone sprawdzanie i powiadamianie o konfliktach modyfikacji" />
-    <Translation ID="LBR_152_NT3" String="Ulepszone powiadomienia o aktualizacjach" />
-  </Translations>
+	<Translations>
+		<Translation ID="LBR_NAME" String="Lifecycle Rebalance Revisited" />
+		<Translation ID="LBR_DESC" String="Zwiększa i tworzy losowość długości życia mieszkańców, generuje losowy wiek, poziom wykształcenia imigrantów oraz zmienia sposób podróżowania mieszkańców z i do pracy" />
+		<Translation ID="LBR_SPN" String="Długość życia" />
+		<Translation ID="LBR_SPN_WRN" String="Ostrzeżenie" />
+		<Translation ID="LBR_SPN_BAL" String="Zmiana ustawień podczas gry może na stałe zakłócić balans miasta." />
+		<Translation ID="LBR_SPN_BAK" String="ZALECANE wykonanie kopii zapisu przed dokonaniem zmian." />
+		<Translation ID="LBR_CAL" String="Model kalkulacji cyklu życia" />
+		<Translation ID="LBR_CAL_SUN" String="Mod Sunset Harbor długość życia (domyślny)" />
+		<Translation ID="LBR_CAL_LEG" String="Zmodyfikowana stara żywotność(oryginalny WG mod) - krótsze życie, mniej seniorów" />
+		<Translation ID="LBR_CAL_VAN" String="Vanilla Sunset Harbor długość życia - mniej zmienna długość życia, odrobinę więcej seniorów" />
+		<Translation ID="LBR_SHO" String="(tylko gdy używane są modyfikacje Sunset Harbour długości życia)" />
+		<Translation ID="LBR_RET" String="Opcje wieku emerytalnego" />
+		<Translation ID="LBR_RET_USE" String="Używaj niestandardowego wieku emerytalnego" />
+		<Translation ID="LBR_RET_CUS" String="Niestandardowy wiek emerytalny" />
+		<Translation ID="LBR_RET_NT1" String="Zmniejszenie wieku emerytalnego nie zmieni statusu mieszkańców, którzy są już na emeryturze przed zmianą ustawień." />
+		<Translation ID="LBR_RET_NT2" String="Zwiększenie wieku emerytalnego nie zmieni wyglądu mieszkańców, którzy są już na emeryturze przed zmianą ustawień." />
+		<Translation ID="LBR_HEA" String="Zdrowie" />
+		<Translation ID="LBR_HEA_ILL" String="Losowy % szans na choroby w dekadzie życia" />
+		<Translation ID="LBR_HEA_ILD" String="Nie wpływa na choroby z określonych przyczyn, np. zanieczyszczenie lub hałas" />
+		<Translation ID="LBR_HEA_AGE" String="Wiek" />
+		<Translation ID="LBR_DTH" String="Zgon" />
+		<Translation ID="LBR_DTH_TRN" String="% martwych ciał wymagających transportu po śmierci" />
+		<Translation ID="LBR_DTH_TRD" String="(Domyślnie dla gry 67%, domyślnie dla modyfikacji 50%)" />
+		<Translation ID="LBR_IMM" String="Imigracja" />
+		<Translation ID="LBR_IMM_VAR" String="Zastosuj zróżnicowanie 25% dla poziomów edukacji imigrantów" />
+		<Translation ID="LBR_IMM_INC" String="Zwiększ średni poziom wykształcenia imigrantów" />
+		<Translation ID="LBR_IMM_DEC" String="Zmniejsz średni poziom wykształcenia imigrantów" />
+		<Translation ID="LBR_SET" String="Ustawienia" />
+		<Translation ID="LBR_SET_LGD" String="Rejestruj zgony w 'Lifecycle death log.txt'" />
+		<Translation ID="LBR_SET_LGI" String="Rejestruj imigrantów w 'Lifecycle immigration log.txt'" />
+		<Translation ID="LBR_SET_LGT" String="Rejestruj niestandardowe opcje transportu w 'Lifecycle transport log.txt' OSTRZEŻENIE - SPOWOLNIONE DZIAŁANIE!" />
+		<Translation ID="LBR_SET_LGS" String="Rejestruj zdarzenia dotyczące chorób w „Lifecycle disease log.txt”" />
+		<Translation ID="LBR_SPD" String="Szybkość" />
+		<Translation ID="LBR_SPD_FAC" String="Czynnik spowolnienia starzenia się obywateli w porównaniu z grą podstawową." />
+		<Translation ID="LBR_SPD_FN1" String="1 jest podstawową szybkością gry (35 tygodni w grze to 10 lat), 2 to dwa razy wolniej (70 tygodni w grze to 10 lat), 3 to trzy razy wolniej itd. Mnożnik 15 będzie oznaczał, że mieszkańcy będą się starzeć w przybliżeniu o rok w czasie każdego roku w grze." />
+		<Translation ID="LBR_SPD_FN2" String="Nie wpływa na cykle życia ani na wiek - tylko szybkość, z jaką starzeją się obywatele względem szybkości gry." />
+		<Translation ID="LBR_SPD_FN3" String="(Domyślnie dla gry 1, Domyślnie dla modyfikacji 3)" />
+		<Translation ID="LBR_TRN" String="Transport" />
+		<Translation ID="LBR_TRN_CUS" String="Użyj prawdopodobieństwa niestandardowych rodzaji pojazdów" />
+		<Translation ID="LBR_TRN_WEA" String="Poziom zamożności" />
+		<Translation ID="LBR_TRN_CAR" String="Prawdopodobieństwo użycia samochodu (%)" />
+		<Translation ID="LBR_TRN_BIK" String="Prawdopodobieństwo użycia roweru (%)" />
+		<Translation ID="LBR_TRN_TAX" String="Prawdopodobieństwo użycia taksówki (%)" />
+		<Translation ID="LBR_TRN_RLO" String="Niskie zagęszczenie" />
+		<Translation ID="LBR_TRN_RHI" String="Wysokie zagęszczenie" />
+		<Translation ID="LBR_TRN_ERL" String="Ekologiczne niskie zagęszczenie" />
+		<Translation ID="LBR_TRN_ERH" String="Ekologiczne wysokie zagęszczenie" />
+		<Translation ID="LBR_TRN_CHL" String="Dziecko" />
+		<Translation ID="LBR_TRN_TEN" String="Nastolatek" />
+		<Translation ID="LBR_TRN_YAD" String="Młody dorosły" />
+		<Translation ID="LBR_TRN_ADL" String="Dorosły" />
+		<Translation ID="LBR_TRN_SEN" String="Senior" />
+		<Translation ID="LBR_DEF" String="domyślny" />
+		<Translation ID="LBR_RTD" String="Zresetuj do ustawień domyślnych" />
+		<Translation ID="LBR_RTS" String="Przywróć do ustawień zapisanych" />
+		<Translation ID="LBR_SAA" String="Zapisz i zastosuj" />
+		<Translation ID="LBR_ZRO" String="Ustaw wszystko na 0" />
+		<Translation ID="TRN_CHOICE" String="Ustaw język" />
+		<Translation ID="TRN_SYS" String="Użyj języka systemu" />
+		<Translation ID="MES_CLS" String="Zamknij" />
+		<Translation ID="MES_DSA" String="Nie pokazuj ponownie" />
+		<Translation ID="MES_PAGE" String="Więcej informacji znajdziesz na stronie modyfikacji w Warsztacie Steam." />
+		<Translation ID="LBR_CON" String="Wykryto konflikt modyfikacji" />
+		<Translation ID="LBR_ERR_FAT" String="Oznacza to, że Lifecycle Rebalance Revisited nie może działać prawidłowo i został wyłączony." />
+		<Translation ID="LBR_ERR_HAR" String="Lifecycle Rebalance Revisited nie był w stanie dokończyć instalacji wymaganej biblioteki Harmony w aktualizacji." />
+		<Translation ID="ERR_HAR0" String="Błąd aktualizacji biblioteki Harmony!" />
+		<Translation ID="ERR_HAR1" String="Możliwe przyczyny tego problemu to:" />
+		<Translation ID="ERR_HAR2" String="Wymagana biblioteka Harmony 2 modyfikacji nie została zainstalowana" />
+		<Translation ID="ERR_HAR3" String="Przestarzała i/lub uszkodzona modyfikacja uniemożliwia prawidłowe działanie biblioteki Harmony 2" />
+		<Translation ID="ERR_CON0" String="Wykryto konflikt modyfikacji!" />
+		<Translation ID="ERR_CON1" String="Skonfliktowane modyfikacje:" />
+		<Translation ID="LBR_ERR_CON0" String="Lifecycle Rebalance Revisited wykrył konflikt z co najmniej jedną inną modyfikacją." />
+		<Translation ID="LBR_ERR_CON1" String="Te modyfikacje muszą zostać usunięte do prawidłowego działania Lifecycle Rebalance Revisited." />
+		<Translation ID="LBR_150_TIT" String="Lifecycle Rebalance Revisited został zaktualizowany do wersji 1.5" />
+		<Translation ID="LBR_150_NT1" String="Wybór środków transportu można teraz edytować za pomocą panelu opcji, a ekologiczne i zwykłe mieszkanie może mieć różne tryby pracy" />
+		<Translation ID="LBR_150_NT2" String="Poziom edukacji ludności wprowadzającej się do twojego miasta może być modyfikowany" />
+		<Translation ID="LBR_151_NT1" String="Dostosuj układ panelu opcji do tłumaczenia" />
+		<Translation ID="LBR_152_NT1" String="Samotni rodzice z niepełnoletnimi dziećmi mieszkającymi w domu będą chronieni przed przedwczesną śmiercią, aby zapobiec osieroconym gospodarstwom domowym" />
+		<Translation ID="LBR_152_NT2" String="Ulepszone sprawdzanie i powiadamianie o konfliktach modyfikacji" />
+		<Translation ID="LBR_152_NT3" String="Ulepszone powiadomienia o aktualizacjach" />
+	</Translations>
 </Language>

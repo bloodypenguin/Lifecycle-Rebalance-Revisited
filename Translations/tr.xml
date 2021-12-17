@@ -1,86 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="tr" ReadableName="Türkçe">
-  <Translations>
-    <Translation ID="LBR_NAME" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu" />
-    <Translation ID="LBR_DESC" String="Vatandaşların yaşam süresini arttırır ve rastgele düzenler, göçmenlerin yaşlarını ve eğitim seviyelerini rastgele düzenler ve vatandaşların iş yerlerine ulaşımlarını değiştirir." />
-    <Translation ID="LBR_SPN" String="Yaşam süresi - ömür" />
-    <Translation ID="LBR_SPN_WRN" String="Uyarı" />
-    <Translation ID="LBR_SPN_BAL" String="Oyun süresince ayarları dğeiştirmek şehir dengesini geçici olarak bozabilir" />
-    <Translation ID="LBR_SPN_BAK" String="Değişimlerden önce yedekleme yapılması ŞİDDETLE tavsiye edilir." />
-    <Translation ID="LBR_CAL" String="Yaşam döngüsü hesaplama modeli" />
-    <Translation ID="LBR_CAL_SUN" String="Modifiye edilmiş Sunset Harbor (DLC) yaşam süreleri (varsayılan)" />
-    <Translation ID="LBR_CAL_LEG" String="Modifiye edilmiş eski yaşam süreleri (orijinal WG modu) - daha kısa yaşam süresi, daha az yaşlı vatandaş" />
-    <Translation ID="LBR_CAL_VAN" String="Normal Sunset Harbor (DLC) yaşam süreleri - daha az değişken yaşam süreleri, biraz daha fazla yaşlı vatandaş" />
-    <Translation ID="LBR_SHO" String="(sadece bu mod'un Sunset Harbor DLC'si için sunduğu seçenekleri kullanırken)" />
-    <Translation ID="LBR_RET" String="Emeklilik yaşı seçenekleri" />
-    <Translation ID="LBR_RET_USE" String="Özel emeklilik yaşı kullan" />
-    <Translation ID="LBR_RET_CUS" String="Özel emeklilik yaşı" />
-    <Translation ID="LBR_RET_NT1" String="Emeklilik yaşını azaltmak daha önceki ayarlarda çoktan emekli olmuş vatandaşları etkilemeyecektir." />
-    <Translation ID="LBR_RET_NT2" String="Emeklilik yaşını artırmak daha önceki ayarlarda çoktan emekli olmuş vatandaşları etkilemeyecektir." />
-    <Translation ID="LBR_HEA" String="Sağlık" />
-    <Translation ID="LBR_HEA_ILL" String="Her on senelik yaşamda rastgele hastalık çıkma %'si" />
-    <Translation ID="LBR_HEA_ILD" String="Kirlilik ve gürültü gibi spesifik nedenlerden kaynaklanan hastalıkları etkilemez." />
-    <Translation ID="LBR_HEA_AGE" String="Yaşlar" />
-    <Translation ID="LBR_DTH" String="Ölüm" />
-    <Translation ID="LBR_DTH_TRN" String="Cenaze nakli bekleyen ceset %'si" />
-    <Translation ID="LBR_DTH_TRD" String="(Oyundaki varsayılan %67, mod'da varsayılan %50)" />
-    <Translation ID="LBR_IMM" String="Göç" />
-    <Translation ID="LBR_IMM_VAR" String="Göçmen eğitim seviyelerine %25 değişkenlik uygula" />
-    <Translation ID="LBR_IMM_INC" String="Ortalama göçmen eğitim seviyesini arttır" />
-    <Translation ID="LBR_IMM_DEC" String="Ortalama göçmen eğitim seviyesini azalt" />
-    <Translation ID="LBR_SET" String="Ayarlar" />
-    <Translation ID="LBR_SET_LDT" String="Ayrıntılı hata ayıklama kayıtlarını etkinleştir" />
-    <Translation ID="LBR_SET_LGD" String="Ölümleri &quot;Lifecycle death log.txt&quot;ye kaydet" />
-    <Translation ID="LBR_SET_LGI" String="Göçmenleri &quot;Lifecycle immigration log.txt&quot;ye kaydet" />
-    <Translation ID="LBR_SET_LGT" String="Özel ulaşım tercihlerini &quot;Lifecycle transport log.txt&quot;ye kaydet - UYARI - YAVAŞ!" />
-    <Translation ID="LBR_SET_LGS" String="Hastalık olaylarını &quot;Lifecycle sickness log.txt&quot;ye kaydet" />
-    <Translation ID="LBR_SPD" String="Hız" />
-    <Translation ID="LBR_SPD_FAC" String="Vatandaşların yaşlanma hızını oyunun varsayılanına göre yavaşlatma faktörü" />
-    <Translation ID="LBR_SPD_FN1" String="Varsayılan oyun hızı 1'dir (35 oyun içi hafta 10 yıl yaşa eşittir), 2 katı yavaşı 2'dir (70 oyun içi hafta 10 yıl yaşa eşittir), 3 katı yavaşı için 3'dür ve benzeri şekilde artar. Ortalama oyun içi 1 yılda 1 yaş arttırmak 15 kata eşittir." />
-    <Translation ID="LBR_SPD_FN2" String="Yaşam döngüsünü veya yaşları etkilemez - sadece oyun hızına bağlı olarak vatandaşların ne kadar hızlı yaşlanacağını seçer." />
-    <Translation ID="LBR_SPD_FN3" String="(Oyundaki varsayılan 1, mod'da varsayılan 3)" />
-    <Translation ID="LBR_TRN" String="Ulaşım" />
-    <Translation ID="LBR_TRN_CUS" String="Özel ulaşım modu olasılıklarını kullan" />
-    <Translation ID="LBR_TRN_WEA" String="Refah seviyesi" />
-    <Translation ID="LBR_TRN_CAR" String="Araba kullanma yüzdesi (%)" />
-    <Translation ID="LBR_TRN_BIK" String="Bisiklet kullanma yüzdesi (%)" />
-    <Translation ID="LBR_TRN_TAX" String="Taksi kullanma yüzdesi (%)" />
-    <Translation ID="LBR_TRN_RLO" String="Çevreci yerleşim yüksek" />
-    <Translation ID="LBR_TRN_RHI" String="Yerleşim yüksek" />
-    <Translation ID="LBR_TRN_ERL" String="Çevreci yerleşim düşük" />
-    <Translation ID="LBR_TRN_ERH" String="Çevreci iskan yüksek" />
-    <Translation ID="LBR_TRN_CHL" String="Çocuk" />
-    <Translation ID="LBR_TRN_TEN" String="Genç" />
-    <Translation ID="LBR_TRN_YAD" String="Genç Yetişkin" />
-    <Translation ID="LBR_TRN_ADL" String="Yetişkin" />
-    <Translation ID="LBR_TRN_SEN" String="Yaşlı" />
-    <Translation ID="LBR_DEF" String="Varsayılan" />
-    <Translation ID="LBR_RTD" String="Varsayılana dön" />
-    <Translation ID="LBR_RTS" String="Kaydedilene dön" />
-    <Translation ID="LBR_SAA" String="Kaydet ve uygula" />
-    <Translation ID="LBR_ZRO" String="Her şeyi sıfıra ayarla" />
-    <Translation ID="TRN_CHOICE" String="Dili seç" />
-    <Translation ID="TRN_SYS" String="Sistem dilini kullan" />
-    <Translation ID="MES_CLS" String="Kapat" />
-    <Translation ID="MES_DSA" String="Bir daha gösterme" />
-    <Translation ID="MES_PAGE" String="Lütfen daha detaylı bilgi için mod'un Steam Atölye sayfasını ziyaret edin" />
-    <Translation ID="LBR_CON" String="Mod çakışması saptandı" />
-    <Translation ID="LBR_ERR_FAT" String="Bu, Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu'nun düzgün çalışamayacağı ve çalışmayı durduğu anlamına gelmektedir." />
-    <Translation ID="LBR_ERR_HAR" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu gerekli Harmony yamalarını tamamlayamadı." />
-    <Translation ID="ERR_HAR0" String="Harmony yamalama hatası!" />
-    <Translation ID="ERR_HAR1" String="Bu problemin olağan nedenleri şunları içermektedir:" />
-    <Translation ID="ERR_HAR2" String="Gerekli Harmony 2 mod bağımlılığı yüklenmedi" />
-    <Translation ID="ERR_HAR3" String="Eski ve/veya bozuk bir mod Harmony 2'nin düzgün çalışmasını engelliyor" />
-    <Translation ID="ERR_CON0" String="Mod çakışması saptandı!" />
-    <Translation ID="ERR_CON1" String="Çakışan mod'lar:" />
-    <Translation ID="LBR_ERR_CON0" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu en az bir başka mod'la çakışma saptadı." />
-    <Translation ID="LBR_ERR_CON1" String=" Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu'nun düzgün çalışabilmesi için bu modların kaldırılması gerekmektedir." />
-    <Translation ID="LBR_150_TIT" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu 1.5 versiyonuna güncellenmiştir" />
-    <Translation ID="LBR_150_NT1" String="Ulaşım modu seçenekler artık seçenekler panelinden değiştirillebilecektir. Çevreci ve normal yerleşimler artık ayrı seçeneklere sahipler." />
-    <Translation ID="LBR_150_NT2" String="Şehre göç eden insanların eğitim seviyeleri değiştirilebilir." />
-    <Translation ID="LBR_151_NT1" String="Seçenekler panelinin düzenini çeviriler için ayarla" />
-    <Translation ID="LBR_152_NT1" String="Ebeveynsiz evler olmaması için reşit olmayan çocuklu ebeveynler erken ölmeyecektir." />
-    <Translation ID="LBR_152_NT2" String="Mod çakışması kontrolü ve bildirimi iyileştirildi." />
-    <Translation ID="LBR_152_NT3" String="Güncelleme bildirimleri iyileştirildi." />
-  </Translations>
+	<Translations>
+		<Translation ID="LBR_NAME" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu" />
+		<Translation ID="LBR_DESC" String="Vatandaşların yaşam süresini arttırır ve rastgele düzenler, göçmenlerin yaşlarını ve eğitim seviyelerini rastgele düzenler ve vatandaşların iş yerlerine ulaşımlarını değiştirir." />
+		<Translation ID="LBR_SPN" String="Yaşam süresi - ömür" />
+		<Translation ID="LBR_SPN_WRN" String="Uyarı" />
+		<Translation ID="LBR_SPN_BAL" String="Oyun süresince ayarları dğeiştirmek şehir dengesini geçici olarak bozabilir" />
+		<Translation ID="LBR_SPN_BAK" String="Değişimlerden önce yedekleme yapılması ŞİDDETLE tavsiye edilir." />
+		<Translation ID="LBR_CAL" String="Yaşam döngüsü hesaplama modeli" />
+		<Translation ID="LBR_CAL_SUN" String="Modifiye edilmiş Sunset Harbor (DLC) yaşam süreleri (varsayılan)" />
+		<Translation ID="LBR_CAL_LEG" String="Modifiye edilmiş eski yaşam süreleri (orijinal WG modu) - daha kısa yaşam süresi, daha az yaşlı vatandaş" />
+		<Translation ID="LBR_CAL_VAN" String="Normal Sunset Harbor (DLC) yaşam süreleri - daha az değişken yaşam süreleri, biraz daha fazla yaşlı vatandaş" />
+		<Translation ID="LBR_SHO" String="(sadece bu mod'un Sunset Harbor DLC'si için sunduğu seçenekleri kullanırken)" />
+		<Translation ID="LBR_RET" String="Emeklilik yaşı seçenekleri" />
+		<Translation ID="LBR_RET_USE" String="Özel emeklilik yaşı kullan" />
+		<Translation ID="LBR_RET_CUS" String="Özel emeklilik yaşı" />
+		<Translation ID="LBR_RET_NT1" String="Emeklilik yaşını azaltmak daha önceki ayarlarda çoktan emekli olmuş vatandaşları etkilemeyecektir." />
+		<Translation ID="LBR_RET_NT2" String="Emeklilik yaşını artırmak daha önceki ayarlarda çoktan emekli olmuş vatandaşları etkilemeyecektir." />
+		<Translation ID="LBR_HEA" String="Sağlık" />
+		<Translation ID="LBR_HEA_ILL" String="Her on senelik yaşamda rastgele hastalık çıkma %'si" />
+		<Translation ID="LBR_HEA_ILD" String="Kirlilik ve gürültü gibi spesifik nedenlerden kaynaklanan hastalıkları etkilemez." />
+		<Translation ID="LBR_HEA_AGE" String="Yaşlar" />
+		<Translation ID="LBR_DTH" String="Ölüm" />
+		<Translation ID="LBR_DTH_TRN" String="Cenaze nakli bekleyen ceset %'si" />
+		<Translation ID="LBR_DTH_TRD" String="(Oyundaki varsayılan %67, mod'da varsayılan %50)" />
+		<Translation ID="LBR_IMM" String="Göç" />
+		<Translation ID="LBR_IMM_VAR" String="Göçmen eğitim seviyelerine %25 değişkenlik uygula" />
+		<Translation ID="LBR_IMM_INC" String="Ortalama göçmen eğitim seviyesini arttır" />
+		<Translation ID="LBR_IMM_DEC" String="Ortalama göçmen eğitim seviyesini azalt" />
+		<Translation ID="LBR_SET" String="Ayarlar" />
+		<Translation ID="LBR_SET_LDT" String="Ayrıntılı hata ayıklama kayıtlarını etkinleştir" />
+		<Translation ID="LBR_SET_LGD" String="Ölümleri &quot;Lifecycle death log.txt&quot;ye kaydet" />
+		<Translation ID="LBR_SET_LGI" String="Göçmenleri &quot;Lifecycle immigration log.txt&quot;ye kaydet" />
+		<Translation ID="LBR_SET_LGT" String="Özel ulaşım tercihlerini &quot;Lifecycle transport log.txt&quot;ye kaydet - UYARI - YAVAŞ!" />
+		<Translation ID="LBR_SET_LGS" String="Hastalık olaylarını &quot;Lifecycle sickness log.txt&quot;ye kaydet" />
+		<Translation ID="LBR_SPD" String="Hız" />
+		<Translation ID="LBR_SPD_FAC" String="Vatandaşların yaşlanma hızını oyunun varsayılanına göre yavaşlatma faktörü" />
+		<Translation ID="LBR_SPD_FN1" String="Varsayılan oyun hızı 1'dir (35 oyun içi hafta 10 yıl yaşa eşittir), 2 katı yavaşı 2'dir (70 oyun içi hafta 10 yıl yaşa eşittir), 3 katı yavaşı için 3'dür ve benzeri şekilde artar. Ortalama oyun içi 1 yılda 1 yaş arttırmak 15 kata eşittir." />
+		<Translation ID="LBR_SPD_FN2" String="Yaşam döngüsünü veya yaşları etkilemez - sadece oyun hızına bağlı olarak vatandaşların ne kadar hızlı yaşlanacağını seçer." />
+		<Translation ID="LBR_SPD_FN3" String="(Oyundaki varsayılan 1, mod'da varsayılan 3)" />
+		<Translation ID="LBR_TRN" String="Ulaşım" />
+		<Translation ID="LBR_TRN_CUS" String="Özel ulaşım modu olasılıklarını kullan" />
+		<Translation ID="LBR_TRN_WEA" String="Refah seviyesi" />
+		<Translation ID="LBR_TRN_CAR" String="Araba kullanma yüzdesi (%)" />
+		<Translation ID="LBR_TRN_BIK" String="Bisiklet kullanma yüzdesi (%)" />
+		<Translation ID="LBR_TRN_TAX" String="Taksi kullanma yüzdesi (%)" />
+		<Translation ID="LBR_TRN_RLO" String="Çevreci yerleşim yüksek" />
+		<Translation ID="LBR_TRN_RHI" String="Yerleşim yüksek" />
+		<Translation ID="LBR_TRN_ERL" String="Çevreci yerleşim düşük" />
+		<Translation ID="LBR_TRN_ERH" String="Çevreci iskan yüksek" />
+		<Translation ID="LBR_TRN_CHL" String="Çocuk" />
+		<Translation ID="LBR_TRN_TEN" String="Genç" />
+		<Translation ID="LBR_TRN_YAD" String="Genç Yetişkin" />
+		<Translation ID="LBR_TRN_ADL" String="Yetişkin" />
+		<Translation ID="LBR_TRN_SEN" String="Yaşlı" />
+		<Translation ID="LBR_DEF" String="Varsayılan" />
+		<Translation ID="LBR_RTD" String="Varsayılana dön" />
+		<Translation ID="LBR_RTS" String="Kaydedilene dön" />
+		<Translation ID="LBR_SAA" String="Kaydet ve uygula" />
+		<Translation ID="LBR_ZRO" String="Her şeyi sıfıra ayarla" />
+		<Translation ID="TRN_CHOICE" String="Dili seç" />
+		<Translation ID="TRN_SYS" String="Sistem dilini kullan" />
+		<Translation ID="MES_CLS" String="Kapat" />
+		<Translation ID="MES_DSA" String="Bir daha gösterme" />
+		<Translation ID="MES_PAGE" String="Lütfen daha detaylı bilgi için mod'un Steam Atölye sayfasını ziyaret edin" />
+		<Translation ID="LBR_CON" String="Mod çakışması saptandı" />
+		<Translation ID="LBR_ERR_FAT" String="Bu, Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu'nun düzgün çalışamayacağı ve çalışmayı durduğu anlamına gelmektedir." />
+		<Translation ID="LBR_ERR_HAR" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu gerekli Harmony yamalarını tamamlayamadı." />
+		<Translation ID="ERR_HAR0" String="Harmony yamalama hatası!" />
+		<Translation ID="ERR_HAR1" String="Bu problemin olağan nedenleri şunları içermektedir:" />
+		<Translation ID="ERR_HAR2" String="Gerekli Harmony 2 mod bağımlılığı yüklenmedi" />
+		<Translation ID="ERR_HAR3" String="Eski ve/veya bozuk bir mod Harmony 2'nin düzgün çalışmasını engelliyor" />
+		<Translation ID="ERR_CON0" String="Mod çakışması saptandı!" />
+		<Translation ID="ERR_CON1" String="Çakışan mod'lar:" />
+		<Translation ID="LBR_ERR_CON0" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu en az bir başka mod'la çakışma saptadı." />
+		<Translation ID="LBR_ERR_CON1" String=" Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu'nun düzgün çalışabilmesi için bu modların kaldırılması gerekmektedir." />
+		<Translation ID="LBR_150_TIT" String="Yaşam Döngüsü Dengesi - Tekrar Düzenlenmiş Versiyonu 1.5 versiyonuna güncellenmiştir" />
+		<Translation ID="LBR_150_NT1" String="Ulaşım modu seçenekler artık seçenekler panelinden değiştirillebilecektir. Çevreci ve normal yerleşimler artık ayrı seçeneklere sahipler." />
+		<Translation ID="LBR_150_NT2" String="Şehre göç eden insanların eğitim seviyeleri değiştirilebilir." />
+		<Translation ID="LBR_151_NT1" String="Seçenekler panelinin düzenini çeviriler için ayarla" />
+		<Translation ID="LBR_152_NT1" String="Ebeveynsiz evler olmaması için reşit olmayan çocuklu ebeveynler erken ölmeyecektir." />
+		<Translation ID="LBR_152_NT2" String="Mod çakışması kontrolü ve bildirimi iyileştirildi." />
+		<Translation ID="LBR_152_NT3" String="Güncelleme bildirimleri iyileştirildi." />
+	</Translations>
 </Language>
