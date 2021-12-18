@@ -70,7 +70,7 @@ namespace LifecycleRebalance
                 {
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
-                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % (15 * DataStore.lifeSpanMultiplier) == 0))  // Workspeed multiplier
+                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % 15 == 0))
                 {
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
