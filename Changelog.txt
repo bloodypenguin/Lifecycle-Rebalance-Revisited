@@ -1,4 +1,9 @@
-﻿Version 1.6
+﻿Version 1.6.0.1 hotfix
+
+- Fix university student progression speed when using age speeds above unity
+
+
+Version 1.6
 
 - MAJOR NEW FEATURE: realistic early life ageing and progress, from early childhood to young adult (optional, customizable)
 - New early life ageing is matched to real-world values and stages and includes a pre-school stage of life (young children)
