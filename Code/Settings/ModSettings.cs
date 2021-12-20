@@ -265,7 +265,7 @@ namespace LifecycleRebalance
         [XmlElement("SchoolStartYear")]
         public int SchoolStartYear
         {
-            get => (int)(schoolStartAge / AgePerYear);
+            get => Mathf.RoundToInt(schoolStartAge / AgePerYear);
 
             // Clamp age before assigning.
             set => schoolStartAge = (int)(Mathf.Clamp(value, MinSchoolStartYear, MaxSchoolStartYear) * AgePerYear);
@@ -278,7 +278,7 @@ namespace LifecycleRebalance
         [XmlElement("TeenStartYear")]
         public int TeenStartYear
         {
-            get => (int)(teenStartAge / AgePerYear);
+            get => Mathf.RoundToInt(teenStartAge / AgePerYear);
 
             // Clamp age before assigning.
             set => teenStartAge = (int)(Mathf.Clamp(value, MinTeenStartYear, MaxTeenStartYear) * AgePerYear);
@@ -291,7 +291,7 @@ namespace LifecycleRebalance
         [XmlElement("YoungStartYear")]
         public int YoungStartYear
         {
-            get => (int)(youngStartAge / AgePerYear);
+            get => Mathf.RoundToInt(youngStartAge / AgePerYear);
 
             // Clamp age before assigning.
             set => youngStartAge = (int)(Mathf.Clamp(value, MinYoungStartYear, MaxYoungStartYear) * AgePerYear);
