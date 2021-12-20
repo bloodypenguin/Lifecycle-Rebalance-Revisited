@@ -71,6 +71,20 @@ namespace LifecycleRebalance
                 vanillaCheckBox = AddPlainCheckBox(panel, "LBR_CAL_VAN", !ModSettings.Settings.VanillaCalcs);
                 vanillaCheckBox.label.textScale = 1.0f;
 
+                // Set calculation model initial states.
+                if (ModSettings.Settings.VanillaCalcs)
+                {
+                    vanillaCheckBox.isChecked = ModSettings.Settings.VanillaCalcs;
+                }
+                else if (ModSettings.Settings.LegacyCalcs)
+                {
+                    legacyCheckBox.isChecked = ModSettings.Settings.LegacyCalcs;
+                }
+                else
+                {
+                    sunsetCheckBox.isChecked = true;
+                }
+
                 // Custom retirement ages.
                 AddTitle(panel, "LBR_RET", titleFont, maxWidth);
                 retireCheckBox = AddPlainCheckBox(panel, "LBR_RET_USE", ModSettings.Settings.CustomRetirement);
@@ -118,6 +132,9 @@ namespace LifecycleRebalance
                 schoolStartSlider.parent.isVisible = childCheckBox.isChecked;
                 teenStartSlider.parent.isVisible = childCheckBox.isChecked;
                 youngStartSlider.parent.isVisible = childCheckBox.isChecked;
+
+                // Update our checkbox states visibility status based on current settings.
+                UpdateVisibility(ModSettings.Settings.VanillaCalcs ? 2 : ModSettings.Settings.LegacyCalcs ? 1 : 0);
 
                 // Event handlers (here so other controls referenced are all set up prior to referencing in handlers).
                 sunsetCheckBox.eventCheckChanged += (control, isChecked) =>
@@ -181,9 +198,6 @@ namespace LifecycleRebalance
                     teenStartSlider.parent.isVisible = isChecked;
                     youngStartSlider.parent.isVisible = isChecked;
                 };
-
-                // Update our visibility status based on current settings.
-                UpdateVisibility(ModSettings.Settings.VanillaCalcs ? 2 : ModSettings.Settings.LegacyCalcs ? 1 : 0);
             }
         }
 
@@ -260,7 +274,6 @@ namespace LifecycleRebalance
             }
             else
             {
-                // Vanilla calcs selected.
                 ModSettings.Settings.VanillaCalcs = true;
             }
         }
