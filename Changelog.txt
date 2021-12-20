@@ -1,4 +1,6 @@
-﻿- Force JITter to not inline ResidentAI.UpdateWorkplace Prefix.
+﻿Version 1.6.0.3 hotfix
+
+- Force JITter to not inline ResidentAI.UpdateWorkplace Prefix.
 
 
 Version 1.6.0.2 hotfix
