@@ -218,6 +218,7 @@ namespace LifecycleRebalance
         /// <returns>False (stop execution of original method) if the citizen is too young to go to school, true (execute original method) otherwise</returns>
         [HarmonyPatch("UpdateWorkplace")]
         [HarmonyPrefix]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static bool UpdateWorkplace(ref Citizen data)
         {
             // Is this a young child?
