@@ -1,4 +1,5 @@
-﻿
+﻿Version 1.6.0.2 hotfix
+
 - Fix calculation mode checkboxes sometimes showing incorrect settings when Vanilla settings are active
 - Fix childhood slider year-to-age-unit rounding.
 
