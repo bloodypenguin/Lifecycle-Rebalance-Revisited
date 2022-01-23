@@ -100,7 +100,7 @@ namespace LifecycleRebalance
         /// Language code.
         /// </summary>
         [XmlElement("Language")]
-        public string XMLLanguage { get => Translations.Language; set => Translations.Language = value; }
+        public string XMLLanguage { get => Translations.CurrentLanguage; set => Translations.CurrentLanguage = value; }
 
         /// <summary>
         /// What's new notification version.

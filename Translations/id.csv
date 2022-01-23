@@ -1,0 +1,83 @@
+CODE,id
+NAME,Bahasa Indonesia
+LBR_NAME,Lifecycle Rebalance Revisited
+LBR_DESC,"Menambahkan dan mengacakkan masa hidup warga, mengacakkan umur dan tingkat kependidikan para imigran, dan mengubah cara warga bepergian ke dan dari tempat kerja."
+LBR_SPN,Masa hidup
+LBR_SPN_WRN,Peringatan
+LBR_SPN_BAL,Mengubah pengaturan saat di dalam permainan dapat mengganggu keseimbangan kota untuk sementara.
+LBR_SPN_BAK,Menyimpan backup sebelum mengubahkannya SANGAT direkomendasikan.
+LBR_CAL,Rumus kalkulasi masa hidup
+LBR_CAL_SUN,Masa hidup mod Sunset Harbor (setelan standar)
+LBR_CAL_LEG,"Masa hidup mod legacy (mod WG asli) - masa hidup lebih pendek, lebih sedikit lansia"
+LBR_CAL_VAN,"Masa hidup Vanilla Sunset Harbor - lebih sedikit masa hidup acak, sedikit lebih banyak lansia"
+LBR_SHO,(hanya jika menggunakan masa hidup mod Sunset Harbor)
+LBR_RET,Opsi umur pensiun
+LBR_RET_USE,Gunakan umur pensiun khusus
+LBR_RET_CUS,Umur pensiun khusus
+LBR_RET_NT1,Mengurangi umur pensiun tidak akan mengubah status warga yang telah pensiun karena pengaturan sebelumnya.
+LBR_RET_NT2,Menambah umur pensiun tidak akan mengubah penampilan warga yang telah pensiun karena pengaturan sebelumnya.
+LBR_HEA,Kesehatan
+LBR_HEA_ILL,Persentase peluang penyakit acak per dekade umur
+LBR_HEA_ILD,"Tidak akan memengaruhi penyakit dengan sebab spesifik, seperti penyakit dari polusi atau kebisingan"
+LBR_HEA_AGE,Umur
+LBR_DTH,Kematian
+LBR_DTH_TRN,Persentase mayat yang memerlukan transportasi
+LBR_DTH_TRD,"(Standar game 67%, standar mod 50%)"
+LBR_IMM,Imigran
+LBR_IMM_VAR,Gunakan variasi 25% untuk tingkat pendidikan imigran
+LBR_IMM_INC,Tambahkan tingkat pendidikan rata-rata imigran
+LBR_IMM_DEC,Kurangkan tingkat pendidikan rata-rata imigran
+LBR_SET,Pengaturan
+LBR_SET_LDT,Aktifkan pencatatan debug secara detail
+LBR_SET_LGD,"Catatkan kematian ke ""Lifecycle death log.txt"""
+LBR_SET_LGI,"Catatkan imigran ke ""Lifecycle immgiration log.txt"""
+LBR_SET_LGT,"Catatkan pilihan transportasi khusus ke ""Lifecycle transport log.txt"" AWAS - AKAN MELABATKAN GAME!"
+LBR_SET_LGS,"Catatkan peristiwa penyakit ke ""Lifecycle sickness log.txt"""
+LBR_SPD,Kecepatan
+LBR_SPD_FAC,"Faktor untuk melambatkan penambahan umur warga, dibandingkan dengan game tanpa mod ini"
+LBR_SPD_FN1,"1 adalah kecepatan game biasa (35 minggu game sama dengan umur 10 tahun), 2 adalah 2 kali lebih lambat (70 minggu game sama dengan umur 10 tahun), 3 adalah 3 kali lebih lambat, dan seterusnya. Nilai 15 berarti warga akan menambah umur 1 tahun untuk setiap tahun di dalam game."
+LBR_SPD_FN2,Tidak mengubah siklus hidup atau umur - hanya kecepatan penambahan umur warga dibandingkan dengan kecepatan game.
+LBR_SPD_FN3,"(Standar game 1, standar mod 3)"
+LBR_TRN,Transportasi
+LBR_TRN_CUS,Gunakan peluang mode transportasi khusus
+LBR_TRN_WEA,Tingkat kekayaan
+LBR_TRN_CAR,Peluang mobil digunakan (%)
+LBR_TRN_BIK,Peluang sepeda digunakan (%)
+LBR_TRN_TAX,Peluang taksi digunakan (%)
+LBR_TRN_RLO,Perumahan kepadatan rendah
+LBR_TRN_RHI,Perumahan kepadatan tinggi
+LBR_TRN_ERL,Perumahan eco kepadatan rendah
+LBR_TRN_ERH,Perumahan eco kepadatan tinggi
+LBR_TRN_CHL,Anak
+LBR_TRN_TEN,Remaja
+LBR_TRN_YAD,Dewasa muda
+LBR_TRN_ADL,Dewasa
+LBR_TRN_SEN,Lansia
+LBR_DEF,standar
+LBR_RTD,Reset kembali ke standar
+LBR_RTS,Kembalikan ke yang tersimpan
+LBR_SAA,Simpan dan terapkan
+LBR_ZRO,Set semua ke nol
+TRN_CHOICE,Set bahasa
+TRN_SYS,Gunakan bahasa sistem
+MES_CLS,Tutup
+MES_DSA,Jangan perlihatkan lagi
+MES_PAGE,Mohon lihat halaman Steam Workshop mod ini untuk informasi lebih lanjut.
+LBR_CON,Konflik mod terdeteksi
+LBR_ERR_FAT,"Artinya, Lifecycle Rebalance Revisited tidak dapat beroperasi dengan seharusnya dan telah dimatikan."
+LBR_ERR_HAR,Lifecycle Rebalance Revisited tidak dapat melakukan patch Harmony yang diperlukan.
+ERR_HAR0,Error patch Harmony!
+ERR_HAR1,"Terdapat beberapa kemungkinan sebab dari masalah ini, termasuk:"
+ERR_HAR2,Mod ketergantungan Harmony 2 yang diperlukan tidak diinstal
+ERR_HAR3,Harmony 2 tidak bisa beroperasi dengan semestinya karena sebuah mod lainnya yang tua dan/atau rusak.
+ERR_CON0,Konflik mod terdeteksi!
+ERR_CON1,Mod yang berkonflik adalah sebagai berikut:
+LBR_ERR_CON0,Lifecycle Rebalance Visited telah mendeteksi sebuah konflik dengan setidaknya satu mod lain.
+LBR_ERR_CON1,Mod-mod berikut ini harus dihapus sebelum Lifecycle Rebalance Revisited dapat beroperasi.
+LBR_150_TIT,Lifecycle Rebalance Visited telah diperbarui ke versi 1.5
+LBR_150_NT1,"Pilihan moda transportasi sekarang dapat diedit via panel pengaturan, dan perumahan biasa dan eco dapat memiliki pilihan moda yang berbeda."
+LBR_150_NT2,Tingkat kependidikan orang yang pindah ke kota anda dapat diubah.
+LBR_151_NT1,Ubah layout panel pengaturan untuk terjemahan
+LBR_152_NT1,"Orang tua tunggal dengan anak di bawah umur akan diselamatkan dari kematian dini, untuk mencegah adanya rumah tangga anak yatim"
+LBR_152_NT2,Perbaikan pengecekan dan notifikasi konflik mod
+LBR_152_NT3,Perbaikan notifikasi pembaruan

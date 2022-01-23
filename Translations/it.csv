@@ -1,0 +1,85 @@
+CODE,it
+NAME,Italiano
+LBR_NAME,Lifecycle Rebalance Revisited
+LBR_DESC,"Aumenta la durata di vita delle persone e la rende casuale, rende casuale anche l'età e il livello di educazione degli immigrati, e cambia il modo in cui i cittadini vanno e ritornano dal lavoro"
+LBR_SPN,Durata di vita
+LBR_SPN_WRN,Attenzione
+LBR_SPN_BAL,Cambiare le impostazioni durante una partita potrebbe momentaneamente alterare l'equilibrio della città.
+LBR_SPN_BAK,Effettuare un Backup prima di apportare modifiche è ALTAMENTE consigliato.
+LBR_CAL,Modello di calcolo del ciclo di vita
+LBR_CAL_SUN,Durate di vita di Sunset Harbor (predefinito)
+LBR_CAL_LEG,"Durate di vita legacy (mod WG originale) - durate di vita più corta, meno anziani"
+LBR_CAL_VAN,"Durate di vita di Vanilla Sunset Harbor - durate di vita meno variabili, un po' più anziani"
+LBR_SHO,(solo quando si usano le durate di vita di Sunset Harbor)
+LBR_RET,Opzioni sull'età di pensionamento
+LBR_RET_USE,Usa un'età di pensionamento personalizzata
+LBR_RET_CUS,Età di pensionamento personalizzata
+LBR_RET_NT1,Diminuire l'età di pensionamento non cambierà lo stato dei cittadini che si sono già pensionati con le impostazioni precedenti.
+LBR_RET_NT2,Aumentare l'età di pensionamento non cambierà l'apparenza dei cittadini che si sono già pensionati con le impostazioni precedenti.
+LBR_HEA,Salute
+LBR_HEA_ILL,Percentuale casuale di malattia per decennio di vita
+LBR_HEA_ILD,"Non causare malattie per cause specifiche, es. inquinamento (pollution) o rumore (noise)"
+LBR_HEA_AGE,Età
+LBR_DTH,Morte
+LBR_DTH_TRN,Percentuale di corpi morti che richiedono di essere trasportati
+LBR_DTH_TRD,"(Predefinito del gioco 67%, predefinito della mod 50%)"
+LBR_IMM,Immigrazione
+LBR_IMM_VAR,Applica il 25% di variazione ai livelli di educazione degli immigrati
+LBR_IMM_INC,Aumenta la media dei livelli di educazone degli immigrati
+LBR_IMM_DEC,Diminuisci la media dei livelli di educazone degli immigrati
+LBR_SET,Impostazioni
+LBR_SET_LDT,Abilita registrazione dettagliata di debug
+LBR_SET_LGD,Registra le morti su 'Lifecycle death log.txt'
+LBR_SET_LGI,Registra gli immigrati su 'Lifecycle immigration log.txt'
+LBR_SET_LGT,Registra le scelte di trasporto personalizzate su 'Lifecycle transport log.txt' ATTENZIONE - LENTO!
+LBR_SET_LGS,Registra gli eventi di malattia su 'Lifecycle sickness log.txt'
+LBR_SPD,Velocità
+LBR_SPD_FAC,"Fattore per rallentare l'invecchiamento dei cittadini, rispetto al gioco base."
+LBR_SPD_FN1,"1 è la velocità del gioco base (35 settimane-nel-gioco equivalgono a 10 anni di età), 2 è il doppio più lento (70 settimane-nel-gioco per 10 anni di età), 3 è tre volte più lento, ecc... 15 significa che i cittadini invecchieranno di circa un anno ogni anno-nel-gioco."
+LBR_SPD_FN2,Non influisce sui cicli vitali o età - solo la velocità a cui i cittadini invecchiano relativamente alla velocità del gioco.
+LBR_SPD_FN3,"(Predefinito del gioco 1, predefinito della mod 3)"
+LBR_TRN,Trasporto
+LBR_TRN_CUS,Usa le probabilità di modalità di trasporto personalizzate
+LBR_TRN_WEA,Livello di ricchezza
+LBR_TRN_CAR,Probabilità di uso dell'auto (%)
+LBR_TRN_BIK,Probabilità di uso della bici (%)
+LBR_TRN_TAX,Probabilità di uso del taxi (%)
+LBR_TRN_RLO,Residenziale basso (Residential low)
+LBR_TRN_RHI,Residenziale alto (Residential high)
+LBR_TRN_ERL,Eco residenziale basso (Eco residential low)
+LBR_TRN_ERH,Eco residenziale alto (Eco residential high)
+LBR_TRN_CHL,Bambino
+LBR_TRN_TEN,Adolescente
+LBR_TRN_YAD,Giovane adulto
+LBR_TRN_ADL,Adulto
+LBR_TRN_SEN,Anziano
+LBR_DEF,Predefinito
+LBR_RTD,Ripristina alle condizioni originali
+LBR_RTS,Ritorna al precedentemente salvato
+LBR_SAA,Salva e Applica
+LBR_ZRO,Imposta tutto a zero
+TRN_CHOICE,Imposta lingua (Set Language)
+TRN_SYS,Usa la lingua di sistema
+MES_CLS,Chiudi
+MES_DSA,Non mostrare più
+MES_PAGE,Per favore riferisciti alla pagina del Steam Workshop della mod per maggiori informazioni.
+LBR_CON,Conflitto tra mod rilevato
+LBR_ERR_FAT,Questo significa che Lifecycle Rebalance Revisited non è capace di funzionare correttamente ed è stata disattivata.
+LBR_ERR_HAR,Lifecycle Rebalance Revisited non è stata capace di completare i necessari patch di Harmony.
+ERR_HAR0,Errore nel patchare Harmony!
+ERR_HAR1,Le possibili cause di questo problema includono:
+ERR_HAR2,Harmony 2 mod dependency non è stata installata
+ERR_HAR3,Una vecchia e/o rotta mod non sta permettendo ad Harmony 2 di funzionare correttamente
+ERR_CON0,Conflitto tra mod rilevato!
+ERR_CON1,Le cause di conflitto sono:
+LBR_ERR_CON0,Lifecycle Rebalance Revisited ha rilevato un conflitto con almeno un'altra mod.
+LBR_ERR_CON1,Queste mod dovrebbero essere rimosse prima che Lifecycle Rebalance Revisited possa funzionare.
+LBR_150_TIT,Lifecycle Rebalance Revisited è stato aggiornato alla versione 1.5
+LBR_150_NT1,"Le scelte della modalità di trasporto possono ora essere modificate tramite il pannello delle opzioni, residenziale ordinario ed eco possono avere diverse scelte di modalità"
+LBR_150_NT2,Il livello di educazione delle persone che si spostano nella tua città può essere modificato 
+LBR_151_NT1,Regola il layout del pannello delle opzioni per le traduzioni
+LBR_152_NT1,"I genitori single con figli minorenni che vivono a casa non moriranno di morte prematura, per aiutare a prevenire case con orfani."
+LBR_152_NT2,Migliorato il controllo di conflitti tra mod
+LBR_152_NT3,Migliorate le notifiche di aggiornamento
+LBR_154_NT1,Cambiare il trattamento della morte di un genitore singolo: rimuovere i bambini orfani quando muoiono entrambi i genitori (invece di evitare che il genitore singolo muoia)
+LBR_154_NT2,Aggiungere il codice per controllare e rimuovere i residenti d'edificio con dati non validi

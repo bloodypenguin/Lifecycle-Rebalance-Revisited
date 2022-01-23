@@ -1,0 +1,83 @@
+CODE,nl
+NAME,Nederlands
+LBR_NAME,Lifecycle Rebalance Revisited
+LBR_DESC,"Verlengt en varieert de levensduur van inwoners, wijst immigranten een willekeurige opleidingsniveau en leeftijd toe en verandert hoe inwoners van en naar werk reizen. "
+LBR_SPN,Levensduur
+LBR_SPN_WRN,Waarschuwing
+LBR_SPN_BAL,Het aanpassen van instellingen in een bestaand spel kan de balans van je stad tijdelijk verstoren.
+LBR_SPN_BAK,ZEER aangeraden: maak een backup van je stad voordat je aanpassingen maakt!
+LBR_CAL,Levenscyclus model
+LBR_CAL_SUN,Mod Sunset Harbor levenscyclus (standaard)
+LBR_CAL_LEG,"Mod legacy levenscyclus (originele WG Mod) - Kortere levenscyclus, minder senioren"
+LBR_CAL_VAN,"Vanilla Sunset Harbor levenscyclus - Minder variabele levenscyclussen, iets meer senioren"
+LBR_SHO,(alleen van toepassing bij `Mod Sunset Harbor levenscyclus`)
+LBR_RET,Opties voor pensioenleeftijd
+LBR_RET_USE,Gebruik aangepaste pensioenleeftijd
+LBR_RET_CUS,Aangepaste pensioenleeftijd
+LBR_RET_NT1,Het instellen van een lagere pensioenleeftijd heeft geen invloed op de huidige status van inwoners die al met pensioen zijn
+LBR_RET_NT2,Het instellen van een hogere pensioenleeftijd heeft geen invloed op het uiterlijk van inwoners die al met pensioen zijn
+LBR_HEA,Gezondheid
+LBR_HEA_ILL,Willekeurige kans op ziekte in % per 10 jaar
+LBR_HEA_ILD,"Heeft geen invloed op ziektes met externe oorzaak zoals vervuiling, geluidsoverlast etc."
+LBR_HEA_AGE,Leeftijden
+LBR_DTH,Dood
+LBR_DTH_TRN,% overledenen wachtend op transport
+LBR_DTH_TRD,"(Standaard game: 67%, Standaard mod: 50%)"
+LBR_IMM,Immigratie
+LBR_IMM_VAR,Pas 25% variatie toe op opleidingsniveau van immigranten
+LBR_IMM_INC,Vergroot het gemiddelde opleidingsniveau van immigranten
+LBR_IMM_DEC,Verminder het gemiddelde opleidingsniveau van immigranten
+LBR_SET,Instellingen
+LBR_SET_LDT,Schakel gedetailleerde fout-logging in
+LBR_SET_LGD,Log sterfte naar 'Lifecycle death log.txt'
+LBR_SET_LGI,Log immigratie naar 'Lifecycle immigration log.txt'
+LBR_SET_LGT,"Log aangepaste transportkeuzes vast in 'Lifecycle transport log.txt', LET OP - VERTRAAGT SPEL!"
+LBR_SET_LGS,Log ziektegevallen in 'Lifecycle sickness log.txt'
+LBR_SPD,Snelheid
+LBR_SPD_FAC,Factor om de veroudering van inwoners te vertragen t.o.v. standaard
+LBR_SPD_FN1,"1' = standaard snelheid (35 in-game weken = 10 levensjaren), '2' = 1/2 snelheid (70 in-game weken = 10 levensjaren), '3' = 1/3 snelheid, etc. Indien '15', geeft dit ong. 1 in-game jaar = 1 levensjaar."
+LBR_SPD_FN2,Heeft geen invloed op levenscyclus of leeftijd - alleen de verouderingssnelheid van inwoners t.o.v. de spelsnelheid
+LBR_SPD_FN3,"(Standaard instelling spel: 1, Standaard van mod: 3)"
+LBR_TRN,Transport
+LBR_TRN_CUS,Gebruik aangepaste kansen transportvormen
+LBR_TRN_WEA,Niveau welvaart
+LBR_TRN_CAR,Kans op voertuig-gebruik (%)
+LBR_TRN_BIK,Kans op fiets-gebruik (%)
+LBR_TRN_TAX,Kans op taxi-gebruik (%)
+LBR_TRN_RLO,Woonwijk laagbouw
+LBR_TRN_RHI,Woonwijk hoogbouw
+LBR_TRN_ERL,Eco woonwijk laagbouw
+LBR_TRN_ERH,Eco woonwijk hoogbouw
+LBR_TRN_CHL,Kind
+LBR_TRN_TEN,Tiener
+LBR_TRN_YAD,Adolescent
+LBR_TRN_ADL,Volwassene
+LBR_TRN_SEN,Senior
+LBR_DEF,standaard
+LBR_RTD,Standaard waarden herstellen
+LBR_RTS,Herstel naar laatst opgeslagen
+LBR_SAA,Sla op en pas toe
+LBR_ZRO,Zet alles naar 0
+TRN_CHOICE,Stel taal in
+TRN_SYS,Gebruik taalinstelling van je systeem
+MES_CLS,Sluiten
+MES_DSA,Niet meer tonen
+MES_PAGE,Zie de mod-pagina op Steam Workshop voor meer informatie.
+LBR_CON,Conflicterende mod gedetecteerd
+LBR_ERR_FAT,Dit betekent dat Lifecycle Rebalance Revisited niet goed werkt en is afgesloten.
+LBR_ERR_HAR,Lifecycle Rebalance Revisited kon de vereiste Harmony-patches niet voltooien.
+ERR_HAR0,Harmony-patchfout!
+ERR_HAR1,Mogelijke oorzaken van dit probleem zijn:
+ERR_HAR2,De vereiste Harmony 2-mod is niet geïnstalleerd
+ERR_HAR3,Een oude en/of kapotte mod zorgt ervoor dat Harmony 2 niet correct werkt
+ERR_CON0,Mod conflict gedetecteerd!
+ERR_CON1,Gedetecteerde mod-conflicten:
+LBR_ERR_CON0,Lifecycle Rebalance Revisited heeft een conflict gedetecteerd met ten minste één andere mod.
+LBR_ERR_CON1,Deze mods moeten worden verwijderd voordat Lifecycle Rebalance Revisited werkt.
+LBR_150_TIT,Lifecycle Rebalance Revisited ge-update naar versie 1.5
+LBR_150_NT1,"Je kunt nu via opties, instellingen maken voor Tansport modus. Ook kun je nu voor eco en standaard woonwijken afzonderlijk verschillende modus instellen."
+LBR_150_NT2,Je kan nu het opleidingsniveau van immigranten aanpassen
+LBR_151_NT1,Pas de lay-out van het optievenster aan voor vertalingen
+LBR_152_NT1,Alleenstaande ouders met inwonende kinderen worden gespaard van vroegtijdig overlijden om wees-huishoudens te helpen voorkomen
+LBR_152_NT2,Verbeterde controle en melding van mod-conflicten
+LBR_152_NT3,Verbeterde updatemeldingen
