@@ -19,13 +19,12 @@ namespace LifecycleRebalance
         // Local variable ILCode indexes (original method).
         const int educationVarIndex = 2;
         const int numVarIndex = 3;
-        const int iLoopVarIndex = 16;
-        const int ageVarIndex = 20;
-        const int education2VarIndex = 21;
+        const int iLoopVarIndex = 17;
+        const int ageVarIndex = 21;
+        const int education2VarIndex = 22;
 
         // Not used in patch - for determining patch location.
-        const int flag4VarIndex = 22;
-
+        const int flag4VarIndex = 23;
 
         /// <summary>
         /// StartConnectionTransferImpl transpiler.
@@ -90,7 +89,7 @@ namespace LifecycleRebalance
             var startForLabels = instructionsEnumerator.Current.labels;
 
             // Now we've got the location and added the local variable setup, skip forward until we find the location for the end of the patch.
-            // Looking for Stloc_S 22 (initialising bool flag4 = false).
+            // Looking for Stloc_S 23 (initialising bool flag4 = false).
             do
             {
                 instruction = instructionsEnumerator.Current;

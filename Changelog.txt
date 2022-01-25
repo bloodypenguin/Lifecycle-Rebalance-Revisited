@@ -1,4 +1,7 @@
-﻿- Convert translation framework to CSV (for CrowdIn)
+﻿Version 1.6.1
+
+- Compatibility with game version 1.14.
+- Convert translation framework to CSV (for CrowdIn)
 
 
 Version 1.6.0.3 hotfix
