@@ -1,81 +1,94 @@
-CODE,zh-tw
-NAME,繁體中文
-LBR_NAME,生命週期再平衡重製版 (Lifecycle Rebalance Revisited)
-LBR_DESC,增加和隨機化市民的壽命，隨機化移民的年齡和教育水準，並改變市民工作和旅行的方式
-LBR_SPN,壽命
-LBR_SPN_WRN,警告
-LBR_SPN_BAL,遊戲期間更改設定可能會暫時破壞城市平衡。（不推薦在遊戲進行時更改數值和設置）
-LBR_SPN_BAK,強烈建議在更改之前備份遊戲存檔。（建議在開始新遊戲或讀取存檔之前，完成並保存所有設置的修改之後退出遊戲一次，在重新開啟遊戲）
-LBR_CAL,生命週期計算模式
-LBR_CAL_SUN,模組 - 日落港資料片壽命模式（預設）
-LBR_CAL_LEG,傳統 - 壽命模式（原始WG模組）- 壽命較短，老年人較少
-LBR_CAL_VAN,遊戲預設 - 日落港資料片壽命模式 - 可變壽命少，老年人多
-LBR_SHO,（僅在使用“模組 - 日落港資料片壽命模式”時可用）
-LBR_RET,退休年齡選項
-LBR_RET_USE,使用自訂退休年齡
-LBR_RET_CUS,自訂退休年齡
-LBR_RET_NT1,降低退休年齡不會改變已經在之前的設置下已退休的市民。
-LBR_RET_NT2,提高退休年齡不會改變已經在之前的設置下已退休的市民。
-LBR_HEA,健康狀況
-LBR_HEA_ILL,每十個生命週期的隨機疾病率％
-LBR_HEA_ILD,不會因特定原因導致疾病，例如：污染或噪音
-LBR_HEA_AGE,年齡
-LBR_DTH,死亡
-LBR_DTH_TRN,需要靈車運輸的屍體百分比
-LBR_DTH_TRD,(遊戲預設為67％，模組預設為50％）
-LBR_IMM,移民
-LBR_IMM_VAR,移民的教育水準有25％的隨機變動性
-LBR_IMM_INC,提高移民教育平均水準
-LBR_IMM_DEC,降低移民教育平均水準
-LBR_SET,設定
-LBR_SET_LGD,將死亡記錄到 'Lifecycle death log.txt' 文檔
-LBR_SET_LGI,將移民記錄到 'Lifecycle immigration log.txt' 文檔
-LBR_SET_LGT,將自訂出行工具選擇記錄到 'Lifecycle transport log.txt' 警告 - 此功能影響遊戲效能！
-LBR_SET_LGS,將疾病事件記錄到 'Lifecycle sickness log.txt' 文檔
-LBR_SPD,壽命速率
-LBR_SPD_FAC,與遊戲預設壽命速率相比，此因子係數為如何減慢市民年齡增長速度。
-LBR_SPD_FN1,"1 是遊戲預設壽命速率 (在遊戲內35個遊戲週等於市民10年壽命), 2 是兩倍於遊戲預設壽命速率 (在遊戲內70個遊戲週等於市民10年壽命), 3 是三倍於遊戲預設壽命速率, 以此類推。 15 則意味著每一個遊戲年中的市民壽命大約等同於真實的一歲，模擬比率幾乎為1：1。"
-LBR_SPD_FN2,不影響生命週期或年齡 - 僅影響市民的衰老速度。
-LBR_SPD_FN3,"（遊戲預設為 1, 模組預設為 3）"
-LBR_TRN,出行工具選擇
-LBR_TRN_CUS,啟用自訂出行工具選擇概率
-LBR_TRN_WEA,財富級別
-LBR_TRN_CAR,私家車使用概率（％）
-LBR_TRN_BIK,自行車使用概率（％）
-LBR_TRN_TAX,計程車使用概率（％）
-LBR_TRN_RLO,居民： 低密度
-LBR_TRN_RHI,居民： 高密度
-LBR_TRN_ERL,居民： 低密度-專業化自給住宅行政專區
-LBR_TRN_ERH,居民： 高密度-專業化自給住宅行政專區
-LBR_TRN_CHL,孩童
-LBR_TRN_TEN,青少年
-LBR_TRN_YAD,青年人
-LBR_TRN_ADL,成年人
-LBR_TRN_SEN,老年人
-LBR_DEF,預設
-LBR_RTD,重置為預設值
-LBR_RTS,還原到之前已存檔的設置
-LBR_SAA,保存並應用
-LBR_ZRO,全部設定為零
-TRN_CHOICE,設定語言
-TRN_SYS,使用系統語言
-MES_CLS,關閉
-MES_DSA,不再顯示
-MES_PAGE,請參閱模組(Mod)在Steam工作坊的頁面以獲得更多資訊。
-LBR_ERR_FAT,這意味著 “生命週期再平衡重製版(Lifecycle Rebalance Revisited)” 將無法正常使用，並且已關閉。
-LBR_ERR_HAR,生命週期再平衡重製版(Lifecycle Rebalance Revisited) 無法完成因為它須要 “Harmony” 擴展文檔。
-ERR_HAR0,“Harmony” 擴展文檔錯誤！
-ERR_HAR1,此問題有可能包括的原因：
-ERR_HAR2,“Harmony 2” 擴展文檔模組(Mod)沒有訂閱。
-ERR_HAR3,一些老的或壞的模組(Mod)導致 “Harmony 2” 擴展文檔模組(Mod)無法正常運轉。 
-ERR_CON0,檢測到模組(Mod)衝突！
-ERR_CON1,有衝突的模組(Mod)：
-LBR_ERR_CON0,生命週期再平衡重製版(Lifecycle Rebalance Revisited) 檢測到與至少一個其他模組(Mod)發生衝突。
-LBR_ERR_CON1,這些模組(Mod)必須退訂才能讓生命週期再平衡重製版(Lifecycle Rebalance Revisited)正常運轉。
-LBR_150_TIT,生命週期再平衡重製版(Lifecycle Rebalance Revisited)已經更新至1.5.2
-LBR_150_NT1,現在可以通過選項面板編輯運輸選擇模式，自給住宅和標準住宅可以有不同的選擇模式
-LBR_150_NT2,進入您的城市的市民教育水準可以被修改
-LBR_151_NT1,針對不同的語言調整選項面板佈局
-LBR_152_NT1,有未成年子女在家居住的單親父母將免於過早死亡，以防止孤兒家庭
-LBR_152_NT2,改進模組(Mod)的衝突檢查和通知
-LBR_152_NT3,改進更新通知
+"CODE","zh-tw"
+"NAME","繁體中文"
+"LBR_NAME","生命週期再平衡重製版 (Lifecycle Rebalance Revisited)"
+"LBR_DESC","增加和隨機化市民的壽命，隨機化移民的年齡和教育水準，並改變市民工作和旅行的方式"
+"LBR_SPN","壽命"
+"LBR_SPN_WRN","警告"
+"LBR_SPN_BAL","遊戲期間更改設定可能會暫時破壞城市平衡。（不推薦在遊戲進行時更改數值和設置）"
+"LBR_SPN_BAK","強烈建議在更改之前備份遊戲存檔。（建議在開始新遊戲或讀取存檔之前，完成並保存所有設置的修改之後退出遊戲一次，在重新開啟遊戲）"
+"LBR_CAL","生命週期計算模式"
+"LBR_CAL_SUN","模組 - 日落港資料片壽命模式（預設）"
+"LBR_CAL_LEG","傳統 - 壽命模式（原始WG模組）- 壽命較短，老年人較少"
+"LBR_CAL_VAN","遊戲預設 - 日落港資料片壽命模式 - 可變壽命少，老年人多"
+"LBR_SHO","（僅在使用“模組 - 日落港資料片壽命模式”時可用）"
+"LBR_RET","退休年齡選項"
+"LBR_RET_USE","使用自訂退休年齡"
+"LBR_RET_CUS","自訂退休年齡"
+"LBR_RET_NT1","降低退休年齡不會改變已經在之前的設置下已退休的市民。"
+"LBR_RET_NT2","提高退休年齡不會改變已經在之前的設置下已退休的市民。"
+"LBR_CHI","Childhood age options"
+"LBR_CHI_CUS","Use custom childhood ages"
+"LBR_CHI_SCH","Age in years at which children start school"
+"LBR_CHI_TEE","Age in years at which children start high school"
+"LBR_CHI_YOU","Age in years at which children start college/university"
+"LBR_HEA","健康狀況"
+"LBR_HEA_ILL","每十個生命週期的隨機疾病率％"
+"LBR_HEA_ILD","不會因特定原因導致疾病，例如：污染或噪音"
+"LBR_HEA_AGE","年齡"
+"LBR_DTH","死亡"
+"LBR_DTH_TRN","需要靈車運輸的屍體百分比"
+"LBR_DTH_TRD","(遊戲預設為67％，模組預設為50％）"
+"LBR_IMM","移民"
+"LBR_IMM_VAR","移民的教育水準有25％的隨機變動性"
+"LBR_IMM_INC","提高移民教育平均水準"
+"LBR_IMM_DEC","降低移民教育平均水準"
+"LBR_SET","設定"
+"LBR_SET_LDT","Enable detailed debugging logging"
+"LBR_SET_LGD","將死亡記錄到 'Lifecycle death log.txt' 文檔"
+"LBR_SET_LGI","將移民記錄到 'Lifecycle immigration log.txt' 文檔"
+"LBR_SET_LGT","將自訂出行工具選擇記錄到 'Lifecycle transport log.txt' 警告 - 此功能影響遊戲效能！"
+"LBR_SET_LGS","將疾病事件記錄到 'Lifecycle sickness log.txt' 文檔"
+"LBR_SPD","壽命速率"
+"LBR_SPD_FAC","與遊戲預設壽命速率相比，此因子係數為如何減慢市民年齡增長速度。"
+"LBR_SPD_FN1","1 是遊戲預設壽命速率 (在遊戲內35個遊戲週等於市民10年壽命), 2 是兩倍於遊戲預設壽命速率 (在遊戲內70個遊戲週等於市民10年壽命), 3 是三倍於遊戲預設壽命速率, 以此類推。 15 則意味著每一個遊戲年中的市民壽命大約等同於真實的一歲，模擬比率幾乎為1：1。"
+"LBR_SPD_FN2","不影響生命週期或年齡 - 僅影響市民的衰老速度。"
+"LBR_SPD_FN3","（遊戲預設為 1, 模組預設為 3）"
+"LBR_TRN","出行工具選擇"
+"LBR_TRN_CUS","啟用自訂出行工具選擇概率"
+"LBR_TRN_WEA","財富級別"
+"LBR_TRN_CAR","私家車使用概率（％）"
+"LBR_TRN_BIK","自行車使用概率（％）"
+"LBR_TRN_TAX","計程車使用概率（％）"
+"LBR_TRN_RLO","居民： 低密度"
+"LBR_TRN_RHI","居民： 高密度"
+"LBR_TRN_ERL","居民： 低密度-專業化自給住宅行政專區"
+"LBR_TRN_ERH","居民： 高密度-專業化自給住宅行政專區"
+"LBR_TRN_CHL","孩童"
+"LBR_TRN_TEN","青少年"
+"LBR_TRN_YAD","青年人"
+"LBR_TRN_ADL","成年人"
+"LBR_TRN_SEN","老年人"
+"LBR_DEF","預設"
+"LBR_RTD","重置為預設值"
+"LBR_RTS","還原到之前已存檔的設置"
+"LBR_SAA","保存並應用"
+"LBR_ZRO","全部設定為零"
+"TRN_CHOICE","設定語言"
+"TRN_SYS","使用系統語言"
+"MES_CLS","關閉"
+"MES_DSA","不再顯示"
+"MES_PAGE","請參閱模組(Mod)在Steam工作坊的頁面以獲得更多資訊。"
+"LBR_CON","Mod conflict detected"
+"LBR_ERR_FAT","這意味著 “生命週期再平衡重製版(Lifecycle Rebalance Revisited)” 將無法正常使用，並且已關閉。"
+"LBR_ERR_HAR","生命週期再平衡重製版(Lifecycle Rebalance Revisited) 無法完成因為它須要 “Harmony” 擴展文檔。"
+"ERR_HAR0","“Harmony” 擴展文檔錯誤！"
+"ERR_HAR1","此問題有可能包括的原因："
+"ERR_HAR2","“Harmony 2” 擴展文檔模組(Mod)沒有訂閱。"
+"ERR_HAR3","一些老的或壞的模組(Mod)導致 “Harmony 2” 擴展文檔模組(Mod)無法正常運轉。 "
+"ERR_CON0","檢測到模組(Mod)衝突！"
+"ERR_CON1","有衝突的模組(Mod)："
+"LBR_ERR_CON0","生命週期再平衡重製版(Lifecycle Rebalance Revisited) 檢測到與至少一個其他模組(Mod)發生衝突。"
+"LBR_ERR_CON1","這些模組(Mod)必須退訂才能讓生命週期再平衡重製版(Lifecycle Rebalance Revisited)正常運轉。"
+"LBR_150_TIT","生命週期再平衡重製版(Lifecycle Rebalance Revisited)已經更新至1.5.2"
+"LBR_150_NT1","現在可以通過選項面板編輯運輸選擇模式，自給住宅和標準住宅可以有不同的選擇模式"
+"LBR_150_NT2","進入您的城市的市民教育水準可以被修改"
+"LBR_151_NT1","針對不同的語言調整選項面板佈局"
+"LBR_152_NT1","有未成年子女在家居住的單親父母將免於過早死亡，以防止孤兒家庭"
+"LBR_152_NT2","改進模組(Mod)的衝突檢查和通知"
+"LBR_152_NT3","改進更新通知"
+"LBR_154_NT1","Change treatment of single parent death: remove orphaned children when both parents die (instead of sparing parent from death)"
+"LBR_154_NT2","Add code to check for and remove building residents with invalid data"
+"LBR_160_NT1","MAJOR NEW FEATURE: realistic early life ageing and progress, from early childhood to young adult (optional, customizable)"
+"LBR_160_NT2","New early life ageing is matched to real-world values and stages and includes a pre-school stage of life (young children)"
+"LBR_160_NT3","This option can be enabled/disabled and customized in the mod's options panel"
+"LBR_160_NT4","NOTE: this option is initially enabled by default"
