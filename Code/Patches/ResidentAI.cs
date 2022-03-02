@@ -52,42 +52,66 @@ namespace LifecycleRebalance
             // Method result.
             bool removed = false;
 
+            // Allow for lifespan multipler.
             if ((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter)
             {
                 // Local reference.
                 CitizenManager citizenManager = Singleton<CitizenManager>.instance;
 
-                int num = data.Age + 1;
+                // Increment citizen age.
+                int newAge = data.Age + 1;
 
-                if (num <= ModSettings.YoungStartAge)
+                if (newAge <= ModSettings.YoungStartAge)
                 {
-                    if (num == ModSettings.TeenStartAge || num == ModSettings.YoungStartAge)
+                    // Children and teenagers finish school.
+                    if (newAge == ModSettings.TeenStartAge || newAge == ModSettings.YoungStartAge)
                     {
                         FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                     }
                 }
-                else if (num == ModSettings.VanillaAdultAge || num >= ModSettings.retirementAge)
+                else if (newAge == ModSettings.VanillaAdultAge || newAge >= ModSettings.retirementAge)
                 {
+                    // Young adults finish university/college, adults retire.
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
-                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (num % 15 == 0))
+                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (newAge % 15 == 0))
                 {
+                    // Students (older than teenagers) graduate every 15 age units.
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
+                }
+                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None)
+                {
+                    // Evict high school students who've overstayed.
+                    if (newAge >= ModSettings.YoungStartAge && Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_workBuilding].Info.m_buildingAI.GetEducationLevel2())
+                    {
+                        Logging.Message("evicting high school student ", citizenID, " at age ", newAge);
+                        FinishSchoolOrWorkRev(__instance, citizenID, ref data);
+                    }
+                    // Evict elementary school students who've overstayed.
+                    else if (newAge >= ModSettings.TeenStartAge && Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_workBuilding].Info.m_buildingAI.GetEducationLevel1())
+                    {
+                        Logging.Message("evicting elementaryToTOn school student ", citizenID, " at age ", newAge);
+                        FinishSchoolOrWorkRev(__instance, citizenID, ref data);
+                    }
                 }
 
+                // Original citizen?
                 if ((data.m_flags & Citizen.Flags.Original) != Citizen.Flags.None)
                 {
-                    if (citizenManager.m_tempOldestOriginalResident < num)
+                    // Yes - if necessary, update oldest original resident flags.
+                    if (citizenManager.m_tempOldestOriginalResident < newAge)
                     {
-                        citizenManager.m_tempOldestOriginalResident = num;
+                        citizenManager.m_tempOldestOriginalResident = newAge;
                     }
-                    if (num == 240)
+
+                    // Update full lifespan counter.
+                    if (newAge == 240)
                     {
                         Singleton<StatisticsManager>.instance.Acquire<StatisticInt32>(StatisticType.FullLifespans).Add(1);
                     }
                 }
 
-                data.Age = num;
+                data.Age = newAge;
 
                 // Checking for death and sickness chances.
                 // Citizens who are currently moving or currently in a vehicle aren't affected.
@@ -109,10 +133,10 @@ namespace LifecycleRebalance
                             num2 += num4 / 3;
                             num3 += num4;
                         }
-                        if (num >= num2)
+                        if (newAge >= num2)
                         {
                             bool flag = simulationManager.m_randomizer.Int32(2000u) < 3;
-                            died = (simulationManager.m_randomizer.Int32(num2 * 100, num3 * 100) / 100 <= num || flag);
+                            died = (simulationManager.m_randomizer.Int32(num2 * 100, num3 * 100) / 100 <= newAge || flag);
                         }
                     }
                     else
@@ -121,14 +145,14 @@ namespace LifecycleRebalance
                         // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
                         // Legacy mod behaviour worked on 25 increments per decade.
                         // If older than the maximum index - lucky them, but keep going using that final index.
-                        int index = Math.Min((int)(num * ModSettings.Settings.decadeFactor), 10);
+                        int index = Math.Min((int)(newAge * ModSettings.Settings.decadeFactor), 10);
 
                         // Calculate 90% - 110%; using 100,000 as 100% (for precision).
                         int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);
 
                         // Death chance is simply if a random number between 0 and the modifier calculated above is less than the survival probability calculation for that decade of life.
                         // Also set maximum age of 400 (~114 years) to be consistent with the base game.
-                        died = (simulationManager.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || num > 400;
+                        died = (simulationManager.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || newAge > 400;
 
                         // Check for sickness chance if they haven't died.
                         if (!died && simulationManager.m_randomizer.Int32(0, modifier) < DataStore.sicknessProbCalc[index])
