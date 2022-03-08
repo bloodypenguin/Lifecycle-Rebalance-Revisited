@@ -18,11 +18,14 @@ namespace LifecycleRebalance
         internal static bool useTransportLog = false;
         internal static bool useSicknessLog = false;
 
+        // Custom log names.
         internal static readonly string DeathLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle death log.txt";
         internal static readonly string ImmigrationLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle immigration log.txt";
         internal static readonly string TransportLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle transport log.txt";
         internal static readonly string SicknessLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle sickness log.txt";
 
+        // Stringbuilder for messaging.
+        private static StringBuilder message = new StringBuilder(128);
 
         /// <summary>
         /// Logs a message to a dedicated log file.
@@ -32,7 +35,7 @@ namespace LifecycleRebalance
         internal static void WriteToLog(string filename, params object[] messages)
         {
             // Assemble text.
-            StringBuilder message = new StringBuilder();
+            message.Length = 0;
             for (int i = 0; i < messages.Length; ++i)
             {
                 message.Append(messages[i]);
@@ -96,7 +99,8 @@ namespace LifecycleRebalance
         {
             // Use StringBuilder for efficiency since we're doing a lot of manipulation here.
             // Start with mod name (to easily identify relevant messages), followed by colon to indicate start of actual message.
-            StringBuilder message = new StringBuilder(LifecycleRebalanceMod.ModName);
+            message.Length = 0;
+            message.Append(LifecycleRebalanceMod.ModName);
             message.Append(": ");
 
             // Add each message parameter.
@@ -135,7 +139,8 @@ namespace LifecycleRebalance
         {
             // Use StringBuilder for efficiency since we're doing a lot of manipulation here.
             // Start with mod name (to easily identify relevant messages), followed by colon to indicate start of actual message.
-            StringBuilder message = new StringBuilder(LifecycleRebalanceMod.ModName);
+            message.Length = 0;
+            message.Append(LifecycleRebalanceMod.ModName);
             message.Append(": ");
 
             // Append prefix.
