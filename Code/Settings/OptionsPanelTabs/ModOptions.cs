@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using ColossalFramework.UI;
+﻿using ColossalFramework.UI;
 
 
 namespace LifecycleRebalance
@@ -21,7 +20,11 @@ namespace LifecycleRebalance
 
             // Language dropdown.
             UIDropDown languageDrop = PanelUtils.AddPlainDropDown(modTab, Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index);
-            languageDrop.eventSelectedIndexChanged += (control, index) => { Translations.Index = index; };
+            languageDrop.eventSelectedIndexChanged += (control, index) =>
+            {
+                Translations.Index = index;
+                OptionsPanel.LocaleChanged();
+            };
 
             // Detail logging options.
             UICheckBox logCheckBox = PanelUtils.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LDT"));

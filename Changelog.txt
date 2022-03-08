@@ -1,4 +1,5 @@
 ﻿- Add checks to remove any over-age students from schools
+- Automatically refresh options panel on language change
 
 
 Version 1.6.1
