@@ -74,24 +74,27 @@ namespace LifecycleRebalance
                     // Young adults finish university/college, adults retire.
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                 }
-                else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None && (newAge % 15 == 0))
-                {
-                    // Students (older than teenagers) graduate every 15 age units.
-                    FinishSchoolOrWorkRev(__instance, citizenID, ref data);
-                }
                 else if ((data.m_flags & Citizen.Flags.Student) != Citizen.Flags.None)
                 {
-                    // Evict high school students who've overstayed.
-                    if (newAge >= ModSettings.YoungStartAge && Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_workBuilding].Info.m_buildingAI.GetEducationLevel2())
+                    if (newAge % 15 == 0)
                     {
-                        Logging.Message("evicting high school student ", citizenID, " at age ", newAge);
+                        // Students (older than teenagers) graduate every 15 age units.
                         FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                     }
-                    // Evict elementary school students who've overstayed.
-                    else if (newAge >= ModSettings.TeenStartAge && Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_workBuilding].Info.m_buildingAI.GetEducationLevel1())
+                    else
                     {
-                        Logging.Message("evicting elementaryToTOn school student ", citizenID, " at age ", newAge);
-                        FinishSchoolOrWorkRev(__instance, citizenID, ref data);
+                        // Evict high school students who've overstayed.
+                        if (newAge > ModSettings.YoungStartAge && Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_workBuilding].Info.m_buildingAI.GetEducationLevel2())
+                        {
+                            Logging.Message("evicting high school student ", citizenID, " at age ", newAge);
+                            FinishSchoolOrWorkRev(__instance, citizenID, ref data);
+                        }
+                        // Evict elementary school students who've overstayed.
+                        else if (newAge > ModSettings.TeenStartAge && Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_workBuilding].Info.m_buildingAI.GetEducationLevel1())
+                        {
+                            Logging.Message("evicting elementary school student ", citizenID, " at age ", newAge);
+                            FinishSchoolOrWorkRev(__instance, citizenID, ref data);
+                        }
                     }
                 }
 
@@ -111,6 +114,7 @@ namespace LifecycleRebalance
                     }
                 }
 
+                // Update age.
                 data.Age = newAge;
 
                 // Checking for death and sickness chances.

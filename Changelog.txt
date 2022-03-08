@@ -1,4 +1,7 @@
-﻿Version 1.6.1
+﻿- Add checks to remove any over-age students from schools
+
+
+Version 1.6.1
 
 - Compatibility with game version 1.14.
 - Convert translation framework to CSV (for CrowdIn)
