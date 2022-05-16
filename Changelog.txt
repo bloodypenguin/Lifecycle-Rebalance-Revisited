@@ -1,4 +1,7 @@
-﻿Version 1.6.2
+﻿- Adjust university graduation trigger to better fit custom childhood settings
+
+
+Version 1.6.2
 
 - Add checks to remove any over-age students from schools
 - Automatically refresh options panel on language change
