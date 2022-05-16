@@ -1,4 +1,6 @@
-﻿- Adjust university graduation trigger to better fit custom childhood settings
+﻿Version 1.6.3
+
+- Adjust university graduation trigger to better fit custom childhood settings
 
 
 Version 1.6.2
