@@ -1,4 +1,7 @@
-﻿Version 1.6.3
+﻿- Adjust young adult and adult job-seeking behavior to better reflect dynamic high-school exit ages
+
+
+Version 1.6.3
 
 - Adjust university graduation trigger to better fit custom childhood settings
 
