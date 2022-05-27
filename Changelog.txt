@@ -1,6 +1,7 @@
 ﻿Version 1.6.4
 
 - Adjust young adult and adult job-seeking behavior to better reflect dynamic high-school exit ages
+- Update bundled Cities Harmony to 2.1.0
 
 
 Version 1.6.3
