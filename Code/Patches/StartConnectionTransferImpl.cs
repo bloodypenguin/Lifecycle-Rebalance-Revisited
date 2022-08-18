@@ -191,6 +191,12 @@ namespace LifecycleRebalance
                     {
                         resultEducation = Citizen.Education.ThreeSchools;
                     }
+
+                    // Apply education boost, if enabled, and if we're not already at the max.
+                    if (ModSettings.Settings.ImmiEduBoost && resultEducation < Citizen.Education.ThreeSchools)
+                    {
+                        ++resultEducation;
+                    }
                 }
                 else
                 {
@@ -211,18 +217,11 @@ namespace LifecycleRebalance
                 }
             }
 
-            // Apply education boost, if enabled, and if we're not already at the max.
-            if (ModSettings.Settings.ImmiEduBoost && resultEducation < Citizen.Education.ThreeSchools)
-            {
-                ++resultEducation;
-            }
-
             // Apply education suppression, if enabled, and if we're not already at the min.
             if (ModSettings.Settings.ImmiEduDrag && resultEducation > Citizen.Education.Uneducated)
             {
                 --resultEducation;
             }
-
 
             // Write to immigration log if that option is selected.
             if (Logging.useImmigrationLog)
