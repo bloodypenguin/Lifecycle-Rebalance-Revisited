@@ -89,7 +89,6 @@
     <None Include="LICENSE" />
     <None Include="packages.config" />
     <None Include="README.md" />
-    <None Include="Translations\cs-CZ.csv" />
     <None Include="Translations\de-DE.csv" />
     <None Include="Translations\en.csv" />
     <None Include="Translations\es-ES.csv" />
