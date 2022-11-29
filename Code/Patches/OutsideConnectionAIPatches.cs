@@ -1,4 +1,4 @@
-﻿// <copyright file="StartConnectionTransferImpl.cs" company="algernon (K. Algernon A. Sheppard)">
+﻿// <copyright file="OutsideConnectionAIPatches.cs" company="algernon (K. Algernon A. Sheppard)">
 // Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
 // Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
 // </copyright>
@@ -19,28 +19,28 @@ namespace LifecycleRebalance
     /// </summary>
     [HarmonyPatch(typeof(OutsideConnectionAI))]
     [HarmonyPatch("StartConnectionTransferImpl")]
-    public static class StartConnectionTransferImplPatch
+    public static class OutsideConnectionAIPatches
     {
-        // Local variable ILCode indexes (original method).
-        const int educationVarIndex = 2;
-        const int numVarIndex = 3;
-        const int iLoopVarIndex = 17;
-        const int ageVarIndex = 21;
-        const int education2VarIndex = 22;
-
-        // Not used in patch - for determining patch location.
-        const int flag4VarIndex = 23;
-
         /// <summary>
         /// StartConnectionTransferImpl transpiler.
         /// </summary>
-        /// <param name="original">Original method to patch</param>
-        /// <param name="instructions">Original ILCode</param>
-        /// <param name="generator">ILCode generator</param>
-        /// <returns>Replacement ILCode</returns>
+        /// <param name="original">Method being patched.</param>
+        /// <param name="instructions">Original ILCode.</param>
+        /// <param name="generator">ILCode generator.</param>
+        /// <returns>Modified ILCode.</returns>
         public static IEnumerable<CodeInstruction> Transpiler(MethodBase original, IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-           Logging.Message("starting StartConnectionTransferImpl transpiler");
+            // Local variable ILCode indexes (original method).
+            const int EducationVarIndex = 3;
+            const int NumVarIndex = 3;
+            const int ILoopVarIndex = 17;
+            const int AgeVarIndex = 21;
+            const int Education2VarIndex = 22;
+
+            // Not used in patch - for determining patch location.
+            const int flag4VarIndex = 23;
+
+            Logging.Message("starting StartConnectionTransferImpl transpiler");
 
             // Local variables used by the patch.
             // These need to be set up prior to the i loop that the patch goes into.
@@ -69,7 +69,7 @@ namespace LifecycleRebalance
                 }
                 // Otherwise, check to see if we've found the start.
                 // We're looking for stloc.s 16 (initialising the for i = 0 at the start of the key loop); this only occurs twice in the original method, and we want the first.
-                else if (instruction.opcode == OpCodes.Stloc_S && instruction.operand is LocalBuilder builder && builder.LocalIndex == iLoopVarIndex)
+                else if (instruction.opcode == OpCodes.Stloc_S && instruction.operand is LocalBuilder builder && builder.LocalIndex == ILoopVarIndex)
                 {
                     // Set the flag.
                     startFound = true;
@@ -84,8 +84,8 @@ namespace LifecycleRebalance
                     yield return new CodeInstruction(OpCodes.Ldc_I4_0);
                     yield return new CodeInstruction(OpCodes.Stloc_S, minAdultAge.LocalIndex);
 
-                    yield return new CodeInstruction(OpCodes.Ldloc_S, numVarIndex);
-                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StartConnectionTransferImplPatch), nameof(StartConnectionTransferImplPatch.GetAgeArray)));
+                    yield return new CodeInstruction(OpCodes.Ldloc_S, NumVarIndex);
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(OutsideConnectionAIPatches), nameof(OutsideConnectionAIPatches.GetAgeArray)));
                     yield return new CodeInstruction(OpCodes.Stloc_S, ageArray.LocalIndex);
                 }
             }
@@ -102,17 +102,17 @@ namespace LifecycleRebalance
             while ((instruction.opcode != OpCodes.Stloc_S || !(instruction.operand is LocalBuilder builder && builder.LocalIndex == flag4VarIndex)) && instructionsEnumerator.MoveNext());
 
             // Load required variables for patch method onto stack.
-            yield return new CodeInstruction(OpCodes.Ldloc_S, iLoopVarIndex) { labels = startForLabels };
-            yield return new CodeInstruction(OpCodes.Ldloc_S, educationVarIndex);
+            yield return new CodeInstruction(OpCodes.Ldloc_S, ILoopVarIndex) { labels = startForLabels };
+            yield return new CodeInstruction(OpCodes.Ldloc_S, EducationVarIndex);
             yield return new CodeInstruction(OpCodes.Ldloc_S, ageArray.LocalIndex);
             yield return new CodeInstruction(OpCodes.Ldloca_S, childrenAgeMax.LocalIndex);
             yield return new CodeInstruction(OpCodes.Ldloca_S, childrenAgeMin.LocalIndex);
             yield return new CodeInstruction(OpCodes.Ldloca_S, minAdultAge.LocalIndex);
-            yield return new CodeInstruction(OpCodes.Ldloca_S, education2VarIndex);
-            yield return new CodeInstruction(OpCodes.Ldloca_S, ageVarIndex);
+            yield return new CodeInstruction(OpCodes.Ldloca_S, Education2VarIndex);
+            yield return new CodeInstruction(OpCodes.Ldloca_S, AgeVarIndex);
 
             // Add call to patch method.
-            yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StartConnectionTransferImplPatch), nameof(StartConnectionTransferImplPatch.RandomizeImmigrants)));
+            yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(OutsideConnectionAIPatches), nameof(OutsideConnectionAIPatches.RandomizeImmigrants)));
 
             // Patch done; add remaining instructions.
             while (instructionsEnumerator.MoveNext())
@@ -120,23 +120,22 @@ namespace LifecycleRebalance
                 yield return instructionsEnumerator.Current;
             }
 
-           Logging.Message("StartConnectionTransferImpl transpiler completed");
+            Logging.Message("StartConnectionTransferImpl transpiler completed");
         }
-
 
         /// <summary>
         /// Method called by OutsideConnectionAI.StartConnectionTransferImpl Transpiler insertion.
         /// Randomises (within parameters) age and education levels of immigrants.
         /// All variables are local variables within OutsideConnectionAI.StartConnectionTransferImpl.
         /// </summary>
-        /// <param name="i">Loop counter (for loop containing method call)</param>
-        /// <param name="education">Education level input (StartConnectionTransferImpl local variable)</param>
-        /// <param name="ageArray">Array of acceptible ages (from mod DataStore); placed on stack in advance via Transpiler insertion</param>
-        /// <param name="childrenAgeMax">Maximum child immigrant age; placed on stack in advance via Transpiler insertion </param>
-        /// <param name="childrenAgeMin">Minimum child immigrant age; placed on stack in advance via Transpiler insertion</param>
-        /// <param name="minAdultAge">Minimum adult immigrant age; placed on stack in advance via Transpiler insertion</param>
-        /// <param name="resultEducation">Resultant education level for immigrant after mod calculations (StartConnectionTransferImpl local variable 'education2')</param>
-        /// <param name="resultAge">Resultant age level for immigrant after mod calculations (StartConnectionTransferImpl local variable 'age')</param>
+        /// <param name="i">Loop counter (for loop containing method call).</param>
+        /// <param name="education">Education level input (StartConnectionTransferImpl local variable).</param>
+        /// <param name="ageArray">Array of acceptible ages (from mod DataStore); placed on stack in advance via Transpiler insertion.</param>
+        /// <param name="childrenAgeMax">Maximum child immigrant age; placed on stack in advance via Transpiler insertion.</param>
+        /// <param name="childrenAgeMin">Minimum child immigrant age; placed on stack in advance via Transpiler insertion.</param>
+        /// <param name="minAdultAge">Minimum adult immigrant age; placed on stack in advance via Transpiler insertion.</param>
+        /// <param name="resultEducation">Resultant education level for immigrant after mod calculations (StartConnectionTransferImpl local variable 'education2').</param>
+        /// <param name="resultAge">Resultant age level for immigrant after mod calculations (StartConnectionTransferImpl local variable 'age').</param>
         public static void RandomizeImmigrants(int i, Citizen.Education education, int[] ageArray, ref int childrenAgeMax, ref int childrenAgeMin, ref int minAdultAge, out Citizen.Education resultEducation, out int resultAge)
         {
             // Minimum and maximum ages.
@@ -148,8 +147,8 @@ namespace LifecycleRebalance
             if (i == 1)
             {
                 // Age of second adult - shouldn't be too far from the first. Just because.
-                min = Math.Max(minAdultAge - 20, DataStore.incomingAdultAge[0]);
-                max = Math.Min(minAdultAge + 20, DataStore.incomingAdultAge[1]);
+                min = Math.Max(minAdultAge - 20, DataStore.IncomingAdultAge[0]);
+                max = Math.Min(minAdultAge + 20, DataStore.IncomingAdultAge[1]);
             }
             else if (i >= 2)
             {
@@ -229,18 +228,17 @@ namespace LifecycleRebalance
             }
 
             // Write to immigration log if that option is selected.
-            if (LifecycleLogging.useImmigrationLog)
+            if (LifecycleLogging.UseImmigrationLog)
             {
                 LifecycleLogging.WriteToLog(LifecycleLogging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / ModSettings.AgePerYear), " years old) and education level ", education);
             }
         }
 
-
         /// <summary>
         /// Invoked by Transpiler insertion to set up age array data from DataStore prior to immigrant calculation method call.
         /// </summary>
-        /// <param name="num">Number of immigrants; '1' will select single immigrant age range, other values select ages for initial adult family member</param>
-        /// <returns></returns>
-        public static int[] GetAgeArray(int num) => num == 1 ? DataStore.incomingSingleAge : DataStore.incomingAdultAge;
+        /// <param name="num">Number of immigrants; '1' will select single immigrant age range, other values select ages for initial adult family member.</param>
+        /// <returns>Immigration age aarray reference.</returns>
+        public static int[] GetAgeArray(int num) => num == 1 ? DataStore.IncomingSingleAge : DataStore.IncomingAdultAge;
     }
 }

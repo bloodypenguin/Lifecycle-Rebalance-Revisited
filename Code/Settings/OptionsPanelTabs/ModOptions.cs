@@ -13,14 +13,14 @@ namespace LifecycleRebalance
     /// <summary>
     /// Options panel for setting general mod options.
     /// </summary>
-    public class ModOptions
+    internal sealed class ModOptions
     {
         /// <summary>
-        /// Adds mod options tab to tabstrip.
-        /// </summary
-        /// <param name="tabStrip">Tab strip to add to</param>
-        /// <param name="tabIndex">Index number of tab</param>
-        public ModOptions(UITabstrip tabStrip, int tabIndex)
+        /// Initializes a new instance of the <see cref="ModOptions"/> class.
+        /// </summary>
+        /// <param name="tabStrip">Tab strip to add to.</param>
+        /// <param name="tabIndex">Index number of tab.</param>
+        internal ModOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
             UIPanel modTab = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_SET"), tabIndex, out _, autoLayout: true);
@@ -40,20 +40,20 @@ namespace LifecycleRebalance
 
             // Logging options.
             UICheckBox deathCheckBox = UICheckBoxes.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGD"));
-            deathCheckBox.isChecked = LifecycleLogging.useDeathLog;
-            deathCheckBox.eventCheckChanged += (c, isChecked) => { LifecycleLogging.useDeathLog = isChecked; };
+            deathCheckBox.isChecked = LifecycleLogging.UseDeathLog;
+            deathCheckBox.eventCheckChanged += (c, isChecked) => { LifecycleLogging.UseDeathLog = isChecked; };
 
             UICheckBox immigrantCheckBox = UICheckBoxes.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGI"));
-            immigrantCheckBox.isChecked = LifecycleLogging.useImmigrationLog;
-            immigrantCheckBox.eventCheckChanged += (c, isChecked) => { LifecycleLogging.useImmigrationLog = isChecked; };
+            immigrantCheckBox.isChecked = LifecycleLogging.UseImmigrationLog;
+            immigrantCheckBox.eventCheckChanged += (c, isChecked) => { LifecycleLogging.UseImmigrationLog = isChecked; };
 
             UICheckBox transportCheckBox = UICheckBoxes.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGT"));
-            transportCheckBox.isChecked = LifecycleLogging.useTransportLog;
-            transportCheckBox.eventCheckChanged += (c, isChecked) => { LifecycleLogging.useTransportLog = isChecked; };
+            transportCheckBox.isChecked = LifecycleLogging.UseTransportLog;
+            transportCheckBox.eventCheckChanged += (c, isChecked) => { LifecycleLogging.UseTransportLog = isChecked; };
 
             UICheckBox sicknessCheckBox = UICheckBoxes.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LGS"));
-            sicknessCheckBox.isChecked = LifecycleLogging.useSicknessLog;
-            sicknessCheckBox.eventCheckChanged += (c, isChecked) => { LifecycleLogging.useSicknessLog = isChecked; };
+            sicknessCheckBox.isChecked = LifecycleLogging.UseSicknessLog;
+            sicknessCheckBox.eventCheckChanged += (c, isChecked) => { LifecycleLogging.UseSicknessLog = isChecked; };
         }
     }
 }

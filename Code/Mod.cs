@@ -37,7 +37,7 @@ namespace LifecycleRebalance
             base.OnEnabled();
 
             // Load configuation file.
-            Loading.ReadFromXML();
+            DataStore.ReadFromXML();
         }
 
         /// <summary>

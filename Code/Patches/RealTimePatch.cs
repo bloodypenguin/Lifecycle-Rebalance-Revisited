@@ -1,4 +1,4 @@
-﻿// <copyright file="RealTime.cs" company="algernon (K. Algernon A. Sheppard)">
+﻿// <copyright file="RealTimePatch.cs" company="algernon (K. Algernon A. Sheppard)">
 // Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
 // Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
 // </copyright>
@@ -13,7 +13,7 @@ namespace LifecycleRebalance
     /// Temporary fix until issue is resolved in Real Time.
     /// </summary>
     [HarmonyPatch(typeof(HumanAI), "FindVisitPlace")]
-    public static class HumanAIPatch
+    public static class RealTimePatch
     {
         /// <summary>
         /// Harmony Prefix patch for HumanAI.FindVisitPlace, to ensure that pre-school children don't go shopping.

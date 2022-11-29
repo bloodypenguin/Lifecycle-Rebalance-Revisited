@@ -1,4 +1,4 @@
-﻿// <copyright file="Citizen.cs" company="algernon (K. Algernon A. Sheppard)">
+﻿// <copyright file="CitizenPatches.cs" company="algernon (K. Algernon A. Sheppard)">
 // Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
 // Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
 // </copyright>
@@ -11,14 +11,15 @@ namespace LifecycleRebalance
     ///  Custom age groups for citizens.
     /// </summary>
     [HarmonyPatch(typeof(Citizen))]
-    public static class CustomAgeGroups
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Harmony")]
+    public static class CitizenPatches
     {
         /// <summary>
         /// Harmony pre-emptive Prefix patch for Citizen.GetAgeGroup - part of custom age group implementation.
         /// </summary>
-        /// <param name="__result">Original method result reference - age group</param>
-        /// <param name="age">Citizen age (in age units)</param>
-        /// <returns>Always false (never execute original method)</returns>
+        /// <param name="__result">Original method result reference - age group.</param>
+        /// <param name="age">Citizen age (in age units).</param>
+        /// <returns>Always false (never execute original method).</returns>
         [HarmonyPrefix]
         [HarmonyPatch(nameof(Citizen.GetAgeGroup))]
         public static bool GetAgeGroup(ref Citizen.AgeGroup __result, int age)
@@ -35,7 +36,7 @@ namespace LifecycleRebalance
             {
                 __result = Citizen.AgeGroup.Young;
             }
-            else if (age < ModSettings.retirementAge)
+            else if (age < ModSettings.RetirementAge)
             {
                 __result = Citizen.AgeGroup.Adult;
             }
@@ -48,14 +49,13 @@ namespace LifecycleRebalance
             return false;
         }
 
-
         /// <summary>
         /// Harmony pre-emptive Prefix patch for Citizen.GetAgePhase - part of custom age group implementation.
         /// </summary>
-        /// <param name="__result">Original method result reference - age group</param>
-        /// <param name="education">Citizen education level</param>
-        /// <param name="age">Citizen age (in age units)</param>
-        /// <returns>Always false (never execute original method)</returns>
+        /// <param name="__result">Original method result reference - age group.</param>
+        /// <param name="education">Citizen education level.</param>
+        /// <param name="age">Citizen age (in age units).</param>
+        /// <returns>Always false (never execute original method).</returns>
         [HarmonyPrefix]
         [HarmonyPatch(nameof(Citizen.GetAgePhase))]
         public static bool GetAgePhase(ref Citizen.AgePhase __result, Citizen.Education education, int age)
@@ -72,7 +72,7 @@ namespace LifecycleRebalance
             {
                 __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Young0 + education);
             }
-            else if (age < ModSettings.retirementAge)
+            else if (age < ModSettings.RetirementAge)
             {
                 __result = (Citizen.AgePhase)((int)Citizen.AgePhase.Adult0 + education);
             }
@@ -85,12 +85,11 @@ namespace LifecycleRebalance
             return false;
         }
 
-
         /// <summary>
         /// Harmony Postfix patch to Citizen.GetCitizenHomeBehaviour to exclude children too young for school from elementary school eligibility counts.
         /// </summary>
-        /// <param name="__instance">Instance reference</param>
-        /// <param name="behaviour">Citizen behaviour struct reference</param>
+        /// <param name="__instance">Instance reference.</param>
+        /// <param name="behaviour">Citizen behaviour struct reference.</param>
         [HarmonyPatch(nameof(Citizen.GetCitizenHomeBehaviour))]
         [HarmonyPostfix]
         public static void GetCitizenHomeBehaviour(Citizen __instance, ref Citizen.BehaviourData behaviour)

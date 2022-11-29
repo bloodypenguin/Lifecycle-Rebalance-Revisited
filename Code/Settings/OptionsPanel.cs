@@ -11,7 +11,7 @@ namespace LifecycleRebalance
     /// <summary>
     /// Lifecycle Rebalance Revisited options panel.
     /// </summary>
-    public class OptionsPanel : UIPanel
+    public sealed class OptionsPanel : UIPanel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsPanel"/> class.

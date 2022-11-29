@@ -21,8 +21,8 @@ namespace LifecycleRebalance
         /// <summary>
         /// Harmony transpiler patching ResidentAI.UpdateHealth.
         /// </summary>
-        /// <param name="instructions">CIL code to alter.</param>
-        /// <returns>Patched CIL code</returns>
+        /// <param name="instructions">Original ILCode.</param>
+        /// <returns>Modified ILCode.</returns>
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             // The checks we're targeting for removal are fortunately clearly flagged by the call to Die().
@@ -42,19 +42,18 @@ namespace LifecycleRebalance
                 {
                     // Found call to ResidentAI.Die.
                     // Increment i to start from the following instruction.
-                    i++;
-
+                    ++i;
 
                     // Now, count forward from this operand until we encounter ldc.i4.2; that's the last instruction to be cut.
                     while (codes[i + cutCount].opcode != OpCodes.Ldc_I4_2)
                     {
-                        cutCount++;
+                        ++cutCount;
                     }
 
                     // The following instruction is a call to ColossalFramework.Math.Randomizer; we keep the call and replace the operand with our own KeepCorpse method.
-                    codes[i + cutCount + 1].operand = AccessTools.Method(typeof(AIUtils), nameof(AIUtils.KeepCorpse));
+                    codes[i + cutCount + 1].operand = AccessTools.Method(typeof(ResidentAIPatches), nameof(ResidentAIPatches.KeepCorpse));
 
-                    Logging.Message("ResidentAI.Die transpiler removing CIL (offset", cutCount, ") from ", i.ToString(), " (", codes[i].opcode, " ", codes[i].operand, " to ", codes[i + cutCount].opcode, ")"); ;
+                    Logging.Message("ResidentAI.Die transpiler removing CIL (offset", cutCount, ") from ", i.ToString(), " (", codes[i].opcode, " ", codes[i].operand, " to ", codes[i + cutCount].opcode, ")");
 
                     // Remove the CIL from the ldarg.0 to the throw (inclusive).
                     // +1 to avoid fencepost error (need to include original instruction as well).

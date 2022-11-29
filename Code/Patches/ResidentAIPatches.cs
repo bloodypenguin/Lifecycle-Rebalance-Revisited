@@ -1,4 +1,4 @@
-﻿// <copyright file="ResidentAI.cs" company="algernon (K. Algernon A. Sheppard)">
+﻿// <copyright file="ResidentAIPatches.cs" company="algernon (K. Algernon A. Sheppard)">
 // Copyright (c) algernon (K. Algernon A. Sheppard) and Whitefang Greytail. All rights reserved.
 // Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
 // </copyright>
@@ -16,49 +16,58 @@ namespace LifecycleRebalance
     /// Harmony patches for ResidentAI to implement mod functionality.
     /// </summary>
     [HarmonyPatch(typeof(ResidentAI))]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Harmony")]
     public static class ResidentAIPatches
     {
         /// <summary>
         /// Harmony pre-emptive Prefix patch for ResidentAI.CanMakeBabies - implements mod's minor fix so that only adult females (of less than age 180) give birth.
         /// </summary>
+        /// <param name="__result">Original method result.</param>
+        /// <param name="citizenID">Citizen ID.</param>
+        /// <param name="data">Citizen data.</param>
+        /// <returns>Always false (never execute original method).</returns>
         [HarmonyPatch(nameof(ResidentAI.CanMakeBabies))]
         [HarmonyPrefix]
         public static bool CanMakeBabies(ref bool __result, uint citizenID, ref Citizen data)
         {
             // data.m_family  access group data?
             // Only check child 1 and 2. Don't care about 3, won't fit if there's someone there :)
-            //Building home = Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_homeBuilding];
-            //Randomizer randomizer = new Randomizer((int)citizenID);
 
             // Unlock males within all groups. Find partner except for initial seeding is the exact same age group, so shortcut is allowed
-            __result = !data.Dead &&
+            __result =
+                !data.Dead &&
                 (
+
                   // Females are now limited to the time that they have aged.  Males are excluded from this calculation so females can still have children.
-                  (Citizen.Gender.Male == Citizen.GetGender(citizenID)) ||
+                  (Citizen.GetGender(citizenID) == Citizen.Gender.Male) ||
+
                   // Exclude females over default maximum adult age (51.4 years).
                   (data.Age <= 180 &&
-                  (((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter) && (Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult)))
-                )
-                && (data.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None;
+                  ((citizenID % DataStore.LifeSpanMultiplier) == Threading.Counter) && (Citizen.GetAgeGroup(data.Age) == Citizen.AgeGroup.Adult)))
+                  && (data.m_flags & Citizen.Flags.MovingIn) == Citizen.Flags.None;
 
             // Don't execute base method after this.
             return false;
         }
 
-
         /// <summary>
         /// Harmony pre-emptive Prefix patch for ResidentAI.UpdateAge - implements mod's ageing and deathcare rate functions.
         /// CRITICAL for mod functionality.
         /// </summary>
+        /// <param name="__result">Original method result.</param>
+        /// <param name="__instance">ResidentAI instance.</param>
+        /// <param name="citizenID">Citizen ID.</param>
+        /// <param name="data">Citizen data.</param>
+        /// <returns>Always false (never execute original method).</returns>
         [HarmonyPatch("UpdateAge")]
         [HarmonyPrefix]
-        public static bool UpdateAge(ref bool __result, ref ResidentAI __instance, uint citizenID, ref Citizen data)
+        public static bool UpdateAge(ref bool __result, ResidentAI __instance, uint citizenID, ref Citizen data)
         {
             // Method result.
             bool removed = false;
 
             // Allow for lifespan multipler.
-            if ((citizenID % DataStore.lifeSpanMultiplier) == Threading.counter)
+            if ((citizenID % DataStore.LifeSpanMultiplier) == Threading.Counter)
             {
                 // Local reference.
                 CitizenManager citizenManager = Singleton<CitizenManager>.instance;
@@ -74,7 +83,7 @@ namespace LifecycleRebalance
                         FinishSchoolOrWorkRev(__instance, citizenID, ref data);
                     }
                 }
-                else if (newAge == ModSettings.VanillaAdultAge || newAge >= ModSettings.retirementAge)
+                else if (newAge == ModSettings.VanillaAdultAge || newAge >= ModSettings.RetirementAge)
                 {
                     // Young adults finish university/college, adults retire.
                     FinishSchoolOrWorkRev(__instance, citizenID, ref data);
@@ -140,16 +149,17 @@ namespace LifecycleRebalance
                         // Using vanilla lifecycle calculations.
                         int num2 = 240;
                         int num3 = 255;
-                        int num4 = Mathf.Max(0, 145 - (100 - data.m_health) * 3);
+                        int num4 = Mathf.Max(0, 145 - ((100 - data.m_health) * 3));
                         if (num4 != 0)
                         {
                             num2 += num4 / 3;
                             num3 += num4;
                         }
+
                         if (newAge >= num2)
                         {
                             bool flag = simulationManager.m_randomizer.Int32(2000u) < 3;
-                            died = (simulationManager.m_randomizer.Int32(num2 * 100, num3 * 100) / 100 <= newAge || flag);
+                            died = simulationManager.m_randomizer.Int32(num2 * 100, num3 * 100) / 100 <= newAge || flag;
                         }
                     }
                     else
@@ -158,24 +168,24 @@ namespace LifecycleRebalance
                         // Game defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
                         // Legacy mod behaviour worked on 25 increments per decade.
                         // If older than the maximum index - lucky them, but keep going using that final index.
-                        int index = Math.Min((int)(newAge * ModSettings.Settings.decadeFactor), 10);
+                        int index = Math.Min((int)(newAge * ModSettings.Settings.DecadeFactor), 10);
 
                         // Calculate 90% - 110%; using 100,000 as 100% (for precision).
                         int modifier = 100000 + ((150 * data.m_health) + (50 * data.m_wellbeing) - 10000);
 
                         // Death chance is simply if a random number between 0 and the modifier calculated above is less than the survival probability calculation for that decade of life.
                         // Also set maximum age of 400 (~114 years) to be consistent with the base game.
-                        died = (simulationManager.m_randomizer.Int32(0, modifier) < DataStore.survivalProbCalc[index]) || newAge > 400;
+                        died = (simulationManager.m_randomizer.Int32(0, modifier) < DataStore.SurvivalProbCalc[index]) || newAge > 400;
 
                         // Check for sickness chance if they haven't died.
-                        if (!died && simulationManager.m_randomizer.Int32(0, modifier) < DataStore.sicknessProbCalc[index])
+                        if (!died && simulationManager.m_randomizer.Int32(0, modifier) < DataStore.SicknessProbCalc[index])
                         {
                             // Make people sick, if they're unlucky.
                             data.Sick = true;
 
-                            if (LifecycleLogging.useSicknessLog)
+                            if (LifecycleLogging.UseSicknessLog)
                             {
-                                LifecycleLogging.WriteToLog(LifecycleLogging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.sicknessProbCalc[index]);
+                                LifecycleLogging.WriteToLog(LifecycleLogging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.SicknessProbCalc[index]);
                             }
                         }
                     }
@@ -188,7 +198,7 @@ namespace LifecycleRebalance
                         CitizenUnit containingUnit = citizenManager.m_units.m_buffer[unitID];
 
                         // Log if we're doing that.
-                        if (LifecycleLogging.useDeathLog)
+                        if (LifecycleLogging.UseDeathLog)
                         {
                             LifecycleLogging.WriteToLog(LifecycleLogging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / ModSettings.AgePerYear), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
                         }
@@ -221,7 +231,7 @@ namespace LifecycleRebalance
 
                                 if (currentChild != 0)
                                 {
-                                    if (LifecycleLogging.useDeathLog)
+                                    if (LifecycleLogging.UseDeathLog)
                                     {
                                         LifecycleLogging.WriteToLog(LifecycleLogging.DeathLogName, "Removed orphan ", currentChild);
                                         citizenManager.ReleaseCitizen(currentChild);
@@ -231,7 +241,7 @@ namespace LifecycleRebalance
                         }
 
                         // Chance for 'vanishing corpse' (no need for deathcare).
-                        if (!AIUtils.KeepCorpse())
+                        if (!KeepCorpse())
                         {
                             citizenManager.ReleaseCitizen(citizenID);
                             removed = true;
@@ -247,12 +257,12 @@ namespace LifecycleRebalance
             return false;
         }
 
-
         /// <summary>
         /// Harmony pre-emptive Prefix patch to ResidentAI.UpdateWorkplace to stop children below school age going to school, and to align young adult and adult behaviour with custom childhood factors.
         /// </summary>
-        /// <param name="data">Citizen data</param>
-        /// <returns>Always alse (stop execution of original method)</returns>
+        /// <param name="citizenID">Citizen ID.</param>
+        /// <param name="data">Citizen data.</param>
+        /// <returns>Always false (never execute original method).</returns>
         [HarmonyPatch("UpdateWorkplace")]
         [HarmonyPrefix]
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -301,6 +311,7 @@ namespace LifecycleRebalance
                     {
                         educationReason = TransferManager.TransferReason.Student1;
                     }
+
                     break;
 
                 case Citizen.AgeGroup.Teen:
@@ -309,6 +320,7 @@ namespace LifecycleRebalance
                         // Teens go to high school, if they've finished elementary school.
                         educationReason = TransferManager.TransferReason.Student2;
                     }
+
                     break;
 
                 case Citizen.AgeGroup.Young:
@@ -318,6 +330,7 @@ namespace LifecycleRebalance
                     {
                         educationReason = TransferManager.TransferReason.Student3;
                     }
+
                     break;
             }
 
@@ -331,7 +344,7 @@ namespace LifecycleRebalance
                 (servicePolicies & DistrictPolicies.Services.EducationBoost) == 0 ||
                 (age - ModSettings.YoungStartAge) % 5 > 2))
             {
-                TransferManager.TransferOffer jobSeeking = default(TransferManager.TransferOffer);
+                TransferManager.TransferOffer jobSeeking = default;
                 jobSeeking.Priority = Singleton<SimulationManager>.instance.m_randomizer.Int32(8u);
                 jobSeeking.Citizen = citizenID;
                 jobSeeking.Position = position;
@@ -363,11 +376,12 @@ namespace LifecycleRebalance
                     {
                         break;
                     }
+
                     goto default;
 
                 default:
                     // Look for education (this can be parallel with looking for work, above).
-                    TransferManager.TransferOffer educationSeeking = default(TransferManager.TransferOffer);
+                    TransferManager.TransferOffer educationSeeking = default;
                     educationSeeking.Priority = Singleton<SimulationManager>.instance.m_randomizer.Int32(8u);
                     educationSeeking.Citizen = citizenID;
                     educationSeeking.Position = position;
@@ -384,15 +398,14 @@ namespace LifecycleRebalance
             return false;
         }
 
-
         /// <summary>
         /// Reverse patch for ResidentAI.FinishSchoolOrWork to access private method of original instance.
         /// </summary>
-        /// <param name="instance">Object instance</param>
-        /// <param name="citizenID">ID of this citizen (for game method)</param>
-        /// <param name="data">Citizen data (for game method)</param>
+        /// <param name="instance">ResidentAI instance.</param>
+        /// <param name="citizenID">Citizen ID.</param>
+        /// <param name="data">Citizen data.</param>
         [HarmonyReversePatch]
-        [HarmonyPatch((typeof(ResidentAI)), "FinishSchoolOrWork")]
+        [HarmonyPatch(typeof(ResidentAI), "FinishSchoolOrWork")]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void FinishSchoolOrWorkRev(object instance, uint citizenID, ref Citizen data)
         {
@@ -401,22 +414,29 @@ namespace LifecycleRebalance
             throw new NotImplementedException(message);
         }
 
-
         /// <summary>
         /// Reverse patch for ResidentAI.Die to access private method of original instance.
         /// </summary>
-        /// <param name="instance">Object instance</param>
-        /// <param name="citizenID">ID of this citizen (for game method)</param>
-        /// <param name="data">Citizen data (for game method)</param>
+        /// <param name="instance">ResidentAI instance.</param>
+        /// <param name="citizenID">Citizen ID.</param>
+        /// <param name="data">Citizen data.</param>
         [HarmonyReversePatch]
-        [HarmonyPatch((typeof(ResidentAI)), "Die")]
+        [HarmonyPatch(typeof(ResidentAI), "Die")]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void DieRev(object instance, uint citizenID, ref Citizen data)
         {
-
             string message = "Die reverse Harmony patch wasn't applied";
             Logging.Error(message, instance, citizenID, data);
             throw new NotImplementedException(message);
+        }
+
+        /// <summary>
+        /// Calculates whether or not a corpse should remain (to be picked up deathcare services), or 'vanish into thin air'.
+        /// </summary>
+        /// <returns>True if the corpse should remain, False if the corpse should vanish.</returns>
+        public static bool KeepCorpse()
+        {
+            return Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 99) > DataStore.AutoDeadRemovalChance;
         }
     }
 }

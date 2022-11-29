@@ -23,14 +23,17 @@ namespace LifecycleRebalance
         // These are methods who can be either patched or unpatched depending on option settings.
         // We don't use AccessTools here, as doing so will cause runtime issues if Harmony isn't already installed.
         private MethodInfo OriginalGetCarProbability => AccessTools.Method(typeof(ResidentAI), "GetCarProbability", new Type[] { typeof(ushort), typeof(CitizenInstance).MakeByRefType(), typeof(Citizen.AgeGroup) });
+
         private MethodInfo OriginalGetBikeProbability => AccessTools.Method(typeof(ResidentAI), "GetBikeProbability");
+
         private MethodInfo OriginalGetTaxiProbability => AccessTools.Method(typeof(ResidentAI), "GetTaxiProbability");
 
         // Patch methods for patches that are dynamically applied.
+        private MethodInfo GetCarProbabilityPrefix => AccessTools.Method(typeof(ResidentAITransportPatches), nameof(ResidentAITransportPatches.GetCarProbability));
 
-        private MethodInfo GetCarProbabilityPrefix => AccessTools.Method(typeof(ResidentAITransport), nameof(ResidentAITransport.GetCarProbability));
-        private MethodInfo GetBikeProbabilityPrefix => AccessTools.Method(typeof(ResidentAITransport), nameof(ResidentAITransport.GetBikeProbability));
-        private MethodInfo GetTaxiProbabilityPrefix => AccessTools.Method(typeof(ResidentAITransport), nameof(ResidentAITransport.GetTaxiProbability));
+        private MethodInfo GetBikeProbabilityPrefix => AccessTools.Method(typeof(ResidentAITransportPatches), nameof(ResidentAITransportPatches.GetBikeProbability));
+
+        private MethodInfo GetTaxiProbabilityPrefix => AccessTools.Method(typeof(ResidentAITransportPatches), nameof(ResidentAITransportPatches.GetTaxiProbability));
 
         /// <summary>
         /// Apply custom transport probability patches.

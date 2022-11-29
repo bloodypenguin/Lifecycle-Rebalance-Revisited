@@ -15,20 +15,48 @@ namespace LifecycleRebalance
     /// </summary>
     internal static class LifecycleLogging
     {
-        // Logging detail flags.
-        internal static bool useDeathLog = false;
-        internal static bool useImmigrationLog = false;
-        internal static bool useTransportLog = false;
-        internal static bool useSicknessLog = false;
-
-        // Custom log names.
+        /// <summary>
+        /// Detailed death log filename.
+        /// </summary>
         internal static readonly string DeathLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle death log.txt";
+
+        /// <summary>
+        /// Detailed immigration log filename.
+        /// </summary>
         internal static readonly string ImmigrationLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle immigration log.txt";
+
+        /// <summary>
+        /// Detailed transport log filename.
+        /// </summary>
         internal static readonly string TransportLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle transport log.txt";
+
+        /// <summary>
+        /// Detailed sickness log filename.
+        /// </summary>
         internal static readonly string SicknessLogName = ColossalFramework.IO.DataLocation.localApplicationData + Path.DirectorySeparatorChar + "Lifecycle sickness log.txt";
 
         // Stringbuilder for messaging.
-        private static StringBuilder message = new StringBuilder(128);
+        private static readonly StringBuilder Message = new StringBuilder(128);
+
+        /// <summary>
+        /// Gets or sets a value indicating whether detailed death logging is enabled.
+        /// </summary>
+        internal static bool UseDeathLog { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether detailed immigration logging is enabled.
+        /// </summary>
+        internal static bool UseImmigrationLog { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether detailed transport logging is enabled.
+        /// </summary>
+        internal static bool UseTransportLog { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether detailed sickness logging is enabled.
+        /// </summary>
+        internal static bool UseSicknessLog { get; set; } = false;
 
         /// <summary>
         /// Logs a message to a dedicated log file.
@@ -38,14 +66,14 @@ namespace LifecycleRebalance
         internal static void WriteToLog(string filename, params object[] messages)
         {
             // Assemble text.
-            message.Length = 0;
+            Message.Length = 0;
             for (int i = 0; i < messages.Length; ++i)
             {
-                message.Append(messages[i]);
+                Message.Append(messages[i]);
             }
 
             // Terminating period to confirm end of messaage.
-            message.Append(".");
+            Message.Append(".");
 
             // Write to file.
             try
@@ -56,7 +84,7 @@ namespace LifecycleRebalance
                 // Append message.
                 using (StreamWriter streamWriter = new StreamWriter(fileStream))
                 {
-                    streamWriter.WriteLine(message);
+                    streamWriter.WriteLine(Message);
                 }
             }
             catch (Exception e)

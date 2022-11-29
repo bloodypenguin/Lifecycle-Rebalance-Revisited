@@ -11,30 +11,70 @@ namespace LifecycleRebalance
     using System.Xml.Serialization;
     using AlgernonCommons;
     using AlgernonCommons.Patching;
-    using AlgernonCommons.Translation;
+    using AlgernonCommons.XML;
     using UnityEngine;
 
     /// <summary>
     /// Tracks and implements mod settings when mod is running.
     /// </summary>
     [XmlRoot("SettingsFile")]
-    public class ModSettings
+    public class ModSettings : SettingsXMLBase
     {
-        // Settings file.
-        [XmlIgnore]
-        private static readonly string SettingsFileName = "LifecycleRebalance.xml";
-        private static readonly string SettingsFile = Path.Combine(ColossalFramework.IO.DataLocation.localApplicationData, SettingsFileName);
+        /// <summary>
+        /// Game default age at which citizens become adults.
+        /// </summary>
+        internal const int VanillaAdultAge = 90;
 
+        /// <summary>
+        /// Game default age units per year, defined by the game in 1.13 in District.GetAverageLifespan().
+        /// </summary>
+        internal const float AgePerYear = 3.5f;
+
+        /// <summary>
+        /// Minimum supported age at which children can start school.
+        /// </summary>
+        internal const int MinSchoolStartYear = 0;
+
+        /// <summary>
+        /// Maximum supported age at which children can start school.
+        /// </summary>
+        internal const int MaxSchoolStartYear = 8;
+
+        /// <summary>
+        /// Minimum supported age at which children become teens.
+        /// </summary>
+        internal const int MinTeenStartYear = 10;
+
+        /// <summary>
+        /// Maximum supported age at which children become teens.
+        /// </summary>
+        internal const int MaxTeenStartYear = 14;
+
+        /// <summary>
+        /// Minimum supported age at which teens become young adults.
+        /// </summary>
+        internal const int MinYoungStartYear = 16;
+
+        /// <summary>
+        /// Maximum supported age at which teens become young adults.
+        /// </summary>
+        internal const int MaxYoungStartYear = 20;
+
+        /// <summary>
+        /// Minimum supported retirement age.
+        /// </summary>
+        internal const int MinRetirementYear = 50;
+
+        /// <summary>
+        /// Maximum supported retirement age.
+        /// </summary>
+        internal const int MaxRetirementYear = 70;
 
         // Age constants - vanilla values (in age units).
         private const int VanillaSchoolAge = 0;
         private const int VanillaTeenAge = 15;
         private const int VanillaYoungAge = 45;
-        internal const int VanillaAdultAge = 90;
         private const int VanillaRetirementAge = 180;
-
-        // Age units per year, defined by the game in 1.13 in District.GetAverageLifespan().
-        internal const float AgePerYear = 3.5f;
 
         // Age constants - mod default custom values (in age units).
         // Early child - < 6 years = < 21
@@ -48,83 +88,32 @@ namespace LifecycleRebalance
         // Default retirement age (in years, not age units!).
         private const int DefaultRetirementYear = 65;
 
-        // Age constants - minimum and maximums (in years).
-        internal const int MinSchoolStartYear = 0;
-        internal const int MaxSchoolStartYear = 8;
-        internal const int MinTeenStartYear = 10;
-        internal const int MaxTeenStartYear = 14;
-        internal const int MinYoungStartYear = 16;
-        internal const int MaxYoungStartYear = 20;
-        internal const int MinRetirementYear = 50;
-        internal const int MaxRetirementYear = 70;
-
-
-        // 1 divided by the number of game age increments per decade for calculation purposes.
+        // Settings file.
         [XmlIgnore]
-        internal double decadeFactor;
+        private static readonly string SettingsFileName = "LifecycleRebalance.xml";
+        private static readonly string SettingsFile = Path.Combine(ColossalFramework.IO.DataLocation.localApplicationData, SettingsFileName);
 
         // Ages.
         [XmlIgnore]
-        private static int schoolStartAge = DefaultSchoolAge;
+        private static int s_schoolStartAge = DefaultSchoolAge;
         [XmlIgnore]
-        private static int teenStartAge = DefaultTeenAge;
+        private static int s_teenStartAge = DefaultTeenAge;
         [XmlIgnore]
-        private static int youngStartAge = DefaultYoungAge;
+        private static int s_youngStartAge = DefaultYoungAge;
+
+        // Mode.
         [XmlIgnore]
-        internal static int retirementAge = VanillaRetirementAge;
+        private static bool s_customChildhood = true;
 
-        // Modes.
-        [XmlIgnore]
-        private static bool customChildhood = true;
-
-
-        /// <summary>
-        /// The age at which children start school according to current settings.
-        /// </summary>
-        internal static int SchoolStartAge => customChildhood ? schoolStartAge : VanillaSchoolAge;
-
+        // Internal flags.
+        private bool _vanillaCalcs = false;
+        private bool _legacyCalcs = false;
+        private bool _customRetirement = false;
+        private int _retirementYear = DefaultRetirementYear;
+        private bool _useTransportModes = true;
 
         /// <summary>
-        /// The age at which children become teenagers (and start high school) according to current settings.
-        /// </summary>
-        internal static int TeenStartAge => customChildhood ? teenStartAge : VanillaTeenAge;
-
-
-        /// <summary>
-        /// The age at which teenagers become young adults (and start college/university) according to current settings.
-        /// </summary>
-        internal static int YoungStartAge => customChildhood ? youngStartAge : VanillaYoungAge;
-
-
-        /// <summary>
-        /// Settings file instance reference.
-        /// </summary>
-        [XmlIgnore]
-        internal static ModSettings Settings { get; private set; }
-
-
-        /// <summary>
-        /// Language code.
-        /// </summary>
-        [XmlElement("Language")]
-        public string XMLLanguage { get => Translations.CurrentLanguage; set => Translations.CurrentLanguage = value; }
-
-        /// <summary>
-        /// What's new notification version.
-        /// </summary>
-        [XmlElement("WhatsNewVersion")]
-        public string whatsNewVersion = "0.0";
-
-
-        /// <summary>
-        /// What's new Beta notification version.
-        /// </summary>
-        [XmlElement("WhatsNewBeta")]
-        public int whatsNewBetaVersion = 0;
-
-
-        /// <summary>
-        /// Tracks if we're using legacy lifecycle calculations and handles any changes.
+        /// Gets or sets a value indicating whether vanilla lifecycle calculations are in effect.
         /// </summary>
         [XmlElement("UseVanilla")]
         public bool VanillaCalcs
@@ -142,18 +131,15 @@ namespace LifecycleRebalance
                 SetRetirementAge();
             }
         }
-        [XmlIgnore]
-        private bool _vanillaCalcs = false;
-
 
         /// <summary>
-        /// Tracks if we're using legacy lifecycle calculations and handles any changes.
+        /// Gets or sets a value indicating whether legacy lifecycle calculations are in effect.
         /// </summary>
         [XmlElement("UseLegacy")]
         public bool LegacyCalcs
         {
             get => _legacyCalcs;
-            
+
             set
             {
                 _legacyCalcs = value;
@@ -171,18 +157,15 @@ namespace LifecycleRebalance
                 SetRetirementAge();
             }
         }
-        [XmlIgnore]
-        private bool _legacyCalcs = false;
-
 
         /// <summary>
-        /// Tracks if we're using custom retirement ages and handles any changes.
+        /// Gets or sets a value indicating whether custom retirement ages are in effect.
         /// </summary>
         [XmlElement("CustomRetirement")]
         public bool CustomRetirement
         {
             get => _customRetirement;
-            
+
             set
             {
                 _customRetirement = value;
@@ -191,12 +174,9 @@ namespace LifecycleRebalance
                 SetRetirementAge();
             }
         }
-        [XmlIgnore]
-        private bool _customRetirement = false;
-
 
         /// <summary>
-        /// Tracks custom retirement ages and handles any changes.
+        /// Gets or sets the custom retirement age.
         /// </summary>
         [XmlElement("RetirementAge")]
         public int RetirementYear
@@ -212,12 +192,9 @@ namespace LifecycleRebalance
                 SetRetirementAge();
             }
         }
-        [XmlIgnore]
-        private int _retirementYear = DefaultRetirementYear;
-
 
         /// <summary>
-        /// Tracks if we're using custom transport mode options and handles any changes.
+        /// Gets or sets a value indicating whether custom transport mode probabilities are in effect.
         /// </summary>
         [XmlElement("UseTransportModes")]
         public bool UseTransportModes
@@ -232,196 +209,128 @@ namespace LifecycleRebalance
                 PatcherManager<Patcher>.Instance.ApplyTransportPatches(value);
             }
         }
-        [XmlIgnore]
-        private bool _useTransportModes = true;
-
 
         /// <summary>
-        // Whether or not to apply a randomisation factor to immigrant education levels.
+        /// Gets or sets a value indicating whether to apply a randomisation factor to immigrant education levels.
         /// </summary>
         [XmlElement("RandomImmigrantEd")]
         public bool RandomImmigrantEd { get; set; } = false;
 
-
-        /// <summary
-        /// Immigrant education level boost enabled.
+        /// <summary>
+        /// Gets or sets a value indicating whether immigrant education level boosting is enabled.
         /// </summary>
         [XmlElement("ImmiEduBoost")]
         public bool ImmiEduBoost { get; set; } = false;
 
-
         /// <summary>
-        /// Immigrant education level drag enabled.
+        /// Gets or sets a value indicating whether immigrant education level dragging is enabled.
         /// </summary>
         [XmlElement("ImmiEduDrag")]
         public bool ImmiEduDrag { get; set; } = false;
 
-
-        // Whether or not we're using custom childhood settings.
+        /// <summary>
+        /// Gets or sets a value indicating whether custom childhood settings are enabled.
+        /// </summary>
         [XmlElement("CustomChildhood")]
         public bool CustomChildhood
         {
-            get => customChildhood;
-            set => customChildhood = value;
+            get => s_customChildhood;
+            set => s_customChildhood = value;
         }
 
-
         /// <summary>
-        /// The age (in age units) at which children will start school.
+        /// Gets or sets the age (in age units) at which children will start school.
         /// </summary>
         [XmlElement("SchoolStartYear")]
         public int SchoolStartYear
         {
-            get => Mathf.RoundToInt(schoolStartAge / AgePerYear);
+            get => Mathf.RoundToInt(s_schoolStartAge / AgePerYear);
 
             // Clamp age before assigning.
-            set => schoolStartAge = (int)(Mathf.Clamp(value, MinSchoolStartYear, MaxSchoolStartYear) * AgePerYear);
+            set => s_schoolStartAge = (int)(Mathf.Clamp(value, MinSchoolStartYear, MaxSchoolStartYear) * AgePerYear);
         }
 
-
         /// <summary>
-        /// The age (in years) at which children become teenagers (and start high school).
+        /// Gets or sets the age (in years) at which children become teenagers (and start high school).
         /// </summary>
         [XmlElement("TeenStartYear")]
         public int TeenStartYear
         {
-            get => Mathf.RoundToInt(teenStartAge / AgePerYear);
+            get => Mathf.RoundToInt(s_teenStartAge / AgePerYear);
 
             // Clamp age before assigning.
-            set => teenStartAge = (int)(Mathf.Clamp(value, MinTeenStartYear, MaxTeenStartYear) * AgePerYear);
+            set => s_teenStartAge = (int)(Mathf.Clamp(value, MinTeenStartYear, MaxTeenStartYear) * AgePerYear);
         }
 
-
         /// <summary>
-        /// The age (in years) at which teenagers become young adults (and start university/college).
+        /// Gets or sets the age (in years) at which teenagers become young adults (and start university/college).
         /// </summary>
         [XmlElement("YoungStartYear")]
         public int YoungStartYear
         {
-            get => Mathf.RoundToInt(youngStartAge / AgePerYear);
+            get => Mathf.RoundToInt(s_youngStartAge / AgePerYear);
 
             // Clamp age before assigning.
-            set => youngStartAge = (int)(Mathf.Clamp(value, MinYoungStartYear, MaxYoungStartYear) * AgePerYear);
+            set => s_youngStartAge = (int)(Mathf.Clamp(value, MinYoungStartYear, MaxYoungStartYear) * AgePerYear);
         }
 
-
         /// <summary>
-        /// Enables/disables detailed debug logging to game output log.
-        /// </summary>
-        [XmlElement("DetailLogging")]
-        public bool XMLDetailLogging { get => Logging.DetailLogging; set => Logging.DetailLogging = value; }
-
-
-        /// <summary>
-        /// Enables/disables detailed death logging.
+        /// Gets or sets a value indicating whether detailed death logging is enabled.
         /// </summary>
         [XmlElement("LogDeaths")]
-        public bool XMLLogDeaths { get => LifecycleLogging.useDeathLog; set => LifecycleLogging.useDeathLog = value; }
-
+        public bool XMLLogDeaths { get => LifecycleLogging.UseDeathLog; set => LifecycleLogging.UseDeathLog = value; }
 
         /// <summary>
-        /// Enables/disables detailed transport logging.
+        /// Gets or sets a value indicating whether detailed transport logging is enabled.
         /// </summary>
         [XmlElement("LogTransport")]
-        public bool XMLLogTransport { get => LifecycleLogging.useTransportLog; set => LifecycleLogging.useTransportLog = value; }
-
+        public bool XMLLogTransport { get => LifecycleLogging.UseTransportLog; set => LifecycleLogging.UseTransportLog = value; }
 
         /// <summary>
-        /// Enables/disables detailed sickness logging.
+        /// Gets or sets a value indicating whether detailed sickness logging is enabled.
         /// </summary>
         [XmlElement("LogSickness")]
-        public bool XMLLogSickness { get => LifecycleLogging.useSicknessLog; set => LifecycleLogging.useSicknessLog = value; }
-
+        public bool XMLLogSickness { get => LifecycleLogging.UseSicknessLog; set => LifecycleLogging.UseSicknessLog = value; }
 
         /// <summary>
-        /// Enables/disables detailed immigration logging.
+        /// Gets or sets a value indicating whether detailed immigration logging is enabled.
         /// </summary>
         [XmlElement("LogImmigration")]
-        public bool XMLLogImmigration { get => LifecycleLogging.useImmigrationLog; set => LifecycleLogging.useImmigrationLog = value; }
-
-
-        /// <summary>
-        /// Sets ageing decade factor based on current settings.
-        /// </summary>
-        private void SetDecadeFactor()
-        {
-            // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
-            // Legacy mod behaviour worked on 25 increments per decade.
-
-            // Decade factor is 1/35, unless legacy calcs are used.
-            if (LegacyCalcs && !VanillaCalcs)
-            {
-                decadeFactor = 1d / 25d;
-            }
-            else
-            {
-                decadeFactor = 1d / 35d;
-            }
-        }
-
+        public bool XMLLogImmigration { get => LifecycleLogging.UseImmigrationLog; set => LifecycleLogging.UseImmigrationLog = value; }
 
         /// <summary>
-        /// Sets retirement age based on current settings.
+        /// Gets the age at which children start school according to current settings.
         /// </summary>
-        private void SetRetirementAge()
-        {
-            // Store current retirement age - used to avoid unnecessary logging.
-            int oldRetirementAge = retirementAge;
-
-            // Only set custom retirement age if not using vanilla or legacy calculations and the custom retirement option is enabled.
-            if (!LegacyCalcs && !VanillaCalcs && CustomRetirement)
-            {
-                retirementAge = (int)(_retirementYear * AgePerYear);
-
-                // Catch situations where retirementYear hasn't initialised yet.
-                if (retirementAge == 0)
-                {
-                    retirementAge = VanillaRetirementAge;
-                }
-            }
-            else
-            {
-                // Game default retirement age is 180.
-                retirementAge = VanillaRetirementAge;
-            }
-
-            // Only log messages when the retirement age changes.
-            if (retirementAge != oldRetirementAge)
-            {
-                Logging.Message("retirement age set to ", retirementAge);
-            }
-        }
-
+        internal static int SchoolStartAge => s_customChildhood ? s_schoolStartAge : VanillaSchoolAge;
 
         /// <summary>
-        /// Populates the decadal survival probability table based on previously loaded XML settings and current mod settings.
+        /// Gets the age at which children become teenagers (and start high school) according to current settings.
         /// </summary>
-        internal void SetSurvivalProb()
-        {
-            StringBuilder logMessage = new StringBuilder("survival probability table using factor of " + decadeFactor + ":" + Environment.NewLine);
+        internal static int TeenStartAge => s_customChildhood ? s_teenStartAge : VanillaTeenAge;
 
-            // Do conversion from survivalProbInXML
-            for (int i = 0; i < DataStore.survivalProbInXML.Length; ++i)
-            {
-                // Using 100,000 as equivalent to 100%, for precision (as final figures are integer).
-                if (_legacyCalcs)
-                {
-                    // Legacy WG calculation, using natural logarithm. Original author acknowledges its inaccuracy.
-                    // Accurate for factors above ~0.95, but gets increasingly inaccurate below that, providing higher mortality than mathematical models.
-                    // With default acutarial settings, mathematical model overstates 8th decade mortality by 1.3%, 9th decade by 4.3%, 10th decade by 8.3%.
-                    DataStore.survivalProbCalc[i] = (int)(100000 - (100000 * (1 + (Math.Log(DataStore.survivalProbInXML[i]) * decadeFactor))));
-                }
-                else
-                {
-                    // Updated calculation balanced for 1.13, using exponent - exactly matches mathematical models.
-                    // Calculation is chance of death: 100% - (DecadeSurvival% ^ (1/IncrementsPerDecade)).
-                    DataStore.survivalProbCalc[i] = (int)(100000 - (Math.Pow(DataStore.survivalProbInXML[i], decadeFactor) * 100000));
-                }
-                logMessage.AppendLine(i + ": " + DataStore.survivalProbInXML[i] + " = " + DataStore.survivalProbCalc[i]);
-            }
-            Logging.Message(logMessage);
-        }
+        /// <summary>
+        /// Gets the age at which teenagers become young adults (and start college/university) according to current settings.
+        /// </summary>
+        internal static int YoungStartAge => s_customChildhood ? s_youngStartAge : VanillaYoungAge;
 
+        /// <summary>
+        /// Gets or sets the retirement age.
+        /// </summary>
+        [XmlIgnore]
+        internal static int RetirementAge { get; set; } = VanillaRetirementAge;
+
+        /// <summary>
+        /// Gets the current settings file instance.
+        /// </summary>
+        [XmlIgnore]
+        internal static ModSettings Settings { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the current decade factor.
+        /// (1 divided by the number of game age increments per decade for calculation purposes).
+        /// </summary>
+        [XmlIgnore]
+        internal double DecadeFactor { get; set; }
 
         /// <summary>
         /// Load settings from XML file.
@@ -502,6 +411,88 @@ namespace LifecycleRebalance
             catch (Exception e)
             {
                 Logging.LogException(e, "exception saving XML settings file");
+            }
+        }
+
+        /// <summary>
+        /// Populates the decadal survival probability table based on previously loaded XML settings and current mod settings.
+        /// </summary>
+        internal void SetSurvivalProb()
+        {
+            StringBuilder logMessage = new StringBuilder("survival probability table using factor of " + DecadeFactor + ":" + Environment.NewLine);
+
+            // Do conversion from survivalProbInXML
+            for (int i = 0; i < DataStore.SurvivalProbInXML.Length; ++i)
+            {
+                // Using 100,000 as equivalent to 100%, for precision (as final figures are integer).
+                if (_legacyCalcs)
+                {
+                    // Legacy WG calculation, using natural logarithm. Original author acknowledges its inaccuracy.
+                    // Accurate for factors above ~0.95, but gets increasingly inaccurate below that, providing higher mortality than mathematical models.
+                    // With default acutarial settings, mathematical model overstates 8th decade mortality by 1.3%, 9th decade by 4.3%, 10th decade by 8.3%.
+                    DataStore.SurvivalProbCalc[i] = (int)(100000 - (100000 * (1 + (Math.Log(DataStore.SurvivalProbInXML[i]) * DecadeFactor))));
+                }
+                else
+                {
+                    // Updated calculation balanced for 1.13, using exponent - exactly matches mathematical models.
+                    // Calculation is chance of death: 100% - (DecadeSurvival% ^ (1/IncrementsPerDecade)).
+                    DataStore.SurvivalProbCalc[i] = (int)(100000 - (Math.Pow(DataStore.SurvivalProbInXML[i], DecadeFactor) * 100000));
+                }
+
+                logMessage.AppendLine(i + ": " + DataStore.SurvivalProbInXML[i] + " = " + DataStore.SurvivalProbCalc[i]);
+            }
+
+            Logging.Message(logMessage);
+        }
+
+        /// <summary>
+        /// Sets ageing decade factor based on current settings.
+        /// </summary>
+        private void SetDecadeFactor()
+        {
+            // Game in 1.13 defines years as being age divided by 3.5.  Hence, 35 age increments per decade.
+            // Legacy mod behaviour worked on 25 increments per decade.
+
+            // Decade factor is 1/35, unless legacy calcs are used.
+            if (LegacyCalcs && !VanillaCalcs)
+            {
+                DecadeFactor = 1d / 25d;
+            }
+            else
+            {
+                DecadeFactor = 1d / 35d;
+            }
+        }
+
+        /// <summary>
+        /// Sets retirement age based on current settings.
+        /// </summary>
+        private void SetRetirementAge()
+        {
+            // Store current retirement age - used to avoid unnecessary logging.
+            int oldRetirementAge = RetirementAge;
+
+            // Only set custom retirement age if not using vanilla or legacy calculations and the custom retirement option is enabled.
+            if (!LegacyCalcs && !VanillaCalcs && CustomRetirement)
+            {
+                RetirementAge = (int)(_retirementYear * AgePerYear);
+
+                // Catch situations where retirementYear hasn't initialised yet.
+                if (RetirementAge == 0)
+                {
+                    RetirementAge = VanillaRetirementAge;
+                }
+            }
+            else
+            {
+                // Game default retirement age is 180.
+                RetirementAge = VanillaRetirementAge;
+            }
+
+            // Only log messages when the retirement age changes.
+            if (RetirementAge != oldRetirementAge)
+            {
+                Logging.Message("retirement age set to ", RetirementAge);
             }
         }
     }

@@ -8,21 +8,38 @@ namespace LifecycleRebalance
     using ColossalFramework;
     using ICities;
 
+    /// <summary>
+    /// Threading for citizen ageing speed.
+    /// </summary>
     public class Threading : ThreadingExtensionBase
     {
-        public static int counter = 0;
+        /// <summary>
+        /// Ageing speed counter.
+        /// </summary>
+        private static int s_counter = 0;
 
+        /// <summary>
+        /// Gets the ageing speed counter.
+        /// </summary>
+        public static int Counter
+        {
+            get => s_counter;
+
+            internal set { s_counter = value; }
+        }
+
+        /// <summary>
+        /// Called by the game before every simulation frame.
+        /// </summary>
         public override void OnBeforeSimulationFrame()
         {
-            // CitizenManager.SimulationStepImpl(int subStep)
-
             // Default aging ticks are per week
             if ((Singleton<SimulationManager>.instance.m_currentFrameIndex & 4095u) == 0u)
             {
                 // Tick from 1 to the multiplier itself. Once over, reset
-                if (++counter >= DataStore.lifeSpanMultiplier)
+                if (++s_counter >= DataStore.LifeSpanMultiplier)
                 {
-                    counter = 0;
+                    s_counter = 0;
                 }
             }
         }

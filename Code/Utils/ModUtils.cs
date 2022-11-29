@@ -5,8 +5,8 @@
 
 namespace LifecycleRebalance
 {
-    using System.Reflection;
     using System.Collections.Generic;
+    using System.Reflection;
     using AlgernonCommons;
     using ColossalFramework.Plugins;
 

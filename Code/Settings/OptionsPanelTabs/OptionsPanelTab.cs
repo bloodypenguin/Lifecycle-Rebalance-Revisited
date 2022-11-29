@@ -12,12 +12,15 @@ namespace LifecycleRebalance
     /// </summary>
     internal abstract class OptionsPanelTab
     {
-        // Status flag.
-        protected bool isSetup = false;
+        /// <summary>
+        /// Gets or sets a value indicating whether panel setup has been completed.
+        /// </summary>
+        protected bool IsSetup { get; set; } = false;
 
-        // Panel reference.
-        protected UIPanel panel;
-
+        /// <summary>
+        /// Gets or sets the UIPanel reference.
+        /// </summary>
+        protected UIPanel Panel { get; set; }
 
         /// <summary>
         /// Performs initial setup; called via event when tab is first selected.

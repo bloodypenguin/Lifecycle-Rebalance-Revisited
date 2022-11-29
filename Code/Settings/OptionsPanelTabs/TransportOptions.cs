@@ -5,65 +5,66 @@
 
 namespace LifecycleRebalance
 {
-    using UnityEngine;
     using AlgernonCommons;
-    using AlgernonCommons.UI;
     using AlgernonCommons.Translation;
+    using AlgernonCommons.UI;
     using ColossalFramework;
     using ColossalFramework.UI;
+    using UnityEngine;
 
     /// <summary>
     /// Options panel for setting transport options.
     /// </summary>
-    internal class TransportOptions : OptionsPanelTab
+    internal sealed class TransportOptions : OptionsPanelTab
     {
         // Enumerative constants.
-        protected const int NumDensity = 2;
-        protected const int NumWealth = 3;
-        protected const int NumAges = 5;
-        protected const int NumTransport = 3;
+        private const int NumDensity = 2;
+        private const int NumWealth = 3;
+        private const int NumAges = 5;
+        private const int NumTransport = 3;
 
         // Layout constants.
-        protected const float Margin = 10f;
-        protected const float LeftTitle = 50f;
-        protected const float LeftItem = 75f;
-        protected const float Indent = 40f;
-        protected const float TitleHeight = 70f;
-        protected const float ColumnIconHeight = TitleHeight - 10f;
-        protected const float FieldWidth = 40f;
-        protected const float RowHeight = 23f;
-        protected const float ColumnWidth = FieldWidth + Margin;
-        protected const float Column1 = 280f;
-        protected const float Column2 = Column1 + ColumnWidth;
-        protected const float Column3 = Column2 + ColumnWidth;
-        protected const float GroupWidth = (ColumnWidth * 3) + Margin;
-        protected const float Group1 = Column1;
-        protected const float Group2 = Group1 + GroupWidth;
-        protected const float Group3 = Group2 + GroupWidth;
-
+        private const float Margin = 10f;
+        private const float LeftTitle = 50f;
+        private const float LeftItem = 75f;
+        private const float TitleHeight = 70f;
+        private const float ColumnIconHeight = TitleHeight - 10f;
+        private const float FieldWidth = 40f;
+        private const float RowHeight = 23f;
+        private const float ColumnWidth = FieldWidth + Margin;
+        private const float Column1 = 280f;
+        private const float Column2 = Column1 + ColumnWidth;
+        private const float Column3 = Column2 + ColumnWidth;
+        private const float GroupWidth = (ColumnWidth * 3) + Margin;
+        private const float Group1 = Column1;
+        private const float Group2 = Group1 + GroupWidth;
+        private const float Group3 = Group2 + GroupWidth;
 
         // Textfield arrays.
         // Wealth/Density, age, transport mode.
-        protected UITextField[][][] wealthLow, wealthMed, wealthHigh, ecoWealthLow, ecoWealthMed, ecoWealthHigh;
+        private UITextField[][][] _wealthLow;
+        private UITextField[][][] _wealthMed;
+        private UITextField[][][] _wealthHigh;
+        private UITextField[][][] _ecoWealthLow;
+        private UITextField[][][] _ecoWealthMed;
+        private UITextField[][][] _ecoWealthHigh;
 
         // Reference variables.
-        protected float currentY = TitleHeight;
-
+        private float _currentY = TitleHeight;
 
         /// <summary>
-        /// Adds death options tab to tabstrip.
+        /// Initializes a new instance of the <see cref="TransportOptions"/> class.
         /// </summary>
-        /// <param name="tabStrip">Tab strip to add to</param>
-        /// <param name="tabIndex">Index number of tab</param>
+        /// <param name="tabStrip">Tab strip to add to.</param>
+        /// <param name="tabIndex">Index number of tab.</param>
         internal TransportOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_TRN"), tabIndex, out _);
+            Panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_TRN"), tabIndex, out _);
 
             // Set tab object reference.
             tabStrip.tabs[tabIndex].objectUserData = this;
         }
-
 
         /// <summary>
         /// Performs initial setup; called via event when tab is first selected.
@@ -71,43 +72,43 @@ namespace LifecycleRebalance
         internal override void Setup()
         {
             // Don't do anything if already set up.
-            if (!isSetup)
+            if (!IsSetup)
             {
                 // Perform initial setup.
-                isSetup = true;
+                IsSetup = true;
                 Logging.Message("setting up ", this.GetType());
 
-                UICheckBox transportCheckBox = UICheckBoxes.AddPlainCheckBox(panel, 30f, 5f, Translations.Translate("LBR_TRN_CUS"));
+                UICheckBox transportCheckBox = UICheckBoxes.AddPlainCheckBox(Panel, 30f, 5f, Translations.Translate("LBR_TRN_CUS"));
                 transportCheckBox.isChecked = ModSettings.Settings.UseTransportModes;
                 transportCheckBox.eventCheckChanged += (c, isChecked) => { ModSettings.Settings.UseTransportModes = isChecked; };
 
                 // Set up textfield arrays; low/high density.
-                wealthLow = new UITextField[NumDensity][][];
-                wealthMed = new UITextField[NumDensity][][];
-                wealthHigh = new UITextField[NumDensity][][];
-                ecoWealthLow = new UITextField[NumDensity][][];
-                ecoWealthMed = new UITextField[NumDensity][][];
-                ecoWealthHigh = new UITextField[NumDensity][][];
+                _wealthLow = new UITextField[NumDensity][][];
+                _wealthMed = new UITextField[NumDensity][][];
+                _wealthHigh = new UITextField[NumDensity][][];
+                _ecoWealthLow = new UITextField[NumDensity][][];
+                _ecoWealthMed = new UITextField[NumDensity][][];
+                _ecoWealthHigh = new UITextField[NumDensity][][];
 
                 // Second level of textfield arrays; age groups.
                 for (int i = 0; i < NumDensity; ++i)
                 {
-                    wealthLow[i] = new UITextField[NumAges][];
-                    wealthMed[i] = new UITextField[NumAges][];
-                    wealthHigh[i] = new UITextField[NumAges][];
-                    ecoWealthLow[i] = new UITextField[NumAges][];
-                    ecoWealthMed[i] = new UITextField[NumAges][];
-                    ecoWealthHigh[i] = new UITextField[NumAges][];
+                    _wealthLow[i] = new UITextField[NumAges][];
+                    _wealthMed[i] = new UITextField[NumAges][];
+                    _wealthHigh[i] = new UITextField[NumAges][];
+                    _ecoWealthLow[i] = new UITextField[NumAges][];
+                    _ecoWealthMed[i] = new UITextField[NumAges][];
+                    _ecoWealthHigh[i] = new UITextField[NumAges][];
 
                     // Third level of textfield arrays; transport modes.
                     for (int j = 0; j < NumAges; ++j)
                     {
-                        wealthLow[i][j] = new UITextField[NumTransport];
-                        wealthMed[i][j] = new UITextField[NumTransport];
-                        wealthHigh[i][j] = new UITextField[NumTransport];
-                        ecoWealthLow[i][j] = new UITextField[NumTransport];
-                        ecoWealthMed[i][j] = new UITextField[NumTransport];
-                        ecoWealthHigh[i][j] = new UITextField[NumTransport];
+                        _wealthLow[i][j] = new UITextField[NumTransport];
+                        _wealthMed[i][j] = new UITextField[NumTransport];
+                        _wealthHigh[i][j] = new UITextField[NumTransport];
+                        _ecoWealthLow[i][j] = new UITextField[NumTransport];
+                        _ecoWealthMed[i][j] = new UITextField[NumTransport];
+                        _ecoWealthHigh[i][j] = new UITextField[NumTransport];
                     }
                 }
 
@@ -116,26 +117,26 @@ namespace LifecycleRebalance
                 {
                     // Wealth headings.
                     float wealthX = (i * GroupWidth) + Column1;
-                    WealthIcon(panel, wealthX, 25f, ColumnWidth * 3, i + 1, Translations.Translate("LBR_TRN_WEA"), "InfoIconLandValue");
+                    WealthIcon(Panel, wealthX, 25f, ColumnWidth * 3, i + 1, Translations.Translate("LBR_TRN_WEA"), "InfoIconLandValue");
 
                     // Transport mode headings.
-                    ColumnIcon(panel, (i * GroupWidth) + Column1, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
-                    ColumnIcon(panel, (i * GroupWidth) + Column2, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
-                    ColumnIcon(panel, (i * GroupWidth) + Column3, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
+                    ColumnIcon(Panel, (i * GroupWidth) + Column1, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
+                    ColumnIcon(Panel, (i * GroupWidth) + Column2, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
+                    ColumnIcon(Panel, (i * GroupWidth) + Column3, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
                 }
 
                 // Rows by group.
-                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails", true);
-                AddDensityGroup(panel, wealthLow[0], wealthMed[0], wealthHigh[0]);
-                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_RHI"), "ZoningResidentialHigh", "Thumbnails");
-                AddDensityGroup(panel, wealthLow[1], wealthMed[1], wealthHigh[1]);
-                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_ERL"), "IconPolicySelfsufficient", "Ingame");
-                AddDensityGroup(panel, ecoWealthLow[0], ecoWealthMed[0], ecoWealthHigh[0]);
-                RowHeaderIcon(panel, currentY, Translations.Translate("LBR_TRN_ERH"), "IconPolicySelfsufficient", "Ingame");
-                AddDensityGroup(panel, ecoWealthLow[1], ecoWealthMed[1], ecoWealthHigh[1]);
+                RowHeaderIcon(Panel, _currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails", true);
+                AddDensityGroup(Panel, _wealthLow[0], _wealthMed[0], _wealthHigh[0]);
+                RowHeaderIcon(Panel, _currentY, Translations.Translate("LBR_TRN_RHI"), "ZoningResidentialHigh", "Thumbnails");
+                AddDensityGroup(Panel, _wealthLow[1], _wealthMed[1], _wealthHigh[1]);
+                RowHeaderIcon(Panel, _currentY, Translations.Translate("LBR_TRN_ERL"), "IconPolicySelfsufficient", "Ingame");
+                AddDensityGroup(Panel, _ecoWealthLow[0], _ecoWealthMed[0], _ecoWealthHigh[0]);
+                RowHeaderIcon(Panel, _currentY, Translations.Translate("LBR_TRN_ERH"), "IconPolicySelfsufficient", "Ingame");
+                AddDensityGroup(Panel, _ecoWealthLow[1], _ecoWealthMed[1], _ecoWealthHigh[1]);
 
                 // Buttons.
-                AddButtons(panel);
+                AddButtons(Panel);
 
                 // Populate text fields.
                 PopulateFields();
@@ -145,8 +146,8 @@ namespace LifecycleRebalance
         /// <summary>
         /// Event handler filter for text fields to ensure only integer values are entered.
         /// </summary>
-        /// <param name="c">Relevant control</param>
-        /// <param name="value">Text value</param>
+        /// <param name="c">Calling component.</param>
+        /// <param name="value">Text value.</param>
         private void TextFilter(UITextField c, string value)
         {
             // If it's not blank and isn't an integer, remove the last character and set selection to end.
@@ -171,19 +172,19 @@ namespace LifecycleRebalance
                     // Iterate through each transport mode within this age group.
                     for (int k = 0; k < NumTransport; ++k)
                     {
-                        ParseInt(ref DataStore.wealth_low[i][j][k], wealthLow[i][j][k].text);
-                        ParseInt(ref DataStore.wealth_med[i][j][k], wealthMed[i][j][k].text);
-                        ParseInt(ref DataStore.wealth_high[i][j][k], wealthHigh[i][j][k].text);
+                        ParseInt(ref DataStore.TransportLowWealth[i][j][k], _wealthLow[i][j][k].text);
+                        ParseInt(ref DataStore.TransportMedWealth[i][j][k], _wealthMed[i][j][k].text);
+                        ParseInt(ref DataStore.TransportHighWealth[i][j][k], _wealthHigh[i][j][k].text);
 
-                        ParseInt(ref DataStore.eco_wealth_low[i][j][k], ecoWealthLow[i][j][k].text);
-                        ParseInt(ref DataStore.eco_wealth_med[i][j][k], ecoWealthMed[i][j][k].text);
-                        ParseInt(ref DataStore.eco_wealth_high[i][j][k], ecoWealthHigh[i][j][k].text);
+                        ParseInt(ref DataStore.TranportLowWealthEco[i][j][k], _ecoWealthLow[i][j][k].text);
+                        ParseInt(ref DataStore.TransportMedWealthEco[i][j][k], _ecoWealthMed[i][j][k].text);
+                        ParseInt(ref DataStore.TransportHighWealthEco[i][j][k], _ecoWealthHigh[i][j][k].text);
                     }
                 }
             }
 
             // Save new settings.
-            PanelUtils.SaveXML();
+            DataStore.SaveXML();
 
             // Refresh settings.
             PopulateFields();
@@ -192,8 +193,8 @@ namespace LifecycleRebalance
         /// <summary>
         /// Attempts to parse a string for an integer value; if the parse fails, simply does nothing (leaving the original value intact).
         /// </summary>
-        /// <param name="intVar">Integer variable to store result (left unchanged if parse fails)</param>
-        /// <param name="text">Text to parse</param>
+        /// <param name="intVar">Integer variable to store result (left unchanged if parse fails).</param>
+        /// <param name="text">Text to parse.</param>
         private void ParseInt(ref int intVar, string text)
         {
             if (int.TryParse(text, out int result))
@@ -226,13 +227,13 @@ namespace LifecycleRebalance
                     // Iterate through each transport mode within this age group.
                     for (int k = 0; k < NumTransport; ++k)
                     {
-                        wealthLow[i][j][k].text = DataStore.wealth_low[i][j][k].ToString();
-                        wealthMed[i][j][k].text = DataStore.wealth_med[i][j][k].ToString();
-                        wealthHigh[i][j][k].text = DataStore.wealth_high[i][j][k].ToString();
+                        _wealthLow[i][j][k].text = DataStore.TransportLowWealth[i][j][k].ToString();
+                        _wealthMed[i][j][k].text = DataStore.TransportMedWealth[i][j][k].ToString();
+                        _wealthHigh[i][j][k].text = DataStore.TransportHighWealth[i][j][k].ToString();
 
-                        ecoWealthLow[i][j][k].text = DataStore.eco_wealth_low[i][j][k].ToString();
-                        ecoWealthMed[i][j][k].text = DataStore.eco_wealth_med[i][j][k].ToString();
-                        ecoWealthHigh[i][j][k].text = DataStore.eco_wealth_high[i][j][k].ToString();
+                        _ecoWealthLow[i][j][k].text = DataStore.TranportLowWealthEco[i][j][k].ToString();
+                        _ecoWealthMed[i][j][k].text = DataStore.TransportMedWealthEco[i][j][k].ToString();
+                        _ecoWealthHigh[i][j][k].text = DataStore.TransportHighWealthEco[i][j][k].ToString();
                     }
                 }
             }
@@ -241,10 +242,10 @@ namespace LifecycleRebalance
         /// <summary>
         /// Adds a density field group to the panel.
         /// </summary>
-        /// <param name="panel">UI panel instance</param>
-        /// <param name="lowWealth">Low-wealth textfield array</param>
-        /// <param name="medWealth">Medium-wealth textfield array</param>
-        /// <param name="highWealth">High-wealth textfield array</param>
+        /// <param name="panel">UI panel instance.</param>
+        /// <param name="lowWealth">Low-wealth textfield array.</param>
+        /// <param name="medWealth">Medium-wealth textfield array.</param>
+        /// <param name="highWealth">High-wealth textfield array.</param>
         private void AddDensityGroup(UIPanel panel, UITextField[][] lowWealth, UITextField[][] medWealth, UITextField[][] highWealth)
         {
             string[] ageLabels = new string[] { Translations.Translate("LBR_TRN_CHL"), Translations.Translate("LBR_TRN_TEN"), Translations.Translate("LBR_TRN_YAD"), Translations.Translate("LBR_TRN_ADL"), Translations.Translate("LBR_TRN_SEN") };
@@ -253,33 +254,34 @@ namespace LifecycleRebalance
             for (int i = 0; i < NumAges; ++i)
             {
                 // Row label.
-                RowLabel(panel, currentY, ageLabels[i]);
+                RowLabel(panel, _currentY, ageLabels[i]);
 
                 // Add textfields for each transport mode within this age group.
                 for (int j = 0; j < NumTransport; ++j)
                 {
-                    lowWealth[i][j] = AddTextField(panel, FieldWidth, (j * ColumnWidth) + Group1, currentY);
-                    medWealth[i][j] = AddTextField(panel, FieldWidth, (j * ColumnWidth) + Group2, currentY);
-                    highWealth[i][j] = AddTextField(panel, FieldWidth, (j * ColumnWidth) + Group3, currentY);
+                    lowWealth[i][j] = AddTextField(panel, FieldWidth, (j * ColumnWidth) + Group1, _currentY);
+                    medWealth[i][j] = AddTextField(panel, FieldWidth, (j * ColumnWidth) + Group2, _currentY);
+                    highWealth[i][j] = AddTextField(panel, FieldWidth, (j * ColumnWidth) + Group3, _currentY);
                 }
 
                 // Increment Y position.
-                currentY += RowHeight;
+                _currentY += RowHeight;
             }
 
             // Add an extra bit of space at the end.
-            currentY += 5f;
+            _currentY += 5f;
         }
 
         /// <summary>
         /// Adds a column header icon label.
         /// </summary>
-        /// <param name="panel">UI panel</param>
-        /// <param name="xPos">Reference X position</param>
-        /// <param name="xPos">Reference Y position</param>
-        /// <param name="width">Width of reference item (for centering)</param>
-        /// <param name="text">Tooltip text</param>
-        /// <param name="icon">Icon name</param>
+        /// <param name="panel">UI panel.</param>
+        /// <param name="xPos">Reference X position.</param>
+        /// <param name="yPos">Reference Y position.</param>
+        /// <param name="width">Width of reference item (for centering).</param>
+        /// <param name="count">Number of icons to add.</param>
+        /// <param name="text">Tooltip text.</param>
+        /// <param name="icon">Icon name.</param>
         private void WealthIcon(UIPanel panel, float xPos, float yPos, float width, int count, string text, string icon)
         {
             // Constants for positioning of icons.
@@ -309,32 +311,32 @@ namespace LifecycleRebalance
         /// <summary>
         /// Adds control bouttons the the panel.
         /// </summary>
-        /// <param name="panel">UI panel instance</param>
+        /// <param name="panel">UI panel instance.</param>
         private void AddButtons(UIPanel panel)
         {
             // Add a little bit of space.
-            currentY += Margin;
+            _currentY += Margin;
 
             // Reset button.
-            UIButton resetButton = UIButtons.AddButton(panel, Margin, currentY, Translations.Translate("LBR_RTD"));
-            resetButton.eventClicked += (component, clickEvent) => ResetToDefaults();
+            UIButton resetButton = UIButtons.AddButton(panel, Margin, _currentY, Translations.Translate("LBR_RTD"));
+            resetButton.eventClicked += (c, clickEvent) => ResetToDefaults();
 
             UIButton revertToSaveButton = UIButtons.AddButton(panel, UILayout.PositionRightOf(resetButton), Translations.Translate("LBR_RTS"));
-            revertToSaveButton.eventClicked += (component, clickEvent) => { PopulateFields(); };
+            revertToSaveButton.eventClicked += (c, p) => { PopulateFields(); };
 
             UIButton saveButton = UIButtons.AddButton(panel, UILayout.PositionRightOf(revertToSaveButton), Translations.Translate("LBR_SAA"));
-            saveButton.eventClicked += (component, clickEvent) => ApplyFields();
+            saveButton.eventClicked += (c, p) => ApplyFields();
         }
 
         /// <summary>
         /// Adds a column header icon label.
         /// </summary>
-        /// <param name="panel">UI panel</param>
-        /// <param name="xPos">Reference X position</param>
-        /// <param name="yPos">Reference Y position</param>
-        /// <param name="width">Width of reference item (for centering)</param>
-        /// <param name="text">Tooltip text</param>
-        /// <param name="icon">Icon name</param>
+        /// <param name="panel">UI panel.</param>
+        /// <param name="xPos">Reference X position.</param>
+        /// <param name="yPos">Reference Y position.</param>
+        /// <param name="width">Width of reference item (for centering).</param>
+        /// <param name="text">Tooltip text.</param>
+        /// <param name="icon">Icon name.</param>
         private void ColumnIcon(UIPanel panel, float xPos, float yPos, float width, string text, string icon)
         {
             // Create mini-panel for the icon background.
@@ -357,12 +359,12 @@ namespace LifecycleRebalance
         /// <summary>
         /// Adds a column header icon label.
         /// </summary>
-        /// <param name="panel">UI panel</param>
-        /// <param name="xPos">Reference X position</param>
-        /// <param name="text">Tooltip text</param>
-        /// <param name="icon">Icon name</param>
-        /// <param name="atlas">Icon atlas name</param>
-        /// <param name="wrapText">True if label width is fixed to column width and text wrapped, false otherwise</param>
+        /// <param name="panel">UI panel.</param>
+        /// <param name="yPos">Reference Y position.</param>
+        /// <param name="text">Tooltip text.</param>
+        /// <param name="icon">Icon name.</param>
+        /// <param name="atlas">Icon atlas name.</param>
+        /// <param name="wrapText">True if label width is fixed to column width and text wrapped, false otherwise.</param>
         private void RowHeaderIcon(UIPanel panel, float yPos, string text, string icon, string atlas, bool wrapText = false)
         {
             const float SpriteSize = 35f;
@@ -384,18 +386,18 @@ namespace LifecycleRebalance
             lineLabel.autoSize = !wrapText;
             lineLabel.verticalAlignment = UIVerticalAlignment.Middle;
             lineLabel.text = text;
-            lineLabel.relativePosition = new Vector3(LeftTitle, yPos - 2.5f + ((SpriteSize - lineLabel.height) /2f));
+            lineLabel.relativePosition = new Vector3(LeftTitle, yPos - 2.5f + ((SpriteSize - lineLabel.height) / 2f));
 
             // Increment Y.
-            currentY += 30f;
+            _currentY += 30f;
         }
 
         /// <summary>
         /// Adds a row text label.
         /// </summary>
-        /// <param name="panel">UI panel instance</param>
-        /// <param name="yPos">Reference Y position</param>
-        /// <param name="text">Label text</param>
+        /// <param name="panel">UI panel instance.</param>
+        /// <param name="yPos">Reference Y position.</param>
+        /// <param name="text">Label text.</param>
         private void RowLabel(UIPanel panel, float yPos, string text)
         {
             // Text label.
@@ -406,24 +408,27 @@ namespace LifecycleRebalance
 
             // X position: by default it's LeftItem, but we move it further left if the label is too long to fit (e.g. long translation strings).
             float xPos = Mathf.Min(LeftItem, (Column1 - Margin) - lineLabel.width);
+
             // But never further left than the edge of the screen.
             if (xPos < 0)
             {
                 xPos = LeftItem;
+
                 // Too long to fit in the given space, so we'll let this wrap across and just move the textfields down an extra line.
-                currentY += RowHeight;
+                _currentY += RowHeight;
             }
+
             lineLabel.relativePosition = new Vector3(xPos, yPos + 2);
         }
 
         /// <summary>
         /// Adds an input text field at the specified coordinates.
         /// </summary>
-        /// <param name="textField">Textfield object</param>
-        /// <param name="panel">panel to add to</param>
-        /// <param name="posX">Relative X postion</param>
-        /// <param name="posY">Relative Y position</param>
-        /// <param name="tooltip">Tooltip, if any</param>
+        /// <param name="panel">panel to add to.</param>
+        /// <param name="width">Textfield width.</param>
+        /// <param name="posX">Relative X postion.</param>
+        /// <param name="posY">Relative Y position.</param>
+        /// <param name="tooltip">Tooltip, if any.</param>
         private UITextField AddTextField(UIPanel panel, float width, float posX, float posY, string tooltip = null)
         {
             UITextField textField = UITextFields.AddSmallTextField(panel, posX, posY, width);
@@ -443,77 +448,125 @@ namespace LifecycleRebalance
         /// </summary>
         private void ResetToDefaults()
         {
-            DataStore.wealth_low = new int[][][] { new int[][] { new int [] { 0, 40, 0},
-                                                             new int [] {10, 30, 0},
-                                                             new int [] {45, 20, 1},
-                                                             new int [] {60, 10, 2},
-                                                             new int [] {30,  2, 3} },
+            DataStore.TransportLowWealth = new int[][][]
+            {
+                new int[][]
+                {
+                    new int[] { 0, 40, 0 },
+                    new int[] { 10, 30, 0, },
+                    new int[] { 45, 20, 1, },
+                    new int[] { 60, 10, 2, },
+                    new int[] { 30,  2, 3, },
+                },
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 2, 30, 0, },
+                    new int[] { 3, 20, 1, },
+                    new int[] { 5, 10, 2, },
+                    new int[] { 4,  2, 3, },
+                },
+            };
 
-                                               new int[][] { new int [] {0, 40, 0},
-                                                             new int [] {2, 30, 0},
-                                                             new int [] {3, 20, 1},
-                                                             new int [] {5, 10, 2},
-                                                             new int [] {4,  2, 3} }};
+            DataStore.TransportMedWealth = new int[][][]
+            {
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 12, 30, 1, },
+                    new int[] { 50, 20, 2, },
+                    new int[] { 65, 10, 4, },
+                    new int[] { 35,  2, 6, },
+                },
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 3, 30, 1, },
+                    new int[] { 5, 20, 2, },
+                    new int[] { 7, 10, 3, },
+                    new int[] { 6,  2, 5, },
+                },
+            };
 
-            DataStore.wealth_med = new int[][][] { new int[][] { new int [] { 0, 40, 0},
-                                                             new int [] {12, 30, 1},
-                                                             new int [] {50, 20, 2},
-                                                             new int [] {65, 10, 4},
-                                                             new int [] {35,  2, 6} },
+            DataStore.TransportHighWealth = new int[][][]
+            {
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 15, 30, 2, },
+                    new int[] { 55, 20, 3, },
+                    new int[] { 70, 10, 4, },
+                    new int[] { 45,  2, 6, },
+                },
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 4, 30, 2, },
+                    new int[] { 7, 20, 3, },
+                    new int[] { 9, 10, 4, },
+                    new int[] { 8,  1, 5, },
+                },
+            };
 
-                                               new int[][] { new int [] {0, 40, 0},
-                                                             new int [] {3, 30, 1},
-                                                             new int [] {5, 20, 2},
-                                                             new int [] {7, 10, 3},
-                                                             new int [] {6,  2, 5} }};
+            DataStore.TranportLowWealthEco = new int[][][]
+            {
+                new int[][]
+                {
+                    new int[] { 0, 40, 0 },
+                    new int[] { 7, 30, 0, },
+                    new int[] { 25, 20, 1, },
+                    new int[] { 40, 10, 2, },
+                    new int[] { 20,  5, 3, },
+                },
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 1, 30, 0, },
+                    new int[] { 2, 20, 1, },
+                    new int[] { 4, 10, 2, },
+                    new int[] { 3,  2, 3, },
+                },
+            };
 
-            DataStore.wealth_high = new int[][][] { new int[][] { new int [] { 0, 40, 0},
-                                                              new int [] {15, 30, 2},
-                                                              new int [] {55, 20, 3},
-                                                              new int [] {70, 10, 4},
-                                                              new int [] {45,  2, 6} },
+            DataStore.TransportMedWealthEco = new int[][][]
+            {
+                new int[][]
+                {
+                    new int[] { 0, 40, 0 },
+                    new int[] { 8, 30, 1, },
+                    new int[] { 33, 20, 2, },
+                    new int[] { 43, 10, 4, },
+                    new int[] { 23,  2, 6, },
+                },
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 2, 30, 1, },
+                    new int[] { 4, 20, 2, },
+                    new int[] { 5, 10, 3, },
+                    new int[] { 4,  2, 5, },
+                },
+            };
 
-                                                new int[][] { new int [] { 0, 40, 0},
-                                                              new int [] { 4, 30, 2},
-                                                              new int [] { 7, 20, 3},
-                                                              new int [] { 9, 10, 4},
-                                                              new int [] { 8,  1, 5} }};
-
-            DataStore.eco_wealth_low = new int[][][] { new int[][] { new int [] { 0, 40, 0},
-                                                                 new int [] { 7, 30, 0},
-                                                                 new int [] {25, 20, 1},
-                                                                 new int [] {40, 10, 2},
-                                                                 new int [] {20,  5, 3} },
-
-                                                   new int[][] { new int [] {0, 40, 0},
-                                                                 new int [] {1, 30, 0},
-                                                                 new int [] {2, 20, 1},
-                                                                 new int [] {4, 10, 2},
-                                                                 new int [] {3,  2, 3} }};
-
-            DataStore.eco_wealth_med = new int[][][] { new int[][] { new int [] { 0, 40, 0},
-                                                                 new int [] { 8, 30, 1},
-                                                                 new int [] {33, 20, 2},
-                                                                 new int [] {43, 10, 4},
-                                                                 new int [] {23,  2, 6} },
-
-                                                   new int[][] { new int [] {0, 40, 0},
-                                                                 new int [] {2, 30, 1},
-                                                                 new int [] {4, 20, 2},
-                                                                 new int [] {5, 10, 3},
-                                                                 new int [] {4,  2, 5} }};
-
-            DataStore.eco_wealth_high = new int[][][] { new int[][] { new int [] { 0, 40, 0},
-                                                                  new int [] {10, 30, 2},
-                                                                  new int [] {37, 20, 3},
-                                                                  new int [] {46, 10, 4},
-                                                                  new int [] {30,  2, 6} },
-
-                                                    new int[][] { new int [] { 0, 40, 0},
-                                                                  new int [] { 3, 30, 2},
-                                                                  new int [] { 4, 20, 3},
-                                                                  new int [] { 6, 10, 4},
-                                                                  new int [] { 5,  1, 5} }};
+            DataStore.TransportHighWealthEco = new int[][][]
+            {
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 10, 30, 2, },
+                    new int[] { 37, 20, 3, },
+                    new int[] { 46, 10, 4, },
+                    new int[] { 30,  2, 6, },
+                },
+                new int[][]
+                {
+                    new int[] { 0, 40, 0, },
+                    new int[] { 3, 30, 2, },
+                    new int[] { 4, 20, 3, },
+                    new int[] { 6, 10, 4, },
+                    new int[] { 5,  1, 5, },
+                },
+            };
 
             // Populate text fields with these.
             PopulateFields();

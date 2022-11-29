@@ -3,6 +3,9 @@
 // Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
 // </copyright>
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable SA1303 // Const field names should begin with upper-case letter
 namespace LifecycleRebalance
 {
     using System;
@@ -22,12 +25,6 @@ namespace LifecycleRebalance
         private const string sickDieNodeName = "sickDeathRate";
         private const string cheatHearseNodeName = "cheatHearse";
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="doc"></param>
-        /// 
         public override void ReadXML(XmlDocument doc)
         {
             XmlElement root = doc.DocumentElement;
@@ -48,7 +45,6 @@ namespace LifecycleRebalance
                 }
             }
         }
-
 
         public void ReadTravelNode(XmlNode root)
         {
@@ -75,7 +71,6 @@ namespace LifecycleRebalance
             }
         }
 
-
         public void ReadImmigrateNode(XmlNode root)
         {
             foreach (XmlNode node in root.ChildNodes)
@@ -84,11 +79,11 @@ namespace LifecycleRebalance
 
                 if (node.Name.Equals("single_adult"))
                 {
-                    array = DataStore.incomingSingleAge;
+                    array = DataStore.IncomingSingleAge;
                 }
                 else if (node.Name.Equals("family_adult"))
                 {
-                    array = DataStore.incomingAdultAge;
+                    array = DataStore.IncomingAdultAge;
                 }
                 else
                 {
@@ -107,44 +102,24 @@ namespace LifecycleRebalance
             }
         }
 
-
         public void ReadLifeNode(XmlNode root)
         {
             try
             {
-                DataStore.lifeSpanMultiplier = Convert.ToInt32(root.Attributes["modifier"].InnerText);
+                DataStore.LifeSpanMultiplier = Convert.ToInt32(root.Attributes["modifier"].InnerText);
             }
             catch (Exception e)
             {
                 Logging.Error("lifespan multiplier was not an integer: ", e.Message, ". Setting to 3");
-                DataStore.lifeSpanMultiplier = 3;
+                DataStore.LifeSpanMultiplier = 3;
             }
-/*
-            try
-            {
-                DataStore.workSpeedMultiplier = Convert.ToInt32(root.Attributes["workspeed"].InnerText);
-            }
-            catch (Exception e)
-            {
-                Debugging.bufferWarning("workspeed multiplier was not an integer: " + e.Message + ". Setting to 3");
-                DataStore.workSpeedMultiplier = 3;
-            }
-*/
 
-            if (DataStore.lifeSpanMultiplier <= 0)
+            if (DataStore.LifeSpanMultiplier <= 0)
             {
                 Logging.Error("Detecting a lifeSpan multiplier less than or equal to 0 . Setting to 3");
-                DataStore.lifeSpanMultiplier = 3;
-            }
-/*
-            if (DataStore.workSpeedMultiplier <= 0)
-            {
-                Debugging.bufferWarning("Detecting a work speed multiplier less than or equal to 0 . Setting to 3");
-                DataStore.workSpeedMultiplier = 3;
+                DataStore.LifeSpanMultiplier = 3;
             }
 
-            DataStore.workNumberCheck = 15 / DataStore.workSpeedMultiplier;
-*/
             foreach (XmlNode node in root.ChildNodes)
             {
                 if (node.Name.Equals(survivalNodeName))
@@ -166,7 +141,6 @@ namespace LifecycleRebalance
             }
         }
 
-
         public void ReadSurvivalNode(XmlNode root)
         {
             foreach (XmlNode node in root.ChildNodes)
@@ -179,7 +153,7 @@ namespace LifecycleRebalance
                 {
                     try
                     {
-                        DataStore.survivalProbInXML[level] = Convert.ToDouble(node.Attributes["survival"].InnerText) / 100.0;
+                        DataStore.SurvivalProbInXML[level] = Convert.ToDouble(node.Attributes["survival"].InnerText) / 100.0;
                     }
                     catch (Exception e)
                     {
@@ -188,7 +162,6 @@ namespace LifecycleRebalance
                 }
             }
         }
-
 
         public void ReadSicknessNode(XmlNode root)
         {
@@ -202,7 +175,7 @@ namespace LifecycleRebalance
                 {
                     try
                     {
-                        DataStore.sicknessProbInXML[level] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
+                        DataStore.SicknessProbInXML[level] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
                     }
                     catch (Exception e)
                     {
@@ -211,7 +184,6 @@ namespace LifecycleRebalance
                 }
             }
         }
-
 
         public void ReadHospitalNode(XmlNode root)
         {
@@ -225,7 +197,7 @@ namespace LifecycleRebalance
                 {
                     try
                     {
-                        DataStore.sickDeathChance[level] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
+                        DataStore.SickDeathChance[level] = Convert.ToDouble(node.Attributes["chance"].InnerText) / 100.0;
                     }
                     catch (Exception e)
                     {
@@ -235,31 +207,24 @@ namespace LifecycleRebalance
             }
         }
 
-
         public void ReadCheatHearseNode(XmlNode root)
         {
             try
             {
-                DataStore.autoDeadRemovalChance = (int) Convert.ToDouble(root.Attributes["chance"].InnerText);
-                if ((DataStore.autoDeadRemovalChance < 0) && (DataStore.autoDeadRemovalChance > 100))
+                DataStore.AutoDeadRemovalChance = (int)Convert.ToDouble(root.Attributes["chance"].InnerText);
+                if ((DataStore.AutoDeadRemovalChance < 0) && (DataStore.AutoDeadRemovalChance > 100))
                 {
                     Logging.Error("Cheat hearse is out of range (0-100). Setting to 50");
-                    DataStore.autoDeadRemovalChance = 50;
+                    DataStore.AutoDeadRemovalChance = 50;
                 }
             }
             catch (Exception e)
             {
                 Logging.LogException(e, "readCheatHearseNode exception");
-                DataStore.autoDeadRemovalChance = 50;
+                DataStore.AutoDeadRemovalChance = 50;
             }
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fullPathFileName"></param>
-        /// <returns></returns>
         public override bool WriteXML(string fullPathFileName)
         {
             XmlDocument xmlDoc = new XmlDocument();
@@ -276,7 +241,7 @@ namespace LifecycleRebalance
             comment = xmlDoc.CreateComment("Numbers lower than young adult may cause economic havoc.");
             rootNode.AppendChild(comment);
             rootNode.AppendChild(MakeImmigrateNode(xmlDoc));
-            //rootNode.AppendChild(makeEmigrationNode(xmlDoc));
+
             rootNode.AppendChild(MakeLifeNode(xmlDoc));
 
             if (File.Exists(fullPathFileName))
@@ -309,16 +274,6 @@ namespace LifecycleRebalance
             return true;
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="xmlDoc"></param>
-        /// <param name="buildingType"></param>
-        /// <param name="array"></param>
-        /// <param name="rootPopNode"></param>
-        /// <param name="consumNode"></param>
-        /// <param name="pollutionNode"></param>
         private void MakeDensityNodes(XmlDocument xmlDoc, XmlNode root, int density)
         {
             string densityElementName = (density == 0) ? "low_density" : "high_density";
@@ -332,23 +287,23 @@ namespace LifecycleRebalance
                 switch (i)
                 {
                     case 1:
-                        array = DataStore.wealth_med[density];
+                        array = DataStore.TransportMedWealth[density];
                         break;
                     case 2:
-                        array = DataStore.wealth_high[density];
+                        array = DataStore.TransportHighWealth[density];
                         break;
                     case 3:
-                        array = DataStore.eco_wealth_low[density];
+                        array = DataStore.TranportLowWealthEco[density];
                         break;
                     case 4:
-                        array = DataStore.eco_wealth_med[density];
+                        array = DataStore.TransportMedWealthEco[density];
                         break;
                     case 5:
-                        array = DataStore.eco_wealth_high[density];
+                        array = DataStore.TransportHighWealthEco[density];
                         break;
                     case 0:
                     default:
-                        array = DataStore.wealth_low[density];
+                        array = DataStore.TransportLowWealth[density];
                         break;
                 }
 
@@ -356,71 +311,57 @@ namespace LifecycleRebalance
                 {
                     wealthNode.AppendChild(MakeWealthArray(xmlDoc, j.ToString(), array[(int)j]));
                 }
+
                 node.AppendChild(wealthNode);
             }
 
             root.AppendChild(node);
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="xmlDoc"></param>
-        /// <param name="buildingType"></param>
-        /// <param name="level"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private XmlNode MakeWealthArray(XmlDocument xmlDoc, String age, int[] array)
+        private XmlNode MakeWealthArray(XmlDocument xmlDoc, string age, int[] array)
         {
             XmlNode node = xmlDoc.CreateElement(age);
 
             XmlAttribute attribute = xmlDoc.CreateAttribute("car");
-            attribute.Value = Convert.ToString(array[DataStore.CAR]);
+            attribute.Value = Convert.ToString(array[DataStore.Car]);
             node.Attributes.Append(attribute);
 
             attribute = xmlDoc.CreateAttribute("bike");
-            attribute.Value = Convert.ToString(array[DataStore.BIKE]);
+            attribute.Value = Convert.ToString(array[DataStore.Bike]);
             node.Attributes.Append(attribute);
 
             attribute = xmlDoc.CreateAttribute("taxi");
-            attribute.Value = Convert.ToString(array[DataStore.TAXI]);
+            attribute.Value = Convert.ToString(array[DataStore.Taxi]);
             node.Attributes.Append(attribute);
 
             return node;
         }
 
-
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
         private XmlNode MakeImmigrateNode(XmlDocument xmlDoc)
         {
             XmlNode rootNode = xmlDoc.CreateElement(migrateNodeName);
 
             XmlNode node = xmlDoc.CreateElement("single_adult");
             XmlAttribute attribute = xmlDoc.CreateAttribute("min");
-            attribute.Value = Convert.ToString(DataStore.incomingSingleAge[0]);
+            attribute.Value = Convert.ToString(DataStore.IncomingSingleAge[0]);
             node.Attributes.Append(attribute);
             attribute = xmlDoc.CreateAttribute("max");
-            attribute.Value = Convert.ToString(DataStore.incomingSingleAge[1]);
+            attribute.Value = Convert.ToString(DataStore.IncomingSingleAge[1]);
             node.Attributes.Append(attribute);
             rootNode.AppendChild(node);
 
             node = xmlDoc.CreateElement("family_adult");
             attribute = xmlDoc.CreateAttribute("min");
-            attribute.Value = Convert.ToString(DataStore.incomingAdultAge[0]);
+            attribute.Value = Convert.ToString(DataStore.IncomingAdultAge[0]);
             node.Attributes.Append(attribute);
             attribute = xmlDoc.CreateAttribute("max");
-            attribute.Value = Convert.ToString(DataStore.incomingAdultAge[1]);
+            attribute.Value = Convert.ToString(DataStore.IncomingAdultAge[1]);
             node.Attributes.Append(attribute);
             rootNode.AppendChild(node);
 
             return rootNode;
         }
 
-
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
         private XmlNode MakeTravelNode(XmlDocument xmlDoc)
         {
             XmlNode node = xmlDoc.CreateElement(travelNodeName);
@@ -430,17 +371,14 @@ namespace LifecycleRebalance
             return node;
         }
 
-
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
         private XmlNode MakeLifeNode(XmlDocument xmlDoc)
         {
             XmlNode node = xmlDoc.CreateElement(lifeSpanNodeName);
             XmlAttribute attribute = xmlDoc.CreateAttribute("modifier");
-            attribute.Value = Convert.ToString(DataStore.lifeSpanMultiplier);
+            attribute.Value = Convert.ToString(DataStore.LifeSpanMultiplier);
             node.Attributes.Append(attribute);
             attribute = xmlDoc.CreateAttribute("workspeed");
-            attribute.Value = Convert.ToString(DataStore.workSpeedMultiplier); 
+            attribute.Value = Convert.ToString(DataStore.WorkSpeedMultiplier);
             node.Attributes.Append(attribute);
 
             XmlComment comment = xmlDoc.CreateComment("Percentage of people who survive to the next 10% of their life");
@@ -462,9 +400,6 @@ namespace LifecycleRebalance
             return node;
         }
 
-
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
         private XmlNode MakeSurvivalNode(XmlDocument xmlDoc)
         {
             XmlNode survNode = xmlDoc.CreateElement(survivalNodeName);
@@ -475,7 +410,7 @@ namespace LifecycleRebalance
                 XmlNode node = xmlDoc.CreateElement("decile_" + (i + 1));
 
                 XmlAttribute attribute = xmlDoc.CreateAttribute("survival");
-                attribute.Value = Convert.ToString(DataStore.survivalProbInXML[i] * 100.0);
+                attribute.Value = Convert.ToString(DataStore.SurvivalProbInXML[i] * 100.0);
                 node.Attributes.Append(attribute);
 
                 survNode.AppendChild(node);
@@ -484,9 +419,6 @@ namespace LifecycleRebalance
             return survNode;
         }
 
-
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
         private XmlNode MakeSicknessNode(XmlDocument xmlDoc)
         {
             XmlNode sickNode = xmlDoc.CreateElement(sicknessNodeName);
@@ -497,7 +429,7 @@ namespace LifecycleRebalance
                 XmlNode node = xmlDoc.CreateElement("decile_" + (i + 1));
 
                 XmlAttribute attribute = xmlDoc.CreateAttribute("chance");
-                attribute.Value = Convert.ToString(DataStore.sicknessProbInXML[i] * 100.0);
+                attribute.Value = Convert.ToString(DataStore.SicknessProbInXML[i] * 100.0);
                 node.Attributes.Append(attribute);
 
                 sickNode.AppendChild(node);
@@ -506,25 +438,17 @@ namespace LifecycleRebalance
             return sickNode;
         }
 
-
-        /// <param name="xmlDoc"></param>
-        /// <returns></returns>
         private XmlNode MakeCheatHearseNode(XmlDocument xmlDoc)
         {
             XmlNode cheatHearseNode = xmlDoc.CreateElement(cheatHearseNodeName);
 
             XmlAttribute attribute = xmlDoc.CreateAttribute("chance");
-            attribute.Value = Convert.ToString(DataStore.autoDeadRemovalChance);
+            attribute.Value = Convert.ToString(DataStore.AutoDeadRemovalChance);
             cheatHearseNode.Attributes.Append(attribute);
 
             return cheatHearseNode;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="wealthNode"></param>
-        /// <param name="density"></param>
         private void ReadTravelWealthNode(XmlNode wealthNode, int density)
         {
             foreach (XmlNode node in wealthNode.ChildNodes)
@@ -535,22 +459,22 @@ namespace LifecycleRebalance
                 switch (name)
                 {
                     case "low_wealth":
-                        array = DataStore.wealth_low;
+                        array = DataStore.TransportLowWealth;
                         break;
                     case "med_wealth":
-                        array = DataStore.wealth_med;
+                        array = DataStore.TransportMedWealth;
                         break;
                     case "high_wealth":
-                        array = DataStore.wealth_high;
+                        array = DataStore.TransportHighWealth;
                         break;
                     case "low_wealth_eco":
-                        array = DataStore.eco_wealth_low;
+                        array = DataStore.TranportLowWealthEco;
                         break;
                     case "med_wealth_eco":
-                        array = DataStore.eco_wealth_med;
+                        array = DataStore.TransportMedWealthEco;
                         break;
                     case "high_wealth_eco":
-                        array = DataStore.eco_wealth_high;
+                        array = DataStore.TransportHighWealthEco;
                         break;
                     default:
                         Logging.Error("readWealthNode. unknown element name: ", name);
@@ -562,12 +486,6 @@ namespace LifecycleRebalance
             } // end foreach
         }
 
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="ageNode"></param>
-        /// <param name="arrayRef"></param>
         private void ReadTravelAgeNode(XmlNode ageNode, int[][] arrayRef)
         {
             foreach (XmlNode node in ageNode.ChildNodes)
@@ -599,9 +517,9 @@ namespace LifecycleRebalance
                 // Read inner attributes
                 try
                 {
-                    arrayRef[index][DataStore.CAR] = Convert.ToInt32(node.Attributes["car"].InnerText);
-                    arrayRef[index][DataStore.BIKE] = Convert.ToInt32(node.Attributes["bike"].InnerText);
-                    arrayRef[index][DataStore.TAXI] = Convert.ToInt32(node.Attributes["taxi"].InnerText);
+                    arrayRef[index][DataStore.Car] = Convert.ToInt32(node.Attributes["car"].InnerText);
+                    arrayRef[index][DataStore.Bike] = Convert.ToInt32(node.Attributes["bike"].InnerText);
+                    arrayRef[index][DataStore.Taxi] = Convert.ToInt32(node.Attributes["taxi"].InnerText);
                 }
                 catch (Exception e)
                 {
@@ -611,3 +529,6 @@ namespace LifecycleRebalance
         }
     }
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore SA1303 // Const field names should begin with upper-case letter

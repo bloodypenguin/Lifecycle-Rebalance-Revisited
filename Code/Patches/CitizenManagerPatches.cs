@@ -1,4 +1,4 @@
-﻿// <copyright file="CitizenManager.cs" company="algernon (K. Algernon A. Sheppard)">
+﻿// <copyright file="CitizenManagerPatches.cs" company="algernon (K. Algernon A. Sheppard)">
 // Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
 // Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
 // </copyright>
@@ -13,18 +13,18 @@ namespace LifecycleRebalance
     /// Harmony patch to slowly cycle through buildings and remove citizens with invalid flags.
     /// </summary>
     [HarmonyPatch(typeof(CitizenManager), "SimulationStepImpl")]
-    public static class CitizenManagerPatch
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Harmony")]
+    public static class CitizenManagerPatches
     {
         /// <summary>
         /// Sequntial step count; start with a random value to ensure spread of checking over multiple saves.
         /// </summary>
-        private static uint stepCount = (uint)new System.Random().Next(16);
-
+        private static uint s_stepCount = (uint)new System.Random().Next(16);
 
         /// <summary>
         /// Harmony Prefix patch to CitizenManager.SimulationStepImpl, to detect and remove any citizens in the building that don't have the 'created' flag set.
         /// </summary>
-        /// <param name="__instance">Instance reference</param>
+        /// <param name="__instance">Instance reference.</param>
         /// <param name="subStep">Simulation cycle substep.</param>
         public static void Prefix(CitizenManager __instance, int subStep)
         {
@@ -38,18 +38,18 @@ namespace LifecycleRebalance
                 // Get current framecount to align with parent method's frame, so we avoid unnecessary cache misses.
                 uint frameCount = Singleton<SimulationManager>.instance.m_currentFrameIndex & 0xFFF;
                 uint currentFrame = frameCount * 128;
-                uint baseUnit = currentFrame + (stepCount * 8);
+                uint baseUnit = currentFrame + (s_stepCount * 8);
                 uint endUnit = baseUnit + 7;
 
                 // Increment our step counter when frameCount wraps back to zero (evey 4096 increments).
                 if (frameCount == 0)
                 {
-                    ++stepCount;
+                    ++s_stepCount;
 
                     // If our step counter is greater than 15, wrap back to zero.
-                    if (stepCount > 15)
+                    if (s_stepCount > 15)
                     {
-                        stepCount = 0;
+                        s_stepCount = 0;
                     }
                 }
 
@@ -69,6 +69,7 @@ namespace LifecycleRebalance
                                 RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen0, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
+
                         thisCitizen = citizenUnits[currentUnit].m_citizen1;
                         if (thisCitizen != 0)
                         {
@@ -78,6 +79,7 @@ namespace LifecycleRebalance
                                 RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen1, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
+
                         thisCitizen = citizenUnits[currentUnit].m_citizen2;
                         if (thisCitizen != 0)
                         {
@@ -87,6 +89,7 @@ namespace LifecycleRebalance
                                 RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen2, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
+
                         thisCitizen = citizenUnits[currentUnit].m_citizen3;
                         if (thisCitizen != 0)
                         {
@@ -96,6 +99,7 @@ namespace LifecycleRebalance
                                 RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen3, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
                             }
                         }
+
                         thisCitizen = citizenUnits[currentUnit].m_citizen4;
                         if (thisCitizen != 0)
                         {
@@ -110,15 +114,14 @@ namespace LifecycleRebalance
             }
         }
 
-
         /// <summary>
         /// Removes a citizen with invalid flags.
         /// </summary>
-        /// <param name="citizenManager">CitizenManager instance reference</param>
-        /// <param name="citizenID">Citizen ID to remove</param>
-        /// <param name="citizenUnit">Owning CitizenUnit ID</param>
-        /// <param name="buildingID">Home building ID</param>
-        /// <param name="flags">Citizen flags</param>
+        /// <param name="citizenManager">CitizenManager instance reference.</param>
+        /// <param name="citizenID">Citizen ID to remove.</param>
+        /// <param name="citizenUnit">Owning CitizenUnit ID.</param>
+        /// <param name="buildingID">Home building ID.</param>
+        /// <param name="flags">Citizen flags.</param>
         private static void RemoveCitizen(CitizenManager citizenManager, ref uint citizenID, uint citizenUnit, ushort buildingID, Citizen.Flags flags)
         {
             // Log messaged.

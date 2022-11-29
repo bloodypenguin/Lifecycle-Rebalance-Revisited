@@ -14,17 +14,17 @@ namespace LifecycleRebalance
     /// <summary>
     /// Options panel for setting health options.
     /// </summary>
-    internal class ImmigrationOptions : OptionsPanelTab
+    internal sealed class ImmigrationOptions : OptionsPanelTab
     {
         /// <summary>
-        /// Adds immigration options tab to tabstrip.
+        /// Initializes a new instance of the <see cref="ImmigrationOptions"/> class.
         /// </summary>
-        /// <param name="tabStrip">Tab strip to add to</param>
-        /// <param name="tabIndex">Index number of tab</param>
+        /// <param name="tabStrip">Tab strip to add to.</param>
+        /// <param name="tabIndex">Index number of tab.</param>
         internal ImmigrationOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_IMM"), tabIndex, out _);
+            Panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_IMM"), tabIndex, out _);
 
             // Set tab object reference.
             tabStrip.tabs[tabIndex].objectUserData = this;
@@ -37,25 +37,25 @@ namespace LifecycleRebalance
         internal override void Setup()
         {
             // Don't do anything if already set up.
-            if (!isSetup)
+            if (!IsSetup)
             {
                 // Perform initial setup.
-                isSetup = true;
+                IsSetup = true;
                 Logging.Message("setting up ", this.GetType());
 
                 // Use vanilla.
-                UICheckBox immigrationCheckBox = UICheckBoxes.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_VAR"));
+                UICheckBox immigrationCheckBox = UICheckBoxes.AddPlainCheckBox(Panel, Translations.Translate("LBR_IMM_VAR"));
                 immigrationCheckBox.relativePosition = new Vector3(5f, 5f);
                 immigrationCheckBox.isChecked = ModSettings.Settings.RandomImmigrantEd;
                 immigrationCheckBox.eventCheckChanged += (c, isChecked) => { ModSettings.Settings.RandomImmigrantEd = isChecked; };
 
                 // Boost immigrant education.
-                UICheckBox immiEduBoostCheck = UICheckBoxes.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_INC"));
+                UICheckBox immiEduBoostCheck = UICheckBoxes.AddPlainCheckBox(Panel, Translations.Translate("LBR_IMM_INC"));
                 immiEduBoostCheck.relativePosition = new Vector3(5f, 50f);
                 immiEduBoostCheck.isChecked = ModSettings.Settings.ImmiEduBoost;
 
                 // Suppress immigrant education.
-                UICheckBox immiEduDragCheck = UICheckBoxes.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_DEC"));
+                UICheckBox immiEduDragCheck = UICheckBoxes.AddPlainCheckBox(Panel, Translations.Translate("LBR_IMM_DEC"));
                 immiEduDragCheck.relativePosition = new Vector3(5f, 75f);
                 immiEduDragCheck.isChecked = ModSettings.Settings.ImmiEduDrag;
 
