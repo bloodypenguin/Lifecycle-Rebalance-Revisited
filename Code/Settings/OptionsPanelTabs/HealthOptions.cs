@@ -1,11 +1,18 @@
-﻿using System;
-using System.Text;
-using UnityEngine;
-using ColossalFramework.UI;
-
+﻿// <copyright file="HealthOptions.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System;
+    using System.Text;
+    using AlgernonCommons;
+    using AlgernonCommons.Translation;
+    using AlgernonCommons.UI;
+    using ColossalFramework.UI;
+    using UnityEngine;
+
     /// <summary>
     /// Options panel for setting health options.
     /// </summary>
@@ -14,8 +21,7 @@ namespace LifecycleRebalance
         // Sickness deciles; set to 10 (even though 11 in DataStore) as current WG XML v2 only stores the first 10.
         private const int numDeciles = 10;
         private static readonly float[] defaultSicknessProbs = { 0.0125f, 0.0075f, 0.01f, 0.01f, 0.015f, 0.02f, 0.03f, 0.04f, 0.05f, 0.075f, 0.25f };
-
-
+        
         /// <summary>
         /// Adds health options tab to tabstrip.
         /// </summary>
@@ -24,12 +30,11 @@ namespace LifecycleRebalance
         internal HealthOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            panel = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_HEA"), tabIndex);
+            panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_HEA"), tabIndex, out _);
 
             // Set tab object reference.
             tabStrip.tabs[tabIndex].objectUserData = this;
         }
-
 
         /// <summary>
         /// Performs initial setup; called via event when tab is first selected.
@@ -45,7 +50,7 @@ namespace LifecycleRebalance
 
 
                 // Illness options.
-                UILabel illnessLabel = UIControls.AddLabel(panel, 0f, 0f, Translations.Translate("LBR_HEA_ILL") + Environment.NewLine + Translations.Translate("LBR_HEA_ILD"));
+                UILabel illnessLabel = UILabels.AddLabel(panel, 0f, 0f, Translations.Translate("LBR_HEA_ILL") + Environment.NewLine + Translations.Translate("LBR_HEA_ILD"));
 
                 // Set the intial Y position of the illness chance sliders.
                 float currentY = illnessLabel.height + 10f;
@@ -55,8 +60,14 @@ namespace LifecycleRebalance
                 for (int i = 0; i < numDeciles; ++i)
                 {
                     // Note this is using Sunset Harbor ages.  Legacy ages are shorter by around 40% (25/35).
-                    illnessChance[i] = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_HEA_AGE") + " " + (i * 10) + "-" + ((i * 10) + 9) + " (" + Translations.Translate("LBR_DEF") + " " + (defaultSicknessProbs[i] * 100) + ")", 0, 25, 0.05f, (float)DataStore.sicknessProbInXML[i] * 100, (value) => { }, textScale: 0.9f);
-                    illnessChance[i].parent.relativePosition = new Vector3(0, currentY);
+                    illnessChance[i] = UISliders.AddPlainSliderWithValue(
+                        panel, 0f,
+                        currentY,
+                        Translations.Translate("LBR_HEA_AGE") + " " + (i * 10) + "-" + ((i * 10) + 9) + " (" + Translations.Translate("LBR_DEF") + " " + (defaultSicknessProbs[i] * 100) + ")",
+                        0f,
+                        25f,
+                        0.05f,
+                        (float)DataStore.sicknessProbInXML[i] * 100);
                     currentY += illnessChance[i].parent.height - 3f;
                 }
 
@@ -64,9 +75,8 @@ namespace LifecycleRebalance
                 currentY += 5;
 
                 // Reset to saved button.
-                UIButton illnessResetSaved = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTS"));
-                illnessResetSaved.relativePosition = new Vector3(0f, currentY);
-                illnessResetSaved.eventClicked += (control, clickEvent) =>
+                UIButton illnessResetSaved = UIButtons.AddButton(panel, 0f, currentY, Translations.Translate("LBR_RTS"));
+                illnessResetSaved.eventClicked += (c, p) =>
                 {
                     for (int i = 0; i < numDeciles; ++i)
                     {
@@ -76,9 +86,8 @@ namespace LifecycleRebalance
                 };
 
                 // Save settings button.
-                UIButton illnessSave = PanelUtils.CreateButton(panel, Translations.Translate("LBR_SAA"));
-                illnessSave.relativePosition = PanelUtils.PositionUnder(illnessResetSaved);
-                illnessSave.eventClicked += (control, clickEvent) =>
+                UIButton illnessSave = UIButtons.AddButton(panel, UILayout.PositionUnder(illnessResetSaved), Translations.Translate("LBR_SAA"));
+                illnessSave.eventClicked += (c, p) =>
                 {
                     StringBuilder logMessage = new StringBuilder("Lifecycle Rebalance Revisited: sickness probability table using factor of " + ModSettings.Settings.decadeFactor + ":" + Environment.NewLine);
 
@@ -88,7 +97,7 @@ namespace LifecycleRebalance
                         DataStore.sicknessProbInXML[i] = illnessChance[i].value / 100;
 
                         // Recalculate probabilities if the mod is loaded.
-                        if (Loading.isModCreated)
+                        if (Loading.IsLoaded)
                         {
                             Loading.CalculateSicknessProbabilities();
                         }
@@ -99,9 +108,8 @@ namespace LifecycleRebalance
                 };
 
                 // Reset to default button.
-                UIButton illnessResetDefault = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTD"));
-                illnessResetDefault.relativePosition = PanelUtils.PositionRightOf(illnessResetSaved);
-                illnessResetDefault.eventClicked += (control, clickEvent) =>
+                UIButton illnessResetDefault = UIButtons.AddButton(panel, UILayout.PositionRightOf(illnessResetSaved), Translations.Translate("LBR_RTD"));
+                illnessResetDefault.eventClicked += (c, p) =>
                 {
                     for (int i = 0; i < numDeciles; ++i)
                     {
@@ -111,9 +119,8 @@ namespace LifecycleRebalance
                 };
 
                 // Set to zero button.
-                UIButton illnessSetZero = PanelUtils.CreateButton(panel, Translations.Translate("LBR_ZRO"));
-                illnessSetZero.relativePosition = PanelUtils.PositionRightOf(illnessResetDefault);
-                illnessSetZero.eventClicked += (control, clickEvent) =>
+                UIButton illnessSetZero = UIButtons.AddButton(panel, UILayout.PositionRightOf(illnessResetDefault), Translations.Translate("LBR_ZRO"));
+                illnessSetZero.eventClicked += (c, p) =>
                 {
                     for (int i = 0; i < numDeciles; ++i)
                     {

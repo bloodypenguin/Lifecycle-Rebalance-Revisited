@@ -1,12 +1,17 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using UnityEngine;
-using ColossalFramework;
-using HarmonyLib;
-
+﻿// <copyright file="ResidentAI.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard) and Whitefang Greytail. All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System;
+    using System.Runtime.CompilerServices;
+    using AlgernonCommons;
+    using ColossalFramework;
+    using HarmonyLib;
+    using UnityEngine;
+
     /// <summary>
     /// Harmony patches for ResidentAI to implement mod functionality.
     /// </summary>
@@ -168,9 +173,9 @@ namespace LifecycleRebalance
                             // Make people sick, if they're unlucky.
                             data.Sick = true;
 
-                            if (Logging.useSicknessLog)
+                            if (LifecycleLogging.useSicknessLog)
                             {
-                                Logging.WriteToLog(Logging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.sicknessProbCalc[index]);
+                                LifecycleLogging.WriteToLog(LifecycleLogging.SicknessLogName, "Citizen became sick with chance factor ", DataStore.sicknessProbCalc[index]);
                             }
                         }
                     }
@@ -183,9 +188,9 @@ namespace LifecycleRebalance
                         CitizenUnit containingUnit = citizenManager.m_units.m_buffer[unitID];
 
                         // Log if we're doing that.
-                        if (Logging.useDeathLog)
+                        if (LifecycleLogging.useDeathLog)
                         {
-                            Logging.WriteToLog(Logging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / ModSettings.AgePerYear), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
+                            LifecycleLogging.WriteToLog(LifecycleLogging.DeathLogName, "Killed citzen ", citizenID, " at age ", data.Age, " (", (int)(data.Age / ModSettings.AgePerYear), " years old) with family ", containingUnit.m_citizen0, ", " + containingUnit.m_citizen1, ", ", containingUnit.m_citizen2, ", ", containingUnit.m_citizen3, ", ", containingUnit.m_citizen4);
                         }
 
                         // Reverse redirect to access private method Die().
@@ -216,9 +221,9 @@ namespace LifecycleRebalance
 
                                 if (currentChild != 0)
                                 {
-                                    if (Logging.useDeathLog)
+                                    if (LifecycleLogging.useDeathLog)
                                     {
-                                        Logging.WriteToLog(Logging.DeathLogName, "Removed orphan ", currentChild);
+                                        LifecycleLogging.WriteToLog(LifecycleLogging.DeathLogName, "Removed orphan ", currentChild);
                                         citizenManager.ReleaseCitizen(currentChild);
                                     }
                                 }

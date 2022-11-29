@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Linq;
-using HarmonyLib;
-
+﻿// <copyright file="UpdateHealthTranspiler.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection.Emit;
+    using AlgernonCommons;
+    using HarmonyLib;
+
     /// <summary>
     /// Harmony transpiler to remove 'vanishing corpse' check from ResidentAI.UpdateHealth and replace it with this mod's custom probabilities.
     /// </summary>

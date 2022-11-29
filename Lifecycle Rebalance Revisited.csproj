@@ -27,7 +27,7 @@
 	<ItemGroup>
 		<_Translations Include="$(ProjectDir)/Translations/*.csv" />
 		<_Examples Include="XML_Files/*.xml" />
-		<_Documentation Include ="XMLFileAndEditDiscussion.txt" />
+		<_Documentation Include="XMLFileAndEditDiscussion.txt" />
 	</ItemGroup>
 	<Target Name="DeployToModDirectory" AfterTargets="Build">
 		<PropertyGroup>
@@ -39,4 +39,8 @@
 		<Copy SourceFiles="@(_Examples)" DestinationFolder="$(DeployDir)" />
 		<Copy SourceFiles="@(_Documentation)" DestinationFolder="$(DeployDir)" />
 	</Target>
+	<Import Project="..\AlgernonCommons\AlgernonCommonsPatchingShared.projitems" Label="Shared" />
+	<ItemGroup>
+	  <Content Remove="LICENSE.txt" />
+	</ItemGroup>
 </Project>

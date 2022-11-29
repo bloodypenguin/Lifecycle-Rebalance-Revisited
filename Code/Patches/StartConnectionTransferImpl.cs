@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Emit;
-using ColossalFramework;
-using HarmonyLib;
-
+﻿// <copyright file="StartConnectionTransferImpl.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Reflection.Emit;
+    using AlgernonCommons;
+    using ColossalFramework;
+    using HarmonyLib;
+
     /// <summary>
     /// Transpiler to patch OutsideConnectionAI.StartConnectionTransferImpl.
     /// This implements the mods custom immigrant (age, education level) settings.
@@ -224,9 +229,9 @@ namespace LifecycleRebalance
             }
 
             // Write to immigration log if that option is selected.
-            if (Logging.useImmigrationLog)
+            if (LifecycleLogging.useImmigrationLog)
             {
-                Logging.WriteToLog(Logging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / ModSettings.AgePerYear), " years old) and education level ", education);
+                LifecycleLogging.WriteToLog(LifecycleLogging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / ModSettings.AgePerYear), " years old) and education level ", education);
             }
         }
 

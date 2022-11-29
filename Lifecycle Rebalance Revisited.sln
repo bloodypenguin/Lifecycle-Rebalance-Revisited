@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lifecycle Rebalance Revisited", "Lifecycle Rebalance Revisited.csproj", "{5B19095A-0B08-4D47-A274-A59A1F1B6EB6}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AlgernonCommonsPatchingShared", "..\AlgernonCommons\AlgernonCommonsPatchingShared.shproj", "{25AEF446-6F0D-43A8-BB84-D1306789B68C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,7 @@ Global
 		SolutionGuid = {8692BD5F-B6C8-4432-8102-8924FE2392C0}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\AlgernonCommons\AlgernonCommonsPatchingShared.projitems*{25aef446-6f0d-43a8-bb84-d1306789b68c}*SharedItemsImports = 13
 		..\AlgernonCommons\AlgernonCommonsPatchingShared.projitems*{5b19095a-0b08-4d47-a274-a59a1f1b6eb6}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

@@ -1,10 +1,16 @@
-﻿using System;
-using UnityEngine;
-using ColossalFramework.UI;
-
+﻿// <copyright file="SpeedOptions.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System;
+    using AlgernonCommons;
+    using AlgernonCommons.Translation;
+    using AlgernonCommons.UI;
+    using ColossalFramework.UI;
+
     /// <summary>
     /// Options panel for setting mod lifecycle speed options.
     /// </summary>
@@ -18,12 +24,11 @@ namespace LifecycleRebalance
         internal SpeedOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            panel = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_SPD"), tabIndex, true);
+            panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_SPD"), tabIndex, out _);
 
             // Set tab object reference.
             tabStrip.tabs[tabIndex].objectUserData = this;
         }
-
 
         /// <summary>
         /// Performs initial setup; called via event when tab is first selected.
@@ -38,31 +43,36 @@ namespace LifecycleRebalance
                 Logging.Message("setting up ", this.GetType());
 
                 // Lifespan multiplier.  Simple integer.
-                UISlider lifeMult = PanelUtils.AddSliderWithValue(panel, Translations.Translate("LBR_SPD_FAC") + Environment.NewLine + Translations.Translate("LBR_SPD_FN1") + Environment.NewLine + Environment.NewLine + Translations.Translate("LBR_SPD_FN2") +  Environment.NewLine + Translations.Translate("LBR_SPD_FN3"), 1f, 340f, 1f, DataStore.lifeSpanMultiplier, (value) => { }, 680f);
+                UISlider lifeMult = UISliders.AddPlainSliderWithValue(
+                    panel,
+                    0f,
+                    0f,
+                    Translations.Translate("LBR_SPD_FAC") + Environment.NewLine + Translations.Translate("LBR_SPD_FN1") + Environment.NewLine + Environment.NewLine + Translations.Translate("LBR_SPD_FN2") +  Environment.NewLine + Translations.Translate("LBR_SPD_FN3"),
+                    1f,
+                    340f,
+                    1f,
+                    DataStore.lifeSpanMultiplier,
+                    680f);
 
                 // Reset to saved button.
-                UIButton lifeMultReset = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTS"));
-                lifeMultReset.eventClicked += (control, clickEvent) =>
+                UIButton lifeMultReset = UIButtons.AddButton(panel, UILayout.PositionUnder(lifeMult), Translations.Translate("LBR_RTS"));
+                lifeMultReset.eventClicked += (c, p) =>
                 {
-                // Retrieve saved value from datastore - inverted value (see above).
-                lifeMult.value = DataStore.lifeSpanMultiplier;
+                    // Retrieve saved value from datastore - inverted value (see above).
+                    lifeMult.value = DataStore.lifeSpanMultiplier;
                 };
 
-                // Turn off autolayout to fit next button to the right at the same y-value and increase button Y-value to clear slider.
-                //speedTab.autoLayout = false;
-                lifeMultReset.relativePosition = new Vector3(lifeMultReset.relativePosition.x, lifeMult.relativePosition.y + 40);
 
                 // Save settings button.
-                UIButton lifeMultSave = PanelUtils.CreateButton(panel, Translations.Translate("LBR_SAA"));
-                lifeMultSave.relativePosition = PanelUtils.PositionRightOf(lifeMultReset);
-                lifeMultSave.eventClicked += (control, value) =>
+                UIButton lifeMultSave = UIButtons.AddButton(panel, UILayout.PositionUnder(lifeMultReset), Translations.Translate("LBR_SAA"));
+                lifeMultSave.eventClicked += (c, p) =>
                 {
-                // Update mod settings - inverted value (see above).
-                DataStore.lifeSpanMultiplier = (int)lifeMult.value;
+                    // Update mod settings - inverted value (see above).
+                    DataStore.lifeSpanMultiplier = (int)lifeMult.value;
                     Logging.Message("lifespan multiplier set to: ", DataStore.lifeSpanMultiplier);
 
-                // Update WG configuration file.
-                PanelUtils.SaveXML();
+                    // Update WG configuration file.
+                    PanelUtils.SaveXML();
                 };
             }
         }

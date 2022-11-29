@@ -1,10 +1,17 @@
-﻿using System.Linq;
-using UnityEngine;
-using ColossalFramework.UI;
-
+﻿// <copyright file="CalculationOptions.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System.Linq;
+    using AlgernonCommons;
+    using AlgernonCommons.Translation;
+    using AlgernonCommons.UI;
+    using ColossalFramework.UI;
+    using UnityEngine;
+
     /// <summary>
     /// Options panel for setting mod lifecycle calculation options.
     /// </summary>
@@ -30,12 +37,11 @@ namespace LifecycleRebalance
         internal CalculationOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            panel = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_SPN"), tabIndex);
+            panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_SPN"), tabIndex, out _);
 
             // Set tab object reference.
             tabStrip.tabs[tabIndex].objectUserData = this;
         }
-
 
         /// <summary>
         /// Performs initial setup; called via event when tab is first selected.
@@ -56,12 +62,12 @@ namespace LifecycleRebalance
                 UIFont titleFont = Resources.FindObjectsOfTypeAll<UIFont>().FirstOrDefault((UIFont f) => f.name == "OpenSans-Semibold");
 
                 // Add warning text message.
-                UILabel warningLabel = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_WRN"), textScale: 1.2f);
+                UILabel warningLabel = UILabels.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_WRN"), textScale: 1.2f);
                 warningLabel.font = titleFont;
                 currentY += warningLabel.height;
-                warningLabel = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_BAL"), maxWidth);
+                warningLabel = UILabels.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_BAL"), maxWidth);
                 currentY += warningLabel.height;
-                warningLabel = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_BAK"), maxWidth);
+                warningLabel = UILabels.AddLabel(panel, Margin, currentY, Translations.Translate("LBR_SPN_BAK"), maxWidth);
                 currentY += warningLabel.height + TitleMargin;
 
                 // Calculation models.
@@ -91,7 +97,7 @@ namespace LifecycleRebalance
                 currentY += TitleMargin;
 
                 retirementSlider = AgeSlider("LBR_RET_CUS", ModSettings.MinRetirementYear, ModSettings.MaxRetirementYear, ModSettings.Settings.RetirementYear);
-                retirementSlider.eventValueChanged += (control, value) =>
+                retirementSlider.eventValueChanged += (c, value) =>
                 {
                     // Update mod settings.
                     ModSettings.Settings.RetirementYear = (int)value;
@@ -104,29 +110,29 @@ namespace LifecycleRebalance
                 currentY += TitleMargin;
 
                 schoolStartSlider = AgeSlider("LBR_CHI_SCH", ModSettings.MinSchoolStartYear, ModSettings.MaxSchoolStartYear, ModSettings.Settings.SchoolStartYear);
-                schoolStartSlider.eventValueChanged += (control, value) =>
+                schoolStartSlider.eventValueChanged += (c, value) =>
                 {
                     // Update mod settings.
                     ModSettings.Settings.SchoolStartYear = (int)value;
                 };
 
                 teenStartSlider = AgeSlider("LBR_CHI_TEE", ModSettings.MinTeenStartYear, ModSettings.MaxTeenStartYear, ModSettings.Settings.TeenStartYear);
-                teenStartSlider.eventValueChanged += (control, value) =>
+                teenStartSlider.eventValueChanged += (c, value) =>
                 {
                     // Update mod settings.
                     ModSettings.Settings.TeenStartYear = (int)value;
                 };
 
                 youngStartSlider = AgeSlider("LBR_CHI_YOU", ModSettings.MinYoungStartYear, ModSettings.MaxYoungStartYear, ModSettings.Settings.YoungStartYear);
-                youngStartSlider.eventValueChanged += (control, value) =>
+                youngStartSlider.eventValueChanged += (c, value) =>
                 {
                     // Update mod settings.
                     ModSettings.Settings.YoungStartYear = (int)value;
                 };
 
                 // Sunset harbor only labels.
-                shOnlyLabel1 = UIControls.AddLabel(panel, retirementSlider.parent.relativePosition.x, retirementSlider.parent.relativePosition.y, Translations.Translate("LBR_SHO"));
-                shOnlyLabel2 = UIControls.AddLabel(panel, schoolStartSlider.parent.relativePosition.x, schoolStartSlider.parent.relativePosition.y, Translations.Translate("LBR_SHO"));
+                shOnlyLabel1 = UILabels.AddLabel(panel, retirementSlider.parent.relativePosition.x, retirementSlider.parent.relativePosition.y, Translations.Translate("LBR_SHO"));
+                shOnlyLabel2 = UILabels.AddLabel(panel, schoolStartSlider.parent.relativePosition.x, schoolStartSlider.parent.relativePosition.y, Translations.Translate("LBR_SHO"));
 
                 // Set initial visibility state of child sliders.
                 schoolStartSlider.parent.isVisible = childCheckBox.isChecked;
@@ -137,7 +143,7 @@ namespace LifecycleRebalance
                 UpdateVisibility(ModSettings.Settings.VanillaCalcs ? 2 : ModSettings.Settings.LegacyCalcs ? 1 : 0);
 
                 // Event handlers (here so other controls referenced are all set up prior to referencing in handlers).
-                sunsetCheckBox.eventCheckChanged += (control, isChecked) =>
+                sunsetCheckBox.eventCheckChanged += (c, isChecked) =>
                 {
                     if (isChecked)
                     {
@@ -151,7 +157,7 @@ namespace LifecycleRebalance
                     }
                 };
 
-                legacyCheckBox.eventCheckChanged += (control, isChecked) =>
+                legacyCheckBox.eventCheckChanged += (c, isChecked) =>
                 {
                     if (isChecked)
                     {
@@ -165,7 +171,7 @@ namespace LifecycleRebalance
                     }
                 };
 
-                vanillaCheckBox.eventCheckChanged += (control, isChecked) =>
+                vanillaCheckBox.eventCheckChanged += (c, isChecked) =>
                 {
                     if (isChecked)
                     {
@@ -179,7 +185,7 @@ namespace LifecycleRebalance
                     }
                 };
 
-                retireCheckBox.eventCheckChanged += (control, isChecked) =>
+                retireCheckBox.eventCheckChanged += (c, isChecked) =>
                 {
                     // Update mod settings.
                     ModSettings.Settings.CustomRetirement = isChecked;
@@ -188,7 +194,7 @@ namespace LifecycleRebalance
                     retirementSlider.parent.isVisible = isChecked;
                 };
 
-                childCheckBox.eventCheckChanged += (control, isChecked) =>
+                childCheckBox.eventCheckChanged += (c, isChecked) =>
                 {
                     // Update mod settings.
                     ModSettings.Settings.CustomChildhood = isChecked;
@@ -200,7 +206,6 @@ namespace LifecycleRebalance
                 };
             }
         }
-
 
         /// <summary>
         /// Updates calculation method checkboxes based on current selection.
@@ -278,7 +283,6 @@ namespace LifecycleRebalance
             }
         }
 
-
         /// <summary>
         /// Adds an age slider with age-in-years displayed dynamically below.
         /// </summary>
@@ -289,15 +293,13 @@ namespace LifecycleRebalance
         private UISlider AgeSlider(string labelKey, uint min, uint max, int initialValue)
         {
             // Create new slider.
-            UISlider newSlider = UIControls.AddSliderWithValue(panel, Translations.Translate(labelKey), min, max, 1f, initialValue, 700f);
-            newSlider.parent.relativePosition = new Vector2(Margin, currentY);
+            UISlider newSlider = UISliders.AddPlainSliderWithValue(panel, Margin, currentY, Translations.Translate(labelKey), min, max, 1f, initialValue, 700f);
 
             // Increment y position indicator.
             currentY += newSlider.parent.height - Margin;
 
             return newSlider;
         }
-
 
         /// <summary>
         /// Creates a plain checkbox using the game's option panel checkbox template.
@@ -335,7 +337,6 @@ namespace LifecycleRebalance
             return checkBox;
         }
 
-
         /// <summary>
         /// Adds a spacer and new title to the given panel.
         /// </summary>
@@ -344,9 +345,9 @@ namespace LifecycleRebalance
         private void AddTitle(UIComponent parent, string titleKey, UIFont titleFont, float maxWidth)
         {
             currentY += Margin;
-            UIControls.OptionsSpacer(parent, Margin, currentY, maxWidth);
+            UISpacers.AddOptionsSpacer(parent, Margin, currentY, maxWidth);
             currentY += TitleMargin * 2f;
-            UILabel calculationLabel = UIControls.AddLabel(panel, Margin, currentY, Translations.Translate(titleKey), textScale: 1.2f);
+            UILabel calculationLabel = UILabels.AddLabel(panel, Margin, currentY, Translations.Translate(titleKey), textScale: 1.2f);
             calculationLabel.font = titleFont;
             currentY += calculationLabel.height + TitleMargin;
         }

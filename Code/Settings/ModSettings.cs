@@ -1,12 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Xml.Serialization;
-using UnityEngine;
-
+﻿// <copyright file="ModSettings.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using System.Xml.Serialization;
+    using AlgernonCommons;
+    using AlgernonCommons.Patching;
+    using AlgernonCommons.Translation;
+    using UnityEngine;
+
     /// <summary>
     /// Tracks and implements mod settings when mod is running.
     /// </summary>
@@ -155,7 +162,7 @@ namespace LifecycleRebalance
                 SetDecadeFactor();
 
                 // Also recalculate the survival probability table if the game has been loaded (i.e. not from main menu options panel).
-                if (Loading.isModCreated)
+                if (Loading.IsLoaded)
                 {
                     SetSurvivalProb();
                 }
@@ -222,7 +229,7 @@ namespace LifecycleRebalance
                 _useTransportModes = value;
 
                 // Apply choices by applying or unapplying Harmony transport choice patches as required.
-                Patcher.ApplyTransportPatches(value);
+                PatcherManager<Patcher>.Instance.ApplyTransportPatches(value);
             }
         }
         [XmlIgnore]
@@ -302,35 +309,35 @@ namespace LifecycleRebalance
         /// Enables/disables detailed debug logging to game output log.
         /// </summary>
         [XmlElement("DetailLogging")]
-        public bool XMLDetailLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
+        public bool XMLDetailLogging { get => Logging.DetailLogging; set => Logging.DetailLogging = value; }
 
 
         /// <summary>
         /// Enables/disables detailed death logging.
         /// </summary>
         [XmlElement("LogDeaths")]
-        public bool XMLLogDeaths { get => Logging.useDeathLog; set => Logging.useDeathLog = value; }
+        public bool XMLLogDeaths { get => LifecycleLogging.useDeathLog; set => LifecycleLogging.useDeathLog = value; }
 
 
         /// <summary>
         /// Enables/disables detailed transport logging.
         /// </summary>
         [XmlElement("LogTransport")]
-        public bool XMLLogTransport { get => Logging.useTransportLog; set => Logging.useTransportLog = value; }
+        public bool XMLLogTransport { get => LifecycleLogging.useTransportLog; set => LifecycleLogging.useTransportLog = value; }
 
 
         /// <summary>
         /// Enables/disables detailed sickness logging.
         /// </summary>
         [XmlElement("LogSickness")]
-        public bool XMLLogSickness { get => Logging.useSicknessLog; set => Logging.useSicknessLog = value; }
+        public bool XMLLogSickness { get => LifecycleLogging.useSicknessLog; set => LifecycleLogging.useSicknessLog = value; }
 
 
         /// <summary>
         /// Enables/disables detailed immigration logging.
         /// </summary>
         [XmlElement("LogImmigration")]
-        public bool XMLLogImmigration { get => Logging.useImmigrationLog; set => Logging.useImmigrationLog = value; }
+        public bool XMLLogImmigration { get => LifecycleLogging.useImmigrationLog; set => LifecycleLogging.useImmigrationLog = value; }
 
 
         /// <summary>

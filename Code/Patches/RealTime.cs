@@ -1,9 +1,13 @@
-﻿using ColossalFramework;
-using HarmonyLib;
-
+﻿// <copyright file="RealTime.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using ColossalFramework;
+    using HarmonyLib;
+
     /// <summary>
     /// Harmony patch to ensure that pre-school children don't go shopping when the Real Time mod is involved.
     /// Temporary fix until issue is resolved in Real Time.

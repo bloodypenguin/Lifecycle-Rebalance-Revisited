@@ -1,20 +1,21 @@
-﻿using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Collections.Generic;
-using ICities;
-using ColossalFramework.Plugins;
-
+﻿// <copyright file="ModUtils.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System.Reflection;
+    using System.Collections.Generic;
+    using AlgernonCommons;
+    using ColossalFramework.Plugins;
+
     /// <summary>
     /// Class that manages interactions with other mods, including compatibility and functionality checks.
     /// </summary>
     internal static class ModUtils
     {
         internal static List<string> conflictingModNames;
-
 
         /// <summary>
         /// Checks for any known mod conflicts.
@@ -86,42 +87,6 @@ namespace LifecycleRebalance
             }
 
             return conflictDetected;
-        }
-
-
-        /// <summary>
-        /// Returns the filepath of the mod assembly.
-        /// </summary>
-        /// <returns>Mod assembly filepath</returns>
-        internal static string GetAssemblyPath()
-        {
-            // Get list of currently active plugins.
-            IEnumerable<PluginManager.PluginInfo> plugins = PluginManager.instance.GetPluginsInfo();
-
-            // Iterate through list.
-            foreach (PluginManager.PluginInfo plugin in plugins)
-            {
-                try
-                {
-                    // Get all (if any) mod instances from this plugin.
-                    IUserMod[] mods = plugin.GetInstances<IUserMod>();
-
-                    // Check to see if the primary instance is this mod.
-                    if (mods.FirstOrDefault() is LifecycleRebalanceMod)
-                    {
-                        // Found it! Return path.
-                        return plugin.modPath;
-                    }
-                }
-                catch
-                {
-                    // Don't care.
-                }
-            }
-
-            // If we got here, then we didn't find the assembly.
-            Logging.Error("assembly path not found");
-            throw new FileNotFoundException(LifecycleRebalanceMod.ModName + ": assembly path not found!");
         }
     }
 }

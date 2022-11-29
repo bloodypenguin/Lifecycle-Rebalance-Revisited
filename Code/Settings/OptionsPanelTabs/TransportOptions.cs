@@ -1,10 +1,17 @@
-﻿using UnityEngine;
-using ColossalFramework;
-using ColossalFramework.UI;
-
+﻿// <copyright file="TransportOptions.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using UnityEngine;
+    using AlgernonCommons;
+    using AlgernonCommons.UI;
+    using AlgernonCommons.Translation;
+    using ColossalFramework;
+    using ColossalFramework.UI;
+
     /// <summary>
     /// Options panel for setting transport options.
     /// </summary>
@@ -51,7 +58,7 @@ namespace LifecycleRebalance
         internal TransportOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            panel = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_TRN"), tabIndex, false);
+            panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_TRN"), tabIndex, out _);
 
             // Set tab object reference.
             tabStrip.tabs[tabIndex].objectUserData = this;
@@ -70,10 +77,9 @@ namespace LifecycleRebalance
                 isSetup = true;
                 Logging.Message("setting up ", this.GetType());
 
-                UICheckBox transportCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_TRN_CUS"));
-                transportCheckBox.relativePosition = new Vector3(30f, 5f);
+                UICheckBox transportCheckBox = UICheckBoxes.AddPlainCheckBox(panel, 30f, 5f, Translations.Translate("LBR_TRN_CUS"));
                 transportCheckBox.isChecked = ModSettings.Settings.UseTransportModes;
-                transportCheckBox.eventCheckChanged += (control, isChecked) => { ModSettings.Settings.UseTransportModes = isChecked; };
+                transportCheckBox.eventCheckChanged += (c, isChecked) => { ModSettings.Settings.UseTransportModes = isChecked; };
 
                 // Set up textfield arrays; low/high density.
                 wealthLow = new UITextField[NumDensity][][];
@@ -136,22 +142,20 @@ namespace LifecycleRebalance
             }
         }
 
-
         /// <summary>
         /// Event handler filter for text fields to ensure only integer values are entered.
         /// </summary>
-        /// <param name="control">Relevant control</param>
+        /// <param name="c">Relevant control</param>
         /// <param name="value">Text value</param>
-        private void TextFilter(UITextField control, string value)
+        private void TextFilter(UITextField c, string value)
         {
             // If it's not blank and isn't an integer, remove the last character and set selection to end.
             if (!value.IsNullOrWhiteSpace() && !int.TryParse(value, out int _))
             {
-                control.text = value.Substring(0, value.Length - 1);
-                control.MoveSelectionPointRight();
+                c.text = value.Substring(0, value.Length - 1);
+                c.MoveSelectionPointRight();
             }
         }
-
 
         /// <summary>
         /// Updates the DataStore with information from the text fields.
@@ -185,7 +189,6 @@ namespace LifecycleRebalance
             PopulateFields();
         }
 
-
         /// <summary>
         /// Attempts to parse a string for an integer value; if the parse fails, simply does nothing (leaving the original value intact).
         /// </summary>
@@ -208,7 +211,6 @@ namespace LifecycleRebalance
                 intVar = result;
             }
         }
-
 
         /// <summary>
         /// Populates the text fields with information from the DataStore.
@@ -235,7 +237,6 @@ namespace LifecycleRebalance
                 }
             }
         }
-
 
         /// <summary>
         /// Adds a density field group to the panel.
@@ -270,7 +271,6 @@ namespace LifecycleRebalance
             currentY += 5f;
         }
 
-
         /// <summary>
         /// Adds a column header icon label.
         /// </summary>
@@ -287,7 +287,6 @@ namespace LifecycleRebalance
             const float iconOffset = 20f;
             const float iconRemainder = iconSize - iconOffset;
 
-
             // Create mini-panel for the icon background.
             UIPanel thumbPanel = panel.AddUIComponent<UIPanel>();
             thumbPanel.width = (count * iconOffset) + iconRemainder;
@@ -302,11 +301,10 @@ namespace LifecycleRebalance
                 UISprite thumbSprite = thumbPanel.AddUIComponent<UISprite>();
                 thumbSprite.relativePosition = new Vector3(i * iconOffset, 0);
                 thumbSprite.size = new Vector3(iconSize, iconSize);
-                thumbSprite.atlas = PanelUtils.GetAtlas("Ingame");
+                thumbSprite.atlas = UITextures.InGameAtlas;
                 thumbSprite.spriteName = icon;
             }
         }
-
 
         /// <summary>
         /// Adds control bouttons the the panel.
@@ -318,18 +316,15 @@ namespace LifecycleRebalance
             currentY += Margin;
 
             // Reset button.
-            UIButton resetButton = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTD"), xPos: Margin, yPos: currentY);
+            UIButton resetButton = UIButtons.AddButton(panel, Margin, currentY, Translations.Translate("LBR_RTD"));
             resetButton.eventClicked += (component, clickEvent) => ResetToDefaults();
 
-            UIButton revertToSaveButton = PanelUtils.CreateButton(panel, Translations.Translate("LBR_RTS"));
-            revertToSaveButton.relativePosition = PanelUtils.PositionRightOf(resetButton);
+            UIButton revertToSaveButton = UIButtons.AddButton(panel, UILayout.PositionRightOf(resetButton), Translations.Translate("LBR_RTS"));
             revertToSaveButton.eventClicked += (component, clickEvent) => { PopulateFields(); };
 
-            UIButton saveButton = PanelUtils.CreateButton(panel, Translations.Translate("LBR_SAA"));
-            saveButton.relativePosition = PanelUtils.PositionRightOf(revertToSaveButton);
+            UIButton saveButton = UIButtons.AddButton(panel, UILayout.PositionRightOf(revertToSaveButton), Translations.Translate("LBR_SAA"));
             saveButton.eventClicked += (component, clickEvent) => ApplyFields();
         }
-
 
         /// <summary>
         /// Adds a column header icon label.
@@ -355,11 +350,9 @@ namespace LifecycleRebalance
             UISprite thumbSprite = thumbPanel.AddUIComponent<UISprite>();
             thumbSprite.relativePosition = Vector3.zero;
             thumbSprite.size = thumbPanel.size;
-            thumbSprite.atlas = PanelUtils.GetAtlas("Ingame");
+            thumbSprite.atlas = UITextures.InGameAtlas;
             thumbSprite.spriteName = icon;
         }
-
-
 
         /// <summary>
         /// Adds a column header icon label.
@@ -379,7 +372,7 @@ namespace LifecycleRebalance
             thumbSprite.relativePosition = new Vector3(Margin, yPos - 2.5f);
             thumbSprite.width = SpriteSize;
             thumbSprite.height = SpriteSize;
-            thumbSprite.atlas = PanelUtils.GetAtlas(atlas);
+            thumbSprite.atlas = UITextures.GetTextureAtlas(atlas);
             thumbSprite.spriteName = icon;
 
             // Text label.
@@ -396,7 +389,6 @@ namespace LifecycleRebalance
             // Increment Y.
             currentY += 30f;
         }
-
 
         /// <summary>
         /// Adds a row text label.
@@ -424,7 +416,6 @@ namespace LifecycleRebalance
             lineLabel.relativePosition = new Vector3(xPos, yPos + 2);
         }
 
-
         /// <summary>
         /// Adds an input text field at the specified coordinates.
         /// </summary>
@@ -435,8 +426,8 @@ namespace LifecycleRebalance
         /// <param name="tooltip">Tooltip, if any</param>
         private UITextField AddTextField(UIPanel panel, float width, float posX, float posY, string tooltip = null)
         {
-            UITextField textField = UIControls.SmallTextField(panel, posX, posY, width);
-            textField.eventTextChanged += (control, value) => TextFilter((UITextField)control, value);
+            UITextField textField = UITextFields.AddSmallTextField(panel, posX, posY, width);
+            textField.eventTextChanged += (c, value) => TextFilter((UITextField)c, value);
 
             // Add tooltip.
             if (tooltip != null)
@@ -446,7 +437,6 @@ namespace LifecycleRebalance
 
             return textField;
         }
-
 
         /// <summary>
         /// Resets all textfields to mod default values.

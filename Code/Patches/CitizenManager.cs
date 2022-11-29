@@ -1,9 +1,14 @@
-﻿using ColossalFramework;
-using HarmonyLib;
-
+﻿// <copyright file="CitizenManager.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using AlgernonCommons;
+    using ColossalFramework;
+    using HarmonyLib;
+
     /// <summary>
     /// Harmony patch to slowly cycle through buildings and remove citizens with invalid flags.
     /// </summary>

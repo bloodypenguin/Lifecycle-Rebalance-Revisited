@@ -1,9 +1,16 @@
-﻿using UnityEngine;
-using ColossalFramework.UI;
-
+﻿// <copyright file="ImmigrationOptions.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard). All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using AlgernonCommons;
+    using AlgernonCommons.Translation;
+    using AlgernonCommons.UI;
+    using ColossalFramework.UI;
+    using UnityEngine;
+
     /// <summary>
     /// Options panel for setting health options.
     /// </summary>
@@ -17,7 +24,7 @@ namespace LifecycleRebalance
         internal ImmigrationOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab.
-            panel = PanelUtils.AddTab(tabStrip, Translations.Translate("LBR_IMM"), tabIndex);
+            panel = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_IMM"), tabIndex, out _);
 
             // Set tab object reference.
             tabStrip.tabs[tabIndex].objectUserData = this;
@@ -36,25 +43,23 @@ namespace LifecycleRebalance
                 isSetup = true;
                 Logging.Message("setting up ", this.GetType());
 
-
                 // Use vanilla.
-                UICheckBox immigrationCheckBox = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_VAR"));
+                UICheckBox immigrationCheckBox = UICheckBoxes.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_VAR"));
                 immigrationCheckBox.relativePosition = new Vector3(5f, 5f);
                 immigrationCheckBox.isChecked = ModSettings.Settings.RandomImmigrantEd;
-                immigrationCheckBox.eventCheckChanged += (control, isChecked) => { ModSettings.Settings.RandomImmigrantEd = isChecked; };
+                immigrationCheckBox.eventCheckChanged += (c, isChecked) => { ModSettings.Settings.RandomImmigrantEd = isChecked; };
 
                 // Boost immigrant education.
-                UICheckBox immiEduBoostCheck = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_INC"));
+                UICheckBox immiEduBoostCheck = UICheckBoxes.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_INC"));
                 immiEduBoostCheck.relativePosition = new Vector3(5f, 50f);
                 immiEduBoostCheck.isChecked = ModSettings.Settings.ImmiEduBoost;
 
                 // Suppress immigrant education.
-                UICheckBox immiEduDragCheck = PanelUtils.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_DEC"));
+                UICheckBox immiEduDragCheck = UICheckBoxes.AddPlainCheckBox(panel, Translations.Translate("LBR_IMM_DEC"));
                 immiEduDragCheck.relativePosition = new Vector3(5f, 75f);
                 immiEduDragCheck.isChecked = ModSettings.Settings.ImmiEduDrag;
 
-
-                immiEduBoostCheck.eventCheckChanged += (control, isChecked) =>
+                immiEduBoostCheck.eventCheckChanged += (c, isChecked) =>
                 {
                     // Update mod settings.
                     ModSettings.Settings.ImmiEduBoost = isChecked;
@@ -65,7 +70,8 @@ namespace LifecycleRebalance
                         immiEduDragCheck.isChecked = false;
                     }
                 };
-                immiEduDragCheck.eventCheckChanged += (control, isChecked) =>
+
+                immiEduDragCheck.eventCheckChanged += (c, isChecked) =>
                 {
                     // Update mod settings.
                     ModSettings.Settings.ImmiEduDrag = isChecked;

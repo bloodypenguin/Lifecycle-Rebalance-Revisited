@@ -1,9 +1,14 @@
-﻿using System;
-using ColossalFramework;
-
+﻿// <copyright file="ResidentAITransport.cs" company="algernon (K. Algernon A. Sheppard)">
+// Copyright (c) algernon (K. Algernon A. Sheppard) and Whitefang Greytail. All rights reserved.
+// Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
+// </copyright>
 
 namespace LifecycleRebalance
 {
+    using System;
+    using AlgernonCommons;
+    using ColossalFramework;
+
     /// <summary>
     /// Harmony pre-emptive Prefix patches for ResidentAI to implements mod's transport probability settings.
     /// </summary>
@@ -43,9 +48,9 @@ namespace LifecycleRebalance
             // Original method return value.
             __result = AIUtils.cacheArray[DataStore.CAR];
 
-            if (Logging.useTransportLog)
+            if (LifecycleLogging.useTransportLog)
             {
-                Logging.WriteToLog(Logging.TransportLogName, citizen.WealthLevel, "-wealth ", ageGroup, " has ", __result + "% chance of driving");
+                LifecycleLogging.WriteToLog(LifecycleLogging.TransportLogName, citizen.WealthLevel, "-wealth ", ageGroup, " has ", __result + "% chance of driving");
             }
 
             // Don't execute base method after this.
@@ -68,9 +73,9 @@ namespace LifecycleRebalance
             // Array cache has already been set when GetCarProbability was called.
             __result = (AIUtils.cacheArray[DataStore.BIKE] + bike);
 
-            if (Logging.useTransportLog)
+            if (LifecycleLogging.useTransportLog)
             {
-                Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup, " has ", __result, "% chance of cycling");
+                LifecycleLogging.WriteToLog(LifecycleLogging.TransportLogName, "The same ", ageGroup, " has ", __result, "% chance of cycling");
             }
 
             // Don't execute base method after this.
@@ -91,9 +96,9 @@ namespace LifecycleRebalance
             // Array cache has already been set when GetCarProbability was called.
             __result = AIUtils.cacheArray[DataStore.TAXI];
 
-            if (Logging.useTransportLog)
+            if (LifecycleLogging.useTransportLog)
             {
-                Logging.WriteToLog(Logging.TransportLogName, "The same ", ageGroup, " has ", __result, "% chance of using a taxi");
+                LifecycleLogging.WriteToLog(LifecycleLogging.TransportLogName, "The same ", ageGroup, " has ", __result, "% chance of using a taxi");
             }
 
             // Don't execute base method after this.
