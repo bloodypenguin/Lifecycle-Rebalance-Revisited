@@ -11,6 +11,7 @@ namespace LifecycleRebalance
     using AlgernonCommons.Translation;
     using AlgernonCommons.UI;
     using ColossalFramework.UI;
+    using UnityEngine;
 
     /// <summary>
     /// Options panel for setting health options.
@@ -68,7 +69,11 @@ namespace LifecycleRebalance
                         25f,
                         0.05f,
                         (float)DataStore.SicknessProbInXML[i] * 100);
-                    currentY += illnessChance[i].parent.height - 3f;
+
+                    UILabel sliderLabel = illnessChance[i].parent.Find<UILabel>("Label");
+                    sliderLabel.textScale = 0.9f;
+                    sliderLabel.relativePosition += new Vector3(0f, 6f);
+                    currentY += illnessChance[i].parent.height - 8f;
                 }
 
                 // Add vertical gap for buttons.
