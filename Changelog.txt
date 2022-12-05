@@ -1,4 +1,5 @@
-﻿- Implement AlgernonCommons
+﻿- Mod conflict detection now takes place on enabling the mod (so you don't have to load a city to find out if there's a conflict)
+- Implement AlgernonCommons
 
 
 Version 1.6.4
