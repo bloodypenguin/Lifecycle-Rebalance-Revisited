@@ -64,7 +64,7 @@ LBR_RTS,Revert to saved
 LBR_SAA,Save and apply
 LBR_ZRO,Set all to zero
 TRN_CHOICE,Set language
-TRN_SYS,Use system language
+LANGUAGE_GAME,Use system language
 MES_CLS,Close
 MES_DSA,Don't show again
 MES_PAGE,Please refer to the mod's Steam Workshop page for further information.
