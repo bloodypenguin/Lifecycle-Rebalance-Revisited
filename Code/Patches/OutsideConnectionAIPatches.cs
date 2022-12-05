@@ -67,6 +67,7 @@ namespace LifecycleRebalance
                 {
                     instructionsRemaining -= 1;
                 }
+
                 // Otherwise, check to see if we've found the start.
                 // We're looking for stloc.s 16 (initialising the for i = 0 at the start of the key loop); this only occurs twice in the original method, and we want the first.
                 else if (instruction.opcode == OpCodes.Stloc_S && instruction.operand is LocalBuilder builder && builder.LocalIndex == ILoopVarIndex)
