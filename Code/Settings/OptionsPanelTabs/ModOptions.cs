@@ -26,7 +26,7 @@ namespace LifecycleRebalance
             UIPanel modTab = UITabstrips.AddTextTab(tabStrip, Translations.Translate("LBR_SET"), tabIndex, out _, autoLayout: true);
 
             // Language dropdown.
-            UIDropDown languageDrop = UIDropDowns.AddPlainDropDown(modTab, 0f, 0f, Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index);
+            UIDropDown languageDrop = UIDropDowns.AddPlainDropDown(modTab, 0f, 0f, Translations.Translate("LANGUAGE_CHOICE"), Translations.LanguageList, Translations.Index);
             languageDrop.eventSelectedIndexChanged += (c, index) =>
             {
                 Translations.Index = index;
@@ -34,7 +34,7 @@ namespace LifecycleRebalance
             };
 
             // Detail logging options.
-            UICheckBox logCheckBox = UICheckBoxes.AddPlainCheckBox(modTab, Translations.Translate("LBR_SET_LDT"));
+            UICheckBox logCheckBox = UICheckBoxes.AddPlainCheckBox(modTab, Translations.Translate("DETAIL_LOGGING"));
             logCheckBox.isChecked = Logging.DetailLogging;
             logCheckBox.eventCheckChanged += (c, isChecked) => { Logging.DetailLogging = isChecked; };
 

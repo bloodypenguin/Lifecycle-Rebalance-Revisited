@@ -30,6 +30,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<_Translations Include="$(ProjectDir)/Translations/*.csv" />
+		<_TranslationsCore Include="../AlgernonCommons/Translations/*.csv" />
 		<_Examples Include="XML_Files/*.xml" />
 		<_Documentation Include="XMLFileAndEditDiscussion.txt" />
 	</ItemGroup>
@@ -40,6 +41,7 @@
 		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" />
 		<Copy SourceFiles="$(TargetDir)/CitiesHarmony.API.dll" DestinationFolder="$(DeployDir)" />
 		<Copy SourceFiles="@(_Translations)" DestinationFolder="$(DeployDir)/Translations" />
+		<Copy SourceFiles="@(_TranslationsCore)" DestinationFolder="$(DeployDir)/Translations/Core" />
 		<Copy SourceFiles="@(_Examples)" DestinationFolder="$(DeployDir)" />
 		<Copy SourceFiles="@(_Documentation)" DestinationFolder="$(DeployDir)" />
 	</Target>
