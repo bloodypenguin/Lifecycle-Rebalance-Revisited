@@ -96,8 +96,8 @@ namespace LifecycleRebalance
         public static int BikeIncrease = 10;
 
         /// <summary>
-        /// Residential transport probabilities - low wealth.
-        /// wealth, home building density, age, transportmode.
+        /// Residential transport probabilities - low wealth (low and high density standard residential).
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
         /// </summary>
         public static int[][][] TransportLowWealth =
         {
@@ -120,8 +120,9 @@ namespace LifecycleRebalance
         };
 
         /// <summary>
-        /// Residential transport probabilities - medium wealth.
+        /// Residential transport probabilities - medium wealth (low and high density standard residential).
         /// wealth, home building density, age, transportmode.
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
         /// </summary>
         public static int[][][] TransportMedWealth =
         {
@@ -144,8 +145,8 @@ namespace LifecycleRebalance
         };
 
         /// <summary>
-        /// Residential transport probabilities - high wealth.
-        /// wealth, home building density, age, transportmode.
+        /// Residential transport probabilities - high wealth (low and high density standard residential).
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
         /// </summary>
         public static int[][][] TransportHighWealth =
         {
@@ -168,8 +169,47 @@ namespace LifecycleRebalance
         };
 
         /// <summary>
-        /// Eco-residential transport probabilities - low wealth.
-        /// wealth, home building density, age, transportmode.
+        /// Wall-to-wall residential transport probabilities - low wealth.
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
+        /// </summary>
+        public static int[][] TransportLowWealthW2W =
+        {
+            new int[] { 0, 40, 0, },
+            new int[] { 2, 30, 0, },
+            new int[] { 3, 20, 1, },
+            new int[] { 5, 10, 2, },
+            new int[] { 4,  2, 3, },
+        };
+
+        /// <summary>
+        /// Wall-to-wall residential transport probabilities - medium wealth.
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
+        /// </summary>
+        public static int[][] TransportMedWealthW2W =
+        {
+            new int[] { 0, 40, 0, },
+            new int[] { 3, 30, 1, },
+            new int[] { 5, 20, 2, },
+            new int[] { 7, 10, 3, },
+            new int[] { 6,  2, 5, },
+        };
+
+        /// <summary>
+        /// Wall-to-wall residential transport probabilities - high wealth.
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
+        /// </summary>
+        public static int[][] TransportHighWealthW2W =
+        {
+            new int[] { 0, 40, 0, },
+            new int[] { 4, 30, 2, },
+            new int[] { 7, 20, 3, },
+            new int[] { 9, 10, 4, },
+            new int[] { 8,  1, 5, },
+        };
+
+        /// <summary>
+        /// Eco-residential transport probabilities - low wealth (low and high density).
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
         /// </summary>
         public static int[][][] TranportLowWealthEco =
         {
@@ -192,8 +232,8 @@ namespace LifecycleRebalance
         };
 
         /// <summary>
-        /// Eco-residential transport probabilities - medium wealth.
-        /// wealth, home building density, age, transportmode.
+        /// Eco-residential transport probabilities - medium wealth (low and high density).
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
         /// </summary>
         public static int[][][] TransportMedWealthEco =
         {
@@ -216,8 +256,9 @@ namespace LifecycleRebalance
         };
 
         /// <summary>
-        /// Eco-residential transport probabilities - high wealth.
+        /// Eco-residential transport probabilities - high wealth (low and high density).
         /// wealth, home building density, age, transportmode.
+        /// Car, bike, taxi, by age category (child/teen/young adult/adult/senior).
         /// </summary>
         public static int[][][] TransportHighWealthEco =
         {
@@ -281,24 +322,33 @@ namespace LifecycleRebalance
             if (File.Exists(s_currentFileLocation))
             {
                 // Load in from XML - Designed to be flat file for ease
-                WG_XMLBaseVersion reader = new XML_VersionTwo();
+                WG_XMLBaseVersion reader = new XML_VersionThree();
                 XmlDocument doc = new XmlDocument();
                 try
                 {
                     doc.Load(s_currentFileLocation);
                     int version = Convert.ToInt32(doc.DocumentElement.Attributes["version"].InnerText);
-                    if (version == 1)
+                    if (version == 2)
                     {
-                        reader = new XML_VersionOne();
+                        // Make a back up copy of the old system to be safe
+                        File.Copy(s_currentFileLocation, s_currentFileLocation + ".ver2", true);
+                        Logging.KeyMessage("Detected an old version of the XML (v2). ", s_currentFileLocation, ".ver2 has been created for future reference and will be upgraded to the new version");
 
+                        reader = new XML_VersionTwo();
+                    }
+                    else if (version == 1)
+                    {
                         // Make a back up copy of the old system to be safe
                         File.Copy(s_currentFileLocation, s_currentFileLocation + ".ver1", true);
-                        Logging.Message("Detected an old version of the XML (v1). ", s_currentFileLocation, ".ver1 has been created for future reference and will be upgraded to the new version");
+                        Logging.KeyMessage("Detected an old version of the XML (v1). ", s_currentFileLocation, ".ver1 has been created for future reference and will be upgraded to the new version");
+
+                        reader = new XML_VersionOne();
+
                     }
                     else if (version <= 0)
                     {
                         // Uh oh... version 0 was a while back..
-                        Logging.Message("Detected an unsupported version of the XML (v0 or less). Backing up for a new configuration as :", s_currentFileLocation, ".ver0");
+                        Logging.KeyMessage("Detected an unsupported version of the XML (v0 or less). Backing up for a new configuration as :", s_currentFileLocation, ".ver0");
                         File.Copy(s_currentFileLocation, s_currentFileLocation + ".ver0", true);
                         return;
                     }
@@ -325,7 +375,7 @@ namespace LifecycleRebalance
             // Create configuration file if none exists.
             try
             {
-                WG_XMLBaseVersion xml = new XML_VersionTwo();
+                WG_XMLBaseVersion xml = new XML_VersionThree();
                 xml.WriteXML(s_currentFileLocation);
             }
             catch (Exception e)

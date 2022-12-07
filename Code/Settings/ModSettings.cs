@@ -387,7 +387,6 @@ namespace LifecycleRebalance
             Settings = new ModSettings();
         }
 
-
         /// <summary>
         /// Save settings to XML file.
         /// </summary>

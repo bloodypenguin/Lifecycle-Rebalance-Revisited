@@ -1,4 +1,4 @@
-﻿// <copyright file="XML_VersionTwo.cs" company="algernon (K. Algernon A. Sheppard)">
+﻿// <copyright file="XML_VersionThree.cs" company="algernon (K. Algernon A. Sheppard)">
 // Copyright (c) algernon (K. Algernon A. Sheppard) and Whitefang Greytail. All rights reserved.
 // Licensed under the Apache license. See LICENSE.txt file in the project root for full license information.
 // </copyright>
@@ -13,7 +13,7 @@ namespace LifecycleRebalance
     using System.Xml;
     using AlgernonCommons;
 
-    public class XML_VersionTwo : WG_XMLBaseVersion
+    public class XML_VersionThree : WG_XMLBaseVersion
     {
         private const string travelNodeName = "travel";
 
@@ -231,7 +231,7 @@ namespace LifecycleRebalance
 
             XmlNode rootNode = xmlDoc.CreateElement("WG_CitizenEdit");
             XmlAttribute attribute = xmlDoc.CreateAttribute("version");
-            attribute.Value = "2";
+            attribute.Value = "3";
             rootNode.Attributes.Append(attribute);
             xmlDoc.AppendChild(rootNode);
 
@@ -278,7 +278,7 @@ namespace LifecycleRebalance
         {
             string densityElementName = (density == 0) ? "low_density" : "high_density";
             XmlNode node = xmlDoc.CreateElement(densityElementName);
-            string[] type = { "low_wealth", "med_wealth", "high_wealth", "low_wealth_eco", "med_wealth_eco", "high_wealth_eco" };
+            string[] type = { "low_wealth", "med_wealth", "high_wealth", "low_wealth_eco", "med_wealth_eco", "high_wealth_eco", "low_wealth_w2w", "med_wealth_w2w", "high_wealth_w2w" };
 
             for (int i = 0; i < type.Length; i++)
             {
@@ -300,6 +300,15 @@ namespace LifecycleRebalance
                         break;
                     case 5:
                         array = DataStore.TransportHighWealthEco[density];
+                        break;
+                    case 6:
+                        array = DataStore.TransportLowWealthW2W;
+                        break;
+                    case 7:
+                        array = DataStore.TransportMedWealthW2W;
+                        break;
+                    case 8:
+                        array = DataStore.TransportHighWealthW2W;
                         break;
                     case 0:
                     default:
@@ -475,6 +484,15 @@ namespace LifecycleRebalance
                         break;
                     case "high_wealth_eco":
                         array = DataStore.TransportHighWealthEco;
+                        break;
+                    case "low_wealth_w2w":
+                        array = new int[][][] { DataStore.TransportLowWealthW2W };
+                        break;
+                    case "med_wealth_w2w":
+                        array = new int[][][] { DataStore.TransportMedWealthW2W };
+                        break;
+                    case "high_wealth_w2w":
+                        array = new int[][][] { DataStore.TransportHighWealthW2W };
                         break;
                     default:
                         Logging.Error("readWealthNode. unknown element name: ", name);

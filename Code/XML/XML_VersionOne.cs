@@ -245,13 +245,14 @@ namespace LifecycleRebalance
                 {
                     wealthNode.AppendChild(MakeWealthArray(xmlDoc, j.ToString(), array[(int)j]));
                 }
+
                 node.AppendChild(wealthNode);
             }
 
             root.AppendChild(node);
         }
 
-        private XmlNode MakeWealthArray(XmlDocument xmlDoc, String age, int[] array)
+        private XmlNode MakeWealthArray(XmlDocument xmlDoc, string age, int[] array)
         {
             XmlNode node = xmlDoc.CreateElement(age);
 
@@ -424,7 +425,7 @@ namespace LifecycleRebalance
                 {
                     arrayRef[index][DataStore.Car] = Convert.ToInt32(node.Attributes["car"].InnerText);
                     arrayRef[index][DataStore.Bike] = Convert.ToInt32(node.Attributes["bike"].InnerText);
-                    arrayRef[index][DataStore.Taxi] =  Convert.ToInt32(node.Attributes["taxi"].InnerText);
+                    arrayRef[index][DataStore.Taxi] = Convert.ToInt32(node.Attributes["taxi"].InnerText);
                 }
                 catch (Exception e)
                 {

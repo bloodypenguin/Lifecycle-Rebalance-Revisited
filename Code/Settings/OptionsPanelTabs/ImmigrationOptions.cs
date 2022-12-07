@@ -30,7 +30,6 @@ namespace LifecycleRebalance
             tabStrip.tabs[tabIndex].objectUserData = this;
         }
 
-
         /// <summary>
         /// Performs initial setup; called via event when tab is first selected.
         /// </summary>

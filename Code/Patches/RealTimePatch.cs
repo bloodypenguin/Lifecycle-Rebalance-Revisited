@@ -18,9 +18,9 @@ namespace LifecycleRebalance
         /// <summary>
         /// Harmony Prefix patch for HumanAI.FindVisitPlace, to ensure that pre-school children don't go shopping.
         /// </summary>
-        /// <param name="citizenID">Citizen ID</param>
-        /// <param name="reason">Transfer reason</param>
-        /// <returns>False (preempt original method) if citizen is pre-school age, true (execute original method) otherwise</returns>
+        /// <param name="citizenID">Citizen ID.</param>
+        /// <param name="reason">Transfer reason.</param>
+        /// <returns>False (preempt original method) if citizen is pre-school age, true (execute original method) otherwise.</returns>
         public static bool Prefix(uint citizenID, TransferManager.TransferReason reason)
         {
             // Check if this is a request to go shopping.

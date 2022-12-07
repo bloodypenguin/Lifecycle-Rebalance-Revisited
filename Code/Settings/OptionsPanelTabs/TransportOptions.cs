@@ -32,7 +32,7 @@ namespace LifecycleRebalance
         private const float FieldWidth = 40f;
         private const float RowHeight = 23f;
         private const float ColumnWidth = FieldWidth + Margin;
-        private const float Column1 = 280f;
+        private const float Column1 = 275f;
         private const float Column2 = Column1 + ColumnWidth;
         private const float Column3 = Column2 + ColumnWidth;
         private const float GroupWidth = (ColumnWidth * 3) + Margin;
@@ -45,6 +45,9 @@ namespace LifecycleRebalance
         private UITextField[][][] _wealthLow;
         private UITextField[][][] _wealthMed;
         private UITextField[][][] _wealthHigh;
+        private UITextField[][] _w2wWealthLow;
+        private UITextField[][] _w2wWealthMed;
+        private UITextField[][] _w2wWealthHigh;
         private UITextField[][][] _ecoWealthLow;
         private UITextField[][][] _ecoWealthMed;
         private UITextField[][][] _ecoWealthHigh;
@@ -100,6 +103,14 @@ namespace LifecycleRebalance
                     _ecoWealthMed[i] = new UITextField[NumAges][];
                     _ecoWealthHigh[i] = new UITextField[NumAges][];
 
+                    // Wall-to-wall doesn't have multiple densities.
+                    if (i == 0)
+                    {
+                        _w2wWealthLow = new UITextField[NumAges][];
+                        _w2wWealthMed = new UITextField[NumAges][];
+                        _w2wWealthHigh = new UITextField[NumAges][];
+                    }
+
                     // Third level of textfield arrays; transport modes.
                     for (int j = 0; j < NumAges; ++j)
                     {
@@ -109,31 +120,65 @@ namespace LifecycleRebalance
                         _ecoWealthLow[i][j] = new UITextField[NumTransport];
                         _ecoWealthMed[i][j] = new UITextField[NumTransport];
                         _ecoWealthHigh[i][j] = new UITextField[NumTransport];
+
+                        // Wall-to-wall doesn't have multiple densities.
+                        if (i == 0)
+                        {
+                            _w2wWealthLow[j] = new UITextField[NumTransport];
+                            _w2wWealthMed[j] = new UITextField[NumTransport];
+                            _w2wWealthHigh[j] = new UITextField[NumTransport];
+                        }
                     }
                 }
 
                 // Headings.
                 for (int i = 0; i < NumWealth; ++i)
                 {
+                    // Align with textfields.
+                    float xPos = (i * GroupWidth) - 6f;
+
                     // Wealth headings.
-                    float wealthX = (i * GroupWidth) + Column1;
+                    float wealthX = xPos + Column1 - 7f;
                     WealthIcon(Panel, wealthX, 25f, ColumnWidth * 3, i + 1, Translations.Translate("LBR_TRN_WEA"), "InfoIconLandValue");
 
                     // Transport mode headings.
-                    ColumnIcon(Panel, (i * GroupWidth) + Column1, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
-                    ColumnIcon(Panel, (i * GroupWidth) + Column2, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
-                    ColumnIcon(Panel, (i * GroupWidth) + Column3, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
+                    ColumnIcon(Panel, xPos + Column1, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
+                    ColumnIcon(Panel, xPos + Column2, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
+                    ColumnIcon(Panel, xPos + Column3, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
                 }
 
+                _currentY += 30f;
+
+                // Add scrollable panel for textfield groups.
+                UIScrollablePanel scrollPanel = Panel.AddUIComponent<UIScrollablePanel>();
+                scrollPanel.relativePosition = new Vector2(0f, _currentY);
+                scrollPanel.autoSize = false;
+                scrollPanel.autoLayout = false;
+                scrollPanel.width = Panel.width - 10f;
+                scrollPanel.height = Panel.height - _currentY - 40f;
+                scrollPanel.clipChildren = true;
+                scrollPanel.builtinKeyNavigation = true;
+                scrollPanel.scrollWheelDirection = UIOrientation.Vertical;
+                UIScrollbars.AddScrollbar(Panel, scrollPanel);
+
+                // Reset Y-position indicator for scroll panel.
+                float oldCurrentY = _currentY;
+                _currentY = Margin;
+
                 // Rows by group.
-                RowHeaderIcon(Panel, _currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails", true);
-                AddDensityGroup(Panel, _wealthLow[0], _wealthMed[0], _wealthHigh[0]);
-                RowHeaderIcon(Panel, _currentY, Translations.Translate("LBR_TRN_RHI"), "ZoningResidentialHigh", "Thumbnails");
-                AddDensityGroup(Panel, _wealthLow[1], _wealthMed[1], _wealthHigh[1]);
-                RowHeaderIcon(Panel, _currentY, Translations.Translate("LBR_TRN_ERL"), "IconPolicySelfsufficient", "Ingame");
-                AddDensityGroup(Panel, _ecoWealthLow[0], _ecoWealthMed[0], _ecoWealthHigh[0]);
-                RowHeaderIcon(Panel, _currentY, Translations.Translate("LBR_TRN_ERH"), "IconPolicySelfsufficient", "Ingame");
-                AddDensityGroup(Panel, _ecoWealthLow[1], _ecoWealthMed[1], _ecoWealthHigh[1]);
+                RowHeaderIcon(scrollPanel, _currentY, Translations.Translate("LBR_TRN_RLO"), "ZoningResidentialLow", "Thumbnails", true);
+                AddDensityGroup(scrollPanel, _wealthLow[0], _wealthMed[0], _wealthHigh[0]);
+                RowHeaderIcon(scrollPanel, _currentY, Translations.Translate("LBR_TRN_RHI"), "ZoningResidentialHigh", "Thumbnails");
+                AddDensityGroup(scrollPanel, _wealthLow[1], _wealthMed[1], _wealthHigh[1]);
+                RowHeaderIcon(scrollPanel, _currentY, Translations.Translate("LBR_TRN_RW2"), "DistrictSpecializationResidentialWallToWall", "Thumbnails");
+                AddDensityGroup(scrollPanel, _w2wWealthLow, _w2wWealthMed, _w2wWealthHigh);
+                RowHeaderIcon(scrollPanel, _currentY, Translations.Translate("LBR_TRN_ERL"), "IconPolicySelfsufficient", "Ingame");
+                AddDensityGroup(scrollPanel, _ecoWealthLow[0], _ecoWealthMed[0], _ecoWealthHigh[0]);
+                RowHeaderIcon(scrollPanel, _currentY, Translations.Translate("LBR_TRN_ERH"), "IconPolicySelfsufficient", "Ingame");
+                AddDensityGroup(scrollPanel, _ecoWealthLow[1], _ecoWealthMed[1], _ecoWealthHigh[1]);
+
+                // Restore Y-position indicator.
+                _currentY = oldCurrentY + scrollPanel.height;
 
                 // Buttons.
                 AddButtons(Panel);
@@ -179,6 +224,14 @@ namespace LifecycleRebalance
                         ParseInt(ref DataStore.TranportLowWealthEco[i][j][k], _ecoWealthLow[i][j][k].text);
                         ParseInt(ref DataStore.TransportMedWealthEco[i][j][k], _ecoWealthMed[i][j][k].text);
                         ParseInt(ref DataStore.TransportHighWealthEco[i][j][k], _ecoWealthHigh[i][j][k].text);
+
+                        // Wall-to-wall has no density category.
+                        if (i == 0)
+                        {
+                            ParseInt(ref DataStore.TransportLowWealthW2W[j][k], _w2wWealthLow[j][k].text);
+                            ParseInt(ref DataStore.TransportMedWealthW2W[j][k], _w2wWealthMed[j][k].text);
+                            ParseInt(ref DataStore.TransportHighWealthW2W[j][k], _w2wWealthHigh[j][k].text);
+                        }
                     }
                 }
             }
@@ -234,6 +287,14 @@ namespace LifecycleRebalance
                         _ecoWealthLow[i][j][k].text = DataStore.TranportLowWealthEco[i][j][k].ToString();
                         _ecoWealthMed[i][j][k].text = DataStore.TransportMedWealthEco[i][j][k].ToString();
                         _ecoWealthHigh[i][j][k].text = DataStore.TransportHighWealthEco[i][j][k].ToString();
+
+                        // Wall-to-wall has no density category.
+                        if (i == 0)
+                        {
+                            _w2wWealthLow[j][k].text = DataStore.TransportLowWealthW2W[j][k].ToString();
+                            _w2wWealthMed[j][k].text = DataStore.TransportMedWealthW2W[j][k].ToString();
+                            _w2wWealthHigh[j][k].text = DataStore.TransportHighWealthW2W[j][k].ToString();
+                        }
                     }
                 }
             }
@@ -246,7 +307,7 @@ namespace LifecycleRebalance
         /// <param name="lowWealth">Low-wealth textfield array.</param>
         /// <param name="medWealth">Medium-wealth textfield array.</param>
         /// <param name="highWealth">High-wealth textfield array.</param>
-        private void AddDensityGroup(UIPanel panel, UITextField[][] lowWealth, UITextField[][] medWealth, UITextField[][] highWealth)
+        private void AddDensityGroup(UIComponent panel, UITextField[][] lowWealth, UITextField[][] medWealth, UITextField[][] highWealth)
         {
             string[] ageLabels = new string[] { Translations.Translate("LBR_TRN_CHL"), Translations.Translate("LBR_TRN_TEN"), Translations.Translate("LBR_TRN_YAD"), Translations.Translate("LBR_TRN_ADL"), Translations.Translate("LBR_TRN_SEN") };
 
@@ -293,7 +354,7 @@ namespace LifecycleRebalance
             UIPanel thumbPanel = panel.AddUIComponent<UIPanel>();
             thumbPanel.width = (count * iconOffset) + iconRemainder;
             thumbPanel.height = iconSize;
-            thumbPanel.relativePosition = new Vector3(xPos + ((width - thumbPanel.width) / 2), yPos);
+            thumbPanel.relativePosition = new Vector2(xPos + ((width - thumbPanel.width) / 2f), yPos);
             thumbPanel.clipChildren = true;
             thumbPanel.tooltip = text;
 
@@ -301,8 +362,8 @@ namespace LifecycleRebalance
             for (int i = 0; i < count; ++i)
             {
                 UISprite thumbSprite = thumbPanel.AddUIComponent<UISprite>();
-                thumbSprite.relativePosition = new Vector3(i * iconOffset, 0);
-                thumbSprite.size = new Vector3(iconSize, iconSize);
+                thumbSprite.relativePosition = new Vector2(i * iconOffset, 0);
+                thumbSprite.size = new Vector2(iconSize, iconSize);
                 thumbSprite.atlas = UITextures.InGameAtlas;
                 thumbSprite.spriteName = icon;
             }
@@ -339,11 +400,12 @@ namespace LifecycleRebalance
         /// <param name="icon">Icon name.</param>
         private void ColumnIcon(UIPanel panel, float xPos, float yPos, float width, string text, string icon)
         {
+
             // Create mini-panel for the icon background.
             UIPanel thumbPanel = panel.AddUIComponent<UIPanel>();
             thumbPanel.width = 35f;
             thumbPanel.height = 35f;
-            thumbPanel.relativePosition = new Vector3(xPos + ((width - 35f) / 2), yPos);
+            thumbPanel.relativePosition = new Vector2(xPos, yPos);//new Vector2(xPos + ((width - 35f) / 2f), yPos);
             thumbPanel.clipChildren = true;
             thumbPanel.backgroundSprite = "IconPolicyBaseRect";
             thumbPanel.tooltip = text;
@@ -365,7 +427,7 @@ namespace LifecycleRebalance
         /// <param name="icon">Icon name.</param>
         /// <param name="atlas">Icon atlas name.</param>
         /// <param name="wrapText">True if label width is fixed to column width and text wrapped, false otherwise.</param>
-        private void RowHeaderIcon(UIPanel panel, float yPos, string text, string icon, string atlas, bool wrapText = false)
+        private void RowHeaderIcon(UIComponent panel, float yPos, string text, string icon, string atlas, bool wrapText = false)
         {
             const float SpriteSize = 35f;
 
@@ -398,7 +460,7 @@ namespace LifecycleRebalance
         /// <param name="panel">UI panel instance.</param>
         /// <param name="yPos">Reference Y position.</param>
         /// <param name="text">Label text.</param>
-        private void RowLabel(UIPanel panel, float yPos, string text)
+        private void RowLabel(UIComponent panel, float yPos, string text)
         {
             // Text label.
             UILabel lineLabel = panel.AddUIComponent<UILabel>();
@@ -429,7 +491,7 @@ namespace LifecycleRebalance
         /// <param name="posX">Relative X postion.</param>
         /// <param name="posY">Relative Y position.</param>
         /// <param name="tooltip">Tooltip, if any.</param>
-        private UITextField AddTextField(UIPanel panel, float width, float posX, float posY, string tooltip = null)
+        private UITextField AddTextField(UIComponent panel, float width, float posX, float posY, string tooltip = null)
         {
             UITextField textField = UITextFields.AddSmallTextField(panel, posX, posY, width);
             textField.eventTextChanged += (c, value) => TextFilter((UITextField)c, value);
@@ -506,6 +568,33 @@ namespace LifecycleRebalance
                     new int[] { 9, 10, 4, },
                     new int[] { 8,  1, 5, },
                 },
+            };
+
+            DataStore.TransportLowWealthW2W = new int[][]
+            {
+                new int[] { 0, 40, 0, },
+                new int[] { 2, 30, 0, },
+                new int[] { 3, 20, 1, },
+                new int[] { 5, 10, 2, },
+                new int[] { 4,  2, 3, },
+            };
+
+            DataStore.TransportMedWealthW2W = new int[][]
+            {
+                new int[] { 0, 40, 0, },
+                new int[] { 3, 30, 1, },
+                new int[] { 5, 20, 2, },
+                new int[] { 7, 10, 3, },
+                new int[] { 6,  2, 5, },
+            };
+
+            DataStore.TransportHighWealthW2W = new int[][]
+            {
+                new int[] { 0, 40, 0, },
+                new int[] { 4, 30, 2, },
+                new int[] { 7, 20, 3, },
+                new int[] { 9, 10, 4, },
+                new int[] { 8,  1, 5, },
             };
 
             DataStore.TranportLowWealthEco = new int[][][]

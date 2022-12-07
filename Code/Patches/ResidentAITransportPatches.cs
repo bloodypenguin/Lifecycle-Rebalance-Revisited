@@ -114,40 +114,67 @@ namespace LifecycleRebalance
         private static int[] GetArray(Citizen.Wealth wealthLevel, ItemClass.SubService subService, Citizen.AgeGroup ageGroup)
         {
             int[][] array;
+            int densityIndex;
 
-            bool eco = (subService == ItemClass.SubService.ResidentialHighEco) || (subService == ItemClass.SubService.ResidentialLowEco);
-            int densityIndex = (subService == ItemClass.SubService.ResidentialHigh) || (subService == ItemClass.SubService.ResidentialHighEco) ? 1 : 0;
-            if (eco)
+            switch (subService)
             {
-                switch (wealthLevel)
-                {
-                    case Citizen.Wealth.High:
-                        array = DataStore.TransportHighWealthEco[densityIndex];
-                        break;
-                    case Citizen.Wealth.Medium:
-                        array = DataStore.TransportMedWealthEco[densityIndex];
-                        break;
-                    case Citizen.Wealth.Low:
-                    default:
-                        array = DataStore.TranportLowWealthEco[densityIndex];
-                        break;
-                }
-            }
-            else
-            {
-                switch (wealthLevel)
-                {
-                    case Citizen.Wealth.High:
-                        array = DataStore.TransportHighWealth[densityIndex];
-                        break;
-                    case Citizen.Wealth.Medium:
-                        array = DataStore.TransportMedWealth[densityIndex];
-                        break;
-                    case Citizen.Wealth.Low:
-                    default:
-                        array = DataStore.TransportLowWealth[densityIndex];
-                        break;
-                }
+                case ItemClass.SubService.ResidentialHighEco:
+                case ItemClass.SubService.ResidentialLowEco:
+                    // Eco residential.
+                    densityIndex = subService == ItemClass.SubService.ResidentialLowEco ? 0 : 1;
+                    switch (wealthLevel)
+                    {
+                        case Citizen.Wealth.High:
+                            array = DataStore.TransportHighWealthEco[densityIndex];
+                            break;
+
+                        case Citizen.Wealth.Medium:
+                            array = DataStore.TransportMedWealthEco[densityIndex];
+                            break;
+
+                        default:
+                        case Citizen.Wealth.Low:
+                            array = DataStore.TranportLowWealthEco[densityIndex];
+                            break;
+                    }
+
+                    break;
+
+                case ItemClass.SubService.ResidentialWallToWall:
+                    switch (wealthLevel)
+                    {
+                        case Citizen.Wealth.High:
+                            array = DataStore.TransportHighWealthW2W;
+                            break;
+                        case Citizen.Wealth.Medium:
+                            array = DataStore.TransportMedWealthW2W;
+                            break;
+                        case Citizen.Wealth.Low:
+                        default:
+                            array = DataStore.TransportLowWealthW2W;
+                            break;
+                    }
+
+                    break;
+
+                default:
+                    // Standard residential.
+                    densityIndex = subService == ItemClass.SubService.ResidentialLow ? 0 : 1;
+                    switch (wealthLevel)
+                    {
+                        case Citizen.Wealth.High:
+                            array = DataStore.TransportHighWealth[densityIndex];
+                            break;
+                        case Citizen.Wealth.Medium:
+                            array = DataStore.TransportMedWealth[densityIndex];
+                            break;
+                        case Citizen.Wealth.Low:
+                        default:
+                            array = DataStore.TransportLowWealth[densityIndex];
+                            break;
+                    }
+
+                    break;
             }
 
             return array[(int)ageGroup];

@@ -49,6 +49,7 @@
 "LBR_TRN_TAX","Taxi use probability (%)"
 "LBR_TRN_RLO","Residential low"
 "LBR_TRN_RHI","Residential high"
+"LBR_TRN_RW2","Residential wall-to-wall"
 "LBR_TRN_ERL","Eco residential low"
 "LBR_TRN_ERH","Eco residential high"
 "LBR_TRN_CHL","Child"

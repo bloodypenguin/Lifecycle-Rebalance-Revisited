@@ -61,8 +61,8 @@ namespace LifecycleRebalance
         /// <summary>
         /// Logs a message to a dedicated log file.
         /// </summary>
-        /// <param name="filename">Log file to write to</param>
-        /// <param name="messages">Message to log (individual strings will be concatenated)</param>
+        /// <param name="filename">Log file to write to.</param>
+        /// <param name="messages">Message to log (individual strings will be concatenated).</param>
         internal static void WriteToLog(string filename, params object[] messages)
         {
             // Assemble text.
