@@ -343,7 +343,6 @@ namespace LifecycleRebalance
                         Logging.KeyMessage("Detected an old version of the XML (v1). ", s_currentFileLocation, ".ver1 has been created for future reference and will be upgraded to the new version");
 
                         reader = new XML_VersionOne();
-
                     }
                     else if (version <= 0)
                     {

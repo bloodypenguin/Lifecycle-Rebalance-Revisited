@@ -142,9 +142,9 @@ namespace LifecycleRebalance
                     WealthIcon(Panel, wealthX, 25f, ColumnWidth * 3, i + 1, Translations.Translate("LBR_TRN_WEA"), "InfoIconLandValue");
 
                     // Transport mode headings.
-                    ColumnIcon(Panel, xPos + Column1, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
-                    ColumnIcon(Panel, xPos + Column2, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
-                    ColumnIcon(Panel, xPos + Column3, ColumnIconHeight, FieldWidth, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
+                    ColumnIcon(Panel, xPos + Column1, ColumnIconHeight, Translations.Translate("LBR_TRN_CAR"), "InfoIconTrafficCongestion");
+                    ColumnIcon(Panel, xPos + Column2, ColumnIconHeight, Translations.Translate("LBR_TRN_BIK"), "IconPolicyEncourageBiking");
+                    ColumnIcon(Panel, xPos + Column3, ColumnIconHeight, Translations.Translate("LBR_TRN_TAX"), "SubBarPublicTransportTaxi");
                 }
 
                 _currentY += 30f;
@@ -395,17 +395,15 @@ namespace LifecycleRebalance
         /// <param name="panel">UI panel.</param>
         /// <param name="xPos">Reference X position.</param>
         /// <param name="yPos">Reference Y position.</param>
-        /// <param name="width">Width of reference item (for centering).</param>
         /// <param name="text">Tooltip text.</param>
         /// <param name="icon">Icon name.</param>
-        private void ColumnIcon(UIPanel panel, float xPos, float yPos, float width, string text, string icon)
+        private void ColumnIcon(UIPanel panel, float xPos, float yPos, string text, string icon)
         {
-
             // Create mini-panel for the icon background.
             UIPanel thumbPanel = panel.AddUIComponent<UIPanel>();
             thumbPanel.width = 35f;
             thumbPanel.height = 35f;
-            thumbPanel.relativePosition = new Vector2(xPos, yPos);//new Vector2(xPos + ((width - 35f) / 2f), yPos);
+            thumbPanel.relativePosition = new Vector2(xPos, yPos);
             thumbPanel.clipChildren = true;
             thumbPanel.backgroundSprite = "IconPolicyBaseRect";
             thumbPanel.tooltip = text;
