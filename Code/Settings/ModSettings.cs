@@ -206,7 +206,10 @@ namespace LifecycleRebalance
                 _useTransportModes = value;
 
                 // Apply choices by applying or unapplying Harmony transport choice patches as required.
-                PatcherManager<Patcher>.Instance.ApplyTransportPatches(value);
+                if (PatcherManager<Patcher>.IsReady)
+                {
+                    PatcherManager<Patcher>.Instance.ApplyTransportPatches(value);
+                }
             }
         }
 
