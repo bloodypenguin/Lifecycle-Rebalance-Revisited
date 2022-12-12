@@ -302,12 +302,30 @@ namespace LifecycleRebalance
                         array = DataStore.TransportHighWealthEco[density];
                         break;
                     case 6:
+                        // Don't record low-density for W2W.
+                        if (density == 0)
+                        {
+                            continue;
+                        }
+
                         array = DataStore.TransportLowWealthW2W;
                         break;
                     case 7:
+                        // Don't record low-density for W2W.
+                        if (density == 0)
+                        {
+                            continue;
+                        }
+
                         array = DataStore.TransportMedWealthW2W;
                         break;
                     case 8:
+                        // Don't record low-density for W2W.
+                        if (density == 0)
+                        {
+                            continue;
+                        }
+
                         array = DataStore.TransportHighWealthW2W;
                         break;
                     case 0:
@@ -486,13 +504,16 @@ namespace LifecycleRebalance
                         array = DataStore.TransportHighWealthEco;
                         break;
                     case "low_wealth_w2w":
-                        array = new int[][][] { DataStore.TransportLowWealthW2W };
+                        // Duplicate to handle lack of density.
+                        array = new int[][][] { DataStore.TransportLowWealthW2W, DataStore.TransportLowWealthW2W };
                         break;
                     case "med_wealth_w2w":
-                        array = new int[][][] { DataStore.TransportMedWealthW2W };
+                        // Duplicate to handle lack of density.
+                        array = new int[][][] { DataStore.TransportMedWealthW2W, DataStore.TransportMedWealthW2W };
                         break;
                     case "high_wealth_w2w":
-                        array = new int[][][] { DataStore.TransportHighWealthW2W };
+                        // Duplicate to handle lack of density.
+                        array = new int[][][] { DataStore.TransportHighWealthW2W, DataStore.TransportHighWealthW2W };
                         break;
                     default:
                         Logging.Error("readWealthNode. unknown element name: ", name);
