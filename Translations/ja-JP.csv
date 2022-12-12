@@ -49,6 +49,7 @@
 "LBR_TRN_TAX","タクシーの使用確率(%)"
 "LBR_TRN_RLO","低密度住宅"
 "LBR_TRN_RHI","高密度住宅"
+"LBR_TRN_RW2","連接住宅"
 "LBR_TRN_ERL","低密度エコ住宅"
 "LBR_TRN_ERH","高密度エコ住宅"
 "LBR_TRN_CHL","子供"

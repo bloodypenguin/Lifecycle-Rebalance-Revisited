@@ -49,6 +49,7 @@
 "LBR_TRN_TAX","計程車使用概率（％）"
 "LBR_TRN_RLO","居民： 低密度"
 "LBR_TRN_RHI","居民： 高密度"
+"LBR_TRN_RW2","Residential wall-to-wall"
 "LBR_TRN_ERL","居民： 低密度-專業化自給住宅行政專區"
 "LBR_TRN_ERH","居民： 高密度-專業化自給住宅行政專區"
 "LBR_TRN_CHL","孩童"

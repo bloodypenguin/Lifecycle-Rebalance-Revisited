@@ -49,6 +49,7 @@
 "LBR_TRN_TAX","Probabilidade de uso de taxis (%)"
 "LBR_TRN_RLO","Residencial de baixa densidade"
 "LBR_TRN_RHI","Residencial de alta densidade"
+"LBR_TRN_RW2","Residential wall-to-wall"
 "LBR_TRN_ERL","Residências ecológicas de baixa densidade"
 "LBR_TRN_ERH","Residências ecológicas de alta densidade"
 "LBR_TRN_CHL","Criança"

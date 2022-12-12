@@ -49,6 +49,7 @@
 "LBR_TRN_TAX","Taksin käytön todennäköisyys (%)"
 "LBR_TRN_RLO","Asuinalue matalatiheyksinen"
 "LBR_TRN_RHI","Asuinalue korkeatiheyksinen"
+"LBR_TRN_RW2","Residential wall-to-wall"
 "LBR_TRN_ERL","Ekoasuinalue matalatiheyksinen"
 "LBR_TRN_ERH","Ekoasuinalue korkeatiheyksinen"
 "LBR_TRN_CHL","Lapsi"

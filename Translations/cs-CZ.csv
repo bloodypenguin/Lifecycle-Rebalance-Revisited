@@ -49,6 +49,7 @@
 "LBR_TRN_TAX","Pravděpodobnost použití taxi (%)"
 "LBR_TRN_RLO","Obytné nízké"
 "LBR_TRN_RHI","Obytné vysoké"
+"LBR_TRN_RW2","Residential wall-to-wall"
 "LBR_TRN_ERL","Eko obytné nízké"
 "LBR_TRN_ERH","Eko obytné vysoké"
 "LBR_TRN_CHL","Dítě"

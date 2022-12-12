@@ -49,6 +49,7 @@
 "LBR_TRN_TAX","Taxi-Nutzungswahrscheinlichkeit (%)"
 "LBR_TRN_RLO","Wohnhäuser niedrig"
 "LBR_TRN_RHI","Wohnhäuser hoch"
+"LBR_TRN_RW2","Wohngebiet Wand-an-Wand"
 "LBR_TRN_ERL","Öko Wohnhäuser niedrig"
 "LBR_TRN_ERH","Öko Wohnhäuser hoch"
 "LBR_TRN_CHL","Kind"
