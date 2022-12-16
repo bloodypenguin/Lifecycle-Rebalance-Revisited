@@ -1,4 +1,9 @@
-﻿Version 1.6.5
+﻿Version 1.6.6
+
+- Rework OutsideConnectionAI patch for greater robustness
+
+
+Version 1.6.5
 
 - Add support for wall-to-wall residential buildings as separate transport mode probability category
 - Mod conflict detection now takes place on enabling the mod (so you don't have to load a city to find out if there's a conflict)

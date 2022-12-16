@@ -11,6 +11,7 @@ namespace LifecycleRebalance
     using System.Reflection.Emit;
     using AlgernonCommons;
     using ColossalFramework;
+    using ColossalFramework.Math;
     using HarmonyLib;
 
     /// <summary>
@@ -31,14 +32,11 @@ namespace LifecycleRebalance
         public static IEnumerable<CodeInstruction> Transpiler(MethodBase original, IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             // Local variable ILCode indexes (original method).
-            const int EducationVarIndex = 3;
+            const int EducationVarIndex = 2;
             const int NumVarIndex = 3;
             const int ILoopVarIndex = 17;
             const int AgeVarIndex = 21;
             const int Education2VarIndex = 22;
-
-            // Not used in patch - for determining patch location.
-            const int flag4VarIndex = 23;
 
             Logging.Message("starting StartConnectionTransferImpl transpiler");
 
@@ -100,7 +98,7 @@ namespace LifecycleRebalance
             {
                 instruction = instructionsEnumerator.Current;
             }
-            while ((instruction.opcode != OpCodes.Stloc_S || !(instruction.operand is LocalBuilder builder && builder.LocalIndex == flag4VarIndex)) && instructionsEnumerator.MoveNext());
+            while ((instruction.opcode != OpCodes.Stloc_S || !(instruction.operand is LocalBuilder builder && builder.LocalIndex == Education2VarIndex)) && instructionsEnumerator.MoveNext());
 
             // Load required variables for patch method onto stack.
             yield return new CodeInstruction(OpCodes.Ldloc_S, ILoopVarIndex) { labels = startForLabels };
@@ -179,59 +177,66 @@ namespace LifecycleRebalance
             // Set default eductation output to what the game has already determined.
             resultEducation = education;
 
-            // Apply education level randomisation if that option is selected.
-            if (ModSettings.Settings.RandomImmigrantEd)
+            if (education < Citizen.Education.Uneducated || resultEducation > Citizen.Education.ThreeSchools)
             {
-                if (i < 2)
-                {
-                    // Adults.
-                    // 24% different education levels
-                    int eduModifier = Singleton<SimulationManager>.instance.m_randomizer.Int32(-12, 12) / 10;
-                    resultEducation += eduModifier;
-                    if (resultEducation < Citizen.Education.Uneducated)
-                    {
-                        resultEducation = Citizen.Education.Uneducated;
-                    }
-                    else if (resultEducation > Citizen.Education.ThreeSchools)
-                    {
-                        resultEducation = Citizen.Education.ThreeSchools;
-                    }
-
-                    // Apply education boost, if enabled, and if we're not already at the max.
-                    if (ModSettings.Settings.ImmiEduBoost && resultEducation < Citizen.Education.ThreeSchools)
-                    {
-                        ++resultEducation;
-                    }
-                }
-                else
-                {
-                    // Children.
-                    switch (Citizen.GetAgeGroup(resultAge))
-                    {
-                        case Citizen.AgeGroup.Child:
-                            resultEducation = Citizen.Education.Uneducated;
-                            break;
-                        case Citizen.AgeGroup.Teen:
-                            resultEducation = Citizen.Education.OneSchool;
-                            break;
-                        default:
-                            // Make it that 80% graduate from high school
-                            resultEducation = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) < 80) ? Citizen.Education.TwoSchools : Citizen.Education.OneSchool;
-                            break;
-                    }
-                }
+                Logging.Error("invalid starting education level ", education);
             }
 
-            // Apply education suppression, if enabled, and if we're not already at the min.
-            if (ModSettings.Settings.ImmiEduDrag && resultEducation > Citizen.Education.Uneducated)
+            // Calculate education levels.
+            if (i < 2)
             {
-                --resultEducation;
+                // Adults (set education levels).
+                // Local references.
+                ref Randomizer simulationRandomizer = ref Singleton<SimulationManager>.instance.m_randomizer;
+                ModSettings settings = ModSettings.Settings;
+
+                // 24% different education levels.
+                int eduModifier = settings.RandomImmigrantEd ? simulationRandomizer.Int32(-12, 12) / 10 : 0;
+
+                if (settings.ImmiEduBoost)
+                {
+                    // Education boost - 50% chance.
+                    eduModifier += simulationRandomizer.Int32(0, 1);
+                }
+                else if (settings.ImmiEduDrag)
+                {
+                    // Education drag - 50% chance.
+                    eduModifier -= simulationRandomizer.Int32(0, 1);
+                }
+
+                // Apply education modifier and clamp bounds.
+                resultEducation += eduModifier;
+                if (resultEducation < Citizen.Education.Uneducated)
+                {
+                    resultEducation = Citizen.Education.Uneducated;
+                }
+                else if (resultEducation > Citizen.Education.ThreeSchools)
+                {
+                    resultEducation = Citizen.Education.ThreeSchools;
+                }
+            }
+            else
+            {
+                // Children (set education levels).
+                switch (Citizen.GetAgeGroup(resultAge))
+                {
+                    case Citizen.AgeGroup.Child:
+                        resultEducation = Citizen.Education.Uneducated;
+                        break;
+                    case Citizen.AgeGroup.Teen:
+                        resultEducation = Citizen.Education.OneSchool;
+                        break;
+                    default:
+                        // Make it that 80% graduate from high school
+                        resultEducation = (Singleton<SimulationManager>.instance.m_randomizer.Int32(0, 100) < 80) ? Citizen.Education.TwoSchools : Citizen.Education.OneSchool;
+                        break;
+                }
             }
 
             // Write to immigration log if that option is selected.
             if (LifecycleLogging.UseImmigrationLog)
             {
-                LifecycleLogging.WriteToLog(LifecycleLogging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / ModSettings.AgePerYear), " years old) and education level ", education);
+                LifecycleLogging.WriteToLog(LifecycleLogging.ImmigrationLogName, "Family member ", i, " immigrating with age ", resultAge, " (" + (int)(resultAge / ModSettings.AgePerYear), " years old) and education level ", resultEducation, " from original education level ", education);
             }
         }
 
