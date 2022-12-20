@@ -1,4 +1,9 @@
-﻿Version 1.6.5.1 hotfix
+﻿Version 1.6.5.2 hotfix
+
+- Fix survivial probability table sometimes not being correctly calculated when loaded from v2 XML files
+
+
+Version 1.6.5.1 hotfix
 
 - Rework OutsideConnectionAI patch for greater robustness
 

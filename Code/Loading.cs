@@ -25,7 +25,8 @@ namespace LifecycleRebalance
             // Ensure custom transport probability patches are applied, if applicable.
             PatcherManager<Patcher>.Instance.ApplyTransportPatches(ModSettings.Settings.UseTransportModes);
 
-            // Apply sickness probabilities.
+            // Ensure application of survival and sickness probabilities.
+            ModSettings.Settings.SetSurvivalProb();
             DataStore.CalculateSicknessProbabilities();
 
             // Prime Threading.counter to continue from frame index.
