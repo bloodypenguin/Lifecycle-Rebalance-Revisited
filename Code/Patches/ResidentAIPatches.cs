@@ -207,13 +207,13 @@ namespace LifecycleRebalance
                         DieRev(__instance, citizenID, ref data);
 
                         // If there are no adults remaining in this CitizenUnit, remove the others, as orphan households end up in simulation purgatory.
-                        bool isParent = containingUnit.m_citizen0 == citizenID || containingUnit.m_citizen1 == citizenID;
-                        bool singleParent = isParent && (containingUnit.m_citizen0 == 0 || containingUnit.m_citizen1 == 0);
-                        bool hasChild = containingUnit.m_citizen2 != 0 || containingUnit.m_citizen3 != 0 || containingUnit.m_citizen4 != 0;
+                        bool hasParent = containingUnit.m_citizen0 == citizenID | containingUnit.m_citizen1 == citizenID;
+                        bool singleParent = hasParent && (containingUnit.m_citizen0 == 0 | containingUnit.m_citizen1 == 0);
+                        bool hasChild = containingUnit.m_citizen2 != 0 | containingUnit.m_citizen3 != 0 | containingUnit.m_citizen4 != 0;
 
                         if (singleParent && hasChild)
                         {
-                            for (int i = 0; i < 2; ++i)
+                            for (int i = 0; i <= 2; ++i)
                             {
                                 uint currentChild;
                                 switch (i)

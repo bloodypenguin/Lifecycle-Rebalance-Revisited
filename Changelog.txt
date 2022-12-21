@@ -1,4 +1,5 @@
 ﻿- Update orphan detection and removal to not conflict with the Oprhanage Center mod
+- Strengthen orphan detection
 
 
 Version 1.6.5.2 hotfix
