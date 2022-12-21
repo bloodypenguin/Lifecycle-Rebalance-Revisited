@@ -34,6 +34,7 @@ namespace LifecycleRebalance
                 // Local references.
                 Citizen[] citizenBuffer = __instance.m_citizens.m_buffer;
                 CitizenUnit[] citizenUnits = __instance.m_units.m_buffer;
+                Building[] buildings = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
 
                 // Get current framecount to align with parent method's frame, so we avoid unnecessary cache misses.
                 uint frameCount = Singleton<SimulationManager>.instance.m_currentFrameIndex & 0xFFF;
@@ -57,56 +58,66 @@ namespace LifecycleRebalance
                 for (uint currentUnit = baseUnit; currentUnit <= endUnit; ++currentUnit)
                 {
                     // Only interested in home units.
-                    if ((citizenUnits[currentUnit].m_flags & CitizenUnit.Flags.Home) != 0 && citizenUnits[currentUnit].m_building != 0)
+                    if ((citizenUnits[currentUnit].m_flags & CitizenUnit.Flags.Home) != 0)
                     {
+                        // Only interested in residential buildings (exclude other buildings, such as orphanages or nursing homes, that can be added by mods).
+                        // Only interested in residential buildings (exclude otherC4 buildings, such as orphanages or nursing homes, that can be added by mods).
+                        ushort building = citizenUnits[currentUnit].m_building;
+                        if (building == 0 || buildings[building].Info.m_class.m_service != ItemClass.Service.Residential)
+                        {
+                            continue;
+                        }
+
                         // Check for citizens with invalid flags in this household.
-                        uint thisCitizen = citizenUnits[currentUnit].m_citizen0;
-                        if (thisCitizen != 0)
+                        uint parent1 = citizenUnits[currentUnit].m_citizen0;
+                        if (parent1 != 0)
                         {
-                            Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
+                            Citizen.Flags citizenFlags = citizenBuffer[parent1].m_flags;
                             if ((citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen0, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen0, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags, false);
                             }
                         }
 
-                        thisCitizen = citizenUnits[currentUnit].m_citizen1;
-                        if (thisCitizen != 0)
+                        uint parent2 = citizenUnits[currentUnit].m_citizen1;
+                        if (parent2 != 0)
                         {
-                            Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
+                            Citizen.Flags citizenFlags = citizenBuffer[parent2].m_flags;
                             if ((citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen1, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen1, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags, false);
                             }
                         }
 
-                        thisCitizen = citizenUnits[currentUnit].m_citizen2;
-                        if (thisCitizen != 0)
+                        bool noParents = parent1 + parent2 == 0;
+
+                        uint child = citizenUnits[currentUnit].m_citizen2;
+                        if (child != 0)
                         {
-                            Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
-                            if ((citizenFlags & Citizen.Flags.Created) == 0)
+                            Citizen.Flags citizenFlags = citizenBuffer[child].m_flags;
+                            if (noParents | (citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen2, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen2, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags, noParents);
                             }
                         }
 
-                        thisCitizen = citizenUnits[currentUnit].m_citizen3;
-                        if (thisCitizen != 0)
+                        child = citizenUnits[currentUnit].m_citizen3;
+                        if (child != 0)
                         {
-                            Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
-                            if ((citizenFlags & Citizen.Flags.Created) == 0)
+                            Citizen.Flags citizenFlags = citizenBuffer[child].m_flags;
+                            if (noParents | (citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen3, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen3, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags, noParents);
                             }
                         }
 
-                        thisCitizen = citizenUnits[currentUnit].m_citizen4;
-                        if (thisCitizen != 0)
+                        child = citizenUnits[currentUnit].m_citizen4;
+                        if (child != 0)
                         {
-                            Citizen.Flags citizenFlags = citizenBuffer[thisCitizen].m_flags;
-                            if ((citizenFlags & Citizen.Flags.Created) == 0)
+                            Citizen.Flags citizenFlags = citizenBuffer[child].m_flags;
+                            if (noParents | (citizenFlags & Citizen.Flags.Created) == 0)
                             {
-                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen4, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags);
+                                RemoveCitizen(__instance, ref citizenUnits[currentUnit].m_citizen4, currentUnit, citizenUnits[currentUnit].m_building, citizenFlags, noParents);
                             }
                         }
                     }
@@ -122,10 +133,11 @@ namespace LifecycleRebalance
         /// <param name="citizenUnit">Owning CitizenUnit ID.</param>
         /// <param name="buildingID">Home building ID.</param>
         /// <param name="flags">Citizen flags.</param>
-        private static void RemoveCitizen(CitizenManager citizenManager, ref uint citizenID, uint citizenUnit, ushort buildingID, Citizen.Flags flags)
+        /// <param name="orphaned">True if this citizen was an orphan, false otherwise.</param>
+        private static void RemoveCitizen(CitizenManager citizenManager, ref uint citizenID, uint citizenUnit, ushort buildingID, Citizen.Flags flags, bool orphaned)
         {
             // Log messaged.
-            Logging.Message("found citizen ", citizenID, " in unit ", citizenUnit, " of building ", buildingID, " with invalid flags ", flags);
+            Logging.Message("removing citizen ", citizenID, " in unit ", citizenUnit, " of building ", buildingID, " with flags ", flags, " and orphan status ", orphaned);
 
             // Remove citizen and reset reference in CitizenUnit.
             citizenManager.ReleaseCitizen(citizenID);

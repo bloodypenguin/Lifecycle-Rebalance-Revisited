@@ -1,4 +1,7 @@
-﻿Version 1.6.5.2 hotfix
+﻿- Update orphan detection and removal to not conflict with the Oprhanage Center mod
+
+
+Version 1.6.5.2 hotfix
 
 - Fix survivial probability table sometimes not being correctly calculated when loaded from v2 XML files
 
