@@ -89,8 +89,15 @@ namespace LifecycleRebalance
         /// <param name="__result">Original method result.</param>
         /// <param name="ageGroup">Citizen age group.</param>
         /// <returns>Always false (never execute original method).</returns>
-        public static bool GetTaxiProbability(ref int __result, Citizen.AgeGroup ageGroup)
+        public static bool GetTaxiProbability(ref int __result, ref CitizenInstance citizenData, Citizen.AgeGroup ageGroup)
         {
+            // Reproduces the vanilla code's fix for not spawning taxi for outside connections (which they cannot reach)
+            if (Singleton<GameAreaManager>.instance.PointOutOfArea(citizenData.GetLastFramePosition()))
+            {
+                __result = 0;
+                return false;
+            }
+
             // Original method return value.
             // Array cache has already been set when GetCarProbability was called.
             __result = s_cacheArray[DataStore.Taxi];
